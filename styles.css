@@ -1,86 +1,104 @@
-/* ====== MINIMALISTIC STYLES FOR SUSANNE UHL PORTFOLIO ====== */
-
+/* ============================
+   Allgemeine Stile
+============================ */
 body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #e0dfe3;
     margin: 0;
-    padding: 0;
-    background-color: #e0dfe3; /* Helle, elegante Farbe */
+    font-family: Arial, sans-serif;
     color: #333333;
-    line-height: 1.6;
 }
 
-main {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
+h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin: 0px 0 10px 0;
+    font-weight: 400;
+    color: #333333;
 }
 
-h1, h2 {
+h1 span {
+    font-size: 0.6em;
     font-weight: 300;
+}
+
+hr {
+    width: 75%;
+    height: 2px;
+    background-color: #333333;
+    margin: 0 auto 30px auto;
+}
+
+/* ============================
+   Grid-Layout
+============================ */
+.vita {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.project-column h2 {
+    font-size: 1.5em;
     margin-bottom: 10px;
     color: #333333;
+    text-align: center;
 }
 
-nav ul {
+/* ============================
+   Projekte / Bilder
+============================ */
+.project-column ul {
     list-style-type: none;
-    padding: 0;
-    margin: 20px 0;
-    text-align: center;
+    padding-left: 0;
 }
 
-nav ul li {
-    display: inline;
-    margin-right: 15px;
-}
-
-nav ul li a {
-    color: #333333;
-    text-decoration: none;
-    font-size: 18px;
-}
-
-nav ul li a:hover {
-    text-decoration: underline;
-}
-
-footer {
-    text-align: center;
-    padding: 10px;
-    margin-top: 40px;
-    color: #888888;
-    font-size: 14px;
-}
-
-.biography p {
-    margin-bottom: 20px;
-}
-
-.biography nav ul li:last-child {
-    margin-right: 0;
-}
-
-/* Zusätzliche Styles für die Kacheln */
 .project-column ul li {
     margin-bottom: 20px;
 }
 
+.project-column ul li a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Bilddarstellung */
 .project-column ul li a img {
-    width: 180px;
-    height: 250px;
+    width: 100%;
+    height: auto;
+    max-width: 250px;
     object-fit: cover;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
 }
 
 .project-column ul li a img:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .project-column ul li a:hover {
     color: #007acc;
 }
 
+/* ============================
+   Bild Hover-Effekt
+============================ */
 .project-column ul li a span {
     display: none;
     position: absolute;
@@ -94,4 +112,19 @@ footer {
 
 .project-column ul li a:hover span {
     display: block;
+}
+
+/* ============================
+   Responsive Anpassungen
+============================ */
+@media (max-width: 768px) {
+    .vita {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 500px) {
+    .vita {
+        grid-template-columns: 1fr;
+    }
 }

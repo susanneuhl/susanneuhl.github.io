@@ -1,0 +1,97 @@
+/* ====== MINIMALISTIC STYLES FOR SUSANNE UHL PORTFOLIO ====== */
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e0dfe3; /* Helle, elegante Farbe */
+    color: #333333;
+    line-height: 1.6;
+}
+
+main {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+h1, h2 {
+    font-weight: 300;
+    margin-bottom: 10px;
+    color: #333333;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 15px;
+}
+
+nav ul li a {
+    color: #333333;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    margin-top: 40px;
+    color: #888888;
+    font-size: 14px;
+}
+
+.biography p {
+    margin-bottom: 20px;
+}
+
+.biography nav ul li:last-child {
+    margin-right: 0;
+}
+
+/* Zusätzliche Styles für die Kacheln */
+.project-column ul li {
+    margin-bottom: 20px;
+}
+
+.project-column ul li a img {
+    width: 180px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.project-column ul li a img:hover {
+    transform: scale(1.1);
+}
+
+.project-column ul li a:hover {
+    color: #007acc;
+}
+
+.project-column ul li a span {
+    display: none;
+    position: absolute;
+    bottom: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.project-column ul li a:hover span {
+    display: block;
+}

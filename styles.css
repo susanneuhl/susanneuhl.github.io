@@ -29,7 +29,7 @@ hr {
 }
 
 /* ============================
-   Grid-Layout & Listen-Layout
+   Grid-Layout
 ============================ */
 .vita {
     display: grid;
@@ -40,15 +40,14 @@ hr {
     margin: 0 auto;
 }
 
-.vita.list-view {
-    display: block;
+.project-column {
+    text-align: center;
 }
 
 .project-column h2 {
     font-size: 1.5em;
     margin-bottom: 10px;
     color: #333333;
-    text-align: center;
 }
 
 /* ============================
@@ -61,16 +60,16 @@ hr {
 
 .project-column ul li {
     margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 8px;
 }
 
 .project-column ul li a {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    text-decoration: none;
     position: relative;
+    display: block;
+    text-decoration: none;
     overflow: hidden;
+    border-radius: 8px;
 }
 
 /* Bilddarstellung mit fester Größe */
@@ -80,46 +79,37 @@ hr {
     object-fit: cover;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
 }
 
-.project-column ul li a img:hover {
-    transform: scale(1.05);
-}
-
-.project-column ul li a:hover {
-    color: #007acc;
+.project-column ul li a:hover img {
+    transform: scale(1.2); /* Bild wird sofort vergrößert */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); /* Schattierung verstärkt sich */
+    filter: blur(1px); /* Leichter Blur-Effekt */
+    transition-delay: 0.4s; /* Blur kommt später */
 }
 
 /* ============================
-   Bild Hover-Effekt
+   Elegantes Hover Overlay (Perfekt Zentriert mit Verzögerung)
 ============================ */
-.project-column ul li a span {
-    display: none;
+.project-column ul li a .overlay {
     position: absolute;
-    bottom: 10px;
-    background-color: rgba(0, 0, 0, 0.7);
+    inset: 0; /* Overlay exakt über dem Bild positionieren */
+    background-color: rgba(0, 0, 0, 0.3); /* Transparenter gemacht */
     color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 0.9em;
+    opacity: 0; /* Unsichtbar bis Hover */
+    display: flex;
+    align-items: center; /* Vertikal zentriert */
+    justify-content: center; /* Horizontal zentriert */
+    text-align: center;
+    font-size: 0.85em;
+    padding: 10px;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition-delay: 0.4s; /* Verzögerung, damit das Bild zuerst skaliert */
+    border-radius: 8px;
 }
 
-.project-column ul li a:hover span {
-    display: block;
-}
-
-/* ============================
-   Responsive Anpassungen
-============================ */
-@media (max-width: 1024px) {
-    .vita {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-@media (max-width: 600px) {
-    .vita {
-        grid-template-columns: 1fr;
-    }
+.project-column ul li a:hover .overlay {
+    opacity: 1;
+    transform: scale(1.08); /* Leichter Zoom-Effekt beim Einblenden */
 }

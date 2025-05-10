@@ -24,7 +24,17 @@
 
         @media (max-width: 768px) {
             .main-container {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr !important;
+                gap: 15px;
+            }
+            img {
+                max-height: 300px;
+            }
+            ul {
+                padding-left: 0;
+            }
+            li {
+                margin-bottom: 15px;
             }
         }
 
@@ -171,6 +181,7 @@
         #fullscreenModal img {
             max-width: 90%;
             max-height: 90%;
+            object-fit: contain;
             border-radius: 8px;
         }
         #fullscreenModal.show {
@@ -193,6 +204,11 @@
             color: white;
             font-size: 2em;
             cursor: pointer;
+        }
+    
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
         }
     </style>
 </head>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Termine – Susanne Uhl</title>
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="./styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap">
     <style>
         #navigation {
@@ -50,8 +50,8 @@
 </head>
 <body>
     <div id="navigation">
-        <a href="/index.html">Startseite</a> |
-        <a href="/termine.html">Termine</a>
+        <a href="./index.html">Startseite</a> |
+        <a href="./termine.html">Termine</a>
     </div>
     <main>
         <h1 style="text-align: center; font-size: 2.5em; margin-bottom: 30px; font-weight: 400; color: #333333;">Termine</h1>
@@ -60,6 +60,31 @@
         </section>
     </main>
 
-    <script src="/spielplan.js"></script>
+    <script>
+        async function ladeTermine() {
+            try {
+                const response = await fetch('/termine.json');
+                const termine = await response.json();
+
+                const spielplanContainer = document.getElementById('spielplan');
+
+                termine.forEach(event => {
+                    const eventElement = document.createElement('div');
+                    eventElement.classList.add('event');
+                    eventElement.innerHTML = `
+                        <h3>${event.titel}</h3>
+                        <p>${event.ort}</p>
+                        <p>${new Date(event.datum).toLocaleDateString()} – ${event.zeit}</p>
+                        <p><a href="${event.link}" target="_blank">Zur Veranstaltung</a></p>
+                    `;
+                    spielplanContainer.appendChild(eventElement);
+                });
+            } catch (error) {
+                console.error('Fehler beim Laden der Termine:', error);
+            }
+        }
+
+        ladeTermine();
+    </script>
 </body>
 </html>

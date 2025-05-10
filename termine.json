@@ -1,0 +1,23 @@
+[
+    {
+        "titel": "Der Komet",
+        "ort": "Staatsschauspiel Dresden",
+        "datum": "2025-05-20",
+        "zeit": "19:30",
+        "link": "https://www.staatsschauspiel-dresden.de/spielplan/a-z/der-komet/"
+    },
+    {
+        "titel": "Dumme Jahre",
+        "ort": "Nationaltheater Weimar",
+        "datum": "2025-06-05",
+        "zeit": "20:00",
+        "link": "https://www.nationaltheater-weimar.de/de/programm/stueck-detail.php?SID=3520"
+    },
+    {
+        "titel": "Undine",
+        "ort": "Oper Leipzig",
+        "datum": "2025-06-15",
+        "zeit": "18:00",
+        "link": "https://www.oper-leipzig.de/de/programm/undine/611"
+    }
+]

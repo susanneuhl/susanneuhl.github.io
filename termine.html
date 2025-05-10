@@ -4,21 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Termine – Susanne Uhl</title>
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap">
     <style>
         #navigation {
             text-align: center;
             margin-bottom: 20px;
+            background-color: #333333;
+            padding: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
         #navigation a {
-            margin: 0 10px;
+            margin: 0 15px;
             text-decoration: none;
-            color: #333;
+            color: #ffffff;
             font-weight: 600;
+            font-size: 1.1em;
         }
         #navigation a:hover {
-            color: #007acc;
+            color: #ffcc00;
         }
         #spielplan {
             display: grid;
@@ -51,6 +56,7 @@
 <body>
     <div id="navigation">
         <a href="./index.html">Startseite</a> |
+        <a href="./about.html">About</a> |
         <a href="./termine.html">Termine</a>
     </div>
     <main>
@@ -60,31 +66,5 @@
         </section>
     </main>
 
-    <script>
-        async function ladeTermine() {
-            try {
-                const response = await fetch('/termine.json');
-                const termine = await response.json();
-
-                const spielplanContainer = document.getElementById('spielplan');
-
-                termine.forEach(event => {
-                    const eventElement = document.createElement('div');
-                    eventElement.classList.add('event');
-                    eventElement.innerHTML = `
-                        <h3>${event.titel}</h3>
-                        <p>${event.ort}</p>
-                        <p>${new Date(event.datum).toLocaleDateString()} – ${event.zeit}</p>
-                        <p><a href="${event.link}" target="_blank">Zur Veranstaltung</a></p>
-                    `;
-                    spielplanContainer.appendChild(eventElement);
-                });
-            } catch (error) {
-                console.error('Fehler beim Laden der Termine:', error);
-            }
-        }
-
-        ladeTermine();
-    </script>
 </body>
 </html>

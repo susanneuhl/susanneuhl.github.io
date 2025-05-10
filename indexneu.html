@@ -29,6 +29,7 @@
             position: relative;
             overflow: hidden;
             margin-bottom: 20px;
+            cursor: pointer;
         }
         img {
             width: 100%;
@@ -37,7 +38,6 @@
             object-fit: cover;
             border-radius: 8px;
             transition: transform 0.3s ease;
-            cursor: pointer;
         }
         li:hover img {
             transform: scale(1.05);
@@ -48,16 +48,17 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.6);
             color: white;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s ease, background-color 0.3s ease;
             padding: 10px;
         }
-        li:hover .overlay {
-            opacity: 1;
+        .overlay span {
+            pointer-events: none;
         }
         .website-btn {
+            pointer-events: auto;
             background-color: rgba(255, 215, 0, 0.8);
             border: none;
             color: black;
@@ -69,6 +70,9 @@
             display: inline-block;
             margin-top: 5px;
             align-self: flex-start;
+        }
+        li:hover .overlay {
+            opacity: 1;
         }
         /* Modal Styling */
         #fullscreenModal {
@@ -91,6 +95,16 @@
         }
         #fullscreenModal.show {
             display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
         .close-btn {
             position: absolute;
@@ -105,117 +119,125 @@
 <body>
 
     <main class="main-container">
+
         <!-- Theater -->
-        <ul>
+        <div>
             <h2>Theater</h2>
-            <li>
-                <img src="images/der-komet.jpg" alt="Der Komet" onclick="openFullscreen('images/der-komet.jpg');">
-                <div class="overlay">
-                    <span>Der Komet – Staatsschauspiel Dresden (2025)<br>Foto: Sebastian Hoppe</span>
-                    <a href="https://www.staatsschauspiel-dresden.de/spielplan/a-z/der-komet/" target="_blank" class="website-btn">Website</a>
-                </div>
-            </li>
-            <li>
-                <img src="images/dumme-jahre.jpg" alt="Dumme Jahre" onclick="openFullscreen('images/dumme-jahre.jpg');">
-                <div class="overlay">
-                    <span>Dumme Jahre – Nationaltheater Weimar (2024)<br>Foto: Candy Wels</span>
-                    <a href="https://www.nationaltheater-weimar.de/de/programm/stueck-detail.php?SID=3520" target="_blank" class="website-btn">Website</a>
-                </div>
-            </li>
-            <li>
-                <img src="images/das-leben-ist-ein-traum.jpg" alt="Das Leben ist ein Traum" onclick="openFullscreen('images/das-leben-ist-ein-traum.jpg');">
-                <div class="overlay">
-                    <span>Das Leben ist ein Traum – Staatsschauspiel Dresden (2023)<br>Foto: Sebastian Hoppe</span>
-                    <a href="https://www.staatsschauspiel-dresden.de/spielplan/archive/d/das-leben-ist-traum/" target="_blank" class="website-btn">Website</a>
-                </div>
-            </li>
-            <li>
-                <img src="images/kleiner-mann-was-nun.jpg" alt="Kleiner Mann was nun" onclick="openFullscreen('images/kleiner-mann-was-nun.jpg');">
-                <div class="overlay">
-                    <span>Kleiner Mann was nun – Düsseldorfer Schauspielhaus (2021)<br>Foto: Thomas Rabsch</span>
-                    <a href="https://www.dhaus.de/programm/archiv/k/kleiner-mann-was-nun/" target="_blank" class="website-btn">Website</a>
-                </div>
-            </li>
-            <li>
-                <img src="images/mutter.jpg" alt="Die Mutter" onclick="openFullscreen('images/mutter.jpg');">
-                <div class="overlay">
-                    <span>Die Mutter – Schaubühne Berlin (2016)<br>Foto: Gianmarco Bresadola</span>
-                    <a href="https://www.schaubuehne.de/de/produktionen/die-mutter.html" target="_blank" class="website-btn">Website</a>
-                </div>
-            </li>
-            <li>
-                <img src="images/fabian.jpg" alt="Fabian - Der Gang vor die Hunde" onclick="openFullscreen('images/fabian.jpg');">
-                <div class="overlay">
-                    <span>Fabian - Der Gang vor die Hunde – Schaubühne Berlin (2015)<br>Foto: Gianmarco Bresadola</span>
-                    <a href="https://www.schaubuehne.de/en/produktionen/fabian-der-gang-vor-die-hunde.html" target="_blank" class="website-btn">Website</a>
-                </div>
-            </li>
-        </ul>
+            <ul>
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src)">
+                    <img src="images/der-komet.jpg" alt="Der Komet">
+                    <div class="overlay">
+                        <span>Der Komet – Staatsschauspiel Dresden (2025)<br>Foto: Sebastian Hoppe</span>
+                        <a href="https://www.staatsschauspiel-dresden.de/spielplan/a-z/der-komet/" target="_blank" class="website-btn">Website</a>
+                    </div>
+                </li>
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src)">
+                    <img src="images/dumme-jahre.jpg" alt="Dumme Jahre">
+                    <div class="overlay">
+                        <span>Dumme Jahre – Nationaltheater Weimar (2024)<br>Foto: Candy Wels</span>
+                        <a href="https://www.nationaltheater-weimar.de/de/programm/stueck-detail.php?SID=3520" target="_blank" class="website-btn">Website</a>
+                    </div>
+                </li>
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src)">
+                    <img src="images/das-leben-ist-ein-traum.jpg" alt="Das Leben ist ein Traum">
+                    <div class="overlay">
+                        <span>Das Leben ist ein Traum – Staatsschauspiel Dresden (2023)<br>Foto: Sebastian Hoppe</span>
+                        <a href="https://www.staatsschauspiel-dresden.de/spielplan/archive/d/das-leben-ist-traum/" target="_blank" class="website-btn">Website</a>
+                    </div>
+                </li>
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src)">
+                    <img src="images/kleiner-mann-was-nun.jpg" alt="Kleiner Mann was nun">
+                    <div class="overlay">
+                        <span>Kleiner Mann was nun – Düsseldorfer Schauspielhaus (2021)<br>Foto: Thomas Rabsch</span>
+                        <a href="https://www.dhaus.de/programm/archiv/k/kleiner-mann-was-nun/" target="_blank" class="website-btn">Website</a>
+                    </div>
+                </li>
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src)">
+                    <img src="images/mutter.jpg" alt="Die Mutter">
+                    <div class="overlay">
+                        <span>Die Mutter – Schaubühne Berlin (2016)<br>Foto: Gianmarco Bresadola</span>
+                        <a href="https://www.schaubuehne.de/de/produktionen/die-mutter.html" target="_blank" class="website-btn">Website</a>
+                    </div>
+                </li>
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src)">
+                    <img src="images/fabian.jpg" alt="Fabian - Der Gang vor die Hunde">
+                    <div class="overlay">
+                        <span>Fabian - Der Gang vor die Hunde – Schaubühne Berlin (2015)<br>Foto: Gianmarco Bresadola</span>
+                        <a href="https://www.schaubuehne.de/en/produktionen/fabian-der-gang-vor-die-hunde.html" target="_blank" class="website-btn">Website</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
 
         <!-- Oper -->
-        <ul>
+        <div>
             <h2>Oper</h2>
-            <li>
-                <img src="images/le-nozze-di-figaro.jpg" alt="Le Nozze di Figaro" onclick="openFullscreen('images/le-nozze-di-figaro.jpg');">
-                <div class="overlay">
-                    <span>Le Nozze di Figaro – Oper Frankfurt (2023)<br>Foto: Barbara Aumüller</span>
-                    <a href="https://oper-frankfurt.de/de/spielplan/le-nozze-di-figaro_4/" target="_blank" class="website-btn">Website</a>
-                </div>
-            </li>
-            <li>
-                <img src="images/undine.jpg" alt="Undine" onclick="openFullscreen('images/undine.jpg');">
-                <div class="overlay">
-                    <span>Undine – Oper Leipzig (2022)<br>Foto: Kirsten Nijhof</span>
-                    <a href="https://www.oper-leipzig.de/de/programm/undine/611" target="_blank" class="website-btn">Website</a>
-                </div>
-            </li>
-            <li>
-                <img src="images/bianca-e-falliero.jpg" alt="Bianca e Falliero" onclick="openFullscreen('images/bianca-e-falliero.jpg');">
-                <div class="overlay">
-                    <span>Bianca e Falliero – Oper Frankfurt (2022)<br>Foto: Barbara Aumüller</span>
-                    <a href="https://oper-frankfurt.de/de/spielplan/bianca-e-falliero_3/" target="_blank" class="website-btn">Website</a>
-                </div>
-            </li>
-            <li>
-                <img src="images/xerxes.jpg" alt="Xerxes" onclick="openFullscreen('images/xerxes.jpg');">
-                <div class="overlay">
-                    <span>Xerxes – Oper Frankfurt (2017)<br>Foto: Barbara Aumüller</span>
-                    <a href="https://www.operabase.com/productions/xerxes-154608/de" target="_blank" class="website-btn">Website</a>
-                </div>
-            </li>
-            <li>
-                <img src="images/radamisto.jpg" alt="Radamisto" onclick="openFullscreen('images/radamisto.jpg');">
-                <div class="overlay">
-                    <span>Radamisto – Oper Frankfurt (2016)<br>Foto: Barbara Aumüller</span>
-                    <a href="https://www.operabase.com/productions/radamisto-83726/de" target="_blank" class="website-btn">Website</a>
-                </div>
-            </li>
-        </ul>
+            <ul>
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src)">
+                    <img src="images/le-nozze-di-figaro.jpg" alt="Le Nozze di Figaro">
+                    <div class="overlay">
+                        <span>Le Nozze di Figaro – Oper Frankfurt (2023)<br>Foto: Barbara Aumüller</span>
+                        <a href="https://oper-frankfurt.de/de/spielplan/le-nozze-di-figaro_4/" target="_blank" class="website-btn">Website</a>
+                    </div>
+                </li>
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src)">
+                    <img src="images/undine.jpg" alt="Undine">
+                    <div class="overlay">
+                        <span>Undine – Oper Leipzig (2022)<br>Foto: Kirsten Nijhof</span>
+                        <a href="https://www.oper-leipzig.de/de/programm/undine/611" target="_blank" class="website-btn">Website</a>
+                    </div>
+                </li>
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src)">
+                    <img src="images/bianca-e-falliero.jpg" alt="Bianca e Falliero">
+                    <div class="overlay">
+                        <span>Bianca e Falliero – Oper Frankfurt (2022)<br>Foto: Barbara Aumüller</span>
+                        <a href="https://oper-frankfurt.de/de/spielplan/bianca-e-falliero_3/" target="_blank" class="website-btn">Website</a>
+                    </div>
+                </li>
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src)">
+                    <img src="images/xerxes.jpg" alt="Xerxes">
+                    <div class="overlay">
+                        <span>Xerxes – Oper Frankfurt (2017)<br>Foto: Barbara Aumüller</span>
+                        <a href="https://www.operabase.com/productions/xerxes-154608/de" target="_blank" class="website-btn">Website</a>
+                    </div>
+                </li>
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src)">
+                    <img src="images/radamisto.jpg" alt="Radamisto">
+                    <div class="overlay">
+                        <span>Radamisto – Oper Frankfurt (2016)<br>Foto: Barbara Aumüller</span>
+                        <a href="https://www.operabase.com/productions/radamisto-83726/de" target="_blank" class="website-btn">Website</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
 
         <!-- Film -->
-        <ul>
+        <div>
             <h2>Film</h2>
-            <li>
-                <img src="images/die-nacht.png" alt="Die Nacht ist dunkel" onclick="openFullscreen('images/die-nacht.png');">
-                <div class="overlay">
-                    <span>Die Nacht ist dunkel und kälter als der Tag (2024)<br>Foto: Unbekannt</span>
-                    <a href="https://mubi.com/de/films/the-night-is-dark-and-colder-than-the-day/trailer" target="_blank" class="website-btn">Website</a>
-                </div>
-            </li>
-            <li>
-                <img src="images/zone.jpg" alt="ZONE" onclick="openFullscreen('images/zone.jpg');">
-                <div class="overlay">
-                    <span>ZONE (2020)<br>Foto: Unbekannt</span>
-                    <a href="https://www.eksystent.com/zone.html" target="_blank" class="website-btn">Website</a>
-                </div>
-            </li>
-        </ul>
+            <ul>
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src)">
+                    <img src="images/die-nacht.png" alt="Die Nacht ist dunkel">
+                    <div class="overlay">
+                        <span>Die Nacht ist dunkel und kälter als der Tag (2024)<br>Foto: Unbekannt</span>
+                        <a href="https://mubi.com/de/films/the-night-is-dark-and-colder-than-the-day/trailer" target="_blank" class="website-btn">Website</a>
+                    </div>
+                </li>
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src)">
+                    <img src="images/zone.jpg" alt="ZONE">
+                    <div class="overlay">
+                        <span>ZONE (2020)<br>Foto: Unbekannt</span>
+                        <a href="https://www.eksystent.com/zone.html" target="_blank" class="website-btn">Website</a>
+                    </div>
+                </li>
+            </ul>
+        </div>""
+
     </main>
 
     <!-- Modal für Vollbild -->
     <div id="fullscreenModal">
         <span class="close-btn" onclick="closeFullscreen()">&times;</span>
-        <img id="fullscreenImage" src= alt=>
+        <img id="fullscreenImage" src="" alt="">
     </div>
 
     <script>

@@ -299,3 +299,49 @@ dialog .close {
     margin-bottom: 20px; /* Abstand zwischen den Absätzen */
     text-align: justify; /* Text ausrichten für bessere Lesbarkeit */
 }
+
+/* ============================
+   Event Calendar Styling
+============================ */
+#event-calendar {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#event-calendar h2 {
+    text-align: center;
+    color: rgb(179, 118, 118);
+    margin-bottom: 20px;
+}
+
+#event-list {
+    list-style: none;
+    padding: 0;
+}
+
+#event-list li {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: box-shadow 0.3s ease;
+}
+
+#event-list li:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.event-title {
+    font-weight: bold;
+    color: #333;
+}
+
+.event-date {
+    color: #666;
+    font-size: 0.9em;
+}

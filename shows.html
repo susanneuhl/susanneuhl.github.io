@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shows – Susanne Uhl</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Styling für den Veranstaltungskalender */
+        #event-calendar {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #event-calendar h2 {
+            text-align: center;
+            color: rgb(179, 118, 118);
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .event-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .event-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .event-image {
+            width: 120px;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .event-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .event-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .event-location {
+            color: #666;
+            font-size: 1em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .event-link {
+            padding: 10px 20px;
+            background-color: rgb(179, 118, 118);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1em;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px; /* Einheitliche Höhe für den Button */
+        }
+
+        .event-link:hover {
+            background-color: rgb(150, 100, 100);
+        }
+    </style>
+</head>
+<body>
+    <!-- Sticky Header -->
+    <header class="sticky-header">
+        <div class="header-content">
+            <div>Susanne Uhl</div>
+        </div>
+        <nav class="header-nav">
+            <a href="index.html" class="header-nav-link">Work</a>
+            <a href="about.html" class="header-nav-link">About</a>
+            <a href="shows.html" class="header-nav-link">Shows</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section id="event-calendar">
+            <h2>Veranstaltungskalender</h2>
+            <div class="event-item">
+                <img src="images/der-komet.jpg" alt="Der Komet" class="event-image">
+                <div class="event-details">
+                    <span class="event-title">Der Komet</span>
+                    <span class="event-location">Staatsschauspiel Dresden</span>
+                </div>
+                <a href="https://tickets.staatsschauspiel-dresden.de/webshop/webticket/eventlist?production=709" target="_blank" class="event-link">Tickets</a>
+            </div>
+            <div class="event-item">
+                <img src="images/dumme-jahre.jpg" alt="Dumme Jahre" class="event-image">
+                <div class="event-details">
+                    <span class="event-title">Dumme Jahre</span>
+                    <span class="event-location">Nationaltheater Weimar</span>
+                </div>
+                <a href="https://www.nationaltheater-weimar.de/de/karten/karten-uebersicht.php?TID=3958125" target="_blank" class="event-link">Tickets</a>
+            </div>
+            <div class="event-item">
+                <img src="images/bianca-e-falliero.jpg" alt="Bianca e Falliero" class="event-image">
+                <div class="event-details">
+                    <span class="event-title">Bianca e Falliero</span>
+                    <span class="event-location">Oper Frankfurt</span>
+                </div>
+                <a href="https://oper-frankfurt.de/de/spielplan/bianca-e-falliero_3/" target="_blank" class="event-link">Tickets</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p style="text-align: center; margin-top: 20px;">
+            © 2025 Susanne Uhl. Alle Rechte vorbehalten. 
+            <a href="impressum.html" style="color: #333333; text-decoration: none; margin-left: 10px;">Impressum</a>
+        </p>
+    </footer>
+</body>
+</html>

@@ -276,3 +276,26 @@ dialog .close {
     background-color: white; /* Hintergrund wird weiß beim Hover */
     color: rgb(179, 118, 118); /* Text wird rot beim Hover */
 }
+
+/* ============================
+   Impressum-Abschnitt
+============================ */
+.impressum {
+    max-width: 800px; /* Begrenzte Breite für bessere Lesbarkeit */
+    margin: 40px auto; /* Zentriert den Text horizontal */
+    padding: 0 20px; /* Innenabstand links und rechts */
+    line-height: 1.6; /* Angenehme Zeilenhöhe */
+    color: #333333; /* Gut lesbare Textfarbe */
+    font-size: 1em; /* Standard-Schriftgröße */
+}
+
+.impressum h1, .impressum h2 {
+    color: rgb(179, 118, 118); /* Gleiche Farbe wie der Header-Text */
+    margin-bottom: 20px; /* Abstand nach unten */
+    font-size: 1.5em; /* Größere Schriftgröße für Überschriften */
+}
+
+.impressum p {
+    margin-bottom: 20px; /* Abstand zwischen den Absätzen */
+    text-align: justify; /* Text ausrichten für bessere Lesbarkeit */
+}

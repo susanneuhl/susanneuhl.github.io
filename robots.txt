@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://susanneuhl.com/sitemap.xml

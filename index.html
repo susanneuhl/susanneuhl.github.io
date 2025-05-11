@@ -390,8 +390,16 @@
             const modal = document.getElementById("fullscreenModal");
             modal.classList.remove("show");
         }
-    document.addEventListener('keydown', function(event) {
+
+        document.addEventListener('keydown', function(event) {
             if (event.key === "Escape") {
+                closeFullscreen();
+            }
+        });
+
+        // Schließen des Modals durch Klick auf den Hintergrund
+        document.getElementById("fullscreenModal").addEventListener("click", function(event) {
+            if (event.target === this || event.target.id === "fullscreenImage") {
                 closeFullscreen();
             }
         });

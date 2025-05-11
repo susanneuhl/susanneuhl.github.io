@@ -143,3 +143,83 @@ dialog .close {
     font-size: 30px;
     cursor: pointer;
 }
+
+/* ============================
+   Sticky Header
+============================ */
+.sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: none !important; /* Entfernt alle Hintergrundstile */
+    background-color: transparent !important; /* Erzwingt Transparenz */
+    color: rgb(179, 118, 118);
+    text-align: left; /* Text linksbündig */
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 10px 0; /* Vertikaler Abstand */
+    box-shadow: none; /* Schatten entfernt */
+    display: flex; /* Flexbox für bessere Kontrolle */
+    align-items: center; /* Vertikale Zentrierung */
+}
+
+.sticky-header .header-content {
+    margin-left: 180px; /* Gleicher Abstand wie die linke Bildspalte */
+    display: flex; /* Flexbox für horizontale Ausrichtung */
+    flex-direction: column; /* Elemente untereinander anordnen */
+    align-items: flex-start; /* Links ausrichten */
+}
+
+.sticky-header .subtitle {
+    font-size: 0.8em; /* Kleinere Schriftgröße für den Subtitle */
+    font-weight: normal; /* Normaler Schriftstil */
+    color: rgb(179, 118, 118); /* Gleiche Farbe wie "Susanne Uhl" */
+    margin-top: 0; /* Kein zusätzlicher Abstand */
+}
+
+/* ============================
+   About-Seite: Allgemeine Stile
+============================ */
+.about-section, .vita-section, .contact-section {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    line-height: 1.6;
+    color: #333333;
+}
+
+.about-section h1, .vita-section h2, .contact-section h2 {
+    color: rgb(179, 118, 118); /* Gleiche Farbe wie "Susanne Uhl" */
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.about-section p, .contact-section p {
+    margin-bottom: 20px;
+}
+
+.vita-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.vita-section ul li {
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+.contact-section a {
+    color: rgb(179, 118, 118); /* Gleiche Farbe wie die Überschriften */
+    text-decoration: none;
+}
+
+.contact-section a:hover {
+    text-decoration: underline;
+}
+
+/* Überschriften für Schauspiel, Oper und Film */
+.main-container h2 {
+    color: rgb(179, 118, 118); /* Gleiche Farbe wie "Susanne Uhl" */
+    font-weight: bold; /* Fett für Konsistenz */
+    margin-bottom: 20px; /* Abstand nach unten */
+}

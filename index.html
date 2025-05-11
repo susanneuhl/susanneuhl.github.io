@@ -210,9 +210,36 @@
         html {
             scroll-behavior: smooth;
         }
+        .sticky-header {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 10px 0;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            z-index: 1000;
+        }
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .subtitle {
+            font-size: 0.5em;
+            color: #666;
+        }
     </style>
 </head>
 <body>
+    <header class="sticky-header">
+        <div class="header-content">
+            <div>Susanne Uhl</div>
+            <div class="subtitle">Kostümbild</div>
+        </div>
+    </header>
 
     <main class="main-container">
 

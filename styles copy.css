@@ -1,97 +1,281 @@
-/* ====== MINIMALISTIC STYLES FOR SUSANNE UHL PORTFOLIO ====== */
-
+/* ============================
+   Allgemeine Stile
+============================ */
 body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #e0dfe3;
     margin: 0;
-    padding: 0;
-    background-color: #e0dfe3; /* Helle, elegante Farbe */
+    font-family: Arial, sans-serif;
     color: #333333;
-    line-height: 1.6;
 }
 
-main {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
+h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin: 0px 0 10px 0;
+    font-weight: 400;
+    color: #333333;
 }
 
-h1, h2 {
+h1 span {
+    font-size: 0.6em;
     font-weight: 300;
+}
+
+hr {
+    width: 75%;
+    height: 2px;
+    background-color: #333333;
+    margin: 0 auto 30px auto;
+}
+
+/* ============================
+   Grid-Layout
+============================ */
+.vita {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.project-column {
+    text-align: center;
+}
+
+.project-column h2 {
+    font-size: 1.5em;
     margin-bottom: 10px;
     color: #333333;
 }
 
-nav ul {
+/* ============================
+   Projekte / Bilder
+============================ */
+.project-column ul {
     list-style-type: none;
-    padding: 0;
-    margin: 20px 0;
-    text-align: center;
+    padding-left: 0;
 }
 
-nav ul li {
-    display: inline;
-    margin-right: 15px;
-}
-
-nav ul li a {
-    color: #333333;
-    text-decoration: none;
-    font-size: 18px;
-}
-
-nav ul li a:hover {
-    text-decoration: underline;
-}
-
-footer {
-    text-align: center;
-    padding: 10px;
-    margin-top: 40px;
-    color: #888888;
-    font-size: 14px;
-}
-
-.biography p {
-    margin-bottom: 20px;
-}
-
-.biography nav ul li:last-child {
-    margin-right: 0;
-}
-
-/* Zusätzliche Styles für die Kacheln */
 .project-column ul li {
     margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 8px;
 }
 
+.project-column ul li a {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+/* Bilddarstellung mit fester Größe */
 .project-column ul li a img {
     width: 180px;
     height: 250px;
     object-fit: cover;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
 }
 
-.project-column ul li a img:hover {
-    transform: scale(1.1);
+.project-column ul li a:hover img {
+    transform: scale(1.2); /* Bild wird sofort vergrößert */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); /* Schattierung verstärkt sich */
+    filter: blur(1px); /* Leichter Blur-Effekt */
+    transition-delay: 0.4s; /* Blur kommt später */
 }
 
-.project-column ul li a:hover {
-    color: #007acc;
-}
-
-.project-column ul li a span {
-    display: none;
+/* ============================
+   Elegantes Hover Overlay (Perfekt Zentriert mit Verzögerung)
+============================ */
+.project-column ul li a .overlay {
     position: absolute;
-    bottom: 10px;
-    background-color: rgba(0, 0, 0, 0.7);
+    inset: 0; /* Overlay exakt über dem Bild positionieren */
+    background-color: rgba(0, 0, 0, 0.3); /* Transparenter gemacht */
     color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 0.9em;
+    opacity: 0; /* Unsichtbar bis Hover */
+    display: flex;
+    align-items: center; /* Vertikal zentriert */
+    justify-content: center; /* Horizontal zentriert */
+    text-align: center;
+    font-size: 0.85em;
+    padding: 10px;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition-delay: 0.4s; /* Verzögerung, damit das Bild zuerst skaliert */
+    border-radius: 8px;
 }
 
-.project-column ul li a:hover span {
-    display: block;
+.project-column ul li a:hover .overlay {
+    opacity: 1;
+    transform: scale(1.08); /* Leichter Zoom-Effekt beim Einblenden */
+}
+
+/* ============================
+   Modal Styling
+============================ */
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+dialog {
+    border: none;
+    border-radius: 8px;
+    padding: 0;
+    max-width: 80%;
+    max-height: 80%;
+}
+
+dialog img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+dialog .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+/* ============================
+   Sticky Header
+============================ */
+.sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: none !important; /* Entfernt alle Hintergrundstile */
+    background-color: transparent !important; /* Erzwingt Transparenz */
+    color: rgb(179, 118, 118);
+    text-align: left; /* Text linksbündig */
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 10px 0; /* Vertikaler Abstand */
+    box-shadow: none; /* Schatten entfernt */
+    display: flex; /* Flexbox für bessere Kontrolle */
+    align-items: center; /* Vertikale Zentrierung */
+}
+
+.sticky-header .header-content {
+    margin-left: 180px; /* Gleicher Abstand wie die linke Bildspalte */
+    display: flex; /* Flexbox für horizontale Ausrichtung */
+    flex-direction: column; /* Elemente untereinander anordnen */
+    align-items: flex-start; /* Links ausrichten */
+}
+
+.sticky-header .subtitle {
+    font-size: 0.8em; /* Kleinere Schriftgröße für den Subtitle */
+    font-weight: normal; /* Normaler Schriftstil */
+    color: rgb(179, 118, 118); /* Gleiche Farbe wie "Susanne Uhl" */
+    margin-top: 0; /* Kein zusätzlicher Abstand */
+}
+
+/* ============================
+   About-Seite: Allgemeine Stile
+============================ */
+.about-section, .vita-section, .contact-section {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    line-height: 1.6;
+    color: #333333;
+}
+
+.about-section h1, .vita-section h2, .contact-section h2 {
+    color: rgb(179, 118, 118); /* Gleiche Farbe wie "Susanne Uhl" */
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.about-section p, .contact-section p {
+    margin-bottom: 20px;
+}
+
+.vita-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.vita-section ul li {
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+.contact-section a {
+    color: rgb(179, 118, 118); /* Gleiche Farbe wie die Überschriften */
+    text-decoration: none;
+}
+
+.contact-section a:hover {
+    text-decoration: underline;
+}
+
+/* Überschriften für Schauspiel, Oper und Film */
+.main-container h2 {
+    color: rgb(179, 118, 118); /* Gleiche Farbe wie "Susanne Uhl" */
+    font-weight: bold; /* Fett für Konsistenz */
+    margin-bottom: 20px; /* Abstand nach unten */
+}
+
+/* ============================
+   Biografie-Abschnitt
+============================ */
+.biography {
+    max-width: 800px; /* Begrenzte Breite für bessere Lesbarkeit */
+    margin: 40px auto; /* Zentriert den Text horizontal */
+    padding: 0 20px; /* Innenabstand links und rechts */
+    line-height: 1.6; /* Angenehme Zeilenhöhe */
+    color: #333333; /* Gut lesbare Textfarbe */
+    font-size: 1em; /* Standard-Schriftgröße */
+}
+
+.biography p {
+    margin-bottom: 20px; /* Abstand zwischen den Absätzen */
+}
+
+/* ============================
+   Header-Link Styling
+============================ */
+.header-link {
+    text-decoration: none; /* Entfernt die Unterstreichung */
+    color: rgb(179, 118, 118); /* Gleiche Farbe wie der Header-Text */
+    font-weight: bold;
+}
+
+.header-link:hover {
+    text-decoration: underline; /* Unterstreichung beim Hover */
+}
+
+/* ============================
+   Navigation im Header
+============================ */
+.header-nav {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    display: flex;
+    gap: 15px; /* Abstand zwischen den Links */
+}
+
+.header-nav-link {
+    text-decoration: none;
+    color: rgb(179, 118, 118); /* Gleiche Farbe wie der Header-Text */
+    font-size: 1em;
+    font-weight: bold;
+    padding: 5px 10px;
+    border: 1px solid rgb(179, 118, 118); /* Rahmen für den Link */
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.header-nav-link:hover {
+    background-color: rgb(179, 118, 118); /* Hintergrundfarbe beim Hover */
+    color: white; /* Textfarbe beim Hover */
 }

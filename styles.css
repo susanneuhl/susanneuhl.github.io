@@ -153,28 +153,54 @@ dialog .close {
     z-index: 1000;
     background: none !important; /* Entfernt alle Hintergrundstile */
     background-color: transparent !important; /* Erzwingt Transparenz */
-    color: rgb(179, 118, 118);
-    text-align: left; /* Text linksbündig */
+    backdrop-filter: blur(10px); /* Blur-Effekt bleibt erhalten */
+    padding: 10px 40px; /* Gleicher Abstand wie die Bildspalten */
+    display: flex; /* Flexbox für Layout */
+    justify-content: space-between; /* Platz zwischen Titel und Navigation */
+    align-items: center; /* Vertikale Zentrierung */
     font-size: 1.5em;
     font-weight: bold;
-    padding: 10px 0; /* Vertikaler Abstand */
     box-shadow: none; /* Schatten entfernt */
-    display: flex; /* Flexbox für bessere Kontrolle */
-    align-items: center; /* Vertikale Zentrierung */
 }
 
-.sticky-header .header-content {
-    margin-left: 180px; /* Gleicher Abstand wie die linke Bildspalte */
-    display: flex; /* Flexbox für horizontale Ausrichtung */
+/* Header-Content linksbündig */
+.header-content {
+    display: flex;
     flex-direction: column; /* Elemente untereinander anordnen */
     align-items: flex-start; /* Links ausrichten */
+    text-align: left; /* Text linksbündig */
+    margin-left: 40px; /* Gleicher Abstand wie die Bildspalten */
+    color: rgb(179, 118, 118); /* Gleiche Farbe wie der Header-Text */
 }
 
-.sticky-header .subtitle {
+.header-content .subtitle {
     font-size: 0.8em; /* Kleinere Schriftgröße für den Subtitle */
     font-weight: normal; /* Normaler Schriftstil */
-    color: rgb(179, 118, 118); /* Gleiche Farbe wie "Susanne Uhl" */
-    margin-top: 0; /* Kein zusätzlicher Abstand */
+    color: rgb(179, 118, 118); /* Gleiche Farbe wie der Header-Text */
+    margin-top: 5px; /* Abstand zum Haupttitel */
+}
+
+/* Navigation im Header */
+.header-nav {
+    display: flex;
+    gap: 15px; /* Abstand zwischen den Links */
+    margin-right: 40px; /* Gleicher Abstand wie die Bildspalten */
+}
+
+.header-nav-link {
+    text-decoration: none;
+    color: rgb(179, 118, 118); /* Gleiche Farbe wie der Header-Text */
+    font-size: 1em;
+    font-weight: bold;
+    padding: 5px 10px;
+    border: 1px solid rgb(179, 118, 118); /* Rahmen für den Link */
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.header-nav-link:hover {
+    background-color: rgb(179, 118, 118); /* Hintergrundfarbe beim Hover */
+    color: white; /* Textfarbe beim Hover */
 }
 
 /* ============================
@@ -251,31 +277,4 @@ dialog .close {
 
 .header-link:hover {
     text-decoration: underline; /* Unterstreichung beim Hover */
-}
-
-/* ============================
-   Navigation im Header
-============================ */
-.header-nav {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    display: flex;
-    gap: 15px; /* Abstand zwischen den Links */
-}
-
-.header-nav-link {
-    text-decoration: none;
-    color: rgb(179, 118, 118); /* Gleiche Farbe wie der Header-Text */
-    font-size: 1em;
-    font-weight: bold;
-    padding: 5px 10px;
-    border: 1px solid rgb(179, 118, 118); /* Rahmen für den Link */
-    border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.header-nav-link:hover {
-    background-color: rgb(179, 118, 118); /* Hintergrundfarbe beim Hover */
-    color: white; /* Textfarbe beim Hover */
 }

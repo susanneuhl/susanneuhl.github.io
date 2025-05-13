@@ -305,6 +305,17 @@ dialog .close {
 }
 
 /* ============================
+   Kontakt-Abschnitt
+============================ */
+
+.contact {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 0 20px; /* ← das sorgt für Abstand zum Rand */
+    text-align: justify;
+}
+
+/* ============================
    Event Calendar Styling
 ============================ */
 #event-calendar {
@@ -408,4 +419,68 @@ dialog .close {
     flex-direction: column;
     align-items: flex-start;
     margin-left: 40px;
+}
+/* Feinjustierung: Bereichsüberschriften angleichen */
+.main-container h2 {
+    color: rgb(179, 118, 118);
+    font-weight: 400; /* oder 300, je nach gewünschtem Look */
+    font-size: 1.4em;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.header-nav-link {
+    font-weight: 300; /* vorher vermutlich: bold oder 600 */
+    letter-spacing: 0.5px; /* optional: etwas mehr Eleganz */
+    font-size: 0.95em; /* optional: leicht verkleinert */
+}
+@media (max-width: 600px) {
+  .sticky-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px 20px;
+  }
+
+  .header-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    margin: 0;
+  }
+
+  .header-nav-link {
+    display: block;
+    width: fit-content;
+  }
+}
+@media (max-width: 600px) {
+  .sticky-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px 20px;
+  }
+
+  .header-content {
+    margin-left: 20px; /* Einheitlicher linker Abstand für "Susanne Uhl" */
+  }
+
+  .header-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    margin-right: 20px; /* Einheitlicher rechter Abstand für Buttons */
+  }
+
+  .header-nav-link {
+    display: block;
+    width: fit-content;
+  }
+
+  main, .main-container, .biography, .contact, .impressum {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }

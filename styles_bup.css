@@ -165,13 +165,9 @@ dialog .close {
 
 /* Header-Content Styling */
 .header-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-left: 40px;
-    color: rgb(179, 118, 118);
+    margin-left: 40px; /* Abstand nur für den Text im Header */
+    color: rgb(179, 118, 118); /* Gleiche Farbe wie Schauspiel, Oper, Film */
 }
-
 
 .header-nav {
     margin-right: 40px; /* Abstand nur für die Navigation */
@@ -348,64 +344,4 @@ dialog .close {
 .event-date {
     color: #666;
     font-size: 0.9em;
-}
-
-.main-title {
-    font-size: 2em; /* etwas kleiner als vorher */
-    font-weight: 400;
-    color: rgb(179, 118, 118);
-    margin: 0;
-    line-height: 1.2;
-    text-align: left;
-}
-
-.main-title .subtitle {
-    display: block;
-    font-size: 0.8em;
-    font-weight: 300;
-    color: rgb(179, 118, 118);
-    margin-top: 2px;
-}
-.main-title-header {
-    font-size: 1.4em;
-    font-weight: 400;
-    color: rgb(179, 118, 118);
-    margin: 0;
-    line-height: 1.2;
-    text-align: left;
-}
-
-.subtitle-header {
-    font-size: 0.7em;
-    color: rgb(179, 118, 118);
-    font-weight: 300;
-    margin: 0;
-    line-height: 1.2;
-    text-align: left;
-}
-/* HEADER-ÜBERSCHRIFTEN */
-.main-title {
-    font-size: 1.1em;   /* vorher: 2em */
-    font-weight: 400;
-    color: rgb(179, 118, 118);
-    margin: 0;
-    line-height: 1.2;
-    text-align: left;
-}
-
-.main-title .subtitle {
-    display: block;
-    font-size: 0.6em;   /* vorher: 0.8em */
-    font-weight: 300;
-    color: rgb(179, 118, 118);
-    margin-top: 2px;
-    text-align: left;
-}
-
-
-.header-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-left: 40px;
 }

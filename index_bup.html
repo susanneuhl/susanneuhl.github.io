@@ -71,6 +71,15 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="favicon_custom.png" type="image/png">
     <style>
+        .main-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1500px;
+            margin: 0 auto;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
 
         @media (max-width: 1024px) {
             .main-container {
@@ -290,21 +299,15 @@
     </style>
 </head>
 <body>
-    <h1 style="display:none;">Susanne Uhl – Kostümbild</h1>
-
-<header class="sticky-header">
-  <div class="header-content">
-    <h1 class="main-title">
-      Susanne Uhl
-      <span class="subtitle">Kostümbild</span>
-    </h1>
-  </div>
-  <nav class="header-nav">
-    <a href="index.html" class="header-nav-link">Work</a>
-    <a href="about.html" class="header-nav-link">About</a>
-  </nav>
-</header>
-
+    <header class="sticky-header">
+        <div class="header-content">
+            <div>Susanne Uhl</div>
+        </div>
+        <nav class="header-nav">
+            <a href="index.html" class="header-nav-link">Work</a>
+            <a href="about.html" class="header-nav-link">About</a>
+        </nav>
+    </header>
 
     <main class="main-container">
 

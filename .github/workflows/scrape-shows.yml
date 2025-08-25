@@ -1,0 +1,35 @@
+name: Scrape Theater Shows
+
+on:
+  schedule:
+    # Runs daily at 6 AM UTC (8 AM German time)
+    - cron: '0 6 * * *'
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        pip install requests beautifulsoup4 lxml
+        
+    - name: Run scraper
+      run: python scripts/scrape_shows.py
+      
+    - name: Commit and push if changed
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add data/shows.json
+        git diff --staged --quiet || git commit -m "Update show dates [automated]"
+        git push

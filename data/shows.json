@@ -1,0 +1,123 @@
+{
+  "last_updated": "2025-08-25T09:45:00",
+  "shows": {
+    "la-traviata": {
+      "title": "La traviata",
+      "theater": "Staatstheater Braunschweig (Burgplatz Open Air)",
+      "image": "images/la-traviata.jpg",
+      "base_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542",
+      "events": [
+        {
+          "date": "2025-08-26 19:30",
+          "display_date": "26.08.2025",
+          "display_time": "19:30",
+          "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"
+        },
+        {
+          "date": "2025-08-27 19:30",
+          "display_date": "27.08.2025",
+          "display_time": "19:30",
+          "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"
+        },
+        {
+          "date": "2025-08-28 19:30",
+          "display_date": "28.08.2025",
+          "display_time": "19:30",
+          "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"
+        },
+        {
+          "date": "2025-08-29 19:30",
+          "display_date": "29.08.2025",
+          "display_time": "19:30",
+          "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"
+        },
+        {
+          "date": "2025-08-30 19:30",
+          "display_date": "30.08.2025",
+          "display_time": "19:30",
+          "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"
+        },
+        {
+          "date": "2025-08-31 14:30",
+          "display_date": "31.08.2025",
+          "display_time": "14:30",
+          "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"
+        },
+        {
+          "date": "2025-08-31 19:30",
+          "display_date": "31.08.2025",
+          "display_time": "19:30",
+          "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"
+        },
+        {
+          "date": "2025-09-02 19:30",
+          "display_date": "02.09.2025",
+          "display_time": "19:30",
+          "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"
+        },
+        {
+          "date": "2025-09-03 19:30",
+          "display_date": "03.09.2025",
+          "display_time": "19:30",
+          "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"
+        },
+        {
+          "date": "2025-09-04 19:30",
+          "display_date": "04.09.2025",
+          "display_time": "19:30",
+          "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"
+        },
+        {
+          "date": "2025-09-05 19:30",
+          "display_date": "05.09.2025",
+          "display_time": "19:30",
+          "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"
+        },
+        {
+          "date": "2025-09-06 19:30",
+          "display_date": "06.09.2025",
+          "display_time": "19:30",
+          "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"
+        },
+        {
+          "date": "2025-09-07 19:30",
+          "display_date": "07.09.2025",
+          "display_time": "19:30",
+          "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"
+        },
+        {
+          "date": "2025-09-09 19:30",
+          "display_date": "09.09.2025",
+          "display_time": "19:30",
+          "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"
+        },
+        {
+          "date": "2025-09-10 19:30",
+          "display_date": "10.09.2025",
+          "display_time": "19:30",
+          "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"
+        }
+      ]
+    },
+    "der-komet": {
+      "title": "Der Komet",
+      "theater": "Staatsschauspiel Dresden",
+      "image": "images/der-komet.jpg",
+      "base_url": "https://tickets.staatsschauspiel-dresden.de/webshop/webticket/eventlist?production=709",
+      "events": [
+        {
+          "date": "2025-09-20 19:30",
+          "display_date": "20.09.2025",
+          "display_time": "19:30",
+          "ticket_url": "https://www.staatsschauspiel-dresden.de/spielplan/a-z/der-komet/"
+        },
+        {
+          "date": "2025-10-02 19:30",
+          "display_date": "02.10.2025",
+          "display_time": "19:30",
+          "ticket_url": "https://www.staatsschauspiel-dresden.de/spielplan/a-z/der-komet/"
+        }
+      ]
+    }
+  }
+}

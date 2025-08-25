@@ -343,6 +343,7 @@
   <nav class="header-nav">
     <a href="index.html" class="header-nav-link">Work</a>
     <a href="about.html" class="header-nav-link">About</a>
+                <a href="shows.html" class="header-nav-link">Events</a>
   </nav>
 </header>
 
@@ -566,6 +567,13 @@
             <h2>Oper</h2>
             <ul>
                 <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src)">
+                    <img src="images/la-traviata.jpg" alt="Kostümbild von Susanne Uhl für La traviata am Staatstheater Braunschweig (2025)">
+                    <div class="overlay">
+                        <span>La traviata – Staatstheater Braunschweig (2025)<br>Foto: Barbara Aumüller</span>
+                        <a href="https://staatstheater-braunschweig.de/produktion/la-traviata-8542" target="_blank" class="website-btn">Website</a>
+                    </div>
+                </li> 
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src)">
                     <img src="images/der-traumgoerge.jpg" alt="Kostümbild von Susanne Uhl für Der Traumgörge an der Oper Frankfurt (2024)">
                     <div class="overlay">
                         <span>Der Traumgörge – Oper Frankfurt (2024)<br>Foto: Barbara Aumüller</span>
@@ -703,8 +711,22 @@
                     });
                 });
                 
-                // Sortiere nach Jahr (neueste zuerst)
-                allProjects.sort((a, b) => b.year - a.year);
+                // Sortiere nach Jahr und bei gleichem Jahr nach Wichtigkeit
+                allProjects.sort((a, b) => {
+                    // Primär nach Jahr (neueste zuerst)
+                    if (b.year !== a.year) {
+                        return b.year - a.year;
+                    }
+                    
+                    // Sekundär: La traviata vor Der Komet (bei gleichem Jahr)
+                    const aText = a.element.querySelector('.overlay span').textContent.toLowerCase();
+                    const bText = b.element.querySelector('.overlay span').textContent.toLowerCase();
+                    
+                    if (aText.includes('la traviata') && bText.includes('der komet')) return -1;
+                    if (aText.includes('der komet') && bText.includes('la traviata')) return 1;
+                    
+                    return 0; // Gleiche Reihenfolge beibehalten
+                });
                 
                 // Erstelle neue einspaltige Struktur
                 mainContainer.innerHTML = '';

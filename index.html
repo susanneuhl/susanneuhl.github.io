@@ -261,6 +261,47 @@
             font-size: 2em;
             cursor: pointer;
         }
+        
+        /* Back to Top Button */
+        #backToTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            background-color: rgb(179, 118, 118);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        #backToTopBtn:hover {
+            background-color: rgb(150, 100, 100);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        #backToTopBtn.show {
+            display: block;
+            animation: fadeInUp 0.3s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     
         /* Smooth Scroll */
         html {
@@ -605,6 +646,9 @@
         <img id="fullscreenImage" src="" alt="">
     </div>
 
+    <!-- Back to Top Button -->
+    <button id="backToTopBtn" title="Nach oben">↑</button>
+
     <script>
         function openFullscreen(src) {
             const modal = document.getElementById("fullscreenModal");
@@ -629,6 +673,164 @@
             if (event.target === this || event.target.id === "fullscreenImage") {
                 closeFullscreen();
             }
+        });
+
+        // Chronologische Sortierung für mobile Ansicht
+        function sortProjectsChronologically() {
+            const mainContainer = document.querySelector('.main-container');
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile && !mainContainer.classList.contains('chronological-sorted')) {
+                // Sammle alle Projekte mit ihren Jahren
+                const allProjects = [];
+                const columns = mainContainer.querySelectorAll('div');
+                
+                columns.forEach((column, columnIndex) => {
+                    const categoryTitle = column.querySelector('h2');
+                    const projects = column.querySelectorAll('li');
+                    
+                    projects.forEach(project => {
+                        const overlayText = project.querySelector('.overlay span').textContent;
+                        const yearMatch = overlayText.match(/\((\d{4})\)/);
+                        const year = yearMatch ? parseInt(yearMatch[1]) : 0;
+                        
+                        allProjects.push({
+                            element: project.cloneNode(true),
+                            year: year,
+                            category: categoryTitle.textContent,
+                            originalColumn: columnIndex
+                        });
+                    });
+                });
+                
+                // Sortiere nach Jahr (neueste zuerst)
+                allProjects.sort((a, b) => b.year - a.year);
+                
+                // Erstelle neue einspaltige Struktur
+                mainContainer.innerHTML = '';
+                mainContainer.style.gridTemplateColumns = '1fr';
+                
+                const singleColumn = document.createElement('div');
+                const title = document.createElement('h2');
+                title.textContent = 'Timeline';
+                title.style.marginBottom = '15px';
+                title.style.fontSize = '1.8em';
+                title.style.color = 'rgb(179, 118, 118)';
+                title.style.textAlign = 'center';
+                
+                // Filter-Buttons für mobile Timeline
+                const filterContainer = document.createElement('div');
+                filterContainer.style.cssText = `
+                    display: flex;
+                    justify-content: center;
+                    gap: 10px;
+                    margin-bottom: 20px;
+                    flex-wrap: wrap;
+                `;
+                
+                const filters = ['Alle', 'Schauspiel', 'Oper', 'Film'];
+                filters.forEach((filterName, index) => {
+                    const filterBtn = document.createElement('button');
+                    filterBtn.textContent = filterName;
+                    filterBtn.style.cssText = `
+                        background-color: ${index === 0 ? 'rgb(179, 118, 118)' : 'white'};
+                        color: ${index === 0 ? 'white' : 'rgb(179, 118, 118)'};
+                        border: 1px solid rgb(179, 118, 118);
+                        padding: 8px 12px;
+                        border-radius: 20px;
+                        font-size: 0.9em;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                    `;
+                    
+                    filterBtn.addEventListener('click', function() {
+                        // Alle Buttons zurücksetzen
+                        filterContainer.querySelectorAll('button').forEach(btn => {
+                            btn.style.backgroundColor = 'white';
+                            btn.style.color = 'rgb(179, 118, 118)';
+                        });
+                        
+                        // Aktiven Button markieren
+                        this.style.backgroundColor = 'rgb(179, 118, 118)';
+                        this.style.color = 'white';
+                        
+                        // Projekte filtern
+                        const projectItems = projectList.querySelectorAll('li');
+                        projectItems.forEach(item => {
+                            const categoryBadge = item.querySelector('div').textContent;
+                            if (filterName === 'Alle' || categoryBadge === filterName) {
+                                item.style.display = 'block';
+                            } else {
+                                item.style.display = 'none';
+                            }
+                        });
+                    });
+                    
+                    filterContainer.appendChild(filterBtn);
+                });
+                
+                const projectList = document.createElement('ul');
+                projectList.style.listStyleType = 'none';
+                projectList.style.padding = '0';
+                
+                allProjects.forEach(project => {
+                    const li = project.element;
+                    // Füge Kategorie-Badge hinzu
+                    const categoryBadge = document.createElement('div');
+                    categoryBadge.textContent = project.category;
+                    categoryBadge.style.cssText = `
+                        position: absolute;
+                        top: 10px;
+                        left: 10px;
+                        background-color: rgba(179, 118, 118, 0.9);
+                        color: white;
+                        padding: 4px 8px;
+                        border-radius: 4px;
+                        font-size: 0.8em;
+                        font-weight: bold;
+                        z-index: 10;
+                    `;
+                    li.style.position = 'relative';
+                    li.insertBefore(categoryBadge, li.firstChild);
+                    projectList.appendChild(li);
+                });
+                
+                singleColumn.appendChild(title);
+                singleColumn.appendChild(filterContainer);
+                singleColumn.appendChild(projectList);
+                mainContainer.appendChild(singleColumn);
+                mainContainer.classList.add('chronological-sorted');
+                
+            } else if (!isMobile && mainContainer.classList.contains('chronological-sorted')) {
+                // Lade die Seite neu für Desktop-Ansicht
+                location.reload();
+            }
+        }
+
+        // Back to Top Funktionalität
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Führe Sortierung beim Laden und bei Fenstergrößen-Änderungen aus
+        window.addEventListener('load', sortProjectsChronologically);
+        window.addEventListener('resize', function() {
+            // Debounce für bessere Performance
+            clearTimeout(window.resizeTimeout);
+            window.resizeTimeout = setTimeout(sortProjectsChronologically, 250);
         });
     </script>
     <footer>

@@ -177,18 +177,16 @@ def clean_and_sort_events(events):
             unique_events.append(event)
             seen_dates.add(event['date'])
     
-    return unique_events[:10]
+    return unique_events[:20]
 
 def scrape_staatstheater_braunschweig():
     """Scrape La traviata dates from Staatstheater Braunschweig"""
     # Manual fallback with known dates from the website
     known_events = [
-        {"date": "2025-08-26 19:30", "display_date": "26.08.2025", "display_time": "19:30", "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"},
         {"date": "2025-08-27 19:30", "display_date": "27.08.2025", "display_time": "19:30", "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"},
         {"date": "2025-08-28 19:30", "display_date": "28.08.2025", "display_time": "19:30", "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"},
         {"date": "2025-08-29 19:30", "display_date": "29.08.2025", "display_time": "19:30", "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"},
         {"date": "2025-08-30 19:30", "display_date": "30.08.2025", "display_time": "19:30", "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"},
-        {"date": "2025-08-31 14:30", "display_date": "31.08.2025", "display_time": "14:30", "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"},
         {"date": "2025-08-31 19:30", "display_date": "31.08.2025", "display_time": "19:30", "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"},
         {"date": "2025-09-02 19:30", "display_date": "02.09.2025", "display_time": "19:30", "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"},
         {"date": "2025-09-03 19:30", "display_date": "03.09.2025", "display_time": "19:30", "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"},
@@ -219,27 +217,62 @@ def scrape_staatstheater_braunschweig():
         response.raise_for_status()
         
         soup = BeautifulSoup(response.content, 'html.parser')
-        page_text = soup.get_text()
         
-        # Look for La traviata specifically in the full page text
-        traviata_events = extract_traviata_dates_from_page(page_text, url)
-        events.extend(traviata_events)
+        # Look for specific event list structure
+        event_items = soup.find_all('div', class_='production-eventlist-item')
         
-        # Try additional scraping strategies
-        strategies = [
-            lambda soup: soup.find_all(['div', 'section'], class_=re.compile(r'calendar|spielplan|termine', re.I)),
-            lambda soup: soup.find_all('a', href=re.compile(r'termin|date|event')),
-            lambda soup: soup.find_all('tr'),
-        ]
-        
-        for strategy in strategies:
+        for item in event_items:
             try:
-                elements = strategy(soup)
-                for element in elements:
-                    events.extend(extract_dates_from_element(element, url))
+                # Extract date
+                date_div = item.find('div', class_='production-eventlist-date')
+                if date_div:
+                    date_text = date_div.get_text(strip=True)
+                    # Remove day abbreviation (Mi, Do, etc.)
+                    date_text = re.sub(r'^[A-Za-z]{2}\s*', '', date_text)
+                    
+                    # Extract time
+                    time_div = item.find('div', class_='production-eventlist-date')
+                    time_text = "19:30"  # Default time
+                    
+                    # Parse date
+                    if re.match(r'\d{2}\.\d{2}\.\d{4}', date_text):
+                        day, month, year = date_text.split('.')
+                        datetime_str = f"{year}-{month}-{day} {time_text}"
+                        
+                        # Only future dates
+                        event_date = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M")
+                        if event_date > datetime.now():
+                            events.append({
+                                "date": datetime_str,
+                                "display_date": f"{day}.{month}.{year}",
+                                "display_time": time_text,
+                                "ticket_url": url
+                            })
             except Exception as e:
-                print(f"Strategy failed for Braunschweig: {e}")
+                print(f"Error parsing event item: {e}")
                 continue
+        
+        # If no events found via structured parsing, try text-based approach
+        if not events:
+            page_text = soup.get_text()
+            traviata_events = extract_traviata_dates_from_page(page_text, url)
+            events.extend(traviata_events)
+            
+            # Try additional scraping strategies
+            strategies = [
+                lambda soup: soup.find_all(['div', 'section'], class_=re.compile(r'calendar|spielplan|termine', re.I)),
+                lambda soup: soup.find_all('a', href=re.compile(r'termin|date|event')),
+                lambda soup: soup.find_all('tr'),
+            ]
+            
+            for strategy in strategies:
+                try:
+                    elements = strategy(soup)
+                    for element in elements:
+                        events.extend(extract_dates_from_element(element, url))
+                except Exception as e:
+                    print(f"Strategy failed for Braunschweig: {e}")
+                    continue
         
     except Exception as e:
         print(f"Error scraping Staatstheater Braunschweig: {e}")

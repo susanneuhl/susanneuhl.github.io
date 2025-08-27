@@ -11,6 +11,7 @@ import re
 from datetime import datetime, timedelta
 import os
 import time
+import random
 
 def scrape_staatsschauspiel_dresden():
     """Scrape Der Komet dates from Staatsschauspiel Dresden"""
@@ -30,11 +31,9 @@ def scrape_staatsschauspiel_dresden():
         }
     ]
     
-    # Try scraping only if we want to update the manual data
     events = []
     
-    # Uncomment the following section when scraping is needed
-    """
+    # Try multiple URLs for Dresden
     urls = [
         "https://www.staatsschauspiel-dresden.de/spielplan/a-z/der-komet/",
         "https://tickets.staatsschauspiel-dresden.de/webshop/webticket/eventlist?production=709",
@@ -48,25 +47,50 @@ def scrape_staatsschauspiel_dresden():
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
                 'Accept-Language': 'de-DE,de;q=0.9,en;q=0.8',
                 'Accept-Encoding': 'gzip, deflate, br',
-                'Connection': 'keep-alive'
+                'Connection': 'keep-alive',
+                'Cache-Control': 'no-cache'
             }
             
-            response = requests.get(url, headers=headers, timeout=15)
+            # Add random delay to avoid being blocked
+            time.sleep(random.uniform(1, 3))
+            
+            response = requests.get(url, headers=headers, timeout=20)
             response.raise_for_status()
             
             soup = BeautifulSoup(response.content, 'html.parser')
             page_text = soup.get_text()
             
+            # Look for Der Komet specifically in the full page text
             komet_events = extract_komet_dates_from_page(page_text, url)
             events.extend(komet_events)
             
+            # Also try structured approaches
+            strategies = [
+                # Look for calendar/date containers
+                lambda soup: soup.find_all(['div', 'section', 'article'], 
+                                         class_=re.compile(r'calendar|spielplan|termine|events', re.I)),
+                # Look for specific date patterns in links
+                lambda soup: soup.find_all('a', href=re.compile(r'termin|date|event')),
+                # Look for table rows that might contain dates
+                lambda soup: soup.find_all('tr'),
+            ]
+            
+            for strategy in strategies:
+                try:
+                    elements = strategy(soup)
+                    for element in elements:
+                        events.extend(extract_dates_from_element(element, url))
+                except Exception as e:
+                    print(f"Strategy failed for {url}: {e}")
+                    continue
+                    
         except Exception as e:
             print(f"Error scraping {url}: {e}")
             continue
-    """
     
     # Use manual fallback if no events found
     if not events:
+        print("No events found via scraping, using fallback data for Der Komet")
         events = known_events
     
     return clean_and_sort_events(events)
@@ -178,30 +202,51 @@ def scrape_staatstheater_braunschweig():
     
     events = []
     
-    # Uncomment the following section when scraping is needed
-    """
     url = "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"
     
     try:
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'de-DE,de;q=0.9,en;q=0.8',
+            'Cache-Control': 'no-cache'
         }
         
-        response = requests.get(url, headers=headers, timeout=15)
+        # Add random delay
+        time.sleep(random.uniform(1, 3))
+        
+        response = requests.get(url, headers=headers, timeout=20)
         response.raise_for_status()
         
         soup = BeautifulSoup(response.content, 'html.parser')
         page_text = soup.get_text()
         
+        # Look for La traviata specifically in the full page text
         traviata_events = extract_traviata_dates_from_page(page_text, url)
         events.extend(traviata_events)
         
+        # Try additional scraping strategies
+        strategies = [
+            lambda soup: soup.find_all(['div', 'section'], class_=re.compile(r'calendar|spielplan|termine', re.I)),
+            lambda soup: soup.find_all('a', href=re.compile(r'termin|date|event')),
+            lambda soup: soup.find_all('tr'),
+        ]
+        
+        for strategy in strategies:
+            try:
+                elements = strategy(soup)
+                for element in elements:
+                    events.extend(extract_dates_from_element(element, url))
+            except Exception as e:
+                print(f"Strategy failed for Braunschweig: {e}")
+                continue
+        
     except Exception as e:
         print(f"Error scraping Staatstheater Braunschweig: {e}")
-    """
     
     # Use manual fallback if no events found
     if not events:
+        print("No events found via scraping, using fallback data for La traviata")
         events = known_events
     
     return clean_and_sort_events(events)
@@ -233,30 +278,51 @@ def scrape_oper_leipzig():
     
     events = []
     
-    # Uncomment the following section when scraping is needed
-    """
     url = "https://www.oper-leipzig.de/de/ensemble/person/susanne-uhl/1902"
     
     try:
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'de-DE,de;q=0.9,en;q=0.8',
+            'Cache-Control': 'no-cache'
         }
         
-        response = requests.get(url, headers=headers, timeout=15)
+        # Add random delay
+        time.sleep(random.uniform(1, 3))
+        
+        response = requests.get(url, headers=headers, timeout=20)
         response.raise_for_status()
         
         soup = BeautifulSoup(response.content, 'html.parser')
         page_text = soup.get_text()
         
+        # Look for Undine specifically in the full page text
         undine_events = extract_undine_dates_from_page(page_text, url)
         events.extend(undine_events)
         
+        # Try additional scraping strategies
+        strategies = [
+            lambda soup: soup.find_all(['div', 'section'], class_=re.compile(r'calendar|spielplan|termine', re.I)),
+            lambda soup: soup.find_all('a', href=re.compile(r'termin|date|event')),
+            lambda soup: soup.find_all('tr'),
+        ]
+        
+        for strategy in strategies:
+            try:
+                elements = strategy(soup)
+                for element in elements:
+                    events.extend(extract_dates_from_element(element, url))
+            except Exception as e:
+                print(f"Strategy failed for Oper Leipzig: {e}")
+                continue
+        
     except Exception as e:
         print(f"Error scraping Oper Leipzig: {e}")
-    """
     
     # Use manual fallback if no events found
     if not events:
+        print("No events found via scraping, using fallback data for Undine")
         events = known_events
     
     return clean_and_sort_events(events)

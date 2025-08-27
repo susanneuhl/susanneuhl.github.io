@@ -6,6 +6,10 @@ on:
     - cron: '0 6 * * *'
   workflow_dispatch: # Allows manual triggering
 
+# Grant permissions to the workflow
+permissions:
+  contents: write
+
 jobs:
   scrape:
     runs-on: ubuntu-latest

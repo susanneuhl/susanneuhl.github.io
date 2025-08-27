@@ -15,22 +15,6 @@ import random
 
 def scrape_staatsschauspiel_dresden():
     """Scrape Der Komet dates from Staatsschauspiel Dresden"""
-    # For now, use manual fallback as primary source until scraping is more stable
-    known_events = [
-        {
-            "date": "2025-09-20 19:30",
-            "display_date": "20.09.2025",
-            "display_time": "19:30",
-            "ticket_url": "https://www.staatsschauspiel-dresden.de/spielplan/a-z/der-komet/"
-        },
-        {
-            "date": "2025-10-02 19:30",
-            "display_date": "02.10.2025",
-            "display_time": "19:30",
-            "ticket_url": "https://www.staatsschauspiel-dresden.de/spielplan/a-z/der-komet/"
-        }
-    ]
-    
     events = []
     
     # Try multiple URLs for Dresden
@@ -87,11 +71,6 @@ def scrape_staatsschauspiel_dresden():
         except Exception as e:
             print(f"Error scraping {url}: {e}")
             continue
-    
-    # Use manual fallback if no events found
-    if not events:
-        print("No events found via scraping, using fallback data for Der Komet")
-        events = known_events
     
     return clean_and_sort_events(events)
 
@@ -181,23 +160,6 @@ def clean_and_sort_events(events):
 
 def scrape_staatstheater_braunschweig():
     """Scrape La traviata dates from Staatstheater Braunschweig"""
-    # Manual fallback with known dates from the website
-    known_events = [
-        {"date": "2025-08-27 19:30", "display_date": "27.08.2025", "display_time": "19:30", "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"},
-        {"date": "2025-08-28 19:30", "display_date": "28.08.2025", "display_time": "19:30", "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"},
-        {"date": "2025-08-29 19:30", "display_date": "29.08.2025", "display_time": "19:30", "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"},
-        {"date": "2025-08-30 19:30", "display_date": "30.08.2025", "display_time": "19:30", "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"},
-        {"date": "2025-08-31 19:30", "display_date": "31.08.2025", "display_time": "19:30", "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"},
-        {"date": "2025-09-02 19:30", "display_date": "02.09.2025", "display_time": "19:30", "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"},
-        {"date": "2025-09-03 19:30", "display_date": "03.09.2025", "display_time": "19:30", "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"},
-        {"date": "2025-09-04 19:30", "display_date": "04.09.2025", "display_time": "19:30", "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"},
-        {"date": "2025-09-05 19:30", "display_date": "05.09.2025", "display_time": "19:30", "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"},
-        {"date": "2025-09-06 19:30", "display_date": "06.09.2025", "display_time": "19:30", "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"},
-        {"date": "2025-09-07 19:30", "display_date": "07.09.2025", "display_time": "19:30", "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"},
-        {"date": "2025-09-09 19:30", "display_date": "09.09.2025", "display_time": "19:30", "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"},
-        {"date": "2025-09-10 19:30", "display_date": "10.09.2025", "display_time": "19:30", "ticket_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"}
-    ]
-    
     events = []
     
     url = "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"
@@ -277,11 +239,6 @@ def scrape_staatstheater_braunschweig():
     except Exception as e:
         print(f"Error scraping Staatstheater Braunschweig: {e}")
     
-    # Use manual fallback if no events found
-    if not events:
-        print("No events found via scraping, using fallback data for La traviata")
-        events = known_events
-    
     return clean_and_sort_events(events)
 
 def extract_traviata_dates_from_page(page_text, base_url):
@@ -299,16 +256,6 @@ def extract_traviata_dates_from_page(page_text, base_url):
 
 def scrape_oper_leipzig():
     """Scrape Undine dates from Oper Leipzig"""
-    # Manual fallback with known dates from the website
-    known_events = [
-        {
-            "date": "2026-04-30 19:30",
-            "display_date": "30.04.2026",
-            "display_time": "19:30",
-            "ticket_url": "https://www.oper-leipzig.de/de/ensemble/person/susanne-uhl/1902"
-        }
-    ]
-    
     events = []
     
     url = "https://www.oper-leipzig.de/de/ensemble/person/susanne-uhl/1902"
@@ -352,11 +299,6 @@ def scrape_oper_leipzig():
         
     except Exception as e:
         print(f"Error scraping Oper Leipzig: {e}")
-    
-    # Use manual fallback if no events found
-    if not events:
-        print("No events found via scraping, using fallback data for Undine")
-        events = known_events
     
     return clean_and_sort_events(events)
 

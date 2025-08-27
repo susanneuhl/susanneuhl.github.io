@@ -42,31 +42,74 @@ def scrape_staatsschauspiel_dresden():
             response.raise_for_status()
             
             soup = BeautifulSoup(response.content, 'html.parser')
-            page_text = soup.get_text()
             
-            # Look for Der Komet specifically in the full page text
-            komet_events = extract_komet_dates_from_page(page_text, url)
-            events.extend(komet_events)
-            
-            # Also try structured approaches
-            strategies = [
-                # Look for calendar/date containers
-                lambda soup: soup.find_all(['div', 'section', 'article'], 
-                                         class_=re.compile(r'calendar|spielplan|termine|events', re.I)),
-                # Look for specific date patterns in links
-                lambda soup: soup.find_all('a', href=re.compile(r'termin|date|event')),
-                # Look for table rows that might contain dates
-                lambda soup: soup.find_all('tr'),
-            ]
-            
-            for strategy in strategies:
+            # Look for structured meta tags with startDate
+            meta_tags = soup.find_all('meta', attrs={'itemprop': 'startDate'})
+            for meta_tag in meta_tags:
                 try:
-                    elements = strategy(soup)
-                    for element in elements:
-                        events.extend(extract_dates_from_element(element, url))
+                    start_date = meta_tag.get('content')
+                    if start_date:
+                        # Parse ISO format: 2025-09-20T19:30:00
+                        if 'T' in start_date:
+                            date_part, time_part = start_date.split('T')
+                            year, month, day = date_part.split('-')
+                            hour, minute, _ = time_part.split(':')
+                            
+                            datetime_str = f"{year}-{month}-{day} {hour}:{minute}"
+                            
+                            # Only future dates
+                            event_date = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M")
+                            if event_date > datetime.now():
+                                # Check if this meta tag is within the Der Komet section
+                                parent_element = meta_tag.parent
+                                if parent_element:
+                                    # Look for "Der Komet" in the surrounding context
+                                    context_text = ""
+                                    for i in range(5):  # Check up to 5 levels up
+                                        if parent_element:
+                                            context_text += parent_element.get_text() + " "
+                                            parent_element = parent_element.parent
+                                    
+                                    # Only include if "Der Komet" is mentioned in context
+                                    if re.search(r'der\s+komet|komet', context_text, re.I):
+                                        events.append({
+                                            "date": datetime_str,
+                                            "display_date": f"{day}.{month}.{year}",
+                                            "display_time": f"{hour}:{minute}",
+                                            "ticket_url": url
+                                        })
+                                        print(f"Found Der Komet date: {day}.{month}.{year} {hour}:{minute}")
                 except Exception as e:
-                    print(f"Strategy failed for {url}: {e}")
+                    print(f"Error parsing meta tag: {e}")
                     continue
+            
+            # If no structured data found, try text-based approach
+            if not events:
+                page_text = soup.get_text()
+                
+                # Look for Der Komet specifically in the full page text
+                komet_events = extract_komet_dates_from_page(page_text, url)
+                events.extend(komet_events)
+                
+                # Also try structured approaches
+                strategies = [
+                    # Look for calendar/date containers
+                    lambda soup: soup.find_all(['div', 'section', 'article'], 
+                                             class_=re.compile(r'calendar|spielplan|termine|events', re.I)),
+                    # Look for specific date patterns in links
+                    lambda soup: soup.find_all('a', href=re.compile(r'termin|date|event')),
+                    # Look for table rows that might contain dates
+                    lambda soup: soup.find_all('tr'),
+                ]
+                
+                for strategy in strategies:
+                    try:
+                        elements = strategy(soup)
+                        for element in elements:
+                            events.extend(extract_dates_from_element(element, url))
+                    except Exception as e:
+                        print(f"Strategy failed for {url}: {e}")
+                        continue
                     
         except Exception as e:
             print(f"Error scraping {url}: {e}")

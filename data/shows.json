@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-09-26T06:29:47.667016",
+  "last_updated": "2025-09-27T06:26:06.054099",
   "shows": {
     "la-traviata": {
       "title": "La traviata",
@@ -17,6 +17,12 @@
         {
           "date": "2025-10-02 19:30",
           "display_date": "02.10.2025",
+          "display_time": "19:30",
+          "ticket_url": "https://www.staatsschauspiel-dresden.de/spielplan/a-z/der-komet/"
+        },
+        {
+          "date": "2025-11-20 19:30",
+          "display_date": "20.11.2025",
           "display_time": "19:30",
           "ticket_url": "https://www.staatsschauspiel-dresden.de/spielplan/a-z/der-komet/"
         }

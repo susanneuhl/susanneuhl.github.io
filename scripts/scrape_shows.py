@@ -388,6 +388,7 @@ def scrape_theater_bonn():
     events = []
     
     url = "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198"
+    ticket_url = "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets"
     
     try:
         headers = {
@@ -429,7 +430,7 @@ def scrape_theater_bonn():
                                 "date": datetime_str,
                                 "display_date": f"{day}.{month}.{year}",
                                 "display_time": f"{hour}:{minute}",
-                                "ticket_url": url
+                                "ticket_url": ticket_url
                             })
                             print(f"Found Sankt Falstaff date: {day}.{month}.{year} {hour}:{minute}")
             except Exception as e:
@@ -446,7 +447,7 @@ def scrape_theater_bonn():
                 container_text = container.get_text()
                 # Check if this container is related to Sankt Falstaff
                 if re.search(r'falstaff|sankt', container_text, re.I):
-                    events.extend(extract_dates_from_text(container_text, url))
+                    events.extend(extract_dates_from_text(container_text, ticket_url))
             except Exception as e:
                 print(f"Error parsing container: {e}")
                 continue
@@ -460,7 +461,7 @@ def scrape_theater_bonn():
             try:
                 item_text = item.get_text()
                 # Extract dates from these items
-                events.extend(extract_dates_from_text(item_text, url))
+                events.extend(extract_dates_from_text(item_text, ticket_url))
             except Exception as e:
                 continue
         
@@ -475,12 +476,12 @@ def scrape_theater_bonn():
         if termine_section:
             # Extract dates only from the termine section
             section_text = termine_section.get_text()
-            events.extend(extract_dates_from_text(section_text, url))
+            events.extend(extract_dates_from_text(section_text, ticket_url))
         
         # If no events found with structured approach, try text-based extraction
         if not events:
             page_text = soup.get_text()
-            falstaff_events = extract_falstaff_dates_from_page(page_text, url)
+            falstaff_events = extract_falstaff_dates_from_page(page_text, ticket_url)
             events.extend(falstaff_events)
         
         # Additional strategy: look for links with "karten" (tickets) text
@@ -492,7 +493,7 @@ def scrape_theater_bonn():
                 if parent:
                     context = parent.get_text()
                     if re.search(r'falstaff', context, re.I):
-                        events.extend(extract_dates_from_text(context, url))
+                        events.extend(extract_dates_from_text(context, ticket_url))
             except Exception as e:
                 continue
         

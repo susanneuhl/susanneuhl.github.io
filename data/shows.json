@@ -1,11 +1,11 @@
 {
-  "last_updated": "2025-10-10T19:55:44.431195",
+  "last_updated": "2025-10-10T20:00:05.766157",
   "shows": {
     "sankt-falstaff": {
       "title": "Sankt Falstaff",
       "theater": "Theater Bonn",
       "image": "images/sankt-falstaff.jpg",
-      "base_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198",
+      "base_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets",
       "events": [
         {
           "date": "2025-10-17 19:30",

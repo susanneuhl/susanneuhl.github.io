@@ -527,7 +527,7 @@ def main():
                     "title": "Sankt Falstaff",
                     "theater": "Theater Bonn",
                     "image": "images/sankt-falstaff.jpg",
-                    "base_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198",
+                    "base_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets",
                     "events": scrape_theater_bonn()
                 },
                 "la-traviata": {
@@ -576,7 +576,7 @@ def main():
                     "title": "Sankt Falstaff",
                     "theater": "Theater Bonn",
                     "image": "images/sankt-falstaff.jpg",
-                    "base_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198",
+                    "base_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets",
                     "events": []
                 },
                 "la-traviata": {

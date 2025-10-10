@@ -137,6 +137,10 @@ def extract_dates_from_text(text, base_url):
     """Extract dates from text content"""
     events = []
     
+    # Normalize whitespace to help with multiline dates
+    # Replace multiple whitespaces/newlines with single space
+    normalized_text = re.sub(r'\s+', ' ', text)
+    
     # Enhanced date patterns for German
     patterns = [
         # DD.MM.YYYY with time
@@ -145,28 +149,49 @@ def extract_dates_from_text(text, base_url):
         r'(\d{1,2})\.(\d{1,2})\.(\d{4})',
         # DD. MMM YYYY (e.g., 20. September 2025)
         r'(\d{1,2})\.\s*(Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\s*(\d{4})',
+        # DD MMM YYYY without dot (e.g., 17 Okt 2025)
+        r'(\d{1,2})\s+(Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez|Januar|Februar|März|April|Juni|Juli|August|September|Oktober|November|Dezember)\s+(\d{4})',
+        # DD. MMM without year (e.g., 17. Okt, 19. Nov)
+        r'(\d{1,2})\.\s*(Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez|Januar|Februar|März|April|Juni|Juli|August|September|Oktober|November|Dezember)',
+        # DD MMM without year or dot (e.g., 17 Okt)
+        r'(\d{1,2})\s+(Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez)\s+(?!202)',
     ]
     
     month_map = {
         'Januar': '01', 'Februar': '02', 'März': '03', 'April': '04',
         'Mai': '05', 'Juni': '06', 'Juli': '07', 'August': '08',
-        'September': '09', 'Oktober': '10', 'November': '11', 'Dezember': '12'
+        'September': '09', 'Oktober': '10', 'November': '11', 'Dezember': '12',
+        'Jan': '01', 'Feb': '02', 'Mär': '03', 'Apr': '04',
+        'Jun': '06', 'Jul': '07', 'Aug': '08', 'Sep': '09',
+        'Okt': '10', 'Nov': '11', 'Dez': '12'
     }
     
     for pattern in patterns:
-        matches = re.findall(pattern, text)
+        matches = re.findall(pattern, normalized_text)
         for match in matches:
             try:
                 if len(match) == 5:  # With time
                     day, month, year, hour, minute = match
                     datetime_str = f"{year}-{month.zfill(2)}-{day.zfill(2)} {hour.zfill(2)}:{minute.zfill(2)}"
                     time_display = f"{hour}:{minute}"
-                elif len(match) == 3 and match[1].isalpha():  # Month name
+                elif len(match) == 3 and match[1].isalpha():  # Month name with year
                     day, month_name, year = match
                     month = month_map.get(month_name, '01')
                     datetime_str = f"{year}-{month}-{day.zfill(2)} 19:30"
                     time_display = "19:30"
-                else:  # Without time
+                elif len(match) == 2 and match[1].isalpha():  # Month name without year (e.g., "17. Okt")
+                    day, month_name = match
+                    month = month_map.get(month_name, '01')
+                    # Assume current year or next year if date has passed
+                    current_year = datetime.now().year
+                    datetime_str = f"{current_year}-{month}-{day.zfill(2)} 19:30"
+                    test_date = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M")
+                    if test_date < datetime.now():
+                        # If date has passed, use next year
+                        datetime_str = f"{current_year + 1}-{month}-{day.zfill(2)} 19:30"
+                    year = datetime.strptime(datetime_str.split()[0], "%Y-%m-%d").year
+                    time_display = "19:30"
+                else:  # Without time (DD.MM.YYYY)
                     day, month, year = match[:3]
                     datetime_str = f"{year}-{month.zfill(2)}-{day.zfill(2)} 19:30"
                     time_display = "19:30"
@@ -176,11 +201,11 @@ def extract_dates_from_text(text, base_url):
                 if event_date > datetime.now():
                     events.append({
                         "date": datetime_str,
-                        "display_date": f"{day.zfill(2)}.{month.zfill(2) if month.isdigit() else month_map.get(match[1], '01')}.{year}",
+                        "display_date": f"{day.zfill(2)}.{month.zfill(2) if isinstance(month, str) and month.isdigit() else month_map.get(month_name if 'month_name' in locals() else match[1], '01')}.{year}",
                         "display_time": time_display,
                         "ticket_url": base_url
                     })
-            except:
+            except Exception as e:
                 continue
     
     return events
@@ -358,12 +383,152 @@ def extract_undine_dates_from_page(page_text, base_url):
     
     return events
 
+def scrape_theater_bonn():
+    """Scrape Sankt Falstaff dates from Theater Bonn"""
+    events = []
+    
+    url = "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198"
+    
+    try:
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'de-DE,de;q=0.9,en;q=0.8',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Connection': 'keep-alive',
+            'Cache-Control': 'no-cache'
+        }
+        
+        # Add random delay to avoid being blocked
+        time.sleep(random.uniform(1, 3))
+        
+        response = requests.get(url, headers=headers, timeout=20)
+        response.raise_for_status()
+        
+        soup = BeautifulSoup(response.content, 'html.parser')
+        
+        # Look for structured event data (similar to Dresden approach)
+        # Theater Bonn might use structured data markup
+        meta_tags = soup.find_all('meta', attrs={'itemprop': 'startDate'})
+        for meta_tag in meta_tags:
+            try:
+                start_date = meta_tag.get('content')
+                if start_date:
+                    # Parse ISO format: 2025-10-17T19:30:00
+                    if 'T' in start_date:
+                        date_part, time_part = start_date.split('T')
+                        year, month, day = date_part.split('-')
+                        hour, minute, _ = time_part.split(':')
+                        
+                        datetime_str = f"{year}-{month}-{day} {hour}:{minute}"
+                        
+                        # Only future dates
+                        event_date = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M")
+                        if event_date > datetime.now():
+                            events.append({
+                                "date": datetime_str,
+                                "display_date": f"{day}.{month}.{year}",
+                                "display_time": f"{hour}:{minute}",
+                                "ticket_url": url
+                            })
+                            print(f"Found Sankt Falstaff date: {day}.{month}.{year} {hour}:{minute}")
+            except Exception as e:
+                print(f"Error parsing meta tag: {e}")
+                continue
+        
+        # Try to find event dates in specific containers
+        # Look for date/time patterns in the page
+        date_containers = soup.find_all(['div', 'article', 'section'], 
+                                       class_=re.compile(r'event|termin|date|calendar|spielplan', re.I))
+        
+        for container in date_containers:
+            try:
+                container_text = container.get_text()
+                # Check if this container is related to Sankt Falstaff
+                if re.search(r'falstaff|sankt', container_text, re.I):
+                    events.extend(extract_dates_from_text(container_text, url))
+            except Exception as e:
+                print(f"Error parsing container: {e}")
+                continue
+        
+        # Theater Bonn specific: look for date cards/items in a grid
+        # The dates might be in a list structure with specific classes
+        date_items = soup.find_all(['div', 'li', 'article'], 
+                                   class_=re.compile(r'date|item|card|event-list', re.I))
+        
+        for item in date_items:
+            try:
+                item_text = item.get_text()
+                # Extract dates from these items
+                events.extend(extract_dates_from_text(item_text, url))
+            except Exception as e:
+                continue
+        
+        # Theater Bonn specific: Look for "Termine und Karten" section
+        termine_section = soup.find(['section', 'div'], id=re.compile(r'dates|termine', re.I))
+        if not termine_section:
+            # Try by heading
+            termine_heading = soup.find(['h2', 'h3'], string=re.compile(r'termine.*karten', re.I))
+            if termine_heading:
+                termine_section = termine_heading.find_parent(['section', 'div'])
+        
+        if termine_section:
+            # Extract dates only from the termine section
+            section_text = termine_section.get_text()
+            events.extend(extract_dates_from_text(section_text, url))
+        
+        # If no events found with structured approach, try text-based extraction
+        if not events:
+            page_text = soup.get_text()
+            falstaff_events = extract_falstaff_dates_from_page(page_text, url)
+            events.extend(falstaff_events)
+        
+        # Additional strategy: look for links with "karten" (tickets) text
+        ticket_links = soup.find_all('a', href=re.compile(r'karten|ticket', re.I))
+        for link in ticket_links:
+            try:
+                # Check context around the link
+                parent = link.parent
+                if parent:
+                    context = parent.get_text()
+                    if re.search(r'falstaff', context, re.I):
+                        events.extend(extract_dates_from_text(context, url))
+            except Exception as e:
+                continue
+        
+    except Exception as e:
+        print(f"Error scraping Theater Bonn: {e}")
+    
+    return clean_and_sort_events(events)
+
+def extract_falstaff_dates_from_page(page_text, base_url):
+    """Specifically look for Sankt Falstaff dates in page text"""
+    events = []
+    
+    lines = page_text.split('\n')
+    
+    for i, line in enumerate(lines):
+        # If line mentions "Falstaff" or "Sankt Falstaff", look for dates in surrounding lines
+        if re.search(r'falstaff|sankt\s+falstaff', line, re.I):
+            # Check current line and next few lines for dates
+            search_text = ' '.join(lines[max(0, i-2):i+5])
+            events.extend(extract_dates_from_text(search_text, base_url))
+    
+    return events
+
 def main():
     """Main scraping function"""
     try:
         shows_data = {
             "last_updated": datetime.now().isoformat(),
             "shows": {
+                "sankt-falstaff": {
+                    "title": "Sankt Falstaff",
+                    "theater": "Theater Bonn",
+                    "image": "images/sankt-falstaff.jpg",
+                    "base_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198",
+                    "events": scrape_theater_bonn()
+                },
                 "la-traviata": {
                     "title": "La traviata",
                     "theater": "Staatstheater Braunschweig (Burgplatz Open Air)",
@@ -406,6 +571,13 @@ def main():
         fallback_data = {
             "last_updated": datetime.now().isoformat(),
             "shows": {
+                "sankt-falstaff": {
+                    "title": "Sankt Falstaff",
+                    "theater": "Theater Bonn",
+                    "image": "images/sankt-falstaff.jpg",
+                    "base_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198",
+                    "events": []
+                },
                 "la-traviata": {
                     "title": "La traviata",
                     "theater": "Staatstheater Braunschweig (Burgplatz Open Air)",

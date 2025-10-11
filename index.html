@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- Preload critical above-the-fold images (first image per column) -->
+    <link rel="preload" as="image" href="images/sankt-falstaff.jpg">
+    <link rel="preload" as="image" href="images/der-traumgoerge.jpg">
+    <link rel="preload" as="image" href="images/die-nacht.png">
+    
     <!-- Meta Informationen -->
     <meta name="description" content="Susanne Uhl gestaltet Kostüme für Theater, Oper und Film. Ihre Arbeiten sind u.a. am Deutschen Theater Berlin, der Oper Frankfurt, dem Staatsschauspiel Dresden, der Oper Leipzig, dem Residenztheater München und dem Düsseldorfer Schauspielhaus zu sehen.">
     <meta name="keywords" content="Susanne Uhl, Kostümbild, Theater, Oper, Film, Bühnenbild, Leipzig, Dresden, Berlin, Frankfurt, München, Düsseldorf, Costume Design, Opera, Theatre, Stage Design">
@@ -261,6 +266,47 @@
             font-size: 2em;
             cursor: pointer;
         }
+        
+        /* Back to Top Button */
+        #backToTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            background-color: rgb(179, 118, 118);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        #backToTopBtn:hover {
+            background-color: rgb(150, 100, 100);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        #backToTopBtn.show {
+            display: block;
+            animation: fadeInUp 0.3s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     
         /* Smooth Scroll */
         html {
@@ -320,8 +366,8 @@
                         <a href="https://www.theater-bonn.de/de/programm/sankt-falstaff/221198" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src)">
-                    <img src="images/der-komet.jpg" alt="Kostümbild von Susanne Uhl für Der Komet am Staatsschauspiel Dresden (2025)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src)" data-year="2025" data-month="01">
+                    <img loading="lazy" src="images/der-komet.jpg" alt="Kostümbild von Susanne Uhl für Der Komet am Staatsschauspiel Dresden (2025)">
                     <div class="overlay">
                         <span>Der Komet – Staatsschauspiel Dresden (2025)<br>Foto: Sebastian Hoppe</span>
                         <a href="https://www.staatsschauspiel-dresden.de/spielplan/a-z/der-komet/" target="_blank" class="website-btn">Website</a>
@@ -532,8 +578,8 @@
         <div>
             <h2>Oper</h2>
             <ul>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src)">
-                    <img src="images/der-traumgoerge.jpg" alt="Kostümbild von Susanne Uhl für Der Traumgörge an der Oper Frankfurt (2024)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src)" data-year="2025" data-month="08">
+                    <img loading="lazy" src="images/der-traumgoerge.jpg" alt="Kostümbild von Susanne Uhl für Der Traumgörge an der Oper Frankfurt (2024)">
                     <div class="overlay">
                         <span>Der Traumgörge – Oper Frankfurt (2024)<br>Foto: Barbara Aumüller</span>
                         <a href="https://blog.oper-frankfurt.de/blog/der-traumgoerge" target="_blank" class="website-btn">Website</a>
@@ -613,6 +659,9 @@
         <img id="fullscreenImage" src="" alt="">
     </div>
 
+    <!-- Back to Top Button -->
+    <button id="backToTopBtn" title="Nach oben">↑</button>
+
     <script>
         function openFullscreen(src) {
             const modal = document.getElementById("fullscreenModal");
@@ -637,6 +686,212 @@
             if (event.target === this || event.target.id === "fullscreenImage") {
                 closeFullscreen();
             }
+        });
+
+        // Image optimization functions
+        function supportWebP() {
+            return new Promise((resolve) => {
+                const webP = new Image();
+                webP.onload = webP.onerror = () => resolve(webP.height === 2);
+                webP.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
+            });
+        }
+
+        // Initialize image optimization on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            const supportsWebP = await supportWebP();
+            
+            if (supportsWebP) {
+                // If WebP is supported, try to load WebP versions
+                const images = document.querySelectorAll('img[src*="images/"]');
+                images.forEach(img => {
+                    const webpSrc = img.src.replace(/\.(jpg|jpeg|png)$/, '.webp');
+                    
+                    // Test if WebP version exists
+                    const testImg = new Image();
+                    testImg.onload = () => img.src = webpSrc;
+                    testImg.src = webpSrc;
+                });
+            }
+        });
+
+        // Chronologische Sortierung für mobile Ansicht
+        function sortProjectsChronologically() {
+            const mainContainer = document.querySelector('.main-container');
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile && !mainContainer.classList.contains('chronological-sorted')) {
+                // Sammle alle Projekte mit ihren Jahren
+                const allProjects = [];
+                const columns = mainContainer.querySelectorAll('div');
+                
+                columns.forEach((column, columnIndex) => {
+                    const categoryTitle = column.querySelector('h2');
+                    const projects = column.querySelectorAll('li');
+                    
+                    projects.forEach(project => {
+                        const overlayText = project.querySelector('.overlay span').textContent;
+                        // Versuche zuerst Datenattribute zu verwenden
+                        const dataYear = project.getAttribute('data-year');
+                        const dataMonth = project.getAttribute('data-month');
+                        
+                        let year, month;
+                        if (dataYear) {
+                            year = parseInt(dataYear);
+                            month = dataMonth ? parseInt(dataMonth) : 12; // Default: Dezember
+                        } else {
+                            // Fallback: Text-Parsing
+                            const yearMatch = overlayText.match(/\((\d{4})\)/);
+                            year = yearMatch ? parseInt(yearMatch[1]) : 0;
+                            month = 12; // Default
+                        }
+                        
+                        allProjects.push({
+                            element: project.cloneNode(true),
+                            year: year,
+                            month: month,
+                            category: categoryTitle.textContent,
+                            originalColumn: columnIndex
+                        });
+                    });
+                });
+                
+                // Sortiere chronologisch: Jahr, dann Monat
+                allProjects.sort((a, b) => {
+                    // Primär nach Jahr (neueste zuerst)
+                    if (b.year !== a.year) {
+                        return b.year - a.year;
+                    }
+                    
+                    // Sekundär nach Monat (neueste Premieren zuerst)
+                    return b.month - a.month;
+                });
+                
+                // Erstelle neue einspaltige Struktur
+                mainContainer.innerHTML = '';
+                mainContainer.style.gridTemplateColumns = '1fr';
+                
+                const singleColumn = document.createElement('div');
+                const title = document.createElement('h2');
+                title.textContent = 'Timeline';
+                title.style.marginBottom = '15px';
+                title.style.fontSize = '1.8em';
+                title.style.color = 'rgb(179, 118, 118)';
+                title.style.textAlign = 'center';
+                
+                // Filter-Buttons für mobile Timeline
+                const filterContainer = document.createElement('div');
+                filterContainer.style.cssText = `
+                    display: flex;
+                    justify-content: center;
+                    gap: 10px;
+                    margin-bottom: 20px;
+                    flex-wrap: wrap;
+                `;
+                
+                const filters = ['Alle', 'Schauspiel', 'Oper', 'Film'];
+                filters.forEach((filterName, index) => {
+                    const filterBtn = document.createElement('button');
+                    filterBtn.textContent = filterName;
+                    filterBtn.style.cssText = `
+                        background-color: ${index === 0 ? 'rgb(179, 118, 118)' : 'white'};
+                        color: ${index === 0 ? 'white' : 'rgb(179, 118, 118)'};
+                        border: 1px solid rgb(179, 118, 118);
+                        padding: 8px 12px;
+                        border-radius: 20px;
+                        font-size: 0.9em;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                    `;
+                    
+                    filterBtn.addEventListener('click', function() {
+                        // Alle Buttons zurücksetzen
+                        filterContainer.querySelectorAll('button').forEach(btn => {
+                            btn.style.backgroundColor = 'white';
+                            btn.style.color = 'rgb(179, 118, 118)';
+                        });
+                        
+                        // Aktiven Button markieren
+                        this.style.backgroundColor = 'rgb(179, 118, 118)';
+                        this.style.color = 'white';
+                        
+                        // Projekte filtern
+                        const projectItems = projectList.querySelectorAll('li');
+                        projectItems.forEach(item => {
+                            const categoryBadge = item.querySelector('div').textContent;
+                            if (filterName === 'Alle' || categoryBadge === filterName) {
+                                item.style.display = 'block';
+                            } else {
+                                item.style.display = 'none';
+                            }
+                        });
+                    });
+                    
+                    filterContainer.appendChild(filterBtn);
+                });
+                
+                const projectList = document.createElement('ul');
+                projectList.style.listStyleType = 'none';
+                projectList.style.padding = '0';
+                
+                allProjects.forEach(project => {
+                    const li = project.element;
+                    // Füge Kategorie-Badge hinzu
+                    const categoryBadge = document.createElement('div');
+                    categoryBadge.textContent = project.category;
+                    categoryBadge.style.cssText = `
+                        position: absolute;
+                        top: 10px;
+                        left: 10px;
+                        background-color: rgba(179, 118, 118, 0.9);
+                        color: white;
+                        padding: 4px 8px;
+                        border-radius: 4px;
+                        font-size: 0.8em;
+                        font-weight: bold;
+                        z-index: 10;
+                    `;
+                    li.style.position = 'relative';
+                    li.insertBefore(categoryBadge, li.firstChild);
+                    projectList.appendChild(li);
+                });
+                
+                singleColumn.appendChild(title);
+                singleColumn.appendChild(filterContainer);
+                singleColumn.appendChild(projectList);
+                mainContainer.appendChild(singleColumn);
+                mainContainer.classList.add('chronological-sorted');
+                
+            } else if (!isMobile && mainContainer.classList.contains('chronological-sorted')) {
+                // Lade die Seite neu für Desktop-Ansicht
+                location.reload();
+            }
+        }
+
+        // Back to Top Funktionalität
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Führe Sortierung beim Laden und bei Fenstergrößen-Änderungen aus
+        window.addEventListener('load', sortProjectsChronologically);
+        window.addEventListener('resize', function() {
+            // Debounce für bessere Performance
+            clearTimeout(window.resizeTimeout);
+            window.resizeTimeout = setTimeout(sortProjectsChronologically, 250);
         });
     </script>
     <footer>

@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-10-22T11:37:28.498763",
+  "last_updated": "2025-10-22T11:50:25.016904",
   "shows": {
     "dumme-jahre": {
       "title": "Dumme Jahre",
@@ -82,13 +82,6 @@
           "ticket_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets"
         }
       ]
-    },
-    "la-traviata": {
-      "title": "La traviata",
-      "theater": "Staatstheater Braunschweig (Burgplatz Open Air)",
-      "image": "images/la-traviata.jpg",
-      "base_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542",
-      "events": []
     },
     "der-komet": {
       "title": "Der Komet",

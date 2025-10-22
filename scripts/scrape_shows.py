@@ -337,102 +337,6 @@ def scrape_dnt_weimar_dumme_jahre():
 
     return clean_and_sort_events(events)
 
-def scrape_staatstheater_braunschweig():
-    """Scrape La traviata dates from Staatstheater Braunschweig"""
-    events = []
-    
-    url = "https://staatstheater-braunschweig.de/produktion/la-traviata-8542"
-    
-    try:
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            'Accept-Language': 'de-DE,de;q=0.9,en;q=0.8',
-            'Cache-Control': 'no-cache'
-        }
-        
-        # Add random delay
-        time.sleep(random.uniform(1, 3))
-        
-        response = requests.get(url, headers=headers, timeout=20)
-        response.raise_for_status()
-        
-        soup = BeautifulSoup(response.content, 'html.parser')
-        
-        # Look for specific event list structure
-        event_items = soup.find_all('div', class_='production-eventlist-item')
-        
-        for item in event_items:
-            try:
-                # Extract date
-                date_div = item.find('div', class_='production-eventlist-date')
-                if date_div:
-                    date_text = date_div.get_text(strip=True)
-                    # Remove day abbreviation (Mi, Do, etc.)
-                    date_text = re.sub(r'^[A-Za-z]{2}\s*', '', date_text)
-                    
-                    # Extract time
-                    time_div = item.find('div', class_='production-eventlist-date')
-                    time_text = "19:30"  # Default time
-                    
-                    # Parse date
-                    if re.match(r'\d{2}\.\d{2}\.\d{4}', date_text):
-                        day, month, year = date_text.split('.')
-                        datetime_str = f"{year}-{month}-{day} {time_text}"
-                        
-                        # Only future dates
-                        event_date = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M")
-                        if event_date > datetime.now():
-                            events.append({
-                                "date": datetime_str,
-                                "display_date": f"{day}.{month}.{year}",
-                                "display_time": time_text,
-                                "ticket_url": url
-                            })
-            except Exception as e:
-                print(f"Error parsing event item: {e}")
-                continue
-        
-        # If no events found via structured parsing, try text-based approach
-        if not events:
-            page_text = soup.get_text()
-            traviata_events = extract_traviata_dates_from_page(page_text, url)
-            events.extend(traviata_events)
-            
-            # Try additional scraping strategies
-            strategies = [
-                lambda soup: soup.find_all(['div', 'section'], class_=re.compile(r'calendar|spielplan|termine', re.I)),
-                lambda soup: soup.find_all('a', href=re.compile(r'termin|date|event')),
-                lambda soup: soup.find_all('tr'),
-            ]
-            
-            for strategy in strategies:
-                try:
-                    elements = strategy(soup)
-                    for element in elements:
-                        events.extend(extract_dates_from_element(element, url))
-                except Exception as e:
-                    print(f"Strategy failed for Braunschweig: {e}")
-                    continue
-        
-    except Exception as e:
-        print(f"Error scraping Staatstheater Braunschweig: {e}")
-    
-    return clean_and_sort_events(events)
-
-def extract_traviata_dates_from_page(page_text, base_url):
-    """Specifically look for La traviata dates in page text"""
-    events = []
-    
-    lines = page_text.split('\n')
-    
-    for i, line in enumerate(lines):
-        if re.search(r'la\s+traviata|traviata', line, re.I):
-            search_text = ' '.join(lines[max(0, i-2):i+5])
-            events.extend(extract_dates_from_text(search_text, base_url))
-    
-    return events
-
 def scrape_oper_leipzig():
     """Scrape Undine dates from Oper Leipzig"""
     events = []
@@ -648,13 +552,6 @@ def main():
                     "base_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets",
                     "events": scrape_theater_bonn()
                 },
-                "la-traviata": {
-                    "title": "La traviata",
-                    "theater": "Staatstheater Braunschweig (Burgplatz Open Air)",
-                    "image": "images/la-traviata.jpg",
-                    "base_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542",
-                    "events": scrape_staatstheater_braunschweig()
-                },
                 "der-komet": {
                     "title": "Der Komet",
                     "theater": "Staatsschauspiel Dresden",
@@ -695,13 +592,6 @@ def main():
                     "theater": "Theater Bonn",
                     "image": "images/sankt-falstaff.jpg",
                     "base_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets",
-                    "events": []
-                },
-                "la-traviata": {
-                    "title": "La traviata",
-                    "theater": "Staatstheater Braunschweig (Burgplatz Open Air)",
-                    "image": "images/la-traviata.jpg",
-                    "base_url": "https://staatstheater-braunschweig.de/produktion/la-traviata-8542",
                     "events": []
                 },
                 "der-komet": {

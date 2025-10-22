@@ -12,6 +12,22 @@ from datetime import datetime, timedelta
 import os
 import time
 import random
+from urllib.parse import urljoin
+
+MONTH_MAP = {
+    'januar': '01', 'jan': '01',
+    'februar': '02', 'feb': '02',
+    'märz': '03', 'maerz': '03', 'mär': '03', 'maer': '03',
+    'april': '04', 'apr': '04',
+    'mai': '05',
+    'juni': '06', 'jun': '06',
+    'juli': '07', 'jul': '07',
+    'august': '08', 'aug': '08',
+    'september': '09', 'sept': '09', 'sep': '09',
+    'oktober': '10', 'okt': '10',
+    'november': '11', 'nov': '11',
+    'dezember': '12', 'dez': '12'
+}
 
 def scrape_staatsschauspiel_dresden():
     """Scrape Der Komet dates from Staatsschauspiel Dresden"""
@@ -225,6 +241,101 @@ def clean_and_sort_events(events):
             seen_dates.add(event['date'])
     
     return unique_events[:20]
+
+
+def parse_german_date(date_text):
+    """Parse German date text like '29. November 2025' into ISO format date"""
+    # Normalize whitespace
+    clean_text = re.sub(r'\s+', ' ', date_text.strip())
+
+    # Match formats like '29. November 2025'
+    match = re.search(r'(\d{1,2})\.\s*([A-Za-zäöüÄÖÜ]+)\s*(\d{4})', clean_text)
+    if not match:
+        return None
+
+    day, month_name, year = match.groups()
+    month_key = month_name.lower()
+
+    # Normalize umlauts for lookup
+    month_key = month_key.replace('ä', 'ae').replace('ö', 'oe').replace('ü', 'ue')
+
+    month = MONTH_MAP.get(month_key)
+    if not month:
+        return None
+
+    return f"{year}-{month}-{day.zfill(2)}"
+
+
+def extract_time(text):
+    """Extract time like '19.30 Uhr' or '19:30 Uhr'"""
+    match = re.search(r'(\d{1,2})[\.:](\d{2})', text)
+    if not match:
+        return "19:30"
+
+    hour, minute = match.groups()
+    return f"{hour.zfill(2)}:{minute.zfill(2)}"
+
+
+def scrape_dnt_weimar_dumme_jahre():
+    """Scrape Dumme Jahre dates from DNT Weimar"""
+    events = []
+
+    url = "https://www.dnt-weimar.de/de/programm/stueck-detail.php?SID=3520"
+
+    try:
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'de-DE,de;q=0.9,en;q=0.8',
+            'Cache-Control': 'no-cache'
+        }
+
+        time.sleep(random.uniform(1, 3))
+
+        response = requests.get(url, headers=headers, timeout=20)
+        response.raise_for_status()
+
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        event_container = soup.find('div', id='event-tickets')
+        if event_container:
+            for item in event_container.find_all('div', class_=re.compile(r'event-date-item')):
+                try:
+                    text = item.get_text(separator=' ', strip=True)
+                    if not text:
+                        continue
+
+                    date_str = parse_german_date(text)
+                    if not date_str:
+                        continue
+
+                    time_str = extract_time(text)
+
+                    event_datetime = datetime.strptime(f"{date_str} {time_str}", "%Y-%m-%d %H:%M")
+                    if event_datetime <= datetime.now():
+                        continue
+
+                    ticket_link = item.find('a', href=True)
+                    ticket_url = urljoin(url, ticket_link['href']) if ticket_link else url
+
+                    events.append({
+                        "date": f"{date_str} {time_str}",
+                        "display_date": datetime.strftime(event_datetime, "%d.%m.%Y"),
+                        "display_time": time_str,
+                        "ticket_url": ticket_url
+                    })
+                except Exception as e:
+                    print(f"Error parsing DNT event item: {e}")
+                    continue
+
+        if not events:
+            page_text = soup.get_text()
+            events.extend(extract_dates_from_text(page_text, url))
+
+    except Exception as e:
+        print(f"Error scraping DNT Weimar: {e}")
+
+    return clean_and_sort_events(events)
 
 def scrape_staatstheater_braunschweig():
     """Scrape La traviata dates from Staatstheater Braunschweig"""
@@ -523,6 +634,13 @@ def main():
         shows_data = {
             "last_updated": datetime.now().isoformat(),
             "shows": {
+                "dumme-jahre": {
+                    "title": "Dumme Jahre",
+                    "theater": "Deutsches Nationaltheater Weimar",
+                    "image": "images/dumme-jahre.jpg",
+                    "base_url": "https://www.dnt-weimar.de/de/programm/stueck-detail.php?SID=3520#event-tickets",
+                    "events": scrape_dnt_weimar_dumme_jahre()
+                },
                 "sankt-falstaff": {
                     "title": "Sankt Falstaff",
                     "theater": "Theater Bonn",

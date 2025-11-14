@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-11-13T06:32:57.332402",
+  "last_updated": "2025-11-14T06:32:41.154721",
   "shows": {
     "dumme-jahre": {
       "title": "Dumme Jahre",
@@ -33,12 +33,6 @@
       "image": "images/sankt-falstaff.jpg",
       "base_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets",
       "events": [
-        {
-          "date": "2025-11-13 19:30",
-          "display_date": "13.11.2025",
-          "display_time": "19:30",
-          "ticket_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets"
-        },
         {
           "date": "2025-11-27 19:30",
           "display_date": "27.11.2025",

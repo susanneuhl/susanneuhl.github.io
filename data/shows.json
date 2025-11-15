@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-11-14T06:32:41.154721",
+  "last_updated": "2025-11-15T06:29:08.113416",
   "shows": {
     "dumme-jahre": {
       "title": "Dumme Jahre",
@@ -24,6 +24,12 @@
           "display_date": "30.12.2025",
           "display_time": "19:30",
           "ticket_url": "https://tickets.dnt-weimar.de/de/buyingflow/tickets/15524/35151/"
+        },
+        {
+          "date": "2026-01-09 19:30",
+          "display_date": "09.01.2026",
+          "display_time": "19:30",
+          "ticket_url": "https://www.dnt-weimar.de/de/programm/stueck-detail.php?SID=3520"
         }
       ]
     },

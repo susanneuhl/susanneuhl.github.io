@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-10-22T11:50:25.016904",
+  "last_updated": "2025-11-24T06:33:34.292815",
   "shows": {
     "dumme-jahre": {
       "title": "Dumme Jahre",
@@ -11,19 +11,25 @@
           "date": "2025-11-29 19:30",
           "display_date": "29.11.2025",
           "display_time": "19:30",
-          "ticket_url": "https://www.dnt-weimar.de/de/karten/karten-uebersicht.php?TID=3958455"
+          "ticket_url": "https://tickets.dnt-weimar.de/de/buyingflow/tickets/15524/35149/"
         },
         {
           "date": "2025-12-06 19:30",
           "display_date": "06.12.2025",
           "display_time": "19:30",
-          "ticket_url": "https://www.dnt-weimar.de/de/karten/karten-uebersicht.php?TID=3958510"
+          "ticket_url": "https://tickets.dnt-weimar.de/de/buyingflow/tickets/15524/35150/"
         },
         {
           "date": "2025-12-30 19:30",
           "display_date": "30.12.2025",
           "display_time": "19:30",
-          "ticket_url": "https://www.dnt-weimar.de/de/karten/karten-uebersicht.php?TID=3958503"
+          "ticket_url": "https://tickets.dnt-weimar.de/de/buyingflow/tickets/15524/35151/"
+        },
+        {
+          "date": "2026-01-09 19:30",
+          "display_date": "09.01.2026",
+          "display_time": "19:30",
+          "ticket_url": "https://tickets.dnt-weimar.de/de/buyingflow/tickets/15524/36346/"
         }
       ]
     },
@@ -33,30 +39,6 @@
       "image": "images/sankt-falstaff.jpg",
       "base_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets",
       "events": [
-        {
-          "date": "2025-10-25 19:30",
-          "display_date": "25.10.2025",
-          "display_time": "19:30",
-          "ticket_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets"
-        },
-        {
-          "date": "2025-10-31 19:30",
-          "display_date": "31.10.2025",
-          "display_time": "19:30",
-          "ticket_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets"
-        },
-        {
-          "date": "2025-11-08 19:30",
-          "display_date": "08.11.2025",
-          "display_time": "19:30",
-          "ticket_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets"
-        },
-        {
-          "date": "2025-11-13 19:30",
-          "display_date": "13.11.2025",
-          "display_time": "19:30",
-          "ticket_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets"
-        },
         {
           "date": "2025-11-27 19:30",
           "display_date": "27.11.2025",
@@ -76,6 +58,12 @@
           "ticket_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets"
         },
         {
+          "date": "2026-01-16 19:30",
+          "display_date": "16.01.2026",
+          "display_time": "19:30",
+          "ticket_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets"
+        },
+        {
           "date": "2026-10-17 19:30",
           "display_date": "17.10.2026",
           "display_time": "19:30",
@@ -90,8 +78,8 @@
       "base_url": "https://tickets.staatsschauspiel-dresden.de/webshop/webticket/eventlist?production=709",
       "events": [
         {
-          "date": "2025-11-20 19:30",
-          "display_date": "20.11.2025",
+          "date": "2025-12-22 19:30",
+          "display_date": "22.12.2025",
           "display_time": "19:30",
           "ticket_url": "https://www.staatsschauspiel-dresden.de/spielplan/a-z/der-komet/"
         }

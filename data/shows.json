@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-11-28T06:33:58.565143",
+  "last_updated": "2025-11-29T06:30:44.517819",
   "shows": {
     "dumme-jahre": {
       "title": "Dumme Jahre",
@@ -75,6 +75,12 @@
           "date": "2025-12-22 19:30",
           "display_date": "22.12.2025",
           "display_time": "19:30",
+          "ticket_url": "https://www.staatsschauspiel-dresden.de/spielplan/a-z/der-komet/"
+        },
+        {
+          "date": "2026-01-04 19:00",
+          "display_date": "04.01.2026",
+          "display_time": "19:00",
           "ticket_url": "https://www.staatsschauspiel-dresden.de/spielplan/a-z/der-komet/"
         }
       ]

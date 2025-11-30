@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-11-29T06:30:44.517819",
+  "last_updated": "2025-11-30T06:32:00.035906",
   "shows": {
     "dumme-jahre": {
       "title": "Dumme Jahre",
@@ -7,12 +7,6 @@
       "image": "images/dumme-jahre.jpg",
       "base_url": "https://www.dnt-weimar.de/de/programm/stueck-detail.php?SID=3520#event-tickets",
       "events": [
-        {
-          "date": "2025-11-29 19:30",
-          "display_date": "29.11.2025",
-          "display_time": "19:30",
-          "ticket_url": "https://tickets.dnt-weimar.de/de/buyingflow/tickets/15524/35149/"
-        },
         {
           "date": "2025-12-06 19:30",
           "display_date": "06.12.2025",

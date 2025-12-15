@@ -61,7 +61,7 @@ hr {
 .project-column ul li {
     margin-bottom: 20px;
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: 0;
 }
 
 .project-column ul li a {
@@ -69,7 +69,7 @@ hr {
     display: block;
     text-decoration: none;
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: 0;
 }
 
 /* Bilddarstellung mit fester Größe */
@@ -77,7 +77,7 @@ hr {
     width: 180px;
     height: 250px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
 }
@@ -106,12 +106,26 @@ hr {
     padding: 10px;
     transition: opacity 0.5s ease, transform 0.5s ease;
     transition-delay: 0.4s; /* Verzögerung, damit das Bild zuerst skaliert */
-    border-radius: 8px;
+    border-radius: 0;
 }
 
 .project-column ul li a:hover .overlay {
     opacity: 1;
     transform: scale(1.08); /* Leichter Zoom-Effekt beim Einblenden */
+}
+
+/* Fotografen-Credits in Bildern */
+.image-credit {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    color: white;
+    font-size: 0.65em;
+    font-weight: 300;
+    opacity: 0.8;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    z-index: 2;
 }
 
 /* ============================
@@ -123,7 +137,7 @@ dialog::backdrop {
 
 dialog {
     border: none;
-    border-radius: 8px;
+    border-radius: 0;
     padding: 0;
     max-width: 80%;
     max-height: 80%;
@@ -132,7 +146,7 @@ dialog {
 dialog img {
     width: 100%;
     height: auto;
-    border-radius: 8px;
+    border-radius: 0;
 }
 
 dialog .close {
@@ -372,7 +386,7 @@ dialog .close {
     margin: 40px auto;
     padding: 20px;
     background-color: #f9f9f9;
-    border-radius: 8px;
+    border-radius: 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 

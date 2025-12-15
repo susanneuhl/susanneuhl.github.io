@@ -260,9 +260,11 @@ dialog .close {
 
 /* Profilfoto auf About-Seite */
 .profile-photo {
+    position: relative;
     text-align: center;
     margin: 40px auto 50px;
-    max-width: 100%;
+    max-width: 670px;
+    width: 100%;
 }
 
 .profile-photo img {
@@ -271,9 +273,22 @@ dialog .close {
     width: 100%;
     height: auto;
     object-fit: cover;
-    object-position: center 40%;
+    object-position: center 47%;
     border-radius: 0;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: block;
+}
+
+.photo-credit {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: white;
+    font-size: 0.75em;
+    font-weight: 300;
+    opacity: 0.8;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
 }
 
 /* Responsive: kleinere Margins auf Mobilgeräten */

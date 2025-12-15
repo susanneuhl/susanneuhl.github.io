@@ -2,7 +2,7 @@
    Allgemeine Stile
 ============================ */
 body {
-    background-color: #e0dfe3;
+    background-color: #efefef;
     margin: 0;
     font-family: Arial, sans-serif;
     color: #333333;
@@ -246,9 +246,9 @@ dialog .close {
    Biografie-Abschnitt
 ============================ */
 .biography {
-    max-width: 800px; /* Begrenzte Breite für bessere Lesbarkeit */
+    max-width: 650px; /* Schmalere Breite für bessere Lesbarkeit */
     margin: 40px auto; /* Zentriert den Text horizontal */
-    padding: 0 20px; /* Innenabstand links und rechts */
+    padding: 0 60px; /* Mehr Innenabstand links und rechts */
     line-height: 1.6; /* Angenehme Zeilenhöhe */
     color: #333333; /* Gut lesbare Textfarbe */
     font-size: 1em; /* Standard-Schriftgröße */
@@ -256,6 +256,39 @@ dialog .close {
 
 .biography p {
     margin-bottom: 20px; /* Abstand zwischen den Absätzen */
+}
+
+/* Profilfoto auf About-Seite */
+.profile-photo {
+    text-align: center;
+    margin: 40px auto 50px;
+    max-width: 100%;
+}
+
+.profile-photo img {
+    max-width: 670px;
+    max-height: 670px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: center 40%;
+    border-radius: 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive: kleinere Margins auf Mobilgeräten */
+@media (max-width: 768px) {
+    .biography {
+        padding: 0 30px;
+    }
+    
+    .profile-photo {
+        margin: 40px auto 40px;
+    }
+    
+    .profile-photo img {
+        max-width: 100%;
+    }
 }
 
 /* ============================

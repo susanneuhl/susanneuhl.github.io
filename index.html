@@ -796,33 +796,6 @@
             }
         });
 
-        // Image optimization functions
-        function supportWebP() {
-            return new Promise((resolve) => {
-                const webP = new Image();
-                webP.onload = webP.onerror = () => resolve(webP.height === 2);
-                webP.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
-            });
-        }
-
-        // Initialize image optimization on page load
-        document.addEventListener('DOMContentLoaded', async () => {
-            const supportsWebP = await supportWebP();
-            
-            if (supportsWebP) {
-                // If WebP is supported, try to load WebP versions
-                const images = document.querySelectorAll('img[src*="images/"]');
-                images.forEach(img => {
-                    const webpSrc = img.src.replace(/\.(jpg|jpeg|png)$/, '.webp');
-                    
-                    // Test if WebP version exists
-                    const testImg = new Image();
-                    testImg.onload = () => img.src = webpSrc;
-                    testImg.src = webpSrc;
-                });
-            }
-        });
-
         // Chronologische Sortierung für mobile Ansicht
         function sortProjectsChronologically() {
             const mainContainer = document.querySelector('.main-container');

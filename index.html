@@ -760,7 +760,19 @@
             const image = document.getElementById("fullscreenImage");
             const modalCredit = document.getElementById("modalCredit");
             
-            image.src = src;
+            // Versuche AVIF Version zu finden falls <picture> Element vorhanden
+            let imageSrc = src;
+            if (element) {
+                const picture = element.querySelector('picture');
+                if (picture) {
+                    const avifSource = picture.querySelector('source[type="image/avif"]');
+                    if (avifSource && avifSource.srcset) {
+                        imageSrc = avifSource.srcset;
+                    }
+                }
+            }
+            
+            image.src = imageSrc;
             
             // Credit übernehmen falls vorhanden
             if (element) {

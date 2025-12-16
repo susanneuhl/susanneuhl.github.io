@@ -316,6 +316,8 @@ dialog .close {
     
     .profile-photo img {
         max-width: 100%;
+        aspect-ratio: auto;
+        height: auto;
     }
 }
 

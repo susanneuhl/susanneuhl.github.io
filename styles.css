@@ -278,15 +278,13 @@ dialog .close {
     position: relative;
     text-align: center;
     margin: 40px auto 50px;
-    max-width: 670px;
+    max-width: min(670px, 90vw, 80vh);
     width: 100%;
 }
 
 .profile-photo img {
-    max-width: 670px;
-    max-height: 670px;
     width: 100%;
-    height: auto;
+    aspect-ratio: 1;
     object-fit: cover;
     object-position: center 47%;
     border-radius: 0;

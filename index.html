@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Preload critical above-the-fold images (first image per column) -->
-    <link rel="preload" as="image" href="images/compressed/sankt-falstaff.jpg">
-    <link rel="preload" as="image" href="images/der-traumgoerge.jpg">
-    <link rel="preload" as="image" href="images/die-nacht.png">
+    <link rel="preload" as="image" href="images/thumbs/sankt-falstaff.avif">
+    <link rel="preload" as="image" href="images/thumbs/der-traumgoerge.avif">
+    <link rel="preload" as="image" href="images/thumbs/die-nacht.avif">
     
     <!-- Meta Informationen -->
     <meta name="description" content="Susanne Uhl gestaltet Kostüme für Theater, Oper und Film. Ihre Arbeiten sind u.a. am Deutschen Theater Berlin, der Oper Frankfurt, dem Staatsschauspiel Dresden, der Oper Leipzig, dem Residenztheater München und dem Düsseldorfer Schauspielhaus zu sehen.">
@@ -378,10 +378,10 @@
         <div>
             <h2>Schauspiel</h2>
             <ul>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/sankt-falstaff.avif">
                     <picture>
-                        <source srcset="images/compressed/sankt-falstaff.avif" type="image/avif">
-                        <img decoding="async" src="images/compressed/sankt-falstaff.jpg" alt="Kostümbild von Susanne Uhl für Sankt Falstaff am Theater Bonn (2025)">
+                        <source srcset="images/thumbs/sankt-falstaff.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" src="images/thumbs/sankt-falstaff.jpg" alt="Kostümbild von Susanne Uhl für Sankt Falstaff am Theater Bonn (2025)">
                     </picture>
                     <span class="image-credit">© Matthias Jung</span>
                     <div class="overlay">
@@ -389,10 +389,10 @@
                         <a href="https://www.theater-bonn.de/de/programm/sankt-falstaff/221198" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-year="2025" data-month="01">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-year="2025" data-month="01" data-full-avif="images/compressed/der-komet.avif">
                     <picture>
-                        <source srcset="images/compressed/der-komet.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/der-komet.jpg" alt="Kostümbild von Susanne Uhl für Der Komet am Staatsschauspiel Dresden (2025)">
+                        <source srcset="images/thumbs/der-komet.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/der-komet.jpg" alt="Kostümbild von Susanne Uhl für Der Komet am Staatsschauspiel Dresden (2025)">
                     </picture>
                     <span class="image-credit">© Sebastian Hoppe</span>
                     <div class="overlay">
@@ -400,10 +400,10 @@
                         <a href="https://www.staatsschauspiel-dresden.de/spielplan/a-z/der-komet/" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/dumme-jahre.avif">
                     <picture>
-                        <source srcset="images/compressed/dumme-jahre.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/dumme-jahre.jpg" alt="Kostümbild von Susanne Uhl für Dumme Jahre am Nationaltheater Weimar (2024)">
+                        <source srcset="images/thumbs/dumme-jahre.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/dumme-jahre.jpg" alt="Kostümbild von Susanne Uhl für Dumme Jahre am Nationaltheater Weimar (2024)">
                     </picture>
                     <span class="image-credit">© Candy Wels</span>
                     <div class="overlay">
@@ -411,10 +411,10 @@
                         <a href="https://www.nationaltheater-weimar.de/de/programm/stueck-detail.php?SID=3520" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/das-leben-ist-ein-traum.avif">
                     <picture>
-                        <source srcset="images/compressed/das-leben-ist-ein-traum.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/das-leben-ist-ein-traum.jpg" alt="Kostümbild von Susanne Uhl für Das Leben ist ein Traum am Staatsschauspiel Dresden (2023)">
+                        <source srcset="images/thumbs/das-leben-ist-ein-traum.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/das-leben-ist-ein-traum.jpg" alt="Kostümbild von Susanne Uhl für Das Leben ist ein Traum am Staatsschauspiel Dresden (2023)">
                     </picture>
                     <span class="image-credit">© Sebastian Hoppe</span>
                     <div class="overlay">
@@ -422,10 +422,10 @@
                         <a href="https://www.staatsschauspiel-dresden.de/spielplan/archive/d/das-leben-ist-traum/" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/von-schlechten-eltern.avif">
                     <picture>
-                        <source srcset="images/compressed/von-schlechten-eltern.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/von-schlechten-eltern.jpg" alt="Kostümbild von Susanne Uhl für Von schlechten Eltern an den Bühnen Bern (2021)">
+                        <source srcset="images/thumbs/von-schlechten-eltern.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/von-schlechten-eltern.jpg" alt="Kostümbild von Susanne Uhl für Von schlechten Eltern an den Bühnen Bern (2021)">
                     </picture>
                     <span class="image-credit">© Unbekannt</span>
                     <div class="overlay">
@@ -433,10 +433,10 @@
                         <a href="https://buehnenbern.ch/spielplan/programm/von-schlechten-eltern/" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>                
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/kleiner-mann-was-nun.avif">
                     <picture>
-                        <source srcset="images/compressed/kleiner-mann-was-nun.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/kleiner-mann-was-nun.jpg" alt="Kostümbild von Susanne Uhl für Kleiner Mann was nun am Düsseldorfer Schauspielhaus (2021)">
+                        <source srcset="images/thumbs/kleiner-mann-was-nun.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/kleiner-mann-was-nun.jpg" alt="Kostümbild von Susanne Uhl für Kleiner Mann was nun am Düsseldorfer Schauspielhaus (2021)">
                     </picture>
                     <span class="image-credit">© Thomas Rabsch</span>
                     <div class="overlay">
@@ -444,10 +444,10 @@
                         <a href="https://www.dhaus.de/programm/archiv/k/kleiner-mann-was-nun/" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/stummes-land.avif">
                     <picture>
-                        <source srcset="images/compressed/stummes-land.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/stummes-land.jpg" alt="Kostümbild von Susanne Uhl für Stummes Land am Staatsschauspiel Dresden (2020)">
+                        <source srcset="images/thumbs/stummes-land.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/stummes-land.jpg" alt="Kostümbild von Susanne Uhl für Stummes Land am Staatsschauspiel Dresden (2020)">
                     </picture>
                     <span class="image-credit">© Sebastian Hoppe</span>
                     <div class="overlay">
@@ -455,18 +455,21 @@
                         <a href="https://www.staatsschauspiel-dresden.de/spielplan/archive/s/stummes-land/" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>  
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
-                    <img decoding="async" loading="lazy" src="images/der-riss.jpg" alt="Kostümbild von Susanne Uhl für Der Riss durch die Welt am Residenztheater München (2020)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/thumbs/der-riss.avif">
+                    <picture>
+                        <source srcset="images/thumbs/der-riss.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/der-riss.jpg" alt="Kostümbild von Susanne Uhl für Der Riss durch die Welt am Residenztheater München (2020)">
+                    </picture>
                     <span class="image-credit">© Unbekannt</span>
                     <div class="overlay">
                         <span>Der Riss durch die Welt – Residenztheater München (2020)</span>
                         <a href="https://www.residenztheater.de/stuecke/detail/der-riss-durch-die-welt" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/das-grosse-heft.avif">
                     <picture>
-                        <source srcset="images/compressed/das-grosse-heft.avif" type="image/avif">
-                        <img decoding="async" loading="lazy" src="images/compressed/das-grosse-heft.jpg" alt="Kostümbild von Susanne Uhl für Das große Heft am Theater Basel (2019)">
+                        <source srcset="images/thumbs/das-grosse-heft.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/das-grosse-heft.jpg" alt="Kostümbild von Susanne Uhl für Das große Heft am Theater Basel (2019)">
                     </picture>
                     <span class="image-credit">© Unbekannt</span>
                     <div class="overlay">
@@ -474,10 +477,10 @@
                         <a href="https://archiv.theater-basel.ch/2019-20/das-grosse-heft" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>                  
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/Coriolan.avif">
                     <picture>
-                        <source srcset="images/compressed/Coriolan.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/Coriolan.jpg" alt="Kostümbild von Susanne Uhl für Coriolan am Düsseldorfer Schauspielhaus (2019)">
+                        <source srcset="images/thumbs/Coriolan.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/Coriolan.jpg" alt="Kostümbild von Susanne Uhl für Coriolan am Düsseldorfer Schauspielhaus (2019)">
                     </picture>
                     <span class="image-credit">© Sandra Then</span>
                     <div class="overlay">
@@ -485,10 +488,10 @@
                         <a href="https://www.dhaus.de/programm/archiv/c/coriolan/" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/medea-stimmen.avif">
                     <picture>
-                        <source srcset="images/compressed/medea-stimmen.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/medea-stimmen.jpg" alt="Kostümbild von Susanne Uhl für Medea. Stimmen am Deutschen Theater Berlin (2018)">
+                        <source srcset="images/thumbs/medea-stimmen.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/medea-stimmen.jpg" alt="Kostümbild von Susanne Uhl für Medea. Stimmen am Deutschen Theater Berlin (2018)">
                     </picture>
                     <span class="image-credit">© Arno Declair</span>
                     <div class="overlay">
@@ -496,10 +499,10 @@
                         <a href="https://www.fidena.de/die-szene/kritiken-portraits-podcasts/aktuelle-kritik/mn_45219?mode=object&objectid=b4b15113_d1ee_455b_fc78e814e8f74de8" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>   
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/das-versprechen.avif">
                     <picture>
-                        <source srcset="images/compressed/das-versprechen.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/das-versprechen.jpg" alt="Kostümbild von Susanne Uhl für Das Versprechen am Düsseldorfer Schauspielhaus (2017)">
+                        <source srcset="images/thumbs/das-versprechen.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/das-versprechen.jpg" alt="Kostümbild von Susanne Uhl für Das Versprechen am Düsseldorfer Schauspielhaus (2017)">
                     </picture>
                     <span class="image-credit">© Matthias Horn</span>
                     <div class="overlay">
@@ -508,10 +511,10 @@
                     </div>
                 </li>
                 </li>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/buch-berlin.avif">
                     <picture>
-                        <source srcset="images/compressed/buch-berlin.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/buch-berlin.jpeg" alt="Kostümbild von Susanne Uhl für Buch. Berlin am Deutschen Theater Berlin (2016)">
+                        <source srcset="images/thumbs/buch-berlin.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/buch-berlin.jpg" alt="Kostümbild von Susanne Uhl für Buch. Berlin am Deutschen Theater Berlin (2016)">
                     </picture>
                     <span class="image-credit">© Arno Declair</span>
                     <div class="overlay">
@@ -519,10 +522,10 @@
                         <a href="https://www.tagesspiegel.de/kultur/der-mensch-bleibt-laie-3758791.html" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>                                                                 
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/mutter.avif">
                     <picture>
-                        <source srcset="images/compressed/mutter.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/mutter.jpg" alt="Kostümbild von Susanne Uhl für Die Mutter an der Schaubühne Berlin (2016)">
+                        <source srcset="images/thumbs/mutter.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/mutter.jpg" alt="Kostümbild von Susanne Uhl für Die Mutter an der Schaubühne Berlin (2016)">
                     </picture>
                     <span class="image-credit">© Gianmarco Bresadola</span>
                     <div class="overlay">
@@ -530,10 +533,10 @@
                         <a href="https://www.schaubuehne.de/de/produktionen/die-mutter.html" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/dantons-tod.avif">
                     <picture>
-                        <source srcset="images/compressed/dantons-tod.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/dantons-tod.jpg" alt="Kostümbild von Susanne Uhl für Dantons Tod an der Schaubühne Berlin (2016)">
+                        <source srcset="images/thumbs/dantons-tod.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/dantons-tod.jpg" alt="Kostümbild von Susanne Uhl für Dantons Tod an der Schaubühne Berlin (2016)">
                     </picture>
                     <span class="image-credit">© Holger Jacobs</span>
                     <div class="overlay">
@@ -541,18 +544,21 @@
                         <a href="https://kultur24-berlin.de/dantons-tod-der-schaubuehne-berlin/" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
-                    <img decoding="async" loading="lazy" src="images/jungfrau.jpg" alt="Kostümbild von Susanne Uhl für Die Jungfrau von Orleans am Deutschen Schauspielhaus Hamburg (2015)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/thumbs/jungfrau.avif">
+                    <picture>
+                        <source srcset="images/thumbs/jungfrau.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/jungfrau.jpg" alt="Kostümbild von Susanne Uhl für Die Jungfrau von Orleans am Deutschen Schauspielhaus Hamburg (2015)">
+                    </picture>
                     <span class="image-credit">© Matthias Horn</span>
                     <div class="overlay">
                         <span>Die Jungfrau von Orleans – Deutsches Schauspielhaus Hamburg (2015)</span>
                         <a href="https://www.welt.de/kultur/buehne-konzert/article148352851/Der-Heilige-Krieg-ist-die-normalste-Sache-der-Welt.html" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>                                
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/mass-fuer-mass.avif">
                     <picture>
-                        <source srcset="images/compressed/mass-fuer-mass.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/mass-fuer-mass.jpg" alt="Kostümbild von Susanne Uhl für Maß für Maß am Staatsschauspiel Dresden (2015)">
+                        <source srcset="images/thumbs/mass-fuer-mass.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/mass-fuer-mass.jpg" alt="Kostümbild von Susanne Uhl für Maß für Maß am Staatsschauspiel Dresden (2015)">
                     </picture>
                     <span class="image-credit">© Matthias Horn</span>
                     <div class="overlay">
@@ -560,10 +566,10 @@
                         <a href="https://www.staatsschauspiel-dresden.de/spielplan/archive/m/mass-fuer-mass/" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/macbeth.avif">
                     <picture>
-                        <source srcset="images/compressed/macbeth.avif" type="image/avif">
-                        <img decoding="async" loading="lazy" src="images/compressed/macbeth.jpg" alt="Kostümbild von Susanne Uhl für Macbeth am Deutschen Theater Berlin (2015)">
+                        <source srcset="images/thumbs/macbeth.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/macbeth.jpg" alt="Kostümbild von Susanne Uhl für Macbeth am Deutschen Theater Berlin (2015)">
                     </picture>
                     <span class="image-credit">© Arno Declair</span>
                     <div class="overlay">
@@ -571,10 +577,10 @@
                         <a href="https://www.tagesspiegel.de/kultur/tater-und-traumer-3616135.html" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>                                           
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/fabian.avif">
                     <picture>
-                        <source srcset="images/compressed/fabian.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/fabian.jpg" alt="Kostümbild von Susanne Uhl für Fabian – Der Gang vor die Hunde an der Schaubühne Berlin (2015)">
+                        <source srcset="images/thumbs/fabian.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/fabian.jpg" alt="Kostümbild von Susanne Uhl für Fabian – Der Gang vor die Hunde an der Schaubühne Berlin (2015)">
                     </picture>
                     <span class="image-credit">© Gianmarco Bresadola</span>
                     <div class="overlay">
@@ -582,10 +588,10 @@
                         <a href="https://www.schaubuehne.de/en/produktionen/fabian-der-gang-vor-die-hunde.html" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/drei-schwestern.avif">
                     <picture>
-                        <source srcset="images/compressed/drei-schwestern.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/drei-schwestern.jpg" alt="Kostümbild von Susanne Uhl für Drei Schwestern am Staatsschauspiel Dresden (2014)">
+                        <source srcset="images/thumbs/drei-schwestern.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/drei-schwestern.jpg" alt="Kostümbild von Susanne Uhl für Drei Schwestern am Staatsschauspiel Dresden (2014)">
                     </picture>
                     <span class="image-credit">© Matthias Horn</span>
                     <div class="overlay">
@@ -593,10 +599,10 @@
                         <a href="https://www.staatsschauspiel-dresden.de/spielplan/archive/d/drei-schwestern/" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>                                
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/der-geteilte-himmel.avif">
                     <picture>
-                        <source srcset="images/compressed/der-geteilte-himmel.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/der-geteilte-himmel.jpg" alt="Kostümbild von Susanne Uhl für Der geteilte Himmel am Staatsschauspiel Dresden (2013)">
+                        <source srcset="images/thumbs/der-geteilte-himmel.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/der-geteilte-himmel.jpg" alt="Kostümbild von Susanne Uhl für Der geteilte Himmel am Staatsschauspiel Dresden (2013)">
                     </picture>
                     <span class="image-credit">© David Baltzer</span>
                     <div class="overlay">
@@ -605,10 +611,10 @@
                     </div>
                 </li>
                 </li>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/verbrennungen.avif">
                     <picture>
-                        <source srcset="images/compressed/verbrennungen.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/verbrennungen.jpg" alt="Kostümbild von Susanne Uhl für Verbrennungen am Deutschen Theater Berlin (2012)">
+                        <source srcset="images/thumbs/verbrennungen.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/verbrennungen.jpg" alt="Kostümbild von Susanne Uhl für Verbrennungen am Deutschen Theater Berlin (2012)">
                     </picture>
                     <span class="image-credit">© Arno Declair</span>
                     <div class="overlay">
@@ -616,10 +622,10 @@
                         <a href="https://www.nachtkritik.de/nachtkritiken/deutschland/berlin-brandenburg/berlin/deutsches-theater-berlin/verbrennungen" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>                   
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/hedda-gabler.avif">
                     <picture>
-                        <source srcset="images/compressed/hedda-gabler.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/hedda-gabler.jpg" alt="Kostümbild von Susanne Uhl für Hedda Gabler am Staatsschauspiel Dresden (2012)">
+                        <source srcset="images/thumbs/hedda-gabler.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/hedda-gabler.jpg" alt="Kostümbild von Susanne Uhl für Hedda Gabler am Staatsschauspiel Dresden (2012)">
                     </picture>
                     <span class="image-credit">© Matthias Horn</span>
                     <div class="overlay">
@@ -627,10 +633,10 @@
                         <a href="https://www.staatsschauspiel-dresden.de/spielplan/archive/h/hedda-gabler/" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>                   
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/kaufmann.avif">
                     <picture>
-                        <source srcset="images/compressed/kaufmann.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/kaufmann.jpg" alt="Kostümbild von Susanne Uhl für Der Kaufmann von Venedig am Staatsschauspiel Dresden (2011)">
+                        <source srcset="images/thumbs/kaufmann.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/kaufmann.jpg" alt="Kostümbild von Susanne Uhl für Der Kaufmann von Venedig am Staatsschauspiel Dresden (2011)">
                     </picture>
                     <span class="image-credit">© Matthias Horn</span>
                     <div class="overlay">
@@ -638,10 +644,10 @@
                         <a href="https://www.staatsschauspiel-dresden.de/spielplan/archive/d/der_kaufmann_von_venedig/" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/das-halbe-meer.avif">
                     <picture>
-                        <source srcset="images/compressed/das-halbe-meer.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/das-halbe-meer.jpg" alt="Kostümbild von Susanne Uhl für Das halbe Meer am Staatsschauspiel Dresden (2011)">
+                        <source srcset="images/thumbs/das-halbe-meer.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/das-halbe-meer.jpg" alt="Kostümbild von Susanne Uhl für Das halbe Meer am Staatsschauspiel Dresden (2011)">
                     </picture>
                     <span class="image-credit">© Matthias Horn</span>
                     <div class="overlay">
@@ -649,10 +655,10 @@
                         <a href="https://www.staatsschauspiel-dresden.de/spielplan/archive/d/das_halbe_meer/" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>                
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/koenig-oedipus.avif">
                     <picture>
-                        <source srcset="images/compressed/koenig-oedipus.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/koenig-oedipus.jpg" alt="Kostümbild von Susanne Uhl für König Ödipus am Staatsschauspiel Dresden (2010)">
+                        <source srcset="images/thumbs/koenig-oedipus.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/koenig-oedipus.jpg" alt="Kostümbild von Susanne Uhl für König Ödipus am Staatsschauspiel Dresden (2010)">
                     </picture>
                     <span class="image-credit">© Matthias Horn</span>
                     <div class="overlay">
@@ -660,10 +666,10 @@
                         <a href="https://www.staatsschauspiel-dresden.de/spielplan/archive/k/koenig_oedipus/" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>     
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/kirschgarten.avif">
                     <picture>
-                        <source srcset="images/compressed/kirschgarten.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/kirschgarten.jpg" alt="Kostümbild von Susanne Uhl für Der Kirschgarten am Staatsschauspiel Dresden (2010)">
+                        <source srcset="images/thumbs/kirschgarten.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/kirschgarten.jpg" alt="Kostümbild von Susanne Uhl für Der Kirschgarten am Staatsschauspiel Dresden (2010)">
                     </picture>
                     <span class="image-credit">© Matthias Horn</span>
                     <div class="overlay">
@@ -671,10 +677,10 @@
                         <a href="https://www.staatsschauspiel-dresden.de/spielplan/archive/d/der-kirschgarten-2010/" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/italienische-nacht.avif">
                     <picture>
-                        <source srcset="images/compressed/italienische-nacht.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/italienische-nacht.jpg" alt="Kostümbild von Susanne Uhl für Italienische Nacht am Staatsschauspiel Dresden (2010)">
+                        <source srcset="images/thumbs/italienische-nacht.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/italienische-nacht.jpg" alt="Kostümbild von Susanne Uhl für Italienische Nacht am Staatsschauspiel Dresden (2010)">
                     </picture>
                     <span class="image-credit">© David Baltzer</span>
                     <div class="overlay">
@@ -682,10 +688,10 @@
                         <a href="https://www.staatsschauspiel-dresden.de/spielplan/archive/i/italienische-nacht/" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>                                                                        
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/johanna.avif">
                     <picture>
-                        <source srcset="images/compressed/johanna.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/johanna.jpg" alt="Kostümbild von Susanne Uhl für Die heilige Johanna der Schlachthöfe am Staatsschauspiel Dresden (2009)">
+                        <source srcset="images/thumbs/johanna.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/johanna.jpg" alt="Kostümbild von Susanne Uhl für Die heilige Johanna der Schlachthöfe am Staatsschauspiel Dresden (2009)">
                     </picture>
                     <span class="image-credit">© Matthias Horn</span>
                     <div class="overlay">
@@ -693,10 +699,10 @@
                         <a href="https://www.staatsschauspiel-dresden.de/spielplan/archive/d/die_heilige_johanna_der_schlachthoefe/" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/feuchtgebiete.avif">
                     <picture>
-                        <source srcset="images/compressed/feuchtgebiete.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/feuchtgebiete.jpg" alt="Kostümbild von Susanne Uhl für Feuchtgebiete am Neuen Theater Weimar (2008)">
+                        <source srcset="images/thumbs/feuchtgebiete.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/feuchtgebiete.jpg" alt="Kostümbild von Susanne Uhl für Feuchtgebiete am Neuen Theater Weimar (2008)">
                     </picture>
                     <span class="image-credit">© Unbekannt</span>
                     <div class="overlay">
@@ -711,10 +717,10 @@
         <div>
             <h2>Oper</h2>
             <ul>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-year="2025" data-month="08">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-year="2025" data-month="08" data-full-avif="images/compressed/la-traviata.avif">
                     <picture>
-                        <source srcset="images/compressed/la-traviata.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/la-traviata.jpg" alt="Kostümbild von Susanne Uhl für Der Traumgörge an der Oper Frankfurt (2024)">
+                        <source srcset="images/thumbs/la-traviata.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/la-traviata.jpg" alt="Kostümbild von Susanne Uhl für Der Traumgörge an der Oper Frankfurt (2024)">
                     </picture>
                     <span class="image-credit">© Björn Hickmann</span>
                     <div class="overlay">
@@ -722,10 +728,10 @@
                         <a href="https://staatstheater-braunschweig.de/produktion/la-traviata" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-year="2025" data-month="08">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-year="2025" data-month="08" data-full-avif="images/compressed/der-traumgoerge.avif">
                     <picture>
-                        <source srcset="images/compressed/der-traumgoerge.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/der-traumgoerge.jpg" alt="Kostümbild von Susanne Uhl für Der Traumgörge an der Oper Frankfurt (2024)">
+                        <source srcset="images/thumbs/der-traumgoerge.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/der-traumgoerge.jpg" alt="Kostümbild von Susanne Uhl für Der Traumgörge an der Oper Frankfurt (2024)">
                     </picture>
                     <span class="image-credit">© Barbara Aumüller</span>
                     <div class="overlay">
@@ -734,8 +740,8 @@
                     </div>                
                 <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
                     <picture>
-                        <source srcset="images/compressed/le-nozze-di-figaro.avif" type="image/avif">
-                        <img decoding="async" loading="lazy" src="images/compressed/le-nozze-di-figaro.jpg" alt="Kostümbild von Susanne Uhl für Le Nozze di Figaro an der Oper Frankfurt (2023)">
+                        <source srcset="images/thumbs/le-nozze-di-figaro.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/le-nozze-di-figaro.jpg" alt="Kostümbild von Susanne Uhl für Le Nozze di Figaro an der Oper Frankfurt (2023)">
                     </picture>
                     <span class="image-credit">© Barbara Aumüller</span>
                     <div class="overlay">
@@ -743,13 +749,10 @@
                         <a href="https://oper-frankfurt.de/de/spielplan/le-nozze-di-figaro_4/" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/le-vin-herbe.avif">
                     <picture>
-
-                        <source srcset="images/compressed/le-vin-herbe.avif" type="image/avif">
-
-                    <img decoding="async" loading="lazy" src="images/compressed/le-vin-herbe.jpg" alt="Kostümbild von Susanne Uhl für Le vin herbé an der Oper Frankfurt (2023)">
-
+                        <source srcset="images/thumbs/le-vin-herbe.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/le-vin-herbe.jpg" alt="Kostümbild von Susanne Uhl für Le vin herbé an der Oper Frankfurt (2023)">
                     </picture>
                     <span class="image-credit">© Barbara Aumüller</span>
                     <div class="overlay">
@@ -757,10 +760,10 @@
                         <a href="https://blog.oper-frankfurt.de/blog/interview-mit-tilmann-kohler-zu-le-vin-herbe" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>                
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/undine.avif">
                     <picture>
-                        <source srcset="images/compressed/undine.avif" type="image/avif">
-                        <img decoding="async" loading="lazy" src="images/compressed/undine.jpg" alt="Kostümbild von Susanne Uhl für Undine an der Oper Leipzig (2022)">
+                        <source srcset="images/thumbs/undine.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/undine.jpg" alt="Kostümbild von Susanne Uhl für Undine an der Oper Leipzig (2022)">
                     </picture>
                     <span class="image-credit">© Kirsten Nijhof</span>
                     <div class="overlay">
@@ -768,10 +771,10 @@
                         <a href="https://www.oper-leipzig.de/de/programm/undine/611" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/bianca-e-falliero.avif">
                     <picture>
-                        <source srcset="images/compressed/bianca-e-falliero.avif" type="image/avif">
-                        <img decoding="async" loading="lazy" src="images/compressed/bianca-e-falliero.jpg" alt="Kostümbild von Susanne Uhl für Bianca e Falliero an der Oper Frankfurt (2022)">
+                        <source srcset="images/thumbs/bianca-e-falliero.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/bianca-e-falliero.jpg" alt="Kostümbild von Susanne Uhl für Bianca e Falliero an der Oper Frankfurt (2022)">
                     </picture>
                     <span class="image-credit">© Barbara Aumüller</span>
                     <div class="overlay">
@@ -779,10 +782,10 @@
                         <a href="https://oper-frankfurt.de/de/spielplan/bianca-e-falliero_3/" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/xerxes.avif">
                     <picture>
-                        <source srcset="images/compressed/xerxes.avif" type="image/avif">
-                        <img decoding="async" loading="lazy" src="images/compressed/xerxes.jpg" alt="Kostümbild von Susanne Uhl für Xerxes an der Oper Frankfurt (2017)">
+                        <source srcset="images/thumbs/xerxes.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/xerxes.jpg" alt="Kostümbild von Susanne Uhl für Xerxes an der Oper Frankfurt (2017)">
                     </picture>
                     <span class="image-credit">© Barbara Aumüller</span>
                     <div class="overlay">
@@ -790,10 +793,10 @@
                         <a href="https://www.operabase.com/productions/xerxes-154608/de" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/radamisto.avif">
                     <picture>
-                        <source srcset="images/compressed/radamisto.avif" type="image/avif">
-                        <img decoding="async" loading="lazy" src="images/compressed/radamisto.jpg" alt="Kostümbild von Susanne Uhl für Radamisto an der Oper Frankfurt (2016)">
+                        <source srcset="images/thumbs/radamisto.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/radamisto.jpg" alt="Kostümbild von Susanne Uhl für Radamisto an der Oper Frankfurt (2016)">
                     </picture>
                     <span class="image-credit">© Barbara Aumüller</span>
                     <div class="overlay">
@@ -808,10 +811,10 @@
         <div>
             <h2>Film</h2>
             <ul>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/die-nacht.avif">
                     <picture>
-                        <source srcset="images/compressed/die-nacht.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/die-nacht.png" alt="Kostümbild von Susanne Uhl für Die Nacht ist dunkel und kälter als der Tag (2024, Regie: Christina Friedrich)">
+                        <source srcset="images/thumbs/die-nacht.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/die-nacht.jpg" alt="Kostümbild von Susanne Uhl für Die Nacht ist dunkel und kälter als der Tag (2024, Regie: Christina Friedrich)">
                     </picture>
                     <span class="image-credit">© Unbekannt</span>
                     <div class="overlay">
@@ -819,10 +822,10 @@
                         <a href="https://mubi.com/de/films/the-night-is-dark-and-colder-than-the-day/trailer" target="_blank" class="website-btn">Website</a>
                     </div>
                 </li>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)">
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/zone.avif">
                     <picture>
-                        <source srcset="images/compressed/zone.avif" type="image/avif">
-                    <img decoding="async" loading="lazy" src="images/zone.jpg" alt="Kostümbild von Susanne Uhl für ZONE (2023, Regie: Christina Friedrich)">
+                        <source srcset="images/thumbs/zone.avif" type="image/avif">
+                        <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/zone.jpg" alt="Kostümbild von Susanne Uhl für ZONE (2023, Regie: Christina Friedrich)">
                     </picture>
                     <span class="image-credit">© Unbekannt</span>
                     <div class="overlay">
@@ -853,14 +856,27 @@
             const image = document.getElementById("fullscreenImage");
             const modalCredit = document.getElementById("modalCredit");
             
-            // Versuche AVIF Version zu finden falls <picture> Element vorhanden
+            // Vollbild soll immer die Fullsize-Version laden (nicht die Thumb-Version)
             let imageSrc = src;
             if (element) {
-                const picture = element.querySelector('picture');
-                if (picture) {
-                    const avifSource = picture.querySelector('source[type="image/avif"]');
-                    if (avifSource && avifSource.srcset) {
-                        imageSrc = avifSource.srcset;
+                // 1) Explizit hinterlegte Fullsize-AVIF (falls vorhanden)
+                const fullAvif = element.getAttribute('data-full-avif');
+                if (fullAvif) {
+                    imageSrc = fullAvif;
+                } else {
+                    // 2) Sonst: aus <picture> die AVIF-Quelle nehmen und (falls Thumb) auf Fullsize umbiegen
+                    const picture = element.querySelector('picture');
+                    if (picture) {
+                        const avifSource = picture.querySelector('source[type="image/avif"]');
+                        if (avifSource && avifSource.srcset) {
+                            // Wenn Thumb-AVIF verwendet wird, versuche auf Fullsize-AVIF umzuschalten
+                            if (avifSource.srcset.startsWith('images/thumbs/')) {
+                                const base = avifSource.srcset.replace('images/thumbs/', '').replace(/\.avif$/, '');
+                                imageSrc = `images/compressed/${base}.avif`;
+                            } else {
+                                imageSrc = avifSource.srcset;
+                            }
+                        }
                     }
                 }
             }

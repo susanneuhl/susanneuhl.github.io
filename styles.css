@@ -15,7 +15,7 @@ body {
 ============================ */
 .js body {
     opacity: 0;
-    transition: opacity 180ms ease;
+    transition: opacity 280ms ease;
 }
 .js body.is-loaded {
     opacity: 1;

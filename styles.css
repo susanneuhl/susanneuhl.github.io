@@ -8,6 +8,27 @@ body {
     color: #333333;
 }
 
+/* ============================
+   Seitenwechsel Fade (wie erdengoldschmiede)
+   - nur aktiv wenn JS läuft
+   - respektiert prefers-reduced-motion
+============================ */
+.js body {
+    opacity: 0;
+    transition: opacity 180ms ease;
+}
+.js body.is-loaded {
+    opacity: 1;
+}
+.js body.is-exiting {
+    opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+    .js body {
+        transition: none;
+    }
+}
+
 h1 {
     text-align: center;
     font-size: 2.5em;

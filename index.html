@@ -353,6 +353,7 @@
             color: #666;
         }
     </style>
+<script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
     <h1 style="display:none;">Susanne Uhl – Kostümbild</h1>
@@ -1103,6 +1104,57 @@
             <a href="contact.html" style="color: #333333; text-decoration: none; margin-left: 10px;">Kontakt</a>
         </p>
     </footer>
+
+<script>
+(function() {
+  // Fade-in on load
+  function markLoaded() {
+    document.body.classList.add('is-loaded');
+    document.body.classList.remove('is-exiting');
+  }
+
+  // Ensure correct state when coming from bfcache
+  window.addEventListener('pageshow', markLoaded);
+  document.addEventListener('DOMContentLoaded', markLoaded);
+
+  // Intercept internal navigation to fade out
+  document.addEventListener('click', function(e) {
+    const a = e.target.closest && e.target.closest('a');
+    if (!a) return;
+
+    // Ignore modified clicks / new tab
+    if (e.defaultPrevented) return;
+    if (e.button !== 0) return;
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+    const href = a.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+    if (a.target && a.target !== '_self') return;
+
+    // Only same-origin navigations
+    let url;
+    try {
+      url = new URL(href, window.location.href);
+    } catch {
+      return;
+    }
+    if (url.origin !== window.location.origin) return;
+
+    // If it's the same page with just a hash, don't animate
+    const sameDoc = (url.pathname === window.location.pathname) && (url.search === window.location.search);
+    if (sameDoc && url.hash) return;
+
+    e.preventDefault();
+    document.body.classList.add('is-exiting');
+
+    // Small delay for fade-out
+    window.setTimeout(function() {
+      window.location.href = url.href;
+    }, 160);
+  }, true);
+})();
+</script>
+
 </body>
 </html>
 

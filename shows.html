@@ -231,14 +231,40 @@
                 });
                 
                 // Erstelle Events für jede Show (jetzt chronologisch sortiert)
-                for (const [showId, show] of sortedShows) {
+                for (let idx = 0; idx < sortedShows.length; idx++) {
+                    const [showId, show] = sortedShows[idx];
                     const eventCard = document.createElement('div');
                     eventCard.className = 'event-card';
                     
-                    // Event-Bild
+                    // Event-Bild (Thumbnail im Grid, AVIF wenn verfügbar)
+                    const eventPicture = document.createElement('picture');
+                    const eventSource = document.createElement('source');
+                    eventSource.type = 'image/avif';
+
+                    // Ableitung des Basenamens aus der Bild-URL (z.B. images/undine.jpg -> undine)
+                    const filename = (show.image || '').split('/').pop() || '';
+                    const base = filename.replace(/\.(jpg|jpeg|png)$/i, '');
+
+                    // Thumbs sind deutlich kleiner/schneller zu decodieren (gleiches Layout)
+                    const thumbAvif = `images/thumbs/${base}.avif`;
+                    const thumbJpg = `images/thumbs/${base}.jpg`;
+
+                    eventSource.srcset = thumbAvif;
                     const eventImage = document.createElement('img');
-                    eventImage.src = show.image;
+                    eventImage.src = thumbJpg;
                     eventImage.alt = show.title;
+                    eventImage.loading = idx < 2 ? 'eager' : 'lazy';
+                    eventImage.decoding = 'async';
+                    eventImage.fetchPriority = idx < 2 ? 'high' : 'low';
+
+                    // Fallback: falls ein Thumb fehlt, nimm das Original aus shows.json
+                    eventImage.onerror = () => {
+                        eventImage.onerror = null;
+                        eventImage.src = show.image;
+                    };
+                    
+                    eventPicture.appendChild(eventSource);
+                    eventPicture.appendChild(eventImage);
                     
                     // Event-Overlay
                     const eventOverlay = document.createElement('div');
@@ -299,7 +325,7 @@
                         eventOverlay.appendChild(noEvents);
                     }
                     
-                    eventCard.appendChild(eventImage);
+                    eventCard.appendChild(eventPicture);
                     eventCard.appendChild(eventOverlay);
                     container.appendChild(eventCard);
                 }

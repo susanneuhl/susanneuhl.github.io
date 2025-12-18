@@ -551,10 +551,10 @@ dialog .close {
         transform: translate3d(0, 0, 0);
     }
     30% {
-        transform: translate3d(-6px, -3px, 0);
+        transform: translate3d(0, -6px, 0);
     }
     60% {
-        transform: translate3d(4px, 5px, 0);
+        transform: translate3d(0, 6px, 0);
     }
     100% {
         transform: translate3d(0, 0, 0);

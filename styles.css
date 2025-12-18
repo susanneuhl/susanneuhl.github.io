@@ -12,16 +12,20 @@ body {
    Seitenwechsel Fade (wie erdengoldschmiede)
    - nur aktiv wenn JS läuft
    - respektiert prefers-reduced-motion
+   - mit subtilen Blur-Effekt
 ============================ */
 .js body {
     opacity: 0;
-    transition: opacity 280ms ease;
+    filter: blur(5px);
+    transition: opacity 280ms ease, filter 280ms ease;
 }
 .js body.is-loaded {
     opacity: 1;
+    filter: blur(0);
 }
 .js body.is-exiting {
     opacity: 0;
+    filter: blur(5px);
 }
 @media (prefers-reduced-motion: reduce) {
     .js body {

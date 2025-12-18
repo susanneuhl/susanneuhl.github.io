@@ -339,6 +339,65 @@
                     container.appendChild(eventCard);
                 }
                 
+                // JSON-LD Event-Schema für SEO erstellen
+                const now = new Date();
+                const upcomingEvents = [];
+                
+                // Sammle alle zukünftigen Events aus allen Shows
+                for (const [showId, show] of Object.entries(data.shows)) {
+                    for (const event of show.events) {
+                        if (new Date(event.date) > now) {
+                            upcomingEvents.push({
+                                title: show.title,
+                                date: event.date,
+                                time: event.time,
+                                location: event.location,
+                                theater: show.theater,
+                                website: show.website
+                            });
+                        }
+                    }
+                }
+                
+                // Erstelle JSON-LD Schema
+                if (upcomingEvents.length > 0) {
+                    const eventsSchema = {
+                        "@context": "https://schema.org",
+                        "@type": "ItemList",
+                        "itemListElement": upcomingEvents.map((event, index) => ({
+                            "@type": "Event",
+                            "name": event.title,
+                            "startDate": event.date + (event.time ? 'T' + event.time : ''),
+                            "location": {
+                                "@type": "Place",
+                                "name": event.location,
+                                "address": {
+                                    "@type": "PostalAddress",
+                                    "addressLocality": event.location
+                                }
+                            },
+                            "organizer": {
+                                "@type": "Organization",
+                                "name": event.theater,
+                                "url": event.website
+                            },
+                            "performer": {
+                                "@type": "Person",
+                                "name": "Susanne Uhl",
+                                "jobTitle": "Kostümbildnerin",
+                                "url": "https://susanneuhl.com"
+                            },
+                            "position": index + 1
+                        }))
+                    };
+                    
+                    // Schema in die Seite einfügen
+                    const script = document.createElement('script');
+                    script.type = 'application/ld+json';
+                    script.textContent = JSON.stringify(eventsSchema);
+                    document.head.appendChild(script);
+                }
+
             } catch (error) {
                 console.error('Fehler beim Laden der Show-Daten:', error);
                 document.getElementById('shows-container').innerHTML = 

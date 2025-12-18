@@ -20,9 +20,17 @@
 
         </div>
         <nav class="header-nav">
-            <a href="index.html" class="header-nav-link">Work</a>
-            <a href="about.html" class="header-nav-link">About</a>
-            <a href="shows.html" class="header-nav-link">Dates</a>
+            <button class="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links">
+                <a href="index.html" class="header-nav-link">Work</a>
+                <a href="about.html" class="header-nav-link">About</a>
+                <a href="shows.html" class="header-nav-link">Dates</a>
+                <a href="contact.html" class="header-nav-link">Contact</a>
+            </div>
         </nav>
     </header>
 
@@ -30,12 +38,30 @@
     <main>
         <div class="contact-hero">
             <div class="contact-hero-bg-grid">
-                <img src="" alt="" loading="eager" class="grid-img">
-                <img src="" alt="" loading="eager" class="grid-img">
-                <img src="" alt="" loading="eager" class="grid-img">
-                <img src="" alt="" loading="eager" class="grid-img">
-                <img src="" alt="" loading="eager" class="grid-img">
-                <img src="" alt="" loading="eager" class="grid-img">
+                <picture class="grid-img">
+                    <source type="image/avif" srcset="">
+                    <img src="" alt="" loading="eager">
+                </picture>
+                <picture class="grid-img">
+                    <source type="image/avif" srcset="">
+                    <img src="" alt="" loading="eager">
+                </picture>
+                <picture class="grid-img">
+                    <source type="image/avif" srcset="">
+                    <img src="" alt="" loading="eager">
+                </picture>
+                <picture class="grid-img">
+                    <source type="image/avif" srcset="">
+                    <img src="" alt="" loading="eager">
+                </picture>
+                <picture class="grid-img">
+                    <source type="image/avif" srcset="">
+                    <img src="" alt="" loading="eager">
+                </picture>
+                <picture class="grid-img">
+                    <source type="image/avif" srcset="">
+                    <img src="" alt="" loading="eager">
+                </picture>
             </div>
             <div class="contact-hero-overlay">
                 <h2>Kontakt</h2>
@@ -48,9 +74,8 @@
     <!-- Footer -->
     <footer>
         <p style="text-align: center; margin-top: 20px;">
-            © 2025 Susanne Uhl. Alle Rechte vorbehalten. 
+            © 2025 Susanne Uhl. Alle Rechte vorbehalten.
             <a href="impressum.html" style="color: #333333; text-decoration: none; margin-left: 10px;">Impressum</a>
-            <a href="contact.html" style="color: #333333; text-decoration: none; margin-left: 10px;">Kontakt</a>
         </p>
     </footer>
 
@@ -59,7 +84,6 @@
 (function() {
   const landscapeImages = [
     'bianca-e-falliero',
-    'buch-berlin',
     'Coriolan',
     'dantons-tod',
     'das-grosse-heft',
@@ -69,7 +93,6 @@
     'der-geteilte-himmel',
     'der-komet',
     'der-traumgoerge',
-    'die-nacht',
     'drei-schwestern',
     'dumme-jahre',
     'fabian',
@@ -103,9 +126,13 @@
   const shuffled = landscapeImages.sort(() => 0.5 - Math.random());
   const selected = shuffled.slice(0, 6);
   
-  // Bilder setzen
-  const gridImages = document.querySelectorAll('.grid-img');
-  gridImages.forEach((img, index) => {
+  // Bilder setzen (AVIF mit JPG-Fallback)
+  const gridPictures = document.querySelectorAll('.grid-img');
+  gridPictures.forEach((picture, index) => {
+    const source = picture.querySelector('source');
+    const img = picture.querySelector('img');
+    
+    source.srcset = 'images/compressed/' + selected[index] + '.avif';
     img.src = 'images/' + selected[index] + '.jpg';
     img.alt = 'Hintergrundbild ' + (index + 1);
   });
@@ -159,6 +186,29 @@
       window.location.href = url.href;
     }, 260);
   }, true);
+})();
+</script>
+
+<script>
+// Hamburger Menu Toggle
+(function() {
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
+  
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', function() {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+    
+    // Close menu when clicking a link
+    document.querySelectorAll('.header-nav-link').forEach(function(link) {
+      link.addEventListener('click', function() {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('active');
+      });
+    });
+  }
 })();
 </script>
 

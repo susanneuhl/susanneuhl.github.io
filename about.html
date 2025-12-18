@@ -43,9 +43,17 @@
          </h1>
     </div>
         <nav class="header-nav">
-            <a href="index.html" class="header-nav-link">Work</a>
-            <a href="about.html" class="header-nav-link">About</a>
-            <a href="shows.html" class="header-nav-link">Dates</a>
+            <button class="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links">
+                <a href="index.html" class="header-nav-link">Work</a>
+                <a href="about.html" class="header-nav-link">About</a>
+                <a href="shows.html" class="header-nav-link">Dates</a>
+                <a href="contact.html" class="header-nav-link">Contact</a>
+            </div>
         </nav>
     </header>
 
@@ -83,9 +91,8 @@
     <!-- Footer -->
     <footer>
         <p style="text-align: center; margin-top: 20px;">
-            © 2025 Susanne Uhl. Alle Rechte vorbehalten. 
+            © 2025 Susanne Uhl. Alle Rechte vorbehalten.
             <a href="impressum.html" style="color: #333333; text-decoration: none; margin-left: 10px;">Impressum</a>
-            <a href="contact.html" style="color: #333333; text-decoration: none; margin-left: 10px;">Kontakt</a>
         </p>
     </footer>
 
@@ -136,6 +143,29 @@
       window.location.href = url.href;
     }, 260);
   }, true);
+})();
+</script>
+
+<script>
+// Hamburger Menu Toggle
+(function() {
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
+  
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', function() {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+    
+    // Close menu when clicking a link
+    document.querySelectorAll('.header-nav-link').forEach(function(link) {
+      link.addEventListener('click', function() {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('active');
+      });
+    });
+  }
 })();
 </script>
 

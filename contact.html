@@ -37,7 +37,7 @@
     <!-- Main Content: Hero mit Background -->
     <main>
         <div class="contact-hero">
-            <div class="contact-hero-bg-grid collage-pan">
+            <div class="contact-hero-bg-grid">
                 <picture class="grid-img">
                     <source type="image/avif" srcset="">
                     <img src="" alt="" loading="eager">
@@ -62,9 +62,6 @@
                     <source type="image/avif" srcset="">
                     <img src="" alt="" loading="eager">
                 </picture>
-            </div>
-            <div class="filmstrip" aria-hidden="true">
-                <div class="filmstrip-stack"></div>
             </div>
             <div class="contact-hero-overlay">
                 <h2>Kontakt</h2>
@@ -140,17 +137,6 @@
     img.alt = 'Hintergrundbild ' + (index + 1);
   });
   
-  const filmstripStack = document.querySelector('.filmstrip-stack');
-  if (filmstripStack) {
-    const loopImages = selected.concat(selected);
-    filmstripStack.innerHTML = '';
-    loopImages.forEach(name => {
-      const filmImg = document.createElement('img');
-      filmImg.src = 'images/thumbs/' + name + '.jpg';
-      filmImg.alt = 'Filmframe ' + name;
-      filmstripStack.appendChild(filmImg);
-    });
-  }
 })();
 </script>
 

@@ -541,69 +541,38 @@ dialog .close {
     overflow: hidden;
 }
 
-.contact-hero-bg-grid picture img {
-    animation: floatPan 20s ease-in-out infinite;
-    will-change: transform;
+.contact-hero-bg-grid picture {
+    overflow: hidden;
 }
 
-@keyframes floatPan {
+.contact-hero-bg-grid picture img {
+    width: 100%;
+    min-height: calc(100% + 120px);
+    animation: filmstrip 30s linear infinite;
+    will-change: transform;
+    object-fit: cover;
+    transform: translateY(0);
+}
+
+@keyframes filmstrip {
     0% {
-        transform: translate3d(0, 0, 0);
+        transform: translateY(30px);
     }
-    30% {
-        transform: translate3d(0, -6px, 0);
-    }
-    60% {
-        transform: translate3d(0, 6px, 0);
+    50% {
+        transform: translateY(-30px);
     }
     100% {
-        transform: translate3d(0, 0, 0);
+        transform: translateY(30px);
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .contact-hero-bg-grid picture img {
         animation: none;
+        min-height: 100%;
     }
 }
 
-.filmstrip {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.filmstrip-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    animation: filmstrip 28s linear infinite;
-    height: 200%;
-}
-
-.filmstrip-stack img {
-    width: 100%;
-    object-fit: cover;
-    opacity: 0.35;
-    filter: saturate(0.7);
-}
-
-@keyframes filmstrip {
-    0% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(-50%);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .filmstrip-stack {
-        animation: none;
-    }
-}
 
 .contact-hero-overlay {
     position: relative;

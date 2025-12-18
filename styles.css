@@ -537,6 +537,28 @@ dialog .close {
     }
 }
 
+.contact-hero-bg-grid.collage-pan {
+    animation: floatPan 18s ease-in-out infinite;
+}
+
+@keyframes floatPan {
+    0% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+        transform: translate3d(-6px, -4px, 0) scale(1.01);
+    }
+    100% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .contact-hero-bg-grid.collage-pan {
+        animation: none;
+    }
+}
+
 .contact-hero-overlay {
     position: relative;
     z-index: 2;

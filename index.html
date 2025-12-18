@@ -1185,6 +1185,29 @@
 })();
 </script>
 
+<script>
+(function() {
+  const preloadVisible = () => {
+    const images = Array.from(document.querySelectorAll('.main-container li img'));
+    images.forEach((img, idx) => {
+      if (idx < 9) {
+        img.loading = 'eager';
+        img.fetchPriority = 'high';
+      } else {
+        img.loading = 'lazy';
+        img.fetchPriority = 'low';
+      }
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', preloadVisible);
+  } else {
+    preloadVisible();
+  }
+})();
+</script>
+
 </body>
 </html>
 

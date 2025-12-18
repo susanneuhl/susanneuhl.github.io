@@ -16,15 +16,18 @@ body {
 ============================ */
 .js body {
     opacity: 0;
+    transform: translateY(20px);
     filter: blur(5px);
-    transition: opacity 520ms ease, filter 520ms ease;
+    transition: opacity 520ms ease, transform 520ms ease, filter 520ms ease;
 }
 .js body.is-loaded {
     opacity: 1;
+    transform: translateY(0);
     filter: blur(0);
 }
 .js body.is-exiting {
     opacity: 0;
+    transform: translateY(20px);
     filter: blur(5px);
 }
 @media (prefers-reduced-motion: reduce) {

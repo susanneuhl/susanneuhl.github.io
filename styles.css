@@ -17,7 +17,7 @@ body {
 .js body {
     opacity: 0;
     filter: blur(5px);
-    transition: opacity 280ms ease, filter 280ms ease;
+    transition: opacity 520ms ease, filter 520ms ease;
 }
 .js body.is-loaded {
     opacity: 1;

@@ -7,33 +7,6 @@
     <meta name="description" content="Susanne Uhl gestaltet Kostüme für Theater, Oper und Film. Ihre Arbeiten sind u.a. am Deutschen Theater Berlin, der Oper Frankfurt, dem Staatsschauspiel Dresden, der Oper Leipzig, dem Residenztheater München und dem Düsseldorfer Schauspielhaus zu sehen.">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="favicon_custom.png" type="image/png">
-    <style>
-        .contact {
-            max-width: 600px;
-            margin: 40px auto;
-            text-align: justify; /* Blocksatz */
-        }
-
-        .contact h2 {
-            color: rgb(179, 118, 118); /* Titel in der gewünschten Farbe */
-            text-align: left;
-        }
-
-        .contact p {
-            font-size: 1em;
-            line-height: 1.6;
-            color: #333;
-        }
-
-        .contact a {
-            color: rgb(179, 118, 118);
-            text-decoration: none;
-        }
-
-        .contact a:hover {
-            text-decoration: underline;
-        }
-    </style>
 <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -53,13 +26,23 @@
         </nav>
     </header>
 
-    <!-- Main Content -->
+    <!-- Main Content: Hero mit Background -->
     <main>
-        <section class="contact">
-            <h2>Kontakt</h2>
-            <p>Für Anfragen und weitere Informationen können Sie gern über folgende E-Mail-Adresse Kontakt aufnehmen:</p>
-            <p>✉️ <a href="mailto:mail@susanneuhl.com">mail@susanneuhl.com</a></p>
-        </section>
+        <div class="contact-hero">
+            <div class="contact-hero-bg-grid">
+                <img src="" alt="" loading="eager" class="grid-img">
+                <img src="" alt="" loading="eager" class="grid-img">
+                <img src="" alt="" loading="eager" class="grid-img">
+                <img src="" alt="" loading="eager" class="grid-img">
+                <img src="" alt="" loading="eager" class="grid-img">
+                <img src="" alt="" loading="eager" class="grid-img">
+            </div>
+            <div class="contact-hero-overlay">
+                <h2>Kontakt</h2>
+                <p>Für Anfragen und weitere Informationen können Sie gern über folgende E-Mail-Adresse Kontakt aufnehmen:</p>
+                <p>✉️ <a href="mailto:mail@susanneuhl.com">mail@susanneuhl.com</a></p>
+            </div>
+        </div>
     </main>
 
     <!-- Footer -->
@@ -70,6 +53,64 @@
             <a href="contact.html" style="color: #333333; text-decoration: none; margin-left: 10px;">Kontakt</a>
         </p>
     </footer>
+
+<script>
+// Random Background Image Selection
+(function() {
+  const landscapeImages = [
+    'bianca-e-falliero',
+    'buch-berlin',
+    'Coriolan',
+    'dantons-tod',
+    'das-grosse-heft',
+    'das-halbe-meer',
+    'das-leben-ist-ein-traum',
+    'das-versprechen',
+    'der-geteilte-himmel',
+    'der-komet',
+    'der-traumgoerge',
+    'die-nacht',
+    'drei-schwestern',
+    'dumme-jahre',
+    'fabian',
+    'feuchtgebiete',
+    'hedda-gabler',
+    'italienische-nacht',
+    'johanna',
+    'kaufmann',
+    'kirschgarten',
+    'kleiner-mann-was-nun',
+    'koenig-oedipus',
+    'la-traviata',
+    'le-nozze-di-figaro',
+    'le-vin-herbe',
+    'macbeth',
+    'macbeth-2',
+    'mass-fuer-mass',
+    'medea-stimmen',
+    'mutter',
+    'radamisto',
+    'sankt-falstaff',
+    'stummes-land',
+    'undine',
+    'verbrennungen',
+    'von-schlechten-eltern',
+    'xerxes',
+    'zone'
+  ];
+
+  // Zufällige 6 Bilder auswählen
+  const shuffled = landscapeImages.sort(() => 0.5 - Math.random());
+  const selected = shuffled.slice(0, 6);
+  
+  // Bilder setzen
+  const gridImages = document.querySelectorAll('.grid-img');
+  gridImages.forEach((img, index) => {
+    img.src = 'images/' + selected[index] + '.jpg';
+    img.alt = 'Hintergrundbild ' + (index + 1);
+  });
+})();
+</script>
 
 <script>
 (function() {

@@ -548,7 +548,7 @@ dialog .close {
 .contact-hero-bg-grid picture img {
     width: 100%;
     min-height: calc(100% + 120px);
-    animation: filmstrip 30s linear infinite;
+    animation: filmstrip 22s linear infinite;
     will-change: transform;
     object-fit: cover;
     transform: translateY(0);
@@ -556,13 +556,10 @@ dialog .close {
 
 @keyframes filmstrip {
     0% {
-        transform: translateY(30px);
-    }
-    50% {
-        transform: translateY(-30px);
+        transform: translateY(40px);
     }
     100% {
-        transform: translateY(30px);
+        transform: translateY(-40px);
     }
 }
 

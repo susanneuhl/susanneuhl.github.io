@@ -545,8 +545,11 @@ dialog .close {
     0% {
         transform: translate3d(0, 0, 0) scale(1);
     }
-    50% {
-        transform: translate3d(-12px, -8px, 0) scale(1.015);
+    30% {
+        transform: translate3d(-10px, -6px, 0) scale(1.015);
+    }
+    60% {
+        transform: translate3d(8px, 5px, 0) scale(1.02);
     }
     100% {
         transform: translate3d(0, 0, 0) scale(1);

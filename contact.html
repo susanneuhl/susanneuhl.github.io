@@ -63,6 +63,9 @@
                     <img src="" alt="" loading="eager">
                 </picture>
             </div>
+            <div class="filmstrip" aria-hidden="true">
+                <div class="filmstrip-stack"></div>
+            </div>
             <div class="contact-hero-overlay">
                 <h2>Kontakt</h2>
                 <p>Für Anfragen und weitere Informationen können Sie gern über folgende E-Mail-Adresse Kontakt aufnehmen:</p>
@@ -136,6 +139,18 @@
     img.src = 'images/' + selected[index] + '.jpg';
     img.alt = 'Hintergrundbild ' + (index + 1);
   });
+  
+  const filmstripStack = document.querySelector('.filmstrip-stack');
+  if (filmstripStack) {
+    const loopImages = selected.concat(selected);
+    filmstripStack.innerHTML = '';
+    loopImages.forEach(name => {
+      const filmImg = document.createElement('img');
+      filmImg.src = 'images/thumbs/' + name + '.jpg';
+      filmImg.alt = 'Filmframe ' + name;
+      filmstripStack.appendChild(filmImg);
+    });
+  }
 })();
 </script>
 

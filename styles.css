@@ -537,27 +537,32 @@ dialog .close {
     }
 }
 
-.contact-hero-bg-grid.collage-pan {
-    animation: floatPan 18s ease-in-out infinite;
+.contact-hero-bg-grid picture {
+    overflow: hidden;
+}
+
+.contact-hero-bg-grid picture img {
+    animation: floatPan 20s ease-in-out infinite;
+    will-change: transform;
 }
 
 @keyframes floatPan {
     0% {
-        transform: translate3d(0, 0, 0) scale(1);
+        transform: translate3d(0, 0, 0);
     }
     30% {
-        transform: translate3d(-4px, -2px, 0) scale(1);
+        transform: translate3d(-6px, -3px, 0);
     }
     60% {
-        transform: translate3d(3px, 4px, 0) scale(1);
+        transform: translate3d(4px, 5px, 0);
     }
     100% {
-        transform: translate3d(0, 0, 0) scale(1);
+        transform: translate3d(0, 0, 0);
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .contact-hero-bg-grid.collage-pan {
+    .contact-hero-bg-grid picture img {
         animation: none;
     }
 }

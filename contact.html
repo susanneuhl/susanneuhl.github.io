@@ -151,8 +151,8 @@
     const source = pictureEl.querySelector('source');
     const img = pictureEl.querySelector('img');
     // thumbs for background tiles (fast), AVIF preferred
-    source.srcset = 'images/thumbs/' + name + '.avif';
-    img.src = 'images/thumbs/' + name + '.jpg';
+    source.srcset = 'images/compressed/' + name + '.avif';
+    img.src = 'images/compressed/' + name + '.jpg';
     img.alt = '';
   }
 

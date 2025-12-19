@@ -500,7 +500,7 @@ dialog .close {
     z-index: 1;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: 1fr;
     gap: 0;
 }
 
@@ -546,7 +546,12 @@ dialog .close {
 @media (max-width: 768px) {
     .contact-hero-bg-grid {
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 0;
+    }
+
+    .grid-tile:nth-child(3) {
+        grid-column: 1 / span 2;
     }
 }
 

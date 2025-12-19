@@ -485,9 +485,6 @@ dialog .close {
     position: relative;
     width: 100%;
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     overflow: hidden;
 }
 
@@ -572,10 +569,11 @@ dialog .close {
 
 
 .contact-hero-overlay {
-    position: relative;
+    position: absolute;
+    inset: 50% auto auto 50%;
+    transform: translate(-50%, -50%);
     z-index: 2;
-    max-width: 600px;
-    margin: 0 auto;
+    width: min(600px, 90vw);
     padding: 40px 50px;
     background-color: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(12px);

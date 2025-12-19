@@ -210,6 +210,63 @@
 </script>
 
 <script>
+// Parallax Kontakt-Overlay + Pause-on-hover (Easter-Egg)
+(function() {
+  const hero = document.querySelector('.contact-hero');
+  const overlay = document.querySelector('.contact-hero-overlay');
+  if (!hero || !overlay) return;
+
+  // Pause background strips when hovering the contact card
+  overlay.addEventListener('pointerenter', () => hero.classList.add('is-paused'));
+  overlay.addEventListener('pointerleave', () => hero.classList.remove('is-paused'));
+
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
+  if (reduceMotion || !finePointer) return;
+
+  let raf = 0;
+  let lastX = 0;
+  let lastY = 0;
+
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+  const setVars = (px, py) => {
+    overlay.style.setProperty('--parallax-x', px.toFixed(2) + 'px');
+    overlay.style.setProperty('--parallax-y', py.toFixed(2) + 'px');
+  };
+
+  const update = () => {
+    raf = 0;
+    const rect = hero.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const nx = clamp((lastX - cx) / (rect.width / 2), -1, 1);
+    const ny = clamp((lastY - cy) / (rect.height / 2), -1, 1);
+
+    // very subtle movement
+    const maxX = 10; // px
+    const maxY = 8;  // px
+    setVars(nx * maxX, ny * maxY);
+  };
+
+  const schedule = () => {
+    if (raf) return;
+    raf = window.requestAnimationFrame(update);
+  };
+
+  hero.addEventListener('pointerenter', () => hero.classList.add('is-parallax-active'));
+  hero.addEventListener('pointerleave', () => {
+    hero.classList.remove('is-parallax-active');
+    setVars(0, 0);
+  });
+  hero.addEventListener('pointermove', (e) => {
+    lastX = e.clientX;
+    lastY = e.clientY;
+    schedule();
+  }, { passive: true });
+})();
+</script>
+
+<script>
 (function() {
   // Fade-in on load
   function markLoaded() {

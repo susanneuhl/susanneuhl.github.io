@@ -527,6 +527,10 @@ dialog .close {
     will-change: transform;
 }
 
+.contact-hero.is-paused .contact-hero-bg-grid .tile-strip {
+    animation-play-state: paused !important;
+}
+
 .contact-hero-bg-grid .tile-frame {
     height: 50%;
     display: block;
@@ -571,7 +575,11 @@ dialog .close {
 .contact-hero-overlay {
     position: absolute;
     inset: 50% auto auto 50%;
-    transform: translate(-50%, -50%);
+    --parallax-x: 0px;
+    --parallax-y: 0px;
+    transform: translate(-50%, -50%) translate3d(var(--parallax-x), var(--parallax-y), 0);
+    transition: transform 240ms ease;
+    will-change: transform;
     z-index: 2;
     width: min(600px, 90vw);
     padding: 40px 50px;
@@ -580,6 +588,10 @@ dialog .close {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     border-radius: 0;
     text-align: left;
+}
+
+.contact-hero.is-parallax-active .contact-hero-overlay {
+    transition: transform 0ms;
 }
 
 .contact-hero-overlay h2 {
@@ -620,6 +632,15 @@ dialog .close {
 @media (prefers-reduced-motion: reduce) {
     .contact-hero-bg img {
         /* Keine Animation */
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .contact-hero-overlay {
+        transition: none;
+    }
+    .contact-hero.is-parallax-active .contact-hero-overlay {
+        transition: none;
     }
 }
 

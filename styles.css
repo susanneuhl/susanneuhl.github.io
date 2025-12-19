@@ -556,10 +556,10 @@ dialog .close {
 
 @keyframes filmstrip {
     0% {
-        transform: translateY(40px);
+        transform: translateY(60px);
     }
     100% {
-        transform: translateY(-40px);
+        transform: translateY(-60px);
     }
 }
 

@@ -131,10 +131,20 @@
   gridPictures.forEach((picture, index) => {
     const source = picture.querySelector('source');
     const img = picture.querySelector('img');
+    const nextIndex = (index + 3) % landscapeImages.length;
     
     source.srcset = 'images/compressed/' + selected[index] + '.avif';
     img.src = 'images/' + selected[index] + '.jpg';
     img.alt = 'Hintergrundbild ' + (index + 1);
+    img.dataset.next = landscapeImages[nextIndex];
+
+    img.addEventListener('animationiteration', function handler() {
+      const nextName = img.dataset.next || landscapeImages[Math.floor(Math.random() * landscapeImages.length)];
+      const nextIndex = (landscapeImages.indexOf(nextName) + 3) % landscapeImages.length;
+      img.dataset.next = landscapeImages[nextIndex];
+      source.srcset = 'images/compressed/' + nextName + '.avif';
+      img.src = 'images/' + nextName + '.jpg';
+    });
   });
   
 })();

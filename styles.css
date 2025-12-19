@@ -554,6 +554,22 @@ dialog .close {
     transform: translateY(100%);
 }
 
+/* Staggered timings per column */
+.contact-hero-bg-grid picture:nth-child(3n+1) img {
+    animation-duration: 18s;
+    animation-delay: -2s;
+}
+
+.contact-hero-bg-grid picture:nth-child(3n+2) img {
+    animation-duration: 22s;
+    animation-delay: -4s;
+}
+
+.contact-hero-bg-grid picture:nth-child(3n) img {
+    animation-duration: 26s;
+    animation-delay: -6s;
+}
+
 @keyframes filmstrip {
     0% {
         transform: translateY(100%);

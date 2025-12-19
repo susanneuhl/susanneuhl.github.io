@@ -128,25 +128,24 @@
   
   // Bilder setzen (AVIF mit JPG-Fallback)
   const gridPictures = document.querySelectorAll('.grid-img');
-  const queue = selected.concat(landscapeImages.slice(0, 6));
-  let queueIndex = 0;
+  const queue = landscapeImages.slice();
+  let queueOffset = 0;
 
   gridPictures.forEach((picture, index) => {
     const source = picture.querySelector('source');
     const img = picture.querySelector('img');
-    const current = queue[index % queue.length];
+    const startIndex = (index + queueOffset) % queue.length;
 
+    const current = selected[index % selected.length];
     source.srcset = 'images/compressed/' + current + '.avif';
     img.src = 'images/' + current + '.jpg';
     img.alt = 'Hintergrundbild ' + (index + 1);
-    img.dataset.next = queue[(index + gridPictures.length) % queue.length];
 
     img.addEventListener('animationiteration', () => {
-      queueIndex = (queueIndex + 1) % queue.length;
-      const nextName = queue[(index + queueIndex + gridPictures.length) % queue.length];
+      const nextName = queue[queueOffset % queue.length];
+      queueOffset = (queueOffset + 1) % queue.length;
       source.srcset = 'images/compressed/' + nextName + '.avif';
       img.src = 'images/' + nextName + '.jpg';
-      img.dataset.next = queue[(queueIndex + gridPictures.length + 1) % queue.length];
     });
   });
   

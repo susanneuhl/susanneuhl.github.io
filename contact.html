@@ -38,30 +38,78 @@
     <main>
         <div class="contact-hero">
             <div class="contact-hero-bg-grid">
-                <picture class="grid-img">
-                    <source type="image/avif" srcset="">
-                    <img src="" alt="" loading="eager">
-                </picture>
-                <picture class="grid-img">
-                    <source type="image/avif" srcset="">
-                    <img src="" alt="" loading="eager">
-                </picture>
-                <picture class="grid-img">
-                    <source type="image/avif" srcset="">
-                    <img src="" alt="" loading="eager">
-                </picture>
-                <picture class="grid-img">
-                    <source type="image/avif" srcset="">
-                    <img src="" alt="" loading="eager">
-                </picture>
-                <picture class="grid-img">
-                    <source type="image/avif" srcset="">
-                    <img src="" alt="" loading="eager">
-                </picture>
-                <picture class="grid-img">
-                    <source type="image/avif" srcset="">
-                    <img src="" alt="" loading="eager">
-                </picture>
+                <div class="grid-tile">
+                    <div class="tile-strip">
+                        <picture class="tile-frame">
+                            <source type="image/avif" srcset="">
+                            <img src="" alt="" loading="eager" decoding="async">
+                        </picture>
+                        <picture class="tile-frame">
+                            <source type="image/avif" srcset="">
+                            <img src="" alt="" loading="eager" decoding="async">
+                        </picture>
+                    </div>
+                </div>
+                <div class="grid-tile">
+                    <div class="tile-strip">
+                        <picture class="tile-frame">
+                            <source type="image/avif" srcset="">
+                            <img src="" alt="" loading="eager" decoding="async">
+                        </picture>
+                        <picture class="tile-frame">
+                            <source type="image/avif" srcset="">
+                            <img src="" alt="" loading="eager" decoding="async">
+                        </picture>
+                    </div>
+                </div>
+                <div class="grid-tile">
+                    <div class="tile-strip">
+                        <picture class="tile-frame">
+                            <source type="image/avif" srcset="">
+                            <img src="" alt="" loading="eager" decoding="async">
+                        </picture>
+                        <picture class="tile-frame">
+                            <source type="image/avif" srcset="">
+                            <img src="" alt="" loading="eager" decoding="async">
+                        </picture>
+                    </div>
+                </div>
+                <div class="grid-tile">
+                    <div class="tile-strip">
+                        <picture class="tile-frame">
+                            <source type="image/avif" srcset="">
+                            <img src="" alt="" loading="eager" decoding="async">
+                        </picture>
+                        <picture class="tile-frame">
+                            <source type="image/avif" srcset="">
+                            <img src="" alt="" loading="eager" decoding="async">
+                        </picture>
+                    </div>
+                </div>
+                <div class="grid-tile">
+                    <div class="tile-strip">
+                        <picture class="tile-frame">
+                            <source type="image/avif" srcset="">
+                            <img src="" alt="" loading="eager" decoding="async">
+                        </picture>
+                        <picture class="tile-frame">
+                            <source type="image/avif" srcset="">
+                            <img src="" alt="" loading="eager" decoding="async">
+                        </picture>
+                    </div>
+                </div>
+                <div class="grid-tile">
+                    <div class="tile-strip">
+                        <picture class="tile-frame">
+                            <source type="image/avif" srcset="">
+                            <img src="" alt="" loading="eager" decoding="async">
+                        </picture>
+                        <picture class="tile-frame">
+                            <source type="image/avif" srcset="">
+                            <img src="" alt="" loading="eager" decoding="async">
+                        </picture>
+                    </div>
+                </div>
             </div>
             <div class="contact-hero-overlay">
                 <h2>Kontakt</h2>
@@ -123,29 +171,62 @@
   ];
 
   // Zufällige 6 Bilder auswählen
-  const shuffled = landscapeImages.sort(() => 0.5 - Math.random());
+  const shuffled = landscapeImages.slice().sort(() => 0.5 - Math.random());
   const selected = shuffled.slice(0, 6);
-  
-  // Bilder setzen (AVIF mit JPG-Fallback)
-  const gridPictures = document.querySelectorAll('.grid-img');
-  const queue = landscapeImages.slice();
-  let queueOffset = 0;
 
-  gridPictures.forEach((picture, index) => {
-    const source = picture.querySelector('source');
-    const img = picture.querySelector('img');
-    const startIndex = (index + queueOffset) % queue.length;
+  function shuffledQueue() {
+    const arr = landscapeImages.slice();
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
 
-    const current = selected[index % selected.length];
-    source.srcset = 'images/compressed/' + current + '.avif';
-    img.src = 'images/' + current + '.jpg';
-    img.alt = 'Hintergrundbild ' + (index + 1);
+  function setFrame(pictureEl, name) {
+    const source = pictureEl.querySelector('source');
+    const img = pictureEl.querySelector('img');
+    // thumbs for background tiles (fast), AVIF preferred
+    source.srcset = 'images/thumbs/' + name + '.avif';
+    img.src = 'images/thumbs/' + name + '.jpg';
+    img.alt = '';
+  }
 
-    img.addEventListener('animationiteration', () => {
-      const nextName = queue[queueOffset % queue.length];
-      queueOffset = (queueOffset + 1) % queue.length;
-      source.srcset = 'images/compressed/' + nextName + '.avif';
-      img.src = 'images/' + nextName + '.jpg';
+  const tiles = Array.from(document.querySelectorAll('.grid-tile'));
+  tiles.forEach((tile, tileIndex) => {
+    const strip = tile.querySelector('.tile-strip');
+    const frames = Array.from(tile.querySelectorAll('.tile-frame'));
+    if (!strip || frames.length !== 2) return;
+
+    // independent queue per tile
+    let q = shuffledQueue();
+    let qi = 0;
+    const next = () => {
+      if (qi >= q.length) {
+        q = shuffledQueue();
+        qi = 0;
+      }
+      return q[qi++];
+    };
+
+    // start with frame-filling A, then B below
+    let a = selected[tileIndex % selected.length] || next();
+    let b = next();
+    setFrame(frames[0], a);
+    setFrame(frames[1], b);
+
+    // desync: different speed + start phase per tile
+    const duration = 16 + Math.random() * 12; // 16s..28s
+    const delay = -Math.random() * duration;  // negative to start mid-strip
+    strip.style.animationDuration = duration.toFixed(2) + 's';
+    strip.style.animationDelay = delay.toFixed(2) + 's';
+
+    strip.addEventListener('animationiteration', () => {
+      // at loop boundary: B becomes new top, new random comes in as bottom
+      a = b;
+      b = next();
+      setFrame(frames[0], a);
+      setFrame(frames[1], b);
     });
   });
   

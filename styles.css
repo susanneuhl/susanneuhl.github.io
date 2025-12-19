@@ -516,13 +516,26 @@ dialog .close {
     pointer-events: none;
 }
 
-.contact-hero-bg-grid .grid-img {
+.contact-hero-bg-grid .grid-tile {
     width: 100%;
     height: 100%;
+    overflow: hidden;
+}
+
+.contact-hero-bg-grid .tile-strip {
+    height: 200%;
+    display: flex;
+    flex-direction: column;
+    animation: tileFilmstrip 22s linear infinite;
+    will-change: transform;
+}
+
+.contact-hero-bg-grid .tile-frame {
+    height: 50%;
     display: block;
 }
 
-.contact-hero-bg-grid .grid-img img {
+.contact-hero-bg-grid .tile-frame img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -537,52 +550,18 @@ dialog .close {
     }
 }
 
-.contact-hero-bg-grid picture {
-    overflow: hidden;
-}
-
-.contact-hero-bg-grid picture {
-    overflow: hidden;
-}
-
-.contact-hero-bg-grid picture img {
-    width: 100%;
-    min-height: calc(100% + 160px);
-    animation: filmstrip 20s linear infinite;
-    will-change: transform;
-    object-fit: cover;
-    transform: translateY(100%);
-}
-
-/* Staggered timings per column */
-.contact-hero-bg-grid picture:nth-child(3n+1) img {
-    animation-duration: 18s;
-    animation-delay: -2s;
-}
-
-.contact-hero-bg-grid picture:nth-child(3n+2) img {
-    animation-duration: 22s;
-    animation-delay: -4s;
-}
-
-.contact-hero-bg-grid picture:nth-child(3n) img {
-    animation-duration: 26s;
-    animation-delay: -6s;
-}
-
-@keyframes filmstrip {
+@keyframes tileFilmstrip {
     0% {
-        transform: translateY(100%);
+        transform: translateY(0);
     }
     100% {
-        transform: translateY(-100%);
+        transform: translateY(-50%);
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .contact-hero-bg-grid picture img {
+    .contact-hero-bg-grid .tile-strip {
         animation: none;
-        min-height: 100%;
     }
 }
 

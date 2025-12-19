@@ -180,8 +180,9 @@
     setFrame(frames[1], b);
 
     // desync: different speed + start phase per tile
-    const duration = 16 + Math.random() * 12; // 16s..28s
-    const delay = -Math.random() * duration;  // negative to start mid-strip
+    const baseDurations = [16, 22, 28];
+    const duration = baseDurations[tileIndex % baseDurations.length] + (Math.random() * 3 - 1.5);
+    const delay = -Math.random() * duration;
     strip.style.animationDuration = duration.toFixed(2) + 's';
     strip.style.animationDelay = delay.toFixed(2) + 's';
 

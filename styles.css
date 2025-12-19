@@ -547,19 +547,19 @@ dialog .close {
 
 .contact-hero-bg-grid picture img {
     width: 100%;
-    min-height: calc(100% + 120px);
-    animation: filmstrip 22s linear infinite;
+    min-height: calc(100% + 160px);
+    animation: filmstrip 20s linear infinite;
     will-change: transform;
     object-fit: cover;
-    transform: translateY(0);
+    transform: translateY(100%);
 }
 
 @keyframes filmstrip {
     0% {
-        transform: translateY(60px);
+        transform: translateY(100%);
     }
     100% {
-        transform: translateY(-60px);
+        transform: translateY(-100%);
     }
 }
 

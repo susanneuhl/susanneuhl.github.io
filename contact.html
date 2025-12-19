@@ -157,6 +157,17 @@
   }
 
   const tiles = Array.from(document.querySelectorAll('.grid-tile'));
+  const baseDurations = [16, 22, 28];
+  function shuffleArray(arr) {
+    const copy = arr.slice();
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  }
+  const shuffledDurations = shuffleArray(baseDurations);
+
   tiles.forEach((tile, tileIndex) => {
     const strip = tile.querySelector('.tile-strip');
     const frames = Array.from(tile.querySelectorAll('.tile-frame'));
@@ -180,8 +191,8 @@
     setFrame(frames[1], b);
 
     // desync: different speed + start phase per tile
-    const baseDurations = [16, 22, 28];
-    const duration = baseDurations[tileIndex % baseDurations.length] + (Math.random() * 3 - 1.5);
+    const durationBase = shuffledDurations[tileIndex % shuffledDurations.length];
+    const duration = durationBase + (Math.random() * 3 - 1.5);
     const delay = -Math.random() * duration;
     strip.style.animationDuration = duration.toFixed(2) + 's';
     strip.style.animationDelay = delay.toFixed(2) + 's';

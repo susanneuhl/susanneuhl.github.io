@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-12-19T06:34:17.191333",
+  "last_updated": "2025-12-20T06:32:38.861270",
   "shows": {
     "dumme-jahre": {
       "title": "Dumme Jahre",
@@ -36,6 +36,12 @@
         {
           "date": "2026-01-16 19:30",
           "display_date": "16.01.2026",
+          "display_time": "19:30",
+          "ticket_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets"
+        },
+        {
+          "date": "2026-02-06 19:30",
+          "display_date": "06.02.2026",
           "display_time": "19:30",
           "ticket_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets"
         },

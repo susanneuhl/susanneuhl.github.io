@@ -231,9 +231,10 @@ dialog .close {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.header-nav-link:hover {
-    background-color: rgb(179, 118, 118); /* Hintergrundfarbe beim Hover */
-    color: white; /* Textfarbe beim Hover */
+.header-nav-link:hover,
+.header-nav-link.active {
+    background-color: rgb(179, 118, 118); /* Hintergrundfarbe beim Hover/Aktiv */
+    color: white; /* Textfarbe beim Hover/Aktiv */
 }
 
 /* ============================

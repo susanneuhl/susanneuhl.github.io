@@ -23,7 +23,7 @@ body {
 .js body.is-loaded {
     opacity: 1;
     transform: none;
-    filter: blur(0);
+    filter: none;
 }
 .js body.is-exiting {
     opacity: 0;

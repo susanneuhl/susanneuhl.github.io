@@ -866,9 +866,6 @@
             const image = document.getElementById("fullscreenImage");
             const modalCredit = document.getElementById("modalCredit");
             
-            // Verhindere Body-Scroll beim Öffnen des Modals
-            document.body.style.overflow = 'hidden';
-            
             // Vollbild soll immer die Fullsize-Version laden (nicht die Thumb-Version)
             let imageSrc = src;
             if (element) {
@@ -915,8 +912,6 @@
         function closeFullscreen() {
             const modal = document.getElementById("fullscreenModal");
             modal.classList.remove("show");
-            // Erlaube Body-Scroll wieder
-            document.body.style.overflow = '';
         }
 
         document.addEventListener('keydown', function(event) {

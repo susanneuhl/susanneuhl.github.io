@@ -22,7 +22,7 @@ body {
 }
 .js body.is-loaded {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
     filter: blur(0);
 }
 .js body.is-exiting {

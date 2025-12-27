@@ -801,11 +801,53 @@ dialog .close {
     transform: translateY(20px);
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     will-change: opacity, transform;
+    /* Performance: Defer layout for off-screen items */
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 400px;
 }
 
 .reveal.is-visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* ============================
+   LQIP (Low Quality Image Placeholder)
+   ============================ */
+.main-container li {
+    background-color: #e0e0e0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* The tiny blurred placeholder */
+.main-container li::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--lqip);
+    background-size: cover;
+    background-position: center;
+    filter: blur(10px);
+    transform: scale(1.1); /* Hide edges */
+    opacity: 1;
+    transition: opacity 0.6s ease-in-out;
+    z-index: 0;
+}
+
+.main-container li.loaded::before {
+    opacity: 0;
+}
+
+.main-container li picture {
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+}
+
+.main-container li.loaded picture {
+    opacity: 1;
 }
 
 /* ============================

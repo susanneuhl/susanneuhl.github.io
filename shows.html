@@ -48,6 +48,9 @@
             cursor: pointer;
             transition: transform 0.3s ease;
             box-shadow: none;
+            /* Performance: Defer layout for off-screen items */
+            content-visibility: auto;
+            contain-intrinsic-size: 1px 300px;
         }
 
         .event-card:hover {

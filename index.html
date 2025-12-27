@@ -1134,8 +1134,28 @@
                 projectList.style.listStyleType = 'none';
                 projectList.style.padding = '0';
                 
-                allProjects.forEach(project => {
+                allProjects.forEach((project, index) => {
                     const li = project.element;
+                    
+                    // Reset loading/fetch priority for all items first
+                    const img = li.querySelector('img');
+                    if (img) {
+                        // Default for list items: lazy and low priority
+                        img.setAttribute('loading', 'lazy');
+                        img.setAttribute('fetchpriority', 'low');
+                        
+                        // BUT: The first 4 items in the new timeline get high priority
+                        if (index < 4) {
+                            img.setAttribute('loading', 'eager');
+                            img.setAttribute('fetchpriority', 'high');
+                            // Remove reveal class for instant visibility
+                            li.classList.remove('reveal');
+                        } else {
+                            // Ensure reveal class is present for others
+                            li.classList.add('reveal');
+                        }
+                    }
+
                     // Füge Kategorie-Badge hinzu
                     const categoryBadge = document.createElement('div');
                     categoryBadge.textContent = project.category;

@@ -830,24 +830,27 @@ dialog .close {
     background-position: center;
     filter: blur(10px);
     transform: scale(1.1); /* Hide edges */
-    opacity: 1;
-    transition: opacity 1s ease-in-out;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
     z-index: 0;
+    pointer-events: none;
 }
 
-.main-container li.loaded::before {
-    opacity: 0;
+/* Only show placeholder if image is explicitly loading */
+.main-container li.is-loading::before {
+    opacity: 1;
 }
 
 .main-container li picture {
     position: relative;
     z-index: 1;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
 }
 
-.main-container li.loaded picture {
-    opacity: 1;
+/* Only hide real image if it is explicitly loading */
+.main-container li.is-loading picture {
+    opacity: 0;
 }
 
 /* ============================

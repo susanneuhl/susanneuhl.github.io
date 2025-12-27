@@ -850,6 +850,43 @@
 
     </main>
 
+    <script>
+        // Critical: Handle Image Loading State immediately to prevent flash of blurred content
+        (function() {
+            // Run this ASAP
+            document.documentElement.addEventListener('click', function(){}); // Fix for iOS Safari tap highlight
+            
+            function initImageLoading() {
+                const images = document.querySelectorAll('.main-container li img');
+                images.forEach(img => {
+                    const li = img.closest('li');
+                    if (!li) return;
+                    
+                    // If image is not complete (loading needed), mark it
+                    if (!img.complete) {
+                        li.classList.add('is-loading');
+                        
+                        // Remove class when done
+                        img.addEventListener('load', () => {
+                            li.classList.remove('is-loading');
+                        }, { once: true });
+                        
+                        img.addEventListener('error', () => {
+                            li.classList.remove('is-loading');
+                        }, { once: true });
+                    }
+                });
+            }
+            
+            // Run now if DOM is ready, otherwise wait
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initImageLoading);
+            } else {
+                initImageLoading();
+            }
+        })();
+    </script>
+    
     <!-- Modal für Vollbild -->
     <div id="fullscreenModal">
         <span class="close-btn" onclick="closeFullscreen()">&times;</span>
@@ -960,8 +997,8 @@
             }
         });
 
-        
-        // Handle LQIP fade-in
+        // Handle LQIP fade-in - REMOVED (Handled by inline critical script now)
+        /*
         document.addEventListener('DOMContentLoaded', function() {
             const gridImages = document.querySelectorAll('.main-container li img');
             gridImages.forEach(img => {
@@ -973,6 +1010,7 @@
                 }
             });
         });
+        */
 
         // Scroll Reveal Animation
         document.addEventListener('DOMContentLoaded', function() {

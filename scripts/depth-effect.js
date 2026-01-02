@@ -246,7 +246,7 @@ class DepthEffect {
             // Mouse direction mapping
             // Inverted Y so up is up.
             // X is kept standard so moving mouse right moves view right (revealing left side of depth)
-            this.targetMouse = { x: x, y: -y };
+            this.targetMouse = { x: -x, y: -y };
         });
 
         this.container.addEventListener('mouseleave', () => {

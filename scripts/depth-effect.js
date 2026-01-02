@@ -55,8 +55,8 @@ class DepthEffect {
                 // If CanvasRatio < ImageRatio (Taller): scaleX < 1. Range is e.g. 0.25 to 0.75. Safe.
                 // We are mapping 0..1 (Canvas) to a subset of Texture.
                 
-                vec4 depthDistortion = texture2D(uMap, coverCoord);
-                float parallaxScale = 0.04; // Increased intensity (was 0.015)
+            vec4 depthDistortion = texture2D(uMap, coverCoord);
+            float parallaxScale = 0.03; // Reduced intensity (was 0.04) (was 0.015)
                 
                 vec2 parallax = uMouse * depthDistortion.r * parallaxScale;
                 vec2 finalCoord = coverCoord + parallax;

@@ -87,11 +87,18 @@ class DepthEffect {
             this.resize();
             this.setupEvents();
             this.render();
+
+            // Mark container as ready so we can hide the base image
+            this.container.classList.add('depth-ready');
             
             window.addEventListener('resize', () => this.resize());
             
         } catch (e) {
             console.error('Failed to load depth effect assets:', e);
+            // On error, ensure base image stays visible
+            if (this.canvas && this.canvas.parentNode) {
+                this.canvas.parentNode.removeChild(this.canvas);
+            }
         }
     }
 

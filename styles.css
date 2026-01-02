@@ -934,8 +934,8 @@ dialog .close {
     pointer-events: none; /* Klicks gehen durch auf das li-Element */
 }
 
-/* Verstecke das Originalbild, wenn Canvas geladen ist */
-.depth-canvas + picture {
+/* Verstecke das Originalbild nur, wenn der Effekt wirklich bereit ist */
+.depth-ready picture {
     opacity: 0 !important;
 }
 

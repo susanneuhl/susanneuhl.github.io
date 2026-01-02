@@ -944,3 +944,9 @@ dialog .close {
     transform: scale(1.05);
     transition: transform 0.3s ease;
 }
+
+/* Fix z-index for overlay and credits to be above depth canvas */
+.main-container li .overlay,
+.main-container li .image-credit {
+    z-index: 10 !important; /* Force above canvas */
+}

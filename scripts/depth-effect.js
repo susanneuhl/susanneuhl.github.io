@@ -243,9 +243,9 @@ class DepthEffect {
             const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
             const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
             
-            // Invert logic: 
-            // If I move mouse right (x>0), background should move left, foreground (depth) moves right?
-            // Usually: Perspective move.
+            // Mouse direction mapping
+            // Inverted Y so up is up.
+            // X is kept standard so moving mouse right moves view right (revealing left side of depth)
             this.targetMouse = { x: x, y: -y };
         });
 

@@ -268,29 +268,46 @@ class DepthEffect {
 
 // Auto-Init logic
 document.addEventListener('DOMContentLoaded', () => {
-    // Only on desktop
-    if (window.matchMedia('(hover: none)').matches) return;
+    // Check for desktop environment (mouse)
+    // We allow it even if (hover: none) matches, IF screen is large enough, 
+    // to support some laptops/hybrids.
+    const isLargeScreen = window.innerWidth > 1024;
+    const isMouse = window.matchMedia('(hover: hover)').matches;
+    
+    // Only skip if definitely mobile/touch-only
+    if (!isLargeScreen && !isMouse) {
+        console.log('Depth Effect: Mobile device detected, skipping.');
+        return;
+    }
 
     const containers = document.querySelectorAll('[data-depth-map]');
+    console.log(`Depth Effect: Found ${containers.length} targets.`);
+
     containers.forEach(container => {
         const img = container.querySelector('img');
         const mapSrc = container.getAttribute('data-depth-map');
         
         if (img && mapSrc) {
-            // Wait for image to load to get intrinsic size if needed, 
-            // but for now we rely on CSS size.
-            // Using the 'high-res' source for the effect if available in picture
-            
-            // Find best image source
-            let imageSrc = img.src;
-            // If picture element used, we might want the biggest one, but img.src usually holds the current one.
-            
-            // For Susanne's site specifically: 
-            // The thumbnails are small, but we want the effect on the thumbnail.
-            // We use the same image source as the <img> tag.
-            
-            new DepthEffect(container, imageSrc, mapSrc);
+            // Ensure image is loaded before starting WebGL
+            if (img.complete) {
+                initEffect(container, img, mapSrc);
+            } else {
+                img.addEventListener('load', () => {
+                    initEffect(container, img, mapSrc);
+                });
+            }
         }
     });
+    
+    function initEffect(container, img, mapSrc) {
+        // Use high-res source if available in picture element (avif/etc)
+        // But for WebGL texture, standard img.src (currentSrc) is safest and easiest.
+        // It's already loaded by browser.
+        
+        // Slight delay to ensure layout is stable
+        setTimeout(() => {
+             new DepthEffect(container, img.currentSrc || img.src, mapSrc);
+        }, 100);
+    }
 });
 

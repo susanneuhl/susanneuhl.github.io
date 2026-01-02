@@ -8,6 +8,7 @@ class DepthEffect {
         this.container = container;
         this.imageSrc = imageSrc;
         this.mapSrc = mapSrc;
+        this.raf = null;
         
         this.canvas = document.createElement('canvas');
         this.canvas.classList.add('depth-canvas');
@@ -269,52 +270,91 @@ class DepthEffect {
         this.gl.uniform2f(this.gl.getUniformLocation(this.program, 'uMouse'), this.mouse.x, this.mouse.y);
 
         this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
-        requestAnimationFrame(() => this.render());
+        this.raf = requestAnimationFrame(() => this.render());
+    }
+
+    dispose() {
+        try {
+            if (this.raf) cancelAnimationFrame(this.raf);
+            if (this.canvas && this.canvas.parentNode) {
+                this.canvas.parentNode.removeChild(this.canvas);
+            }
+            this.container.classList.remove('depth-ready');
+            this.gl = null;
+        } catch (err) {
+            console.warn('DepthEffect dispose error', err);
+        }
     }
 }
 
-// Auto-Init logic
-document.addEventListener('DOMContentLoaded', () => {
-    // Check for desktop environment (mouse)
-    // We allow it even if (hover: none) matches, IF screen is large enough, 
-    // to support some laptops/hybrids.
-    const isLargeScreen = window.innerWidth > 1024;
-    const isMouse = window.matchMedia('(hover: hover)').matches;
-    
-    // Only skip if definitely mobile/touch-only
-    if (!isLargeScreen && !isMouse) {
-        console.log('Depth Effect: Mobile device detected, skipping.');
-        return;
-    }
+// ---- Lazy init with IntersectionObserver and context budget ----
+(function() {
+    const MAX_EFFECTS = 8;
+    const activeEffects = [];
+    const effectMap = new WeakMap();
 
-    const containers = document.querySelectorAll('[data-depth-map]');
-    console.log(`Depth Effect: Found ${containers.length} targets.`);
-
-    containers.forEach(container => {
+    function startEffect(container) {
+        if (effectMap.has(container)) return;
         const img = container.querySelector('img');
         const mapSrc = container.getAttribute('data-depth-map');
-        
-        if (img && mapSrc) {
-            // Ensure image is loaded before starting WebGL
-            if (img.complete) {
-                initEffect(container, img, mapSrc);
-            } else {
-                img.addEventListener('load', () => {
-                    initEffect(container, img, mapSrc);
-                });
+        if (!img || !mapSrc) return;
+
+        const init = () => {
+            // Enforce budget: if we exceed MAX_EFFECTS, dispose the oldest
+            while (activeEffects.length >= MAX_EFFECTS) {
+                const oldest = activeEffects.shift();
+                oldest.dispose();
+                effectMap.delete(oldest.container);
             }
+            const eff = new DepthEffect(container, img.currentSrc || img.src, mapSrc);
+            activeEffects.push(eff);
+            effectMap.set(container, eff);
+        };
+
+        if (img.complete) {
+            init();
+        } else {
+            img.addEventListener('load', init, { once: true });
         }
-    });
-    
-    function initEffect(container, img, mapSrc) {
-        // Use high-res source if available in picture element (avif/etc)
-        // But for WebGL texture, standard img.src (currentSrc) is safest and easiest.
-        // It's already loaded by browser.
-        
-        // Slight delay to ensure layout is stable
-        setTimeout(() => {
-             new DepthEffect(container, img.currentSrc || img.src, mapSrc);
-        }, 100);
     }
-});
+
+    function stopEffect(container) {
+        const eff = effectMap.get(container);
+        if (!eff) return;
+        eff.dispose();
+        effectMap.delete(container);
+        const idx = activeEffects.indexOf(eff);
+        if (idx >= 0) activeEffects.splice(idx, 1);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const isLargeScreen = window.innerWidth > 900;
+        const isMouse = window.matchMedia('(hover: hover)').matches;
+        if (!isLargeScreen && !isMouse) {
+            console.log('Depth Effect: mobile detected, skip init');
+            return;
+        }
+
+        const targets = document.querySelectorAll('[data-depth-map]');
+        console.log(`Depth Effect: Found ${targets.length} targets.`);
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.intersectionRatio > 0.15) {
+                    startEffect(entry.target);
+                } else {
+                    // Release context when off-screen to stay under budget
+                    stopEffect(entry.target);
+                }
+            });
+        }, { threshold: [0, 0.15, 0.4] });
+
+        targets.forEach(t => observer.observe(t));
+
+        window.addEventListener('resize', () => {
+            // On resize, drop all and they will re-init on next intersect
+            targets.forEach(stopEffect);
+        });
+    });
+})();
 

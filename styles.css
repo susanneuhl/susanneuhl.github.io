@@ -920,3 +920,27 @@ dialog .close {
     padding-right: 20px;
   }
 }
+
+/* ============================
+   Depth Map Canvas
+   ============================ */
+.depth-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 2; /* Über dem Bild, unter dem Overlay-Text */
+    pointer-events: none; /* Klicks gehen durch auf das li-Element */
+}
+
+/* Verstecke das Originalbild, wenn Canvas geladen ist */
+.depth-canvas + picture {
+    opacity: 0 !important;
+}
+
+/* Hover-Effekte auch für Canvas aktivieren (Zoom) */
+.main-container li:hover .depth-canvas {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}

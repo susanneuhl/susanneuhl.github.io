@@ -390,7 +390,7 @@
         <div>
             <h2>Schauspiel</h2>
             <ul>
-                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/sankt-falstaff.avif"
+                <li onclick="if(event.target.tagName !== 'A') openFullscreen(this.querySelector('img').src, this)" data-full-avif="images/compressed/sankt-falstaff.avif" data-depth-map="images/maps/sankt-falstaff_map.png">
                     <picture style="--lqip: url('images/tiny/sankt-falstaff.jpg')">
                         <source srcset="images/thumbs/sankt-falstaff.avif" type="image/avif">
                         <img fetchpriority="high" decoding="async" loading="eager" src="images/thumbs/sankt-falstaff.jpg" alt="Kostümbild von Susanne Uhl für Sankt Falstaff am Theater Bonn (2025)">
@@ -1354,6 +1354,8 @@
   }
 })();
 </script>
+
+<script src="scripts/depth-effect.js"></script>
 
 </body>
 </html>

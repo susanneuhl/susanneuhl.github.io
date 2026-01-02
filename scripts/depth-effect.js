@@ -287,73 +287,42 @@ class DepthEffect {
     }
 }
 
-// ---- Lazy init with IntersectionObserver and context budget ----
+// ---- Simple Auto-init (no lazy loading) ----
 (function() {
-    const MAX_EFFECTS = 8;
-    const activeEffects = [];
-    const effectMap = new WeakMap();
-
-    function startEffect(container) {
-        if (effectMap.has(container)) return;
-        const img = container.querySelector('img');
-        const mapSrc = container.getAttribute('data-depth-map');
-        if (!img || !mapSrc) return;
-
-        const init = () => {
-            // Enforce budget: if we exceed MAX_EFFECTS, dispose the oldest
-            while (activeEffects.length >= MAX_EFFECTS) {
-                const oldest = activeEffects.shift();
-                oldest.dispose();
-                effectMap.delete(oldest.container);
-            }
-            const eff = new DepthEffect(container, img.currentSrc || img.src, mapSrc);
-            activeEffects.push(eff);
-            effectMap.set(container, eff);
-        };
-
-        if (img.complete) {
-            init();
-        } else {
-            img.addEventListener('load', init, { once: true });
-        }
-    }
-
-    function stopEffect(container) {
-        const eff = effectMap.get(container);
-        if (!eff) return;
-        eff.dispose();
-        effectMap.delete(container);
-        const idx = activeEffects.indexOf(eff);
-        if (idx >= 0) activeEffects.splice(idx, 1);
-    }
-
     document.addEventListener('DOMContentLoaded', () => {
         const isLargeScreen = window.innerWidth > 900;
         const isMouse = window.matchMedia('(hover: hover)').matches;
+        
         if (!isLargeScreen && !isMouse) {
             console.log('Depth Effect: mobile detected, skip init');
             return;
         }
 
-        const targets = document.querySelectorAll('[data-depth-map]');
-        console.log(`Depth Effect: Found ${targets.length} targets.`);
+        const containers = document.querySelectorAll('[data-depth-map]');
+        console.log(`Depth Effect: Initializing ${containers.length} effects`);
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && entry.intersectionRatio > 0.15) {
-                    startEffect(entry.target);
-                } else {
-                    // Release context when off-screen to stay under budget
-                    stopEffect(entry.target);
+        containers.forEach(container => {
+            const img = container.querySelector('img');
+            const mapSrc = container.getAttribute('data-depth-map');
+            
+            if (!img || !mapSrc) return;
+
+            const initEffect = () => {
+                try {
+                    new DepthEffect(container, img.currentSrc || img.src, mapSrc);
+                    console.log(`✓ Depth effect ready: ${mapSrc}`);
+                } catch (err) {
+                    console.warn(`✗ Depth effect failed: ${mapSrc}`, err);
                 }
-            });
-        }, { threshold: [0, 0.15, 0.4] });
+            };
 
-        targets.forEach(t => observer.observe(t));
-
-        window.addEventListener('resize', () => {
-            // On resize, drop all and they will re-init on next intersect
-            targets.forEach(stopEffect);
+            if (img.complete) {
+                setTimeout(initEffect, 50);
+            } else {
+                img.addEventListener('load', () => {
+                    setTimeout(initEffect, 50);
+                }, { once: true });
+            }
         });
     });
 })();

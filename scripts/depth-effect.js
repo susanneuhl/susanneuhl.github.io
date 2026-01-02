@@ -251,7 +251,9 @@ class DepthEffect {
 
     setupEvents() {
         this.container.addEventListener('mousemove', (e) => {
-            const rect = this.rect;
+            // IMPORTANT: Get fresh rect on every mousemove to account for scrolling
+            const rect = this.container.getBoundingClientRect();
+            
             // Normalize -1 to 1
             const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
             const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;

@@ -87,12 +87,17 @@ class DepthEffect {
             this.setupTextures();
             this.resize();
             this.setupEvents();
+            
+            // Watch for container size changes (handles lazy-loaded images better than window resize)
+            this.resizeObserver = new ResizeObserver(() => {
+                this.resize();
+            });
+            this.resizeObserver.observe(this.container);
+            
             this.render();
 
             // Mark container as ready so we can hide the base image
             this.container.classList.add('depth-ready');
-            
-            window.addEventListener('resize', () => this.resize());
             
         } catch (e) {
             console.error('Failed to load depth effect assets:', e);
@@ -276,6 +281,10 @@ class DepthEffect {
     dispose() {
         try {
             if (this.raf) cancelAnimationFrame(this.raf);
+            if (this.resizeObserver) {
+                this.resizeObserver.disconnect();
+                this.resizeObserver = null;
+            }
             if (this.canvas && this.canvas.parentNode) {
                 this.canvas.parentNode.removeChild(this.canvas);
             }
@@ -308,6 +317,12 @@ class DepthEffect {
             if (!img || !mapSrc) return;
 
             const initEffect = () => {
+                // Double-check image has dimensions before initializing
+                if (!img.naturalWidth || !img.naturalHeight) {
+                    console.warn(`✗ Image has no dimensions yet: ${mapSrc}`);
+                    return;
+                }
+                
                 try {
                     new DepthEffect(container, img.currentSrc || img.src, mapSrc);
                     console.log(`✓ Depth effect ready: ${mapSrc}`);
@@ -316,11 +331,13 @@ class DepthEffect {
                 }
             };
 
-            if (img.complete) {
-                setTimeout(initEffect, 50);
+            if (img.complete && img.naturalWidth > 0) {
+                // Image already loaded, but wait a bit for layout to settle
+                setTimeout(initEffect, 100);
             } else {
+                // Wait for image to fully load
                 img.addEventListener('load', () => {
-                    setTimeout(initEffect, 50);
+                    setTimeout(initEffect, 100);
                 }, { once: true });
             }
         });

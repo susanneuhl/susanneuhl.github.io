@@ -39,24 +39,27 @@ class DepthEffect {
             uniform sampler2D uImage;
             uniform sampler2D uMap;
             uniform vec2 uMouse;
+            uniform vec2 uImageScale;
+            uniform vec2 uImageOffset;
             varying vec2 vTexCoord;
 
             void main() {
-                vec4 depthDistortion = texture2D(uMap, vTexCoord);
-                float parallaxScale = 0.015; // Intensity of effect
+                // Adjust coords for object-fit: cover
+                vec2 coverCoord = vTexCoord * uImageScale + uImageOffset;
                 
-                // Mouse direction affects offset direction
-                // Depth (0-1) determines how much it moves
-                // Bright = Near = Moves more/opposite to background
+                // If out of bounds, discard or clamp (though our math ensures we are 'zooming in' on texture, 
+                // so the range is 0..1 or smaller subset of texture, so we are always inside texture [0,1]?)
+                // Wait. 
+                // If CanvasRatio > ImageRatio (Wider): scaleY < 1. Range is e.g. 0.25 to 0.75. Safe.
+                // If CanvasRatio < ImageRatio (Taller): scaleX < 1. Range is e.g. 0.25 to 0.75. Safe.
+                // We are mapping 0..1 (Canvas) to a subset of Texture.
+                
+                vec4 depthDistortion = texture2D(uMap, coverCoord);
+                float parallaxScale = 0.015; 
                 
                 vec2 parallax = uMouse * depthDistortion.r * parallaxScale;
-                
-                // Final coord
-                vec2 finalCoord = vTexCoord + parallax;
+                vec2 finalCoord = coverCoord + parallax;
 
-                // Simple edge clamping to prevent wrapping artifacts if needed
-                // For now, we rely on texture params CLAMP_TO_EDGE
-                
                 gl_FragColor = texture2D(uImage, finalCoord);
             }
         `;
@@ -193,6 +196,44 @@ class DepthEffect {
         this.canvas.width = this.rect.width;
         this.canvas.height = this.rect.height;
         this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
+        
+        this.updateCoverUVs();
+    }
+    
+    updateCoverUVs() {
+        if (!this.img) return;
+        
+        const cw = this.canvas.width;
+        const ch = this.canvas.height;
+        const iw = this.img.width;
+        const ih = this.img.height;
+        
+        const canvasRatio = cw / ch;
+        const imageRatio = iw / ih;
+        
+        let scaleX = 1.0;
+        let scaleY = 1.0;
+        let offsetX = 0.0;
+        let offsetY = 0.0;
+        
+        // Emulate object-fit: cover
+        if (canvasRatio > imageRatio) {
+            // Canvas is wider relative to height -> Crop top/bottom
+            // We map 0..1 (Canvas Y) to a smaller range of Texture Y
+            scaleY = imageRatio / canvasRatio;
+            offsetY = (1.0 - scaleY) / 2.0;
+        } else {
+            // Canvas is taller relative to width -> Crop left/right
+            // We map 0..1 (Canvas X) to a smaller range of Texture X
+            scaleX = canvasRatio / imageRatio;
+            offsetX = (1.0 - scaleX) / 2.0;
+        }
+        
+        const uScaleLoc = this.gl.getUniformLocation(this.program, 'uImageScale');
+        const uOffsetLoc = this.gl.getUniformLocation(this.program, 'uImageOffset');
+        
+        if (uScaleLoc) this.gl.uniform2f(uScaleLoc, scaleX, scaleY);
+        if (uOffsetLoc) this.gl.uniform2f(uOffsetLoc, offsetX, offsetY);
     }
 
     setupEvents() {

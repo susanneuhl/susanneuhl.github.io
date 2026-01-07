@@ -1144,13 +1144,13 @@ dialog .close {
         color: rgb(179, 118, 118); /* Konstant Rosa */
         font-family: 'Hanken Grotesk', sans-serif;
         font-weight: 800; /* Extra Bold */
-        font-size: 3.5rem; /* Näher am Menü-Style (3em), aber dominant */
+        font-size: 4rem; /* Größer als Menü, kleiner als vorher */
         margin-bottom: 60px; /* Deutlich mehr Abstand zur Mail */
         text-transform: none; /* Case Sensitive wie im Menü */
         letter-spacing: -0.05em;
         line-height: 0.9;
         opacity: 1; /* Volle Deckkraft */
-        margin-top: -100px; /* Noch weiter nach oben schieben */
+        margin-top: -150px; /* Noch weiter nach oben schieben */
     }
     
     /* Mail-Wrapper Anpassung */

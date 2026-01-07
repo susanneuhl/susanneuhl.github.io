@@ -1050,7 +1050,6 @@
                     const projects = column.querySelectorAll('li');
                     
                     projects.forEach(project => {
-                        const overlayText = project.querySelector('.overlay span').textContent;
                         // Versuche zuerst Datenattribute zu verwenden
                         const dataYear = project.getAttribute('data-year');
                         const dataMonth = project.getAttribute('data-month');
@@ -1060,8 +1059,10 @@
                             year = parseInt(dataYear);
                             month = dataMonth ? parseInt(dataMonth) : 12; // Default: Dezember
                         } else {
-                            // Fallback: Text-Parsing
-                            const yearMatch = overlayText.match(/\((\d{4})\)/);
+                            // Fallback: Text-Parsing aus dem neuen title-meta Element
+                            const titleMeta = project.querySelector('.title-meta');
+                            const metaText = titleMeta ? titleMeta.textContent : '';
+                            const yearMatch = metaText.match(/(\d{4})/);
                             year = yearMatch ? parseInt(yearMatch[1]) : 0;
                             month = 12; // Default
                         }

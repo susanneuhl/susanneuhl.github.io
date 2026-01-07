@@ -206,20 +206,19 @@ dialog .close {
    Sticky Header
 ============================ */
 .sticky-header {
-    position: sticky;
-    top: 0;
+    position: relative; /* Scrollt mit dem Inhalt weg */
     z-index: 1000;
-    width: 100%; /* Sicherstellen, dass er die volle Breite hat */
-    background: none !important; /* Entfernt alle Hintergrundstile */
-    background-color: transparent !important; /* Erzwingt Transparenz */
-    backdrop-filter: blur(10px); /* Blur-Effekt bleibt erhalten */
-    padding: 10px 0; /* Kein seitliches Padding */
-    display: flex; /* Flexbox für Layout */
-    justify-content: space-between; /* Platz zwischen Titel und Navigation */
-    align-items: center; /* Vertikale Zentrierung */
+    width: 100%;
+    box-sizing: border-box; /* Fix für Layout-Shift */
+    background: none !important;
+    background-color: transparent !important;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-size: 1.5em;
     font-weight: bold;
-    box-shadow: none; /* Schatten entfernt */
+    box-shadow: none;
 }
 
 /* Header-Content Styling */

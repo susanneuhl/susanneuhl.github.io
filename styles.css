@@ -232,14 +232,14 @@ dialog .close {
 .header-nav-link {
     text-decoration: none;
     color: #1a1a1a;
-    font-size: 1.8em; /* Angeglichen an Titel */
+    font-size: 1.5em; /* Reduziert von 1.8em */
     font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 800; /* Extra Fett */
     padding: 5px 0;
     border: none; 
     background: none;
     transition: color 0.2s ease;
-    letter-spacing: -0.03em; /* Identisch zu Titel */
+    letter-spacing: -0.03em;
     line-height: 1;
 }
 
@@ -775,7 +775,7 @@ dialog .close {
 }
 
 .main-title {
-    font-size: 1.8em; /* Angeglichen an Navigation */
+    font-size: 1.5em; /* Reduziert von 1.8em */
     font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 800; /* Extra Bold */
     color: #1a1a1a;

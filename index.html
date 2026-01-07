@@ -979,6 +979,38 @@
             }
         });
 
+        // Touch Swipe Support für Fullscreen-Modal
+        (function() {
+            let touchStartX = 0;
+            let touchEndX = 0;
+            const swipeThreshold = 50; // Mindest-Swipe-Distanz in Pixeln
+            
+            const modal = document.getElementById("fullscreenModal");
+            
+            modal.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+            
+            modal.addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, { passive: true });
+            
+            function handleSwipe() {
+                const swipeDistance = touchEndX - touchStartX;
+                
+                if (Math.abs(swipeDistance) < swipeThreshold) return;
+                
+                if (swipeDistance > 0) {
+                    // Swipe nach rechts → vorheriges Bild
+                    prevImage();
+                } else {
+                    // Swipe nach links → nächstes Bild
+                    nextImage();
+                }
+            }
+        })();
+
         // Handle LQIP fade-in - REMOVED (Handled by inline critical script now)
         /*
         document.addEventListener('DOMContentLoaded', function() {

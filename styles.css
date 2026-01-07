@@ -340,14 +340,14 @@ dialog .close {
         display: block;
         width: auto;
         text-align: left;
-        font-size: 2.2em; /* Etwas größer */
-        font-weight: 700; /* Fett */
+        font-size: 3em; /* Deutlich größer für Poster-Look */
+        font-weight: 800; /* Extra Bold */
         color: white;
         border: none;
         padding: 0;
         background: none;
-        letter-spacing: -0.03em;
-        line-height: 1.1; /* Kompakt */
+        letter-spacing: -0.04em; /* Sehr enges Tracking */
+        line-height: 1.05; /* Sehr kompakt */
     }
 
     /* Überschreibe Desktop-Styles: Kein Rahmen/Hintergrund, nur Textfarbe */

@@ -745,44 +745,53 @@ dialog .close {
     text-align: justify;
 }
 
-/* Desktop Page Contact Styles */
+/* Desktop Page Contact & Dates Styles */
 @media (min-width: 769px) {
-    body.page-contact {
+    body.page-contact,
+    body.page-dates {
         background-color: #1a1a1a;
     }
     
-    body.page-contact footer {
+    body.page-contact footer,
+    body.page-dates footer {
         background-color: #1a1a1a;
         color: #888;
         padding-top: 20px;
     }
     
-    body.page-contact footer p {
+    body.page-contact footer p,
+    body.page-dates footer p {
         color: #888;
     }
     
-    body.page-contact footer a {
+    body.page-contact footer a,
+    body.page-dates footer a {
         color: #888;
         text-decoration: none;
     }
     
-    body.page-contact footer a:hover {
+    body.page-contact footer a:hover,
+    body.page-dates footer a:hover {
         color: rgb(179, 118, 118);
     }
 }
 
-/* Header Fixes for Contact Page (Always Dark Background) */
-body.page-contact .sticky-header {
+/* Header Fixes for Contact & Dates Page (Always Dark Background) */
+body.page-contact .sticky-header,
+body.page-dates .sticky-header {
     mix-blend-mode: normal !important;
     color: white !important;
 }
 
 body.page-contact .header-nav-link:hover,
-body.page-contact .header-nav-link.active {
+body.page-contact .header-nav-link.active,
+body.page-dates .header-nav-link:hover,
+body.page-dates .header-nav-link.active {
     color: rgb(179, 118, 118) !important;
 }
 
-body.page-contact .hamburger span {
+body.page-contact .hamburger span,
+body.page-dates .hamburger span {
     background-color: white !important;
 }
 
@@ -1446,7 +1455,7 @@ body.page-contact .hamburger span {
     /* Desktop Title Style */
     .desktop-dates-title {
         text-align: center;
-        color: #1a1a1a;
+        color: white;
         font-family: 'Hanken Grotesk', sans-serif;
         font-weight: 600;
         margin-bottom: 40px;

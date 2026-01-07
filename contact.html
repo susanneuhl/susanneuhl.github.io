@@ -45,12 +45,9 @@
                 <h2>Contact</h2>
                 <p class="mail-wrapper"><a href="mailto:mail@susanneuhl.com" class="mail-link">mail@<wbr>susanneuhl.com</a></p>
                 
-                <!-- Mobile Actions (Share priority, Copy fallback) -->
+                <!-- Mobile Actions (Always Copy) -->
                 <div class="mobile-actions">
-                    <button class="action-btn" id="shareBtn" aria-label="Teilen" style="display: none;">
-                        <span class="icon">↗</span>
-                    </button>
-                    <button class="action-btn" id="copyBtn" aria-label="E-Mail kopieren" style="display: none;">
+                    <button class="action-btn" id="copyBtn" aria-label="E-Mail kopieren">
                         <span class="icon">❐</span>
                     </button>
                     <span id="copyFeedback" class="copy-feedback">Kopiert!</span>
@@ -145,31 +142,10 @@
 // Mobile Contact Actions
 (function() {
     const copyBtn = document.getElementById('copyBtn');
-    const shareBtn = document.getElementById('shareBtn');
     const feedback = document.getElementById('copyFeedback');
     const mailText = 'mail@susanneuhl.com';
 
-    // Logik: Wenn Share verfügbar, zeige Share. Sonst Copy.
-    if (shareBtn && navigator.share) {
-        // Share verfügbar -> Zeige Share Button
-        shareBtn.style.display = 'flex'; // Flex damit zentriert
-        
-        shareBtn.addEventListener('click', async () => {
-            try {
-                await navigator.share({
-                    title: 'Susanne Uhl Kostümbild',
-                    text: 'Kontakt zu Susanne Uhl:',
-                    url: 'mailto:' + mailText
-                });
-            } catch (err) {
-                console.log('Share cancelled');
-            }
-        });
-        
-    } else if (copyBtn) {
-        // Fallback -> Zeige Copy Button
-        copyBtn.style.display = 'flex';
-        
+    if (copyBtn) {
         copyBtn.addEventListener('click', async () => {
             try {
                 await navigator.clipboard.writeText(mailText);

@@ -1212,7 +1212,12 @@
 
         // Schließen des Modals durch Klick auf den Hintergrund
         document.getElementById("fullscreenModal").addEventListener("click", function(event) {
-            if (event.target === this || event.target.id === "fullscreenImage") {
+            const target = event.target;
+            // Schließen wenn man auf den Hintergrund klickt (Modal, Slide-Bereich oder Bild)
+            if (target === this || 
+                target.id === "fullscreenImage" ||
+                target.classList.contains('swipe-slide') ||
+                target.classList.contains('swipe-track')) {
                 closeFullscreen();
             }
         });

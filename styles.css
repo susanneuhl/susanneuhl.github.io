@@ -340,7 +340,7 @@ dialog .close {
 }
 
 .about-section h1, .vita-section h2, .contact-section h2 {
-    color: rgb(179, 118, 118); 
+    color: #1a1a1a; /* Schwarz statt Rosa */
     font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 600;
     margin-bottom: 20px;
@@ -362,17 +362,19 @@ dialog .close {
 }
 
 .contact-section a {
-    color: rgb(179, 118, 118); /* Gleiche Farbe wie die Überschriften */
+    color: #1a1a1a; /* Schwarz statt Rosa */
     text-decoration: none;
+    transition: color 0.2s ease;
 }
 
 .contact-section a:hover {
-    text-decoration: underline;
+    color: rgb(179, 118, 118); /* Rosa bei Hover */
+    text-decoration: none;
 }
 
 /* Überschriften für Schauspiel, Oper und Film */
 .main-container h2 {
-    color: rgb(179, 118, 118); 
+    color: #1a1a1a; /* Schwarz statt Rosa */
     font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 500; /* Medium */
     font-style: normal;
@@ -485,7 +487,7 @@ dialog .close {
 }
 
 .impressum h1, .impressum h2 {
-    color: rgb(179, 118, 118); /* Gleiche Farbe wie der Header-Text */
+    color: #1a1a1a; /* Schwarz statt Rosa */
     font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 600;
     margin-bottom: 20px; /* Abstand nach unten */
@@ -496,6 +498,18 @@ dialog .close {
 .impressum p {
     margin-bottom: 20px; /* Abstand zwischen den Absätzen */
     text-align: justify; /* Text ausrichten für bessere Lesbarkeit */
+}
+
+.impressum a {
+    color: #1a1a1a;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0,0,0,0.1); /* Subtile Unterstreichung */
+    transition: all 0.2s ease;
+}
+
+.impressum a:hover {
+    color: rgb(179, 118, 118);
+    border-bottom-color: rgb(179, 118, 118);
 }
 
 /* ============================
@@ -887,12 +901,15 @@ dialog .close {
     font-size: 0.95em;
     font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 600; /* Bold für den Titel */
-    color: #1a1a1a; /* Schwarz statt rosa für maximalen Clean-Look? Oder Rosa lassen? Ich lasse es erstmal Rosa, wie gewünscht */
-    color: rgb(179, 118, 118);
+    color: #1a1a1a; /* Schwarz */
     line-height: 1.3;
     transition: color 0.2s ease;
     margin-bottom: 2px;
     letter-spacing: -0.01em;
+}
+
+.project-title:hover .title-main {
+    color: rgb(179, 118, 118); /* Rosa bei Hover */
 }
 
 .project-title .title-meta {

@@ -312,15 +312,18 @@ dialog .close {
         position: fixed;
         top: 0;
         left: 0;
-        width: 100vw;
-        height: 100dvh; /* Dynamic Viewport Height für exakte Anpassung an Mobile Browser */
-        background-color: #1a1a1a; /* Schwarzer Hintergrund */
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%; /* Fallback */
+        height: 100dvh; /* Dynamic Viewport Height */
+        background-color: #1a1a1a;
+        display: flex;
         flex-direction: column;
-        justify-content: flex-end; /* Unten ausrichten */
-        align-items: flex-start; /* Links bündig */
-        gap: 15px; /* Etwas enger beieinander */
-        padding-left: 40px; /* Einrückung von links */
-        padding-bottom: 180px; /* Deutlich mehr Abstand von unten (Thumb Zone), ca. unteres Drittel */
+        justify-content: center; /* Vertikal zentriert wie im Screenshot */
+        align-items: flex-start;
+        gap: 15px;
+        padding: 40px; /* Großzügiges Padding */
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.3s ease;
@@ -336,14 +339,14 @@ dialog .close {
         display: block;
         width: auto;
         text-align: left;
-        font-size: 3.5em; /* Sehr groß für Magazin-Look */
-        font-weight: 400; /* Etwas leichter wirkt eleganter bei der Größe */
+        font-size: 2em; /* Reduziert von 3.5em, ähnlich wie Hauptüberschrift */
+        font-weight: 400;
         color: white;
         border: none;
         padding: 0;
         background: none;
-        letter-spacing: -0.04em;
-        line-height: 1.1;
+        letter-spacing: -0.02em;
+        line-height: 1.4; /* Etwas mehr Luft bei kleinerer Schrift */
     }
 
     /* Überschreibe Desktop-Styles: Kein Rahmen/Hintergrund, nur Textfarbe */

@@ -778,22 +778,18 @@ dialog .close {
     }
 }
 
-/* Header Fixes for Contact & Dates Page (Always Dark Background) */
-body.page-contact .sticky-header,
-body.page-dates .sticky-header {
+/* Header Fixes for Contact Page (Always Dark Background) */
+body.page-contact .sticky-header {
     mix-blend-mode: normal !important;
     color: white !important;
 }
 
 body.page-contact .header-nav-link:hover,
-body.page-contact .header-nav-link.active,
-body.page-dates .header-nav-link:hover,
-body.page-dates .header-nav-link.active {
+body.page-contact .header-nav-link.active {
     color: rgb(179, 118, 118) !important;
 }
 
-body.page-contact .hamburger span,
-body.page-dates .hamburger span {
+body.page-contact .hamburger span {
     background-color: white !important;
 }
 

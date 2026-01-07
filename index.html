@@ -962,7 +962,9 @@
             // Gibt die Thumbnail-URL zurück (schnell ladend)
             if (!element) return '';
             const img = element.querySelector('img');
-            return img ? img.src : '';
+            if (!img) return '';
+            // Versuche currentSrc (das aktuell geladene), dann src
+            return img.currentSrc || img.src || '';
         }
 
         function getFullSrc(element) {
@@ -1016,28 +1018,20 @@
             const prevImg = document.getElementById("prevSlideImage");
             const nextImg = document.getElementById("nextSlideImage");
             
-            // Current slide - Vollbild
+            // Alle Slides laden - verwende getFullSrc für zuverlässige Pfade
             currentImg.src = getFullSrc(currentEl);
             document.getElementById("modalCredit").textContent = getCredit(currentEl);
             
-            // Prev slide - Thumbnail zuerst (schneller)
-            const prevThumb = getThumbSrc(prevEl);
-            const prevFull = getFullSrc(prevEl);
-            prevImg.src = prevThumb || prevFull;
+            prevImg.src = getFullSrc(prevEl);
             document.getElementById("prevSlideCredit").textContent = getCredit(prevEl);
             
-            // Next slide - Thumbnail zuerst (schneller)
-            const nextThumb = getThumbSrc(nextEl);
-            const nextFull = getFullSrc(nextEl);
-            nextImg.src = nextThumb || nextFull;
+            nextImg.src = getFullSrc(nextEl);
             document.getElementById("nextSlideCredit").textContent = getCredit(nextEl);
             
-            // Debug: Log what we're loading
-            console.log('Slides loaded:', {
-                prev: prevImg.src,
-                current: currentImg.src,
-                next: nextImg.src
-            });
+            // Debug
+            console.log('Slides:', { prevIdx, currentProjectIndex, nextIdx });
+            console.log('Elements:', { prevEl, currentEl, nextEl });
+            console.log('Sources:', { prev: prevImg.src, current: currentImg.src, next: nextImg.src });
         }
 
         function resetSwipeTrack() {

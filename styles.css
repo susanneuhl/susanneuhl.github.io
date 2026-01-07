@@ -775,65 +775,46 @@ dialog .close {
 }
 
 .main-title {
-    font-size: 2em; /* etwas kleiner als vorher */
+    font-size: 2.2em;
     font-family: 'Hanken Grotesk', sans-serif;
-    font-weight: 600;
+    font-weight: 800; /* Extra Bold passend zur Navigation */
     color: #1a1a1a;
     margin: 0;
-    line-height: 1.2;
+    line-height: 0.95; /* Sehr kompakt */
     text-align: left;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.04em; /* Poster-Look */
 }
 
 .main-title .subtitle {
     display: block;
-    font-size: 0.8em;
+    font-size: 0.5em; /* Kleiner, damit es elegant bleibt */
     font-family: 'Hanken Grotesk', sans-serif;
-    font-weight: 400;
-    color: #666; /* Dezentes Grau */
-    margin-top: 2px;
+    font-weight: 600; /* Auch fetter */
+    color: #666;
+    margin-top: 4px;
+    letter-spacing: 0;
 }
 .main-title-header {
-    font-size: 1.4em;
+    font-size: 1.6em;
     font-family: 'Hanken Grotesk', sans-serif;
-    font-weight: 600;
+    font-weight: 800;
     color: #1a1a1a;
     margin: 0;
-    line-height: 1.2;
+    line-height: 1;
     text-align: left;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
 }
 
 .subtitle-header {
     font-size: 0.7em;
     font-family: 'Hanken Grotesk', sans-serif;
     color: #666;
-    font-weight: 400;
-    margin: 0;
-    line-height: 1.2;
-    text-align: left;
-}
-/* HEADER-ÜBERSCHRIFTEN */
-.main-title {
-    font-size: 1.1em;   /* vorher: 2em */
-    font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 600;
-    color: #1a1a1a;
     margin: 0;
     line-height: 1.2;
     text-align: left;
-    letter-spacing: -0.01em;
 }
-
-.main-title .subtitle {
-    display: block;
-    font-size: 0.6em;   /* vorher: 0.8em */
-    font-family: 'Hanken Grotesk', sans-serif;
-    font-weight: 400;
-    color: #666;
-    margin-top: 2px;
-    text-align: left;
-}
+/* HEADER-ÜBERSCHRIFTEN (Redundant entfernt) */
 
 
 .header-content {
@@ -1038,6 +1019,10 @@ dialog .close {
 
   .header-content {
     margin-left: 20px; /* Einheitlicher linker Abstand für "Susanne Uhl" */
+  }
+
+  .main-title {
+    font-size: 1.5em; /* Angepasst für Mobile */
   }
 
   /* .header-nav und .header-nav-link entfernt, da durch Fullscreen-Overlay (max-width: 768px) geregelt */

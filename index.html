@@ -1279,27 +1279,32 @@
                 filters.forEach((filterName, index) => {
                     const filterBtn = document.createElement('button');
                     filterBtn.textContent = filterName;
+                    
+                    // Initial Styling (Dezent, Text-basiert)
+                    const isActive = index === 0;
                     filterBtn.style.cssText = `
-                        background-color: ${index === 0 ? '#1a1a1a' : 'white'};
-                        color: ${index === 0 ? 'white' : '#1a1a1a'};
-                        border: 1px solid #1a1a1a;
-                        padding: 8px 12px;
-                        border-radius: 20px;
-                        font-size: 0.9em;
+                        background: none;
+                        border: none;
+                        color: ${isActive ? '#1a1a1a' : '#888'};
+                        padding: 5px 10px;
+                        font-family: 'Hanken Grotesk', sans-serif;
+                        font-size: 0.95em;
+                        font-weight: ${isActive ? '600' : '400'};
                         cursor: pointer;
-                        transition: all 0.3s ease;
+                        transition: color 0.3s ease;
+                        -webkit-tap-highlight-color: transparent;
                     `;
                     
                     filterBtn.addEventListener('click', function() {
-                        // Alle Buttons zurücksetzen
+                        // Alle Buttons zurücksetzen (Grau, Normal)
                         filterContainer.querySelectorAll('button').forEach(btn => {
-                            btn.style.backgroundColor = 'white';
-                            btn.style.color = '#1a1a1a';
+                            btn.style.color = '#888';
+                            btn.style.fontWeight = '400';
                         });
                         
-                        // Aktiven Button markieren
-                        this.style.backgroundColor = '#1a1a1a';
-                        this.style.color = 'white';
+                        // Aktiven Button hervorheben (Schwarz, Fett)
+                        this.style.color = '#1a1a1a';
+                        this.style.fontWeight = '600';
                         
                         // Projekte filtern
                         const projectItems = projectList.querySelectorAll('li');

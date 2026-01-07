@@ -5,7 +5,7 @@ body {
     background-color: #efefef;
     margin: 0;
     font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    color: #333333;
+    color: #1a1a1a; /* Satteres Schwarz */
     -webkit-font-smoothing: antialiased; /* Macht die Schrift auf Mac schärfer/dünner */
 }
 
@@ -338,7 +338,7 @@ dialog .close {
     margin: 40px auto;
     padding: 0 20px;
     line-height: 1.6;
-    color: rgb(179, 118, 118)#333333;
+    color: #1a1a1a;
 }
 
 .about-section h1, .vita-section h2, .contact-section h2 {
@@ -396,7 +396,7 @@ dialog .close {
     margin: 40px auto; /* Zentriert den Text horizontal */
     padding: 0 60px; /* Mehr Innenabstand links und rechts */
     line-height: 1.6; /* Angenehme Zeilenhöhe */
-    color: #333333; /* Gut lesbare Textfarbe */
+    color: #1a1a1a; /* Gut lesbare Textfarbe, satteres Schwarz */
     font-size: 1em; /* Standard-Schriftgröße */
 }
 
@@ -484,7 +484,7 @@ dialog .close {
     margin: 40px auto; /* Zentriert den Text horizontal */
     padding: 0 20px; /* Innenabstand links und rechts */
     line-height: 1.6; /* Angenehme Zeilenhöhe */
-    color: #333333; /* Gut lesbare Textfarbe */
+    color: #1a1a1a; /* Gut lesbare Textfarbe */
     font-size: 1em; /* Standard-Schriftgröße */
 }
 

@@ -1119,6 +1119,7 @@ dialog .close {
     /* Overlay Reset & Styling */
     .contact-hero-overlay {
         position: relative; /* Container wieder relative für absolute Kinder */
+        inset: 0; /* WICHTIG: Reset desktop inset (50%) */
         transform: none;
         width: 100%;
         max-width: none;

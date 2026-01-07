@@ -4,8 +4,9 @@
 body {
     background-color: #efefef;
     margin: 0;
-    font-family: 'Inter', Helvetica, Arial, sans-serif; /* Inter als moderner Standard */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     color: #333333;
+    -webkit-font-smoothing: antialiased; /* Macht die Schrift auf Mac schärfer/dünner */
 }
 
 /* ============================
@@ -38,22 +39,23 @@ body {
 
 h1 {
     text-align: center;
-    font-size: 2.8em; 
+    font-size: 2.2em; /* Etwas kompakter */
     margin: 0px 0 10px 0;
-    font-family: 'DM Serif Display', serif; /* Kräftige Serif */
-    font-weight: 400;
-    color: #333333;
-    letter-spacing: -0.02em; /* Etwas enger für kompakteren Look */
+    font-family: 'Inter', sans-serif;
+    font-weight: 600; /* Semi-Bold für Präsenz */
+    color: #1a1a1a; /* Fast schwarz */
+    letter-spacing: -0.03em; /* Tight tracking für den "Modern" Look */
 }
 
 h1 span {
     font-family: 'Inter', sans-serif;
-    font-size: 0.45em; /* Kleinerer Kontrast */
+    font-size: 0.45em;
     font-weight: 400;
-    letter-spacing: 0.1em; /* Weiteres Tracking für Modernität */
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     display: block;
-    margin-top: 8px;
+    margin-top: 6px;
+    color: #666;
 }
 
 hr {
@@ -338,10 +340,11 @@ dialog .close {
 }
 
 .about-section h1, .vita-section h2, .contact-section h2 {
-    color: rgb(179, 118, 118); /* Gleiche Farbe wie "Susanne Uhl" */
-    font-family: 'DM Serif Display', serif;
-    font-weight: 400;
+    color: rgb(179, 118, 118); 
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
     margin-bottom: 20px;
+    letter-spacing: -0.02em;
 }
 
 .about-section p, .contact-section p {
@@ -370,13 +373,15 @@ dialog .close {
 /* Überschriften für Schauspiel, Oper und Film */
 .main-container h2 {
     color: rgb(179, 118, 118); 
-    font-family: 'DM Serif Display', serif;
-    font-weight: 400; 
-    font-style: normal; /* Kein Italic mehr */
-    font-size: 2em; /* Groß und selbstbewusst */
-    margin-bottom: 35px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500; /* Medium */
+    font-style: normal;
+    font-size: 1.4em; /* Dezentere Größe */
+    margin-bottom: 30px;
     text-align: center;
     letter-spacing: -0.01em;
+    text-transform: uppercase; /* Optional: Wirkt oft strukturierter */
+    letter-spacing: 0.05em;
 }
 
 /* ============================
@@ -481,10 +486,11 @@ dialog .close {
 
 .impressum h1, .impressum h2 {
     color: rgb(179, 118, 118); /* Gleiche Farbe wie der Header-Text */
-    font-family: 'DM Serif Display', serif;
-    font-weight: 400;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
     margin-bottom: 20px; /* Abstand nach unten */
     font-size: 1.5em; /* Größere Schriftgröße für Überschriften */
+    letter-spacing: -0.02em;
 }
 
 .impressum p {
@@ -878,24 +884,25 @@ dialog .close {
 
 .project-title .title-main {
     display: block;
-    font-size: 1.15em;
-    font-family: 'DM Serif Display', serif;
-    font-weight: 400;
+    font-size: 0.95em;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600; /* Bold für den Titel */
+    color: #1a1a1a; /* Schwarz statt rosa für maximalen Clean-Look? Oder Rosa lassen? Ich lasse es erstmal Rosa, wie gewünscht */
     color: rgb(179, 118, 118);
-    line-height: 1.1;
+    line-height: 1.3;
     transition: color 0.2s ease;
-    margin-bottom: 5px;
+    margin-bottom: 2px;
     letter-spacing: -0.01em;
 }
 
 .project-title .title-meta {
     display: block;
     font-family: 'Inter', sans-serif;
-    font-size: 0.7em;
-    font-weight: 500; /* Medium weight für gute Lesbarkeit */
-    letter-spacing: 0.02em;
-    color: #666; /* Etwas dunkleres Grau */
-    margin-top: 3px;
+    font-size: 0.75em;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: #888;
+    margin-top: 2px;
     transition: color 0.2s ease;
 }
 

@@ -1,0 +1,8 @@
+Beispiel Antonia.txt
+Beispiel madebysix.txt
+.DS_Store
+*.pyc
+__pycache__
+.vscode
+.cursor
+*.log

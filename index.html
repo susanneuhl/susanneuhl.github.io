@@ -264,6 +264,7 @@
             justify-content: center;
             flex-shrink: 0;
             position: relative;
+            background: rgba(0,0,0,0.9);
         }
         
         .swipe-slide img {
@@ -273,6 +274,23 @@
             height: auto;
             object-fit: contain;
             border-radius: 0;
+            background: #333;
+        }
+        
+        /* Loading indicator while image loads */
+        .swipe-slide img:not([src=""]):not([src]):before {
+            content: "";
+            display: block;
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
         
         .swipe-slide .image-credit {
@@ -910,15 +928,15 @@
         <button class="nav-arrow next-btn" onclick="nextImage(event)">&#10095;</button>
         <div class="swipe-track">
             <div class="swipe-slide swipe-prev">
-                <img decoding="async" id="prevSlideImage" src="" alt="">
+                <img decoding="async" loading="eager" id="prevSlideImage" src="" alt="">
                 <span class="image-credit" id="prevSlideCredit"></span>
             </div>
             <div class="swipe-slide swipe-current">
-                <img decoding="async" id="fullscreenImage" src="" alt="">
+                <img decoding="async" loading="eager" id="fullscreenImage" src="" alt="">
                 <span id="modalCredit" class="image-credit"></span>
             </div>
             <div class="swipe-slide swipe-next">
-                <img decoding="async" id="nextSlideImage" src="" alt="">
+                <img decoding="async" loading="eager" id="nextSlideImage" src="" alt="">
                 <span class="image-credit" id="nextSlideCredit"></span>
             </div>
         </div>
@@ -940,27 +958,31 @@
             allProjectItems = Array.from(document.querySelectorAll('.main-container li')).filter(li => li.style.display !== 'none');
         }
 
-        function getImageSrc(element) {
+        function getThumbSrc(element) {
+            // Gibt die Thumbnail-URL zurück (schnell ladend)
             if (!element) return '';
-            let imageSrc = element.querySelector('img')?.src || '';
+            const img = element.querySelector('img');
+            return img ? img.src : '';
+        }
+
+        function getFullSrc(element) {
+            // Gibt die hochauflösende URL zurück
+            if (!element) return '';
             const fullAvif = element.getAttribute('data-full-avif');
-            if (fullAvif) {
-                imageSrc = fullAvif;
-            } else {
-                const picture = element.querySelector('picture');
-                if (picture) {
-                    const avifSource = picture.querySelector('source[type="image/avif"]');
-                    if (avifSource && avifSource.srcset) {
-                        if (avifSource.srcset.startsWith('images/thumbs/')) {
-                            const base = avifSource.srcset.replace('images/thumbs/', '').replace(/\.avif$/, '');
-                            imageSrc = `images/compressed/${base}.avif`;
-                        } else {
-                            imageSrc = avifSource.srcset;
-                        }
+            if (fullAvif) return fullAvif;
+            
+            const picture = element.querySelector('picture');
+            if (picture) {
+                const avifSource = picture.querySelector('source[type="image/avif"]');
+                if (avifSource && avifSource.srcset) {
+                    if (avifSource.srcset.startsWith('images/thumbs/')) {
+                        const base = avifSource.srcset.replace('images/thumbs/', '').replace(/\.avif$/, '');
+                        return `images/compressed/${base}.avif`;
                     }
+                    return avifSource.srcset;
                 }
             }
-            return imageSrc;
+            return element.querySelector('img')?.src || '';
         }
 
         function getCredit(element) {
@@ -990,17 +1012,30 @@
             const prevEl = allProjectItems[prevIdx];
             const nextEl = allProjectItems[nextIdx];
             
-            // Current slide
-            document.getElementById("fullscreenImage").src = getImageSrc(currentEl);
+            const currentImg = document.getElementById("fullscreenImage");
+            const prevImg = document.getElementById("prevSlideImage");
+            const nextImg = document.getElementById("nextSlideImage");
+            
+            // Lade zuerst Thumbnails (sofort sichtbar), dann Vollbilder
+            // Current slide - sofort Vollbild laden
+            currentImg.src = getFullSrc(currentEl);
             document.getElementById("modalCredit").textContent = getCredit(currentEl);
             
-            // Previous slide
-            document.getElementById("prevSlideImage").src = getImageSrc(prevEl);
+            // Prev/Next - erst Thumbnail, dann Vollbild im Hintergrund
+            prevImg.src = getThumbSrc(prevEl);
             document.getElementById("prevSlideCredit").textContent = getCredit(prevEl);
             
-            // Next slide
-            document.getElementById("nextSlideImage").src = getImageSrc(nextEl);
+            nextImg.src = getThumbSrc(nextEl);
             document.getElementById("nextSlideCredit").textContent = getCredit(nextEl);
+            
+            // Lade Vollbilder für prev/next im Hintergrund
+            const prevFull = new Image();
+            prevFull.onload = () => { if (prevImg.src === getThumbSrc(prevEl)) prevImg.src = getFullSrc(prevEl); };
+            prevFull.src = getFullSrc(prevEl);
+            
+            const nextFull = new Image();
+            nextFull.onload = () => { if (nextImg.src === getThumbSrc(nextEl)) nextImg.src = getFullSrc(nextEl); };
+            nextFull.src = getFullSrc(nextEl);
         }
 
         function resetSwipeTrack() {

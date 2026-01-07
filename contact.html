@@ -82,7 +82,18 @@
             <div class="contact-hero-overlay">
                 <h2>Kontakt</h2>
                 <p>Für Anfragen und weitere Informationen können Sie gern über folgende E-Mail-Adresse Kontakt aufnehmen:</p>
-                <p>✉️ <a href="mailto:mail@susanneuhl.com">mail@susanneuhl.com</a></p>
+                <p class="mail-wrapper"><a href="mailto:mail@susanneuhl.com" class="mail-link">mail@<wbr>susanneuhl.com</a></p>
+                
+                <!-- Mobile Actions (Copy/Share) -->
+                <div class="mobile-actions">
+                    <button class="action-btn" id="copyBtn">
+                        <span class="icon">❐</span> Kopieren
+                    </button>
+                    <button class="action-btn" id="shareBtn">
+                        <span class="icon">↗</span> Teilen
+                    </button>
+                    <span id="copyFeedback" class="copy-feedback">Kopiert!</span>
+                </div>
             </div>
         </div>
     </main>
@@ -340,6 +351,48 @@
       });
     });
   }
+})();
+</script>
+
+<script>
+// Mobile Contact Actions
+(function() {
+    const copyBtn = document.getElementById('copyBtn');
+    const shareBtn = document.getElementById('shareBtn');
+    const feedback = document.getElementById('copyFeedback');
+    const mailText = 'mail@susanneuhl.com';
+
+    if (copyBtn) {
+        copyBtn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(mailText);
+                feedback.classList.add('visible');
+                setTimeout(() => feedback.classList.remove('visible'), 2000);
+            } catch (err) {
+                console.error('Copy failed', err);
+            }
+        });
+    }
+
+    if (shareBtn) {
+        // Nur anzeigen, wenn Sharing unterstützt wird
+        if (navigator.share) {
+            shareBtn.style.display = 'inline-block';
+            shareBtn.addEventListener('click', async () => {
+                try {
+                    await navigator.share({
+                        title: 'Susanne Uhl Kostümbild',
+                        text: 'Kontakt zu Susanne Uhl:',
+                        url: 'mailto:' + mailText
+                    });
+                } catch (err) {
+                    console.log('Share cancelled');
+                }
+            });
+        } else {
+            shareBtn.style.display = 'none';
+        }
+    }
 })();
 </script>
 

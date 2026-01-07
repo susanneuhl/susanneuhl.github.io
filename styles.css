@@ -215,8 +215,7 @@ dialog .close {
     width: 100%;
     box-sizing: border-box;
     background: transparent !important;
-    /* Isolate creates stacking context for children's mix-blend-mode */
-    isolation: isolate; 
+    /* Isolation entfernt, damit Blending mit dem Hintergrund (Body) stattfindet */
     padding: 10px 40px;
     display: flex;
     justify-content: space-between;

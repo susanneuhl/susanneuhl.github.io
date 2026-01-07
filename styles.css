@@ -793,6 +793,19 @@ body.page-contact .hamburger span {
     background-color: white !important;
 }
 
+/* Desktop Only: Lock Header on Dates Page (Fix Pink Hover) */
+@media (min-width: 769px) {
+    body.page-dates .sticky-header {
+        mix-blend-mode: normal !important;
+        color: white !important;
+    }
+
+    body.page-dates .header-nav-link:hover,
+    body.page-dates .header-nav-link.active {
+        color: rgb(179, 118, 118) !important;
+    }
+}
+
 /* ============================
    Event Calendar & Shows Page Styling
    (Moved from shows.html)

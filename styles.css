@@ -204,7 +204,7 @@ dialog .close {
 }
 
 /* ============================
-   Sticky Header (Fixed mit Container-Blending)
+   Sticky Header (Fixed mit Element-Blending - Final)
 ============================ */
 .sticky-header {
     position: fixed;
@@ -215,9 +215,6 @@ dialog .close {
     width: 100%;
     box-sizing: border-box;
     background: transparent !important;
-    /* Dies ist der Schlüssel: Blending auf dem Container */
-    mix-blend-mode: difference;
-    color: #ffffff;
     padding: 10px 40px;
     display: flex;
     justify-content: space-between;
@@ -228,10 +225,13 @@ dialog .close {
     transition: padding 0.3s ease;
     pointer-events: none;
     
-    /* Fade-in gegen weißen Blitz am Anfang */
+    /* Fade-in schneller, kein Delay */
     opacity: 0;
-    animation: fadeInHeader 0.8s ease-out forwards;
-    animation-delay: 0.1s; /* Kurze Verzögerung für Browser-Rendering */
+    animation: fadeInHeader 0.5s ease-out forwards;
+    
+    /* Wichtig: Kein Difference auf Container, damit Overlay schwarz bleibt! */
+    mix-blend-mode: normal; 
+    isolation: auto;
 }
 
 @keyframes fadeInHeader {
@@ -246,8 +246,10 @@ dialog .close {
     align-items: flex-start;
     margin-left: 0;
     pointer-events: auto;
-    mix-blend-mode: normal; /* Reset */
-    color: inherit;
+    
+    /* Difference Mode auf den Inhalt (Logo) */
+    mix-blend-mode: difference;
+    color: #ffffff;
 }
 
 .header-nav {
@@ -261,7 +263,7 @@ dialog .close {
     font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 800;
     color: inherit; 
-    mix-blend-mode: normal;
+    /* Erbt Difference */
     margin: 0;
     line-height: 1;
     text-align: left;
@@ -273,8 +275,7 @@ dialog .close {
     font-size: 0.5em;
     font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 600;
-    color: #aaa; /* Hellgrau -> Invertiert Dunkelgrau */
-    mix-blend-mode: normal;
+    color: #aaa; 
     margin-top: 4px;
     letter-spacing: 0;
 }
@@ -282,8 +283,9 @@ dialog .close {
 /* Navigation im Header (Desktop) */
 .header-nav-link {
     text-decoration: none;
-    color: inherit;
-    mix-blend-mode: normal;
+    color: #ffffff;
+    /* Difference hier einzeln, damit wir es beim Hover ausschalten können */
+    mix-blend-mode: difference; 
     font-size: 1.5em;
     font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 800;
@@ -299,8 +301,8 @@ dialog .close {
 .header-nav-link.active {
     background-color: transparent;
     border: none;
-    /* Color-Math Trick: Diese Farbe ergibt invertiert auf Grau ca. Rosa */
-    color: rgb(60, 121, 121); 
+    /* ECHTES Rosa, da wir Difference ausschalten */
+    color: rgb(179, 118, 118); 
     mix-blend-mode: normal;
 }
 
@@ -316,37 +318,24 @@ dialog .close {
     cursor: pointer;
     padding: 5px;
     pointer-events: auto;
+    /* Difference für den geschlossenen Burger */
+    mix-blend-mode: difference;
+    z-index: 2000;
 }
 
 .hamburger span {
     width: 25px;
     height: 2px;
-    background-color: currentColor;
-    mix-blend-mode: normal;
+    background-color: #ffffff; /* Weiß für Invertierung */
     transition: all 0.3s ease;
     display: block;
 }
 
-/* Hamburger wird weiß (auf dunklem Overlay) - Overlay liegt ÜBER dem Header? */
-/* Wenn Overlay z-index 1500 hat und Header 1000, dann liegt Overlay drüber. 
-   Aber Header hat pointer-events: none (Container). 
-   Der Burger Button ist im Header. 
-   Wenn Overlay offen ist, ist Burger "active".
-   Damit er sichtbar ist, muss er vielleicht aus dem Difference-Mode raus?
-   Nein, er ist ja im Header.
-   
-   Problem: Wenn Overlay (Schwarz) über Header (Difference) liegt, sieht man den Burger nicht?
-   Nein, Difference wirkt auf das, was HINTER dem Header liegt.
-   
-   Lösung: Wenn Menu offen ist, setzen wir Burger auf eine Farbe, die auf Schwarz gut aussieht.
-   Weiß invertiert auf Schwarz (Overlay ist hinten? Nein Overlay ist drüber).
-   
-   Moment: Header (z=1000). Overlay (z=1500).
-   Overlay überdeckt Header.
-   Burger (z=2000 im Mobile Styles). Burger liegt ÜBER Overlay.
-   Wenn Burger im Header (Difference) ist, invertiert er das Overlay (Schwarz).
-   Weiß - Schwarz = Weiß. -> Burger sollte sichtbar weiß sein.
-*/
+/* Wenn Active: Normaler Modus, Weiß auf dunklem Overlay */
+.hamburger.active {
+    mix-blend-mode: normal;
+}
+
 .hamburger.active span {
     background-color: white;
 }

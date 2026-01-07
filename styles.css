@@ -7,6 +7,13 @@ body {
     font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     color: #1a1a1a; /* Satteres Schwarz */
     -webkit-font-smoothing: antialiased; /* Macht die Schrift auf Mac schärfer/dünner */
+    overflow-x: hidden; /* Verhindert horizontales Scrollen */
+    width: 100%;
+}
+
+html {
+    overflow-x: hidden;
+    width: 100%;
 }
 
 /* ============================
@@ -202,6 +209,7 @@ dialog .close {
     position: sticky;
     top: 0;
     z-index: 1000;
+    width: 100%; /* Sicherstellen, dass er die volle Breite hat */
     background: none !important; /* Entfernt alle Hintergrundstile */
     background-color: transparent !important; /* Erzwingt Transparenz */
     backdrop-filter: blur(10px); /* Blur-Effekt bleibt erhalten */
@@ -317,7 +325,7 @@ dialog .close {
         left: 0;
         right: 0;
         bottom: 0;
-        width: 100%;
+        width: 100%; /* Statt 100vw um Scrollbars nicht zu addieren */
         height: 100%; /* Fallback */
         height: 100dvh; /* Dynamic Viewport Height */
         background-color: #1a1a1a;

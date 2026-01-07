@@ -623,11 +623,11 @@ dialog .close {
     width: 100%;
     min-height: 100vh;
     overflow: hidden;
-    background-color: #1a1a1a;
+    background-color: #efefef;
 }
 
 
-/* Desktop Contact Overlay - Clean Dark Mode Style */
+/* Desktop Contact Overlay - Clean Light Mode Style */
 @media (min-width: 769px) {
     .contact-hero-overlay {
         position: absolute;
@@ -657,7 +657,7 @@ dialog .close {
         margin-bottom: 20px;
         font-family: 'Hanken Grotesk', sans-serif;
         font-weight: 800;
-        color: rgb(179, 118, 118); /* Pink */
+        color: #1a1a1a; /* Schwarz auf hellem Grund */
         letter-spacing: -0.03em;
         line-height: 1;
     }
@@ -668,7 +668,7 @@ dialog .close {
 
     .contact-hero-overlay a.mail-link {
         font-weight: 800;
-        color: white;
+        color: #1a1a1a; /* Schwarz auf hellem Grund */
         text-decoration: none;
         border-bottom: none;
         transition: color 0.3s ease;

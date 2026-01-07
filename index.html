@@ -1016,26 +1016,28 @@
             const prevImg = document.getElementById("prevSlideImage");
             const nextImg = document.getElementById("nextSlideImage");
             
-            // Lade zuerst Thumbnails (sofort sichtbar), dann Vollbilder
-            // Current slide - sofort Vollbild laden
+            // Current slide - Vollbild
             currentImg.src = getFullSrc(currentEl);
             document.getElementById("modalCredit").textContent = getCredit(currentEl);
             
-            // Prev/Next - erst Thumbnail, dann Vollbild im Hintergrund
-            prevImg.src = getThumbSrc(prevEl);
+            // Prev slide - Thumbnail zuerst (schneller)
+            const prevThumb = getThumbSrc(prevEl);
+            const prevFull = getFullSrc(prevEl);
+            prevImg.src = prevThumb || prevFull;
             document.getElementById("prevSlideCredit").textContent = getCredit(prevEl);
             
-            nextImg.src = getThumbSrc(nextEl);
+            // Next slide - Thumbnail zuerst (schneller)
+            const nextThumb = getThumbSrc(nextEl);
+            const nextFull = getFullSrc(nextEl);
+            nextImg.src = nextThumb || nextFull;
             document.getElementById("nextSlideCredit").textContent = getCredit(nextEl);
             
-            // Lade Vollbilder für prev/next im Hintergrund
-            const prevFull = new Image();
-            prevFull.onload = () => { if (prevImg.src === getThumbSrc(prevEl)) prevImg.src = getFullSrc(prevEl); };
-            prevFull.src = getFullSrc(prevEl);
-            
-            const nextFull = new Image();
-            nextFull.onload = () => { if (nextImg.src === getThumbSrc(nextEl)) nextImg.src = getFullSrc(nextEl); };
-            nextFull.src = getFullSrc(nextEl);
+            // Debug: Log what we're loading
+            console.log('Slides loaded:', {
+                prev: prevImg.src,
+                current: currentImg.src,
+                next: nextImg.src
+            });
         }
 
         function resetSwipeTrack() {

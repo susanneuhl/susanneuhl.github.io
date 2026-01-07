@@ -349,9 +349,6 @@ dialog .close {
 
 .about-section p, .contact-section p {
     margin-bottom: 20px;
-    font-size: 21px;
-    font-weight: 400;
-    line-height: 1.5;
 }
 
 .vita-section ul {
@@ -396,8 +393,7 @@ dialog .close {
     padding: 0 60px; /* Mehr Innenabstand links und rechts */
     line-height: 1.6; /* Angenehme Zeilenhöhe */
     color: #333333; /* Gut lesbare Textfarbe */
-    font-size: 21px; /* Requested size */
-    font-weight: 400;
+    font-size: 1em; /* Standard-Schriftgröße */
 }
 
 .biography p {
@@ -485,8 +481,7 @@ dialog .close {
     padding: 0 20px; /* Innenabstand links und rechts */
     line-height: 1.6; /* Angenehme Zeilenhöhe */
     color: #333333; /* Gut lesbare Textfarbe */
-    font-size: 21px; /* Requested size */
-    font-weight: 400;
+    font-size: 1em; /* Standard-Schriftgröße */
 }
 
 .impressum h1, .impressum h2 {

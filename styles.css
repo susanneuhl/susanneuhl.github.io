@@ -835,17 +835,6 @@ dialog .close {
     display: none;
 }
 
-/* Responsive: kleinere Overlay-Box auf Mobilgeräten */
-@media (max-width: 768px) {
-    .contact-hero-overlay {
-        max-width: 90%;
-        padding: 30px 25px;
-    }
-    
-    .contact-hero-overlay h2 {
-        font-size: 1.5em;
-    }
-}
 
 @media (prefers-reduced-motion: reduce) {
     .contact-hero-bg img {
@@ -1478,21 +1467,12 @@ dialog .close {
 }
 
 /* Mobile Actions Hidden on Desktop */
-.mobile-actions {
-    display: none;
+@media (min-width: 769px) {
+    .mobile-actions {
+        display: none;
+    }
 }
 
-/* Responsive: kleinere Overlay-Box auf Mobilgeräten */
-@media (max-width: 768px) {
-    .contact-hero-overlay {
-        max-width: 90%;
-        padding: 30px 25px;
-    }
-    
-    .contact-hero-overlay h2 {
-        font-size: 1.5em;
-    }
-}
 
 @media (prefers-reduced-motion: reduce) {
     .contact-hero-bg img {

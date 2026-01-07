@@ -326,7 +326,7 @@ dialog .close {
 .hamburger span {
     width: 25px;
     height: 2px;
-    background-color: currentColor;
+    background-color: #ffffff; /* Explizit Weiß, damit Invertierung zu Schwarz klappt */
     transition: all 0.3s ease;
     display: block;
 }

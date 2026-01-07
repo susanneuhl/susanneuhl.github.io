@@ -1093,14 +1093,8 @@
                 mainContainer.style.gridTemplateColumns = '1fr';
                 
                 const singleColumn = document.createElement('div');
-                const title = document.createElement('h2');
-                title.textContent = 'Timeline';
-                title.style.marginBottom = '15px';
-                title.style.fontSize = '1.8em';
-                title.style.color = 'rgb(179, 118, 118)';
-                title.style.textAlign = 'center';
                 
-                // Filter-Buttons für mobile Timeline
+                // Filter-Buttons für mobile Ansicht
                 const filterContainer = document.createElement('div');
                 filterContainer.style.cssText = `
                     display: flex;
@@ -1199,7 +1193,6 @@
                     projectList.appendChild(li);
                 });
                 
-                singleColumn.appendChild(title);
                 singleColumn.appendChild(filterContainer);
                 singleColumn.appendChild(projectList);
                 mainContainer.appendChild(singleColumn);

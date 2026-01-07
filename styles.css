@@ -709,51 +709,54 @@ dialog .close {
 }
 
 
-/* Desktop Contact Overlay */
+/* Desktop Contact Overlay - Dark Mode Style */
 @media (min-width: 769px) {
     .contact-hero-overlay {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background-color: rgba(255, 255, 255, 0.9);
+        background-color: rgba(26, 26, 26, 0.95); /* Dark Background */
         backdrop-filter: blur(10px);
         padding: 60px;
         max-width: 600px;
         width: 90%;
         text-align: center;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         z-index: 10;
     }
 
-    .contact-hero-overlay h2 {
-        font-size: 3em;
-        margin-bottom: 20px;
-        font-family: 'Hanken Grotesk', sans-serif;
-        font-weight: 800;
-        color: #1a1a1a;
-        letter-spacing: -0.03em;
+    /* Text ausblenden */
+    .contact-hero-overlay p:not(.mail-wrapper) {
+        display: none;
     }
 
-    .contact-hero-overlay p {
-        font-size: 1.2em;
-        line-height: 1.6;
-        margin-bottom: 20px;
-        color: #333;
+    .contact-hero-overlay h2 {
+        font-size: 4em;
+        margin-bottom: 30px;
+        font-family: 'Hanken Grotesk', sans-serif;
+        font-weight: 800;
+        color: rgb(179, 118, 118); /* Pink */
+        letter-spacing: -0.03em;
+        line-height: 1;
+    }
+
+    .contact-hero-overlay p.mail-wrapper {
+        margin: 0;
     }
 
     .contact-hero-overlay a.mail-link {
         font-weight: 800;
-        color: #1a1a1a;
+        color: white;
         text-decoration: none;
-        border-bottom: 2px solid rgb(179, 118, 118);
-        transition: all 0.3s ease;
-        font-size: 1.2em;
+        border-bottom: none;
+        transition: color 0.3s ease;
+        font-size: 2.5em;
+        letter-spacing: -0.02em;
     }
 
     .contact-hero-overlay a.mail-link:hover {
         color: rgb(179, 118, 118);
-        border-bottom-color: transparent;
     }
 }
 

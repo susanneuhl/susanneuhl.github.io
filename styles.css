@@ -387,24 +387,24 @@ dialog .close {
         left: 0;
         right: 0;
         bottom: 0;
-        width: 100%; /* Statt 100vw um Scrollbars nicht zu addieren */
+        width: 100%;
         height: 100%; /* Fallback */
         height: 100dvh; /* Dynamic Viewport Height */
         background-color: #1a1a1a;
-        display: flex;
+        display: none; /* Verstecken, damit es Blending nicht stört */
         flex-direction: column;
-        justify-content: center; /* Zurück zur Mitte */
+        justify-content: center;
         align-items: flex-start;
         gap: 10px;
         padding-left: 40px;
-        padding-bottom: 40px; /* Standard Padding */
+        padding-bottom: 40px;
         opacity: 0;
-        pointer-events: none;
         transition: opacity 0.3s ease;
         z-index: 1500;
     }
     
     .nav-links.active {
+        display: flex; /* Wieder anzeigen */
         opacity: 1;
         pointer-events: all;
     }

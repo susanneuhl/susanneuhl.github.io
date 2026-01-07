@@ -417,16 +417,17 @@ dialog .close {
 
 /* Überschriften für Schauspiel, Oper und Film */
 .main-container h2 {
-    color: #1a1a1a; /* Schwarz statt Rosa */
+    color: #888; /* Wie .title-meta (Theaternamen) */
     font-family: 'Hanken Grotesk', sans-serif;
-    font-weight: 500; /* Medium */
+    font-weight: 400; /* Regular, wie .title-meta */
     font-style: normal;
-    font-size: 1.4em; /* Dezentere Größe */
-    margin-bottom: 30px;
-    text-align: center;
-    letter-spacing: -0.01em;
-    text-transform: uppercase; /* Optional: Wirkt oft strukturierter */
-    letter-spacing: 0.05em;
+    font-size: 0.9em; /* Dezent, ähnlich wie .title-meta aber lesbar als Head */
+    margin-bottom: 20px;
+    text-align: left; /* Linksbündig passend zu den Projekt-Infos */
+    letter-spacing: 0;
+    text-transform: none; /* Kein Uppercase mehr */
+    padding-bottom: 5px;
+    border-bottom: 1px solid transparent; /* Platzhalter */
 }
 
 /* ============================

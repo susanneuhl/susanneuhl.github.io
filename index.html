@@ -1301,9 +1301,9 @@
                     const filterBtn = document.createElement('button');
                     filterBtn.textContent = filterName;
                     filterBtn.style.cssText = `
-                        background-color: ${index === 0 ? 'rgb(179, 118, 118)' : 'white'};
-                        color: ${index === 0 ? 'white' : 'rgb(179, 118, 118)'};
-                        border: 1px solid rgb(179, 118, 118);
+                        background-color: ${index === 0 ? '#1a1a1a' : 'white'};
+                        color: ${index === 0 ? 'white' : '#1a1a1a'};
+                        border: 1px solid #1a1a1a;
                         padding: 8px 12px;
                         border-radius: 20px;
                         font-size: 0.9em;
@@ -1315,11 +1315,11 @@
                         // Alle Buttons zurücksetzen
                         filterContainer.querySelectorAll('button').forEach(btn => {
                             btn.style.backgroundColor = 'white';
-                            btn.style.color = 'rgb(179, 118, 118)';
+                            btn.style.color = '#1a1a1a';
                         });
                         
                         // Aktiven Button markieren
-                        this.style.backgroundColor = 'rgb(179, 118, 118)';
+                        this.style.backgroundColor = '#1a1a1a';
                         this.style.color = 'white';
                         
                         // Projekte filtern
@@ -1372,7 +1372,7 @@
                         position: absolute;
                         top: 10px;
                         left: 10px;
-                        background-color: rgba(179, 118, 118, 0.9);
+                        background-color: rgba(26, 26, 26, 0.9);
                         color: white;
                         padding: 4px 8px;
                         border-radius: 4px;

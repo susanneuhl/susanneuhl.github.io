@@ -1161,6 +1161,14 @@ dialog .close {
     cursor: pointer;
 }
 
+.image-wrapper img {
+    display: block;
+    width: 100%;
+    height: auto;
+    vertical-align: bottom;
+    transition: transform 0.5s ease;
+}
+
 .image-wrapper:hover img {
     transform: scale(1.05);
 }
@@ -1665,5 +1673,10 @@ dialog .close {
     .impressum a:hover {
         color: rgb(179, 118, 118);
         border-bottom-color: rgb(179, 118, 118);
+    }
+
+    /* Dark Mode Placeholder für Bilder (gegen weiße Ränder) */
+    .main-container li .image-wrapper {
+        background-color: #222;
     }
 }

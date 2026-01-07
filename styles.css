@@ -1092,3 +1092,68 @@ dialog .close {
 .main-container li .image-credit {
     z-index: 10 !important; /* Force above canvas */
 }
+
+/* ============================
+   Mobile Contact Page (Redesign)
+   ============================ */
+@media (max-width: 768px) {
+    /* Hintergrund schwarz */
+    .contact-hero {
+        background-color: #1a1a1a;
+        height: 100dvh; /* Volle Höhe */
+        display: flex;
+        align-items: center;
+        justify-content: flex-start; /* Links wie Menü */
+    }
+
+    /* Bilder im Hintergrund ausblenden */
+    .contact-hero-bg-grid {
+        display: none;
+    }
+
+    /* Overlay Reset & Styling */
+    .contact-hero-overlay {
+        position: static; /* Kein Absolute Positioning mehr */
+        transform: none;
+        width: 100%;
+        max-width: none;
+        height: 100%;
+        background: transparent;
+        backdrop-filter: none;
+        box-shadow: none;
+        padding: 40px; /* Padding wie im Menü */
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Vertikal zentriert */
+        align-items: flex-start; /* Linksbündig */
+    }
+
+    /* Texte ausblenden, die wir nicht wollen */
+    .contact-hero-overlay h2,
+    .contact-hero-overlay p:not(:last-of-type) {
+        display: none;
+    }
+    
+    /* Der letzte Paragraph enthält den Link, den behalten wir, aber stylen ihn um */
+    .contact-hero-overlay p:last-of-type {
+        margin: 0;
+        font-size: 0; /* Versteckt "✉️ " Icon falls vorhanden */
+    }
+
+    /* Den E-Mail Link stylen wie das Menü */
+    .contact-hero-overlay a {
+        display: block;
+        font-size: 3rem; /* Analog zum Burger Menu */
+        font-weight: 800;
+        font-family: 'Hanken Grotesk', sans-serif;
+        color: white;
+        text-decoration: none;
+        letter-spacing: -0.04em;
+        line-height: 1.05;
+        word-break: break-all; /* Falls die Mail zu lang ist */
+    }
+
+    .contact-hero-overlay a:hover {
+        color: rgb(179, 118, 118); /* Rosa Hover */
+    }
+}

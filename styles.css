@@ -309,19 +309,18 @@ dialog .close {
     
     /* Fullscreen Overlay Style (MadeBySix Look) */
     .nav-links {
-        display: flex; /* Flexbox aktivieren! */
         position: fixed;
         top: 0;
         left: 0;
         width: 100vw;
-        height: 100vh;
+        height: 100dvh; /* Dynamic Viewport Height für exakte Anpassung an Mobile Browser */
         background-color: #1a1a1a; /* Schwarzer Hintergrund */
         flex-direction: column;
-        justify-content: flex-end; /* Unten ausrichten für bessere Erreichbarkeit (Thumb Zone) */
+        justify-content: flex-end; /* Unten ausrichten */
         align-items: flex-start; /* Links bündig */
-        gap: 20px;
+        gap: 15px; /* Etwas enger beieinander */
         padding-left: 40px; /* Einrückung von links */
-        padding-bottom: 120px; /* Abstand von unten */
+        padding-bottom: 180px; /* Deutlich mehr Abstand von unten (Thumb Zone), ca. unteres Drittel */
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.3s ease;

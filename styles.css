@@ -282,6 +282,11 @@ dialog .close {
     transform: rotate(-45deg) translate(7px, -7px);
 }
 
+/* Hamburger wird weiß im offenen Zustand (auf schwarzem Overlay) */
+.hamburger.active span {
+    background-color: white;
+}
+
 /* Desktop Navigation Layout */
 @media (min-width: 769px) {
     .nav-links {
@@ -294,39 +299,58 @@ dialog .close {
 @media (max-width: 768px) {
     .hamburger {
         display: flex;
+        position: relative;
+        z-index: 2000; /* Muss über dem Overlay liegen */
     }
     
     .header-nav {
-        position: relative;
+        position: static;
     }
     
+    /* Fullscreen Overlay Style (MadeBySix Look) */
     .nav-links {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        background-color: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #1a1a1a; /* Schwarzer Hintergrund */
         flex-direction: column;
-        gap: 10px;
-        padding: 20px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        transform: translateY(-20px);
+        justify-content: center; /* Vertikal zentriert */
+        align-items: flex-start; /* Links bündig */
+        gap: 20px;
+        padding-left: 40px; /* Einrückung von links */
         opacity: 0;
         pointer-events: none;
-        transition: all 0.3s ease;
-        z-index: 999;
+        transition: opacity 0.3s ease;
+        z-index: 1500;
     }
     
     .nav-links.active {
-        transform: translateY(0);
         opacity: 1;
         pointer-events: all;
     }
     
     .header-nav-link {
         display: block;
-        width: 100%;
-        text-align: center;
+        width: auto;
+        text-align: left;
+        font-size: 3.5em; /* Sehr groß für Magazin-Look */
+        font-weight: 400; /* Etwas leichter wirkt eleganter bei der Größe */
+        color: white;
+        border: none;
+        padding: 0;
+        background: none;
+        letter-spacing: -0.04em;
+        line-height: 1.1;
+    }
+
+    /* Überschreibe Desktop-Styles: Kein Rahmen/Hintergrund, nur Textfarbe */
+    .header-nav-link:hover, 
+    .header-nav-link.active {
+        background-color: transparent;
+        border: none;
+        color: rgb(179, 118, 118); /* Rosa Text Highlight */
     }
 }
 

@@ -320,11 +320,11 @@ dialog .close {
         background-color: #1a1a1a;
         display: flex;
         flex-direction: column;
-        justify-content: flex-end; /* Unten orientiert */
+        justify-content: center; /* Zurück zur Mitte */
         align-items: flex-start;
         gap: 10px;
         padding-left: 40px;
-        padding-bottom: 30vh; /* Schiebt den Inhalt hoch ins untere Drittel (nicht ganz unten) */
+        padding-bottom: 40px; /* Standard Padding */
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.3s ease;

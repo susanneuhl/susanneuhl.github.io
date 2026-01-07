@@ -996,7 +996,9 @@ dialog .close {
 }
 
 /* Verstecke das Originalbild nur, wenn der Effekt wirklich bereit ist */
-.depth-ready picture {
+/* depth-ready is now on .image-wrapper, not on li */
+.depth-ready picture,
+.image-wrapper.depth-ready picture {
     opacity: 0 !important;
 }
 

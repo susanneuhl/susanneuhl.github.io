@@ -10,9 +10,12 @@ class DepthEffect {
         this.mapSrc = mapSrc;
         this.raf = null;
         
+        // Find the image-wrapper inside the container, or use container itself
+        this.imageWrapper = container.querySelector('.image-wrapper') || container;
+        
         this.canvas = document.createElement('canvas');
         this.canvas.classList.add('depth-canvas');
-        this.container.appendChild(this.canvas);
+        this.imageWrapper.appendChild(this.canvas);
         this.gl = this.canvas.getContext('webgl');
 
         if (!this.gl) {
@@ -22,7 +25,7 @@ class DepthEffect {
 
         this.mouse = { x: 0, y: 0 };
         this.targetMouse = { x: 0, y: 0 };
-        this.rect = this.container.getBoundingClientRect();
+        this.rect = this.imageWrapper.getBoundingClientRect();
         
         // Shader Sources
         this.vertexShaderSrc = `
@@ -88,16 +91,16 @@ class DepthEffect {
             this.resize();
             this.setupEvents();
             
-            // Watch for container size changes (handles lazy-loaded images better than window resize)
+            // Watch for image wrapper size changes (handles lazy-loaded images better than window resize)
             this.resizeObserver = new ResizeObserver(() => {
                 this.resize();
             });
-            this.resizeObserver.observe(this.container);
+            this.resizeObserver.observe(this.imageWrapper);
             
             this.render();
 
-            // Mark container as ready so we can hide the base image
-            this.container.classList.add('depth-ready');
+            // Mark image wrapper as ready so we can hide the base image
+            this.imageWrapper.classList.add('depth-ready');
             
         } catch (e) {
             console.error('Failed to load depth effect assets:', e);
@@ -205,7 +208,7 @@ class DepthEffect {
     }
 
     resize() {
-        this.rect = this.container.getBoundingClientRect();
+        this.rect = this.imageWrapper.getBoundingClientRect();
         this.canvas.width = this.rect.width;
         this.canvas.height = this.rect.height;
         this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
@@ -250,9 +253,9 @@ class DepthEffect {
     }
 
     setupEvents() {
-        this.container.addEventListener('mousemove', (e) => {
+        this.imageWrapper.addEventListener('mousemove', (e) => {
             // IMPORTANT: Get fresh rect on every mousemove to account for scrolling
-            const rect = this.container.getBoundingClientRect();
+            const rect = this.imageWrapper.getBoundingClientRect();
             
             // Normalize -1 to 1
             const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
@@ -264,7 +267,7 @@ class DepthEffect {
             this.targetMouse = { x: -x, y: -y };
         });
 
-        this.container.addEventListener('mouseleave', () => {
+        this.imageWrapper.addEventListener('mouseleave', () => {
             this.targetMouse = { x: 0, y: 0 };
         });
     }
@@ -290,7 +293,7 @@ class DepthEffect {
             if (this.canvas && this.canvas.parentNode) {
                 this.canvas.parentNode.removeChild(this.canvas);
             }
-            this.container.classList.remove('depth-ready');
+            this.imageWrapper.classList.remove('depth-ready');
             this.gl = null;
         } catch (err) {
             console.warn('DepthEffect dispose error', err);

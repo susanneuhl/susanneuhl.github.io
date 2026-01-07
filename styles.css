@@ -765,14 +765,16 @@ dialog .close {
     }
     
     body.page-contact footer a,
-    body.page-dates footer a {
-        color: #888;
+    body.page-dates footer a,
+    body.page-about footer a {
+        color: #888 !important;
         text-decoration: none;
     }
     
     body.page-contact footer a:hover,
-    body.page-dates footer a:hover {
-        color: rgb(179, 118, 118);
+    body.page-dates footer a:hover,
+    body.page-about footer a:hover {
+        color: rgb(179, 118, 118) !important;
     }
 }
 

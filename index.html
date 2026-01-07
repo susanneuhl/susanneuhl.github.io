@@ -251,6 +251,10 @@
             display: flex;
             width: 300vw;
             height: 100vh;
+            /* Wichtig: Absolute Positionierung um Flexbox-Zentrierung des Eltern-Elements zu umgehen */
+            position: absolute;
+            left: 0;
+            top: 0;
             transform: translateX(-100vw); /* Starte beim mittleren Slide */
             transition: transform 0.3s ease-out;
             will-change: transform;

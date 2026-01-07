@@ -455,13 +455,13 @@ dialog .close {
    Website Button Styling
 ============================ */
 .website-btn {
-    background-color: rgb(179, 118, 118) !important; /* Standard-Hintergrundfarbe */
+    background-color: #1a1a1a !important; /* Schwarz Standard */
     border: none;
-    color: white; /* Weißer Text im Standardzustand */
+    color: white; 
     padding: 5px 10px;
     cursor: pointer;
     font-size: 0.9em;
-    border-radius: 5px;
+    border-radius: 0; /* Eckig für Clean Look */
     text-decoration: none;
     display: inline-block;
     margin-top: 5px;
@@ -470,8 +470,8 @@ dialog .close {
 }
 
 .website-btn:hover {
-    background-color: white; /* Hintergrund wird weiß beim Hover */
-    color: rgb(179, 118, 118); /* Text wird rot beim Hover */
+    background-color: rgb(179, 118, 118) !important; /* Rosa Hintergrund beim Hover */
+    color: white;
 }
 
 /* ============================
@@ -630,8 +630,10 @@ dialog .close {
 }
 
 .contact-hero-overlay h2 {
-    color: rgb(179, 118, 118);
-    font-weight: 400;
+    color: #1a1a1a;
+    font-weight: 600;
+    font-family: 'Hanken Grotesk', sans-serif;
+    letter-spacing: -0.02em;
     font-size: 1.8em;
     margin-bottom: 20px;
 }
@@ -644,12 +646,14 @@ dialog .close {
 }
 
 .contact-hero-overlay a {
-    color: rgb(179, 118, 118);
+    color: #1a1a1a;
     text-decoration: none;
+    transition: color 0.2s ease;
 }
 
 .contact-hero-overlay a:hover {
-    text-decoration: underline;
+    color: rgb(179, 118, 118);
+    text-decoration: none;
 }
 
 /* Responsive: kleinere Overlay-Box auf Mobilgeräten */
@@ -701,8 +705,11 @@ dialog .close {
 
 #event-calendar h2 {
     text-align: center;
-    color: rgb(179, 118, 118);
+    color: #1a1a1a;
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-weight: 600;
     margin-bottom: 20px;
+    letter-spacing: -0.02em;
 }
 
 #event-list {
@@ -735,33 +742,39 @@ dialog .close {
 
 .main-title {
     font-size: 2em; /* etwas kleiner als vorher */
-    font-weight: 400;
-    color: rgb(179, 118, 118);
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-weight: 600;
+    color: #1a1a1a;
     margin: 0;
     line-height: 1.2;
     text-align: left;
+    letter-spacing: -0.02em;
 }
 
 .main-title .subtitle {
     display: block;
     font-size: 0.8em;
-    font-weight: 300;
-    color: rgb(179, 118, 118);
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-weight: 400;
+    color: #666; /* Dezentes Grau */
     margin-top: 2px;
 }
 .main-title-header {
     font-size: 1.4em;
-    font-weight: 400;
-    color: rgb(179, 118, 118);
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-weight: 600;
+    color: #1a1a1a;
     margin: 0;
     line-height: 1.2;
     text-align: left;
+    letter-spacing: -0.02em;
 }
 
 .subtitle-header {
     font-size: 0.7em;
-    color: rgb(179, 118, 118);
-    font-weight: 300;
+    font-family: 'Hanken Grotesk', sans-serif;
+    color: #666;
+    font-weight: 400;
     margin: 0;
     line-height: 1.2;
     text-align: left;
@@ -769,18 +782,21 @@ dialog .close {
 /* HEADER-ÜBERSCHRIFTEN */
 .main-title {
     font-size: 1.1em;   /* vorher: 2em */
-    font-weight: 400;
-    color: rgb(179, 118, 118);
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-weight: 600;
+    color: #1a1a1a;
     margin: 0;
     line-height: 1.2;
     text-align: left;
+    letter-spacing: -0.01em;
 }
 
 .main-title .subtitle {
     display: block;
     font-size: 0.6em;   /* vorher: 0.8em */
-    font-weight: 300;
-    color: rgb(179, 118, 118);
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-weight: 400;
+    color: #666;
     margin-top: 2px;
     text-align: left;
 }

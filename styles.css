@@ -4,7 +4,7 @@
 body {
     background-color: #efefef;
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Lato', Helvetica, Arial, sans-serif; /* Lato als Standard-Sans */
     color: #333333;
 }
 
@@ -38,15 +38,20 @@ body {
 
 h1 {
     text-align: center;
-    font-size: 2.5em;
+    font-size: 2.8em; /* Etwas größer für mehr Wirkung */
     margin: 0px 0 10px 0;
+    font-family: 'Playfair Display', serif; /* Serif für Eleganz */
     font-weight: 400;
     color: #333333;
 }
 
 h1 span {
-    font-size: 0.6em;
+    font-family: 'Lato', sans-serif; /* "Kostümbild" bleibt clean sans-serif */
+    font-size: 0.5em; /* Verhältnis anpassen */
     font-weight: 300;
+    letter-spacing: 0.05em;
+    display: block;
+    margin-top: 5px;
 }
 
 hr {
@@ -362,9 +367,12 @@ dialog .close {
 /* Überschriften für Schauspiel, Oper und Film */
 .main-container h2 {
     color: rgb(179, 118, 118); /* Gleiche Farbe wie "Susanne Uhl" */
-    font-weight: bold; /* Fett für Konsistenz */
-    margin-bottom: 20px; /* Abstand nach unten */
-    text-align: center; /* Zentriert die Überschriften */
+    font-family: 'Playfair Display', serif;
+    font-weight: 400; 
+    font-style: italic; /* Magazin-Look: Kursive Serif-Überschriften */
+    font-size: 1.8em; /* Etwas größer */
+    margin-bottom: 30px; /* Mehr Whitespace */
+    text-align: center;
 }
 
 /* ============================
@@ -758,14 +766,7 @@ dialog .close {
     align-items: flex-start;
     margin-left: 40px;
 }
-/* Feinjustierung: Bereichsüberschriften angleichen */
-.main-container h2 {
-    color: rgb(179, 118, 118);
-    font-weight: 400; /* oder 300, je nach gewünschtem Look */
-    font-size: 1.4em;
-    text-align: center;
-    margin-bottom: 20px;
-}
+/* Feinjustierung: Bereichsüberschriften angleichen - REMOVED (oben definiert) */
 .header-nav-link {
     font-weight: 300; /* vorher vermutlich: bold oder 600 */
     letter-spacing: 0.5px; /* optional: etwas mehr Eleganz */
@@ -871,17 +872,22 @@ dialog .close {
 
 .project-title .title-main {
     display: block;
-    font-size: 0.9em;
-    font-weight: 600;
+    font-size: 1.1em; /* Größer für Lesbarkeit */
+    font-family: 'Playfair Display', serif; /* Eleganter Kontrast */
+    font-weight: 500;
     color: rgb(179, 118, 118);
-    line-height: 1.3;
+    line-height: 1.2;
     transition: color 0.2s ease;
+    margin-bottom: 4px;
 }
 
 .project-title .title-meta {
     display: block;
+    font-family: 'Lato', sans-serif;
     font-size: 0.75em;
-    font-weight: 400;
+    font-weight: 400; /* Regular statt Light für bessere Lesbarkeit in kleiner Größe */
+    letter-spacing: 0.05em; /* Leichtes Tracking wirkt edel */
+    text-transform: uppercase; /* Optional: Wirkt sehr modern/clean */
     color: #888;
     margin-top: 2px;
     transition: color 0.2s ease;

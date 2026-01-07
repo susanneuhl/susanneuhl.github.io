@@ -340,14 +340,14 @@ dialog .close {
         display: block;
         width: auto;
         text-align: left;
-        font-size: 3em; /* Deutlich größer für Poster-Look */
-        font-weight: 800; /* Extra Bold */
+        font-size: 3em !important; /* Deutlich größer für Poster-Look */
+        font-weight: 800 !important; /* Extra Bold */
         color: white;
         border: none;
         padding: 0;
         background: none;
-        letter-spacing: -0.04em; /* Sehr enges Tracking */
-        line-height: 1.05; /* Sehr kompakt */
+        letter-spacing: -0.04em !important; /* Sehr enges Tracking */
+        line-height: 1.05 !important; /* Sehr kompakt */
     }
 
     /* Überschreibe Desktop-Styles: Kein Rahmen/Hintergrund, nur Textfarbe */
@@ -1046,18 +1046,7 @@ dialog .close {
     margin-left: 20px; /* Einheitlicher linker Abstand für "Susanne Uhl" */
   }
 
-  .header-nav {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 10px;
-    margin-right: 20px; /* Einheitlicher rechter Abstand für Buttons */
-  }
-
-  .header-nav-link {
-    display: block;
-    width: fit-content;
-  }
+  /* .header-nav und .header-nav-link entfernt, da durch Fullscreen-Overlay (max-width: 768px) geregelt */
 
   main, .main-container, .biography, .contact, .impressum {
     padding-left: 20px;

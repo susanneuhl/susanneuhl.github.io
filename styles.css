@@ -1616,4 +1616,22 @@ dialog .close {
     footer a {
         color: white !important;
     }
+
+    /* Impressum Dark Mode */
+    .impressum, 
+    .impressum h1, 
+    .impressum h2,
+    .impressum p {
+        color: white;
+    }
+    
+    .impressum a {
+        color: white;
+        border-bottom-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    .impressum a:hover {
+        color: rgb(179, 118, 118);
+        border-bottom-color: rgb(179, 118, 118);
+    }
 }

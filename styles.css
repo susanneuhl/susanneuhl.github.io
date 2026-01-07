@@ -316,10 +316,11 @@ dialog .close {
         height: 100vh;
         background-color: #1a1a1a; /* Schwarzer Hintergrund */
         flex-direction: column;
-        justify-content: center; /* Vertikal zentriert */
+        justify-content: flex-end; /* Unten ausrichten für bessere Erreichbarkeit (Thumb Zone) */
         align-items: flex-start; /* Links bündig */
         gap: 20px;
         padding-left: 40px; /* Einrückung von links */
+        padding-bottom: 120px; /* Abstand von unten */
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.3s ease;

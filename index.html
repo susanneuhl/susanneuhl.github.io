@@ -246,6 +246,43 @@
             animation: fadeIn 0.3s ease;
         }
         
+        /* Swipe Track - Carousel-Style für 3 Slides nebeneinander */
+        .swipe-track {
+            display: flex;
+            width: 300vw;
+            height: 100vh;
+            transform: translateX(-100vw); /* Starte beim mittleren Slide */
+            transition: transform 0.3s ease-out;
+            will-change: transform;
+        }
+        
+        .swipe-slide {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+        }
+        
+        .swipe-slide img {
+            max-width: 95vw;
+            max-height: 95vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 0;
+        }
+        
+        .swipe-slide .image-credit {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            z-index: 1001;
+        }
+        
+        /* Fallback für alte Struktur */
         .modal-image-container {
             position: relative;
             max-width: 95vw;
@@ -871,9 +908,19 @@
         <span class="close-btn" onclick="closeFullscreen()">&times;</span>
         <button class="nav-arrow prev-btn" onclick="prevImage(event)">&#10094;</button>
         <button class="nav-arrow next-btn" onclick="nextImage(event)">&#10095;</button>
-        <div class="modal-image-container">
-            <img decoding="async" id="fullscreenImage" src="" alt="">
-            <span id="modalCredit" class="image-credit"></span>
+        <div class="swipe-track">
+            <div class="swipe-slide swipe-prev">
+                <img decoding="async" id="prevSlideImage" src="" alt="">
+                <span class="image-credit" id="prevSlideCredit"></span>
+            </div>
+            <div class="swipe-slide swipe-current">
+                <img decoding="async" id="fullscreenImage" src="" alt="">
+                <span id="modalCredit" class="image-credit"></span>
+            </div>
+            <div class="swipe-slide swipe-next">
+                <img decoding="async" id="nextSlideImage" src="" alt="">
+                <span class="image-credit" id="nextSlideCredit"></span>
+            </div>
         </div>
     </div>
 
@@ -893,29 +940,9 @@
             allProjectItems = Array.from(document.querySelectorAll('.main-container li')).filter(li => li.style.display !== 'none');
         }
 
-        function openFullscreen(src, element) {
-            const modal = document.getElementById("fullscreenModal");
-            const image = document.getElementById("fullscreenImage");
-            const modalCredit = document.getElementById("modalCredit");
-            
-            updateProjectItems();
-            currentProjectIndex = allProjectItems.indexOf(element);
-            
-            // Body-Scroll sperren
-            document.body.style.overflow = 'hidden';
-            
-            updateModalContent(element);
-            modal.classList.add("show");
-        }
-
-        function updateModalContent(element) {
-            const image = document.getElementById("fullscreenImage");
-            const modalCredit = document.getElementById("modalCredit");
-            
-            if (!element) return;
-
-            // 1) Get high-res source
-            let imageSrc = element.querySelector('img').src;
+        function getImageSrc(element) {
+            if (!element) return '';
+            let imageSrc = element.querySelector('img')?.src || '';
             const fullAvif = element.getAttribute('data-full-avif');
             if (fullAvif) {
                 imageSrc = fullAvif;
@@ -933,31 +960,83 @@
                     }
                 }
             }
-            
-            image.src = imageSrc;
-            
-            // 2) Update Credit
+            return imageSrc;
+        }
+
+        function getCredit(element) {
+            if (!element) return '';
             const creditSpan = element.querySelector('.image-credit');
-            if (creditSpan) {
-                modalCredit.textContent = creditSpan.textContent;
-                modalCredit.style.display = 'block';
-            } else {
-                modalCredit.style.display = 'none';
-            }
+            return creditSpan ? creditSpan.textContent : '';
+        }
+
+        function openFullscreen(src, element) {
+            const modal = document.getElementById("fullscreenModal");
+            
+            updateProjectItems();
+            currentProjectIndex = allProjectItems.indexOf(element);
+            
+            // Body-Scroll sperren
+            document.body.style.overflow = 'hidden';
+            
+            updateAllSlides();
+            resetSwipeTrack();
+            modal.classList.add("show");
+        }
+
+        function updateAllSlides() {
+            const currentEl = allProjectItems[currentProjectIndex];
+            const prevIdx = (currentProjectIndex - 1 + allProjectItems.length) % allProjectItems.length;
+            const nextIdx = (currentProjectIndex + 1) % allProjectItems.length;
+            const prevEl = allProjectItems[prevIdx];
+            const nextEl = allProjectItems[nextIdx];
+            
+            // Current slide
+            document.getElementById("fullscreenImage").src = getImageSrc(currentEl);
+            document.getElementById("modalCredit").textContent = getCredit(currentEl);
+            
+            // Previous slide
+            document.getElementById("prevSlideImage").src = getImageSrc(prevEl);
+            document.getElementById("prevSlideCredit").textContent = getCredit(prevEl);
+            
+            // Next slide
+            document.getElementById("nextSlideImage").src = getImageSrc(nextEl);
+            document.getElementById("nextSlideCredit").textContent = getCredit(nextEl);
+        }
+
+        function resetSwipeTrack() {
+            const track = document.querySelector('.swipe-track');
+            track.style.transition = 'none';
+            track.style.transform = 'translateX(-100vw)';
         }
 
         function nextImage(event) {
             if (event) event.stopPropagation();
             if (allProjectItems.length === 0) updateProjectItems();
-            currentProjectIndex = (currentProjectIndex + 1) % allProjectItems.length;
-            updateModalContent(allProjectItems[currentProjectIndex]);
+            
+            const track = document.querySelector('.swipe-track');
+            track.style.transition = 'transform 0.3s ease-out';
+            track.style.transform = 'translateX(-200vw)';
+            
+            setTimeout(() => {
+                currentProjectIndex = (currentProjectIndex + 1) % allProjectItems.length;
+                updateAllSlides();
+                resetSwipeTrack();
+            }, 300);
         }
 
         function prevImage(event) {
             if (event) event.stopPropagation();
             if (allProjectItems.length === 0) updateProjectItems();
-            currentProjectIndex = (currentProjectIndex - 1 + allProjectItems.length) % allProjectItems.length;
-            updateModalContent(allProjectItems[currentProjectIndex]);
+            
+            const track = document.querySelector('.swipe-track');
+            track.style.transition = 'transform 0.3s ease-out';
+            track.style.transform = 'translateX(0)';
+            
+            setTimeout(() => {
+                currentProjectIndex = (currentProjectIndex - 1 + allProjectItems.length) % allProjectItems.length;
+                updateAllSlides();
+                resetSwipeTrack();
+            }, 300);
         }
 
         function closeFullscreen() {
@@ -979,85 +1058,71 @@
             }
         });
 
-        // Touch Swipe Support für Fullscreen-Modal mit Animation
+        // Touch Swipe Support für Fullscreen-Modal - Carousel Style
         (function() {
             let touchStartX = 0;
-            let currentX = 0;
+            let currentTranslate = 0;
             let isDragging = false;
-            const swipeThreshold = 80; // Mindest-Swipe-Distanz für Bildwechsel
+            const swipeThreshold = window.innerWidth * 0.2; // 20% der Bildschirmbreite
             
             const modal = document.getElementById("fullscreenModal");
-            const imageContainer = modal.querySelector('.modal-image-container');
-            const image = document.getElementById("fullscreenImage");
+            const track = modal.querySelector('.swipe-track');
             
             modal.addEventListener('touchstart', function(e) {
                 if (!modal.classList.contains('show')) return;
                 touchStartX = e.touches[0].clientX;
-                currentX = 0;
                 isDragging = true;
-                image.style.transition = 'none';
+                track.style.transition = 'none';
             }, { passive: true });
             
             modal.addEventListener('touchmove', function(e) {
                 if (!isDragging) return;
-                currentX = e.touches[0].clientX - touchStartX;
+                const currentX = e.touches[0].clientX;
+                const diff = currentX - touchStartX;
                 
-                // Bild mit dem Finger bewegen (mit Widerstand an den Rändern)
-                const resistance = 0.4;
-                const translateX = currentX * resistance;
-                image.style.transform = `translateX(${translateX}px)`;
-                
-                // Opacity basierend auf Swipe-Distanz
-                const opacity = 1 - Math.abs(currentX) / (window.innerWidth * 0.8);
-                image.style.opacity = Math.max(0.3, opacity);
+                // Basis-Position ist -100vw (mittlerer Slide)
+                // Track bewegt sich 1:1 mit dem Finger
+                currentTranslate = diff;
+                const baseOffset = -window.innerWidth; // -100vw in Pixeln
+                track.style.transform = `translateX(${baseOffset + diff}px)`;
             }, { passive: true });
             
             modal.addEventListener('touchend', function(e) {
                 if (!isDragging) return;
                 isDragging = false;
                 
-                const swipeDistance = currentX;
+                track.style.transition = 'transform 0.3s ease-out';
                 
-                // Smooth transition für Animation
-                image.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
-                
-                if (Math.abs(swipeDistance) > swipeThreshold) {
-                    // Swipe war groß genug - Bild wechseln mit Slide-Out Animation
-                    const direction = swipeDistance > 0 ? 1 : -1;
-                    image.style.transform = `translateX(${direction * window.innerWidth}px)`;
-                    image.style.opacity = '0';
-                    
+                if (currentTranslate < -swipeThreshold) {
+                    // Nach links gewischt → nächstes Bild
+                    track.style.transform = `translateX(-200vw)`;
                     setTimeout(() => {
-                        if (swipeDistance > 0) {
-                            prevImage();
-                        } else {
-                            nextImage();
-                        }
-                        
-                        // Slide-In Animation für neues Bild
-                        image.style.transition = 'none';
-                        image.style.transform = `translateX(${-direction * 100}px)`;
-                        image.style.opacity = '0';
-                        
-                        requestAnimationFrame(() => {
-                            image.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
-                            image.style.transform = 'translateX(0)';
-                            image.style.opacity = '1';
-                        });
-                    }, 200);
+                        currentProjectIndex = (currentProjectIndex + 1) % allProjectItems.length;
+                        updateAllSlides();
+                        resetSwipeTrack();
+                    }, 300);
+                } else if (currentTranslate > swipeThreshold) {
+                    // Nach rechts gewischt → vorheriges Bild
+                    track.style.transform = `translateX(0)`;
+                    setTimeout(() => {
+                        currentProjectIndex = (currentProjectIndex - 1 + allProjectItems.length) % allProjectItems.length;
+                        updateAllSlides();
+                        resetSwipeTrack();
+                    }, 300);
                 } else {
-                    // Swipe war zu klein - zurück zur Ausgangsposition
-                    image.style.transform = 'translateX(0)';
-                    image.style.opacity = '1';
+                    // Nicht weit genug - zurück zur Mitte
+                    track.style.transform = `translateX(-100vw)`;
                 }
+                
+                currentTranslate = 0;
             }, { passive: true });
             
             // Touch cancel behandeln
             modal.addEventListener('touchcancel', function() {
                 isDragging = false;
-                image.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
-                image.style.transform = 'translateX(0)';
-                image.style.opacity = '1';
+                track.style.transition = 'transform 0.3s ease-out';
+                track.style.transform = `translateX(-100vw)`;
+                currentTranslate = 0;
             }, { passive: true });
         })();
 

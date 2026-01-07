@@ -320,10 +320,11 @@ dialog .close {
         background-color: #1a1a1a;
         display: flex;
         flex-direction: column;
-        justify-content: center; /* Vertikal zentriert wie im Screenshot */
+        justify-content: flex-end; /* Unten ausrichten */
         align-items: flex-start;
-        gap: 15px;
-        padding: 40px; /* Großzügiges Padding */
+        gap: 10px; /* Enger */
+        padding-left: 40px;
+        padding-bottom: 180px; /* Thumb Zone */
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.3s ease;
@@ -339,14 +340,14 @@ dialog .close {
         display: block;
         width: auto;
         text-align: left;
-        font-size: 2em; /* Reduziert von 3.5em, ähnlich wie Hauptüberschrift */
-        font-weight: 400;
+        font-size: 2.2em; /* Etwas größer */
+        font-weight: 700; /* Fett */
         color: white;
         border: none;
         padding: 0;
         background: none;
-        letter-spacing: -0.02em;
-        line-height: 1.4; /* Etwas mehr Luft bei kleinerer Schrift */
+        letter-spacing: -0.03em;
+        line-height: 1.1; /* Kompakt */
     }
 
     /* Überschreibe Desktop-Styles: Kein Rahmen/Hintergrund, nur Textfarbe */

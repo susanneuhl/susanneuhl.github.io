@@ -232,14 +232,15 @@ dialog .close {
 .header-nav-link {
     text-decoration: none;
     color: #1a1a1a;
-    font-size: 1.1em;
+    font-size: 1.6em; /* Dick auftragen! */
     font-family: 'Hanken Grotesk', sans-serif;
-    font-weight: 700; /* Fett für Charakter */
+    font-weight: 800; /* Extra Fett */
     padding: 5px 0;
-    border: none; /* Kein Rahmen mehr */
+    border: none; 
     background: none;
     transition: color 0.2s ease;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em; /* Enger und kompakter */
+    line-height: 1; /* Knackig */
 }
 
 .header-nav-link:hover,

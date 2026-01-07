@@ -206,13 +206,15 @@ dialog .close {
    Sticky Header
 ============================ */
 .sticky-header {
-    position: relative; /* Scrollt mit dem Inhalt weg */
+    position: sticky; /* Bleibt beim Scrollen oben kleben */
+    top: 0;
     z-index: 1000;
     width: 100%;
-    box-sizing: border-box; /* Fix für Layout-Shift */
+    box-sizing: border-box;
     background: none !important;
     background-color: transparent !important;
-    padding: 10px 0;
+    backdrop-filter: blur(10px); /* Blur-Effekt wieder rein */
+    padding: 10px 40px; /* Seitliches Padding für Abstand */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -226,13 +228,13 @@ dialog .close {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-left: 40px;
+    margin-left: 0; /* Geregelt über Header-Padding */
     color: rgb(179, 118, 118);
 }
 
 
 .header-nav {
-    margin-right: 40px; /* Abstand nur für die Navigation */
+    margin-right: 0; /* Geregelt über Header-Padding */
 }
 
 /* Navigation im Header (Desktop) */
@@ -1020,12 +1022,12 @@ dialog .close {
   .sticky-header {
     flex-direction: row;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center; /* Vertikal zentriert auch auf Mobile */
     padding: 10px 20px;
   }
 
   .header-content {
-    margin-left: 20px; /* Einheitlicher linker Abstand für "Susanne Uhl" */
+    margin-left: 0;
   }
 
   .main-title {

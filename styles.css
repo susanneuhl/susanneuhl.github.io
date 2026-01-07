@@ -230,20 +230,22 @@ dialog .close {
 
 /* Navigation im Header */
 .header-nav-link {
-    text-decoration: none; /* Entfernt die Unterstreichung */
-    color: rgb(179, 118, 118); /* Gleiche Farbe wie der Header-Text */
-    font-size: 1em;
-    font-weight: bold;
+    text-decoration: none;
+    color: #1a1a1a; /* Schwarz Standard */
+    font-size: 0.95em;
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-weight: 500; /* Medium statt Bold */
     padding: 5px 10px;
-    border: 1px solid rgb(179, 118, 118); /* Rahmen für den Link */
+    border: 1px solid #1a1a1a; /* Schwarzer Rahmen */
     border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 .header-nav-link:hover,
 .header-nav-link.active {
-    background-color: rgb(179, 118, 118); /* Hintergrundfarbe beim Hover/Aktiv */
-    color: white; /* Textfarbe beim Hover/Aktiv */
+    background-color: rgb(179, 118, 118); /* Hintergrund Rosa */
+    border-color: rgb(179, 118, 118); /* Rahmen auch Rosa */
+    color: white; /* Text Weiß */
 }
 
 /* ============================
@@ -262,7 +264,7 @@ dialog .close {
 .hamburger span {
     width: 25px;
     height: 2px;
-    background-color: rgb(179, 118, 118);
+    background-color: #1a1a1a; /* Schwarz */
     transition: all 0.3s ease;
     display: block;
 }
@@ -925,7 +927,7 @@ dialog .close {
 }
 
 .project-title:hover .title-main {
-    color: rgb(179, 118, 118); /* Rosa bei Hover */
+    color: rgb(179, 118, 118) !important; /* Rosa bei Hover */
 }
 
 .project-title .title-meta {

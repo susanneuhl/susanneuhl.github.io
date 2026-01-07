@@ -979,36 +979,86 @@
             }
         });
 
-        // Touch Swipe Support für Fullscreen-Modal
+        // Touch Swipe Support für Fullscreen-Modal mit Animation
         (function() {
             let touchStartX = 0;
-            let touchEndX = 0;
-            const swipeThreshold = 50; // Mindest-Swipe-Distanz in Pixeln
+            let currentX = 0;
+            let isDragging = false;
+            const swipeThreshold = 80; // Mindest-Swipe-Distanz für Bildwechsel
             
             const modal = document.getElementById("fullscreenModal");
+            const imageContainer = modal.querySelector('.modal-image-container');
+            const image = document.getElementById("fullscreenImage");
             
             modal.addEventListener('touchstart', function(e) {
-                touchStartX = e.changedTouches[0].screenX;
+                if (!modal.classList.contains('show')) return;
+                touchStartX = e.touches[0].clientX;
+                currentX = 0;
+                isDragging = true;
+                image.style.transition = 'none';
+            }, { passive: true });
+            
+            modal.addEventListener('touchmove', function(e) {
+                if (!isDragging) return;
+                currentX = e.touches[0].clientX - touchStartX;
+                
+                // Bild mit dem Finger bewegen (mit Widerstand an den Rändern)
+                const resistance = 0.4;
+                const translateX = currentX * resistance;
+                image.style.transform = `translateX(${translateX}px)`;
+                
+                // Opacity basierend auf Swipe-Distanz
+                const opacity = 1 - Math.abs(currentX) / (window.innerWidth * 0.8);
+                image.style.opacity = Math.max(0.3, opacity);
             }, { passive: true });
             
             modal.addEventListener('touchend', function(e) {
-                touchEndX = e.changedTouches[0].screenX;
-                handleSwipe();
+                if (!isDragging) return;
+                isDragging = false;
+                
+                const swipeDistance = currentX;
+                
+                // Smooth transition für Animation
+                image.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
+                
+                if (Math.abs(swipeDistance) > swipeThreshold) {
+                    // Swipe war groß genug - Bild wechseln mit Slide-Out Animation
+                    const direction = swipeDistance > 0 ? 1 : -1;
+                    image.style.transform = `translateX(${direction * window.innerWidth}px)`;
+                    image.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        if (swipeDistance > 0) {
+                            prevImage();
+                        } else {
+                            nextImage();
+                        }
+                        
+                        // Slide-In Animation für neues Bild
+                        image.style.transition = 'none';
+                        image.style.transform = `translateX(${-direction * 100}px)`;
+                        image.style.opacity = '0';
+                        
+                        requestAnimationFrame(() => {
+                            image.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
+                            image.style.transform = 'translateX(0)';
+                            image.style.opacity = '1';
+                        });
+                    }, 200);
+                } else {
+                    // Swipe war zu klein - zurück zur Ausgangsposition
+                    image.style.transform = 'translateX(0)';
+                    image.style.opacity = '1';
+                }
             }, { passive: true });
             
-            function handleSwipe() {
-                const swipeDistance = touchEndX - touchStartX;
-                
-                if (Math.abs(swipeDistance) < swipeThreshold) return;
-                
-                if (swipeDistance > 0) {
-                    // Swipe nach rechts → vorheriges Bild
-                    prevImage();
-                } else {
-                    // Swipe nach links → nächstes Bild
-                    nextImage();
-                }
-            }
+            // Touch cancel behandeln
+            modal.addEventListener('touchcancel', function() {
+                isDragging = false;
+                image.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
+                image.style.transform = 'translateX(0)';
+                image.style.opacity = '1';
+            }, { passive: true });
         })();
 
         // Handle LQIP fade-in - REMOVED (Handled by inline critical script now)

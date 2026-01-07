@@ -11,170 +11,9 @@
     <link rel="stylesheet" href="styles.css?v=bold2">
     <link rel="icon" href="favicon_custom.png" type="image/png">
     <link rel="shortcut icon" href="favicon_custom.png" type="image/png">
-    <style>
-        /* Entferne weißen Hintergrund */
-        body {
-            background-color: #efefef !important;
-        }
-        
-        /* Events-Container */
-        #event-calendar {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 20px;
-            background: transparent;
-        }
-        
-        main {
-            background: transparent !important;
-        }
-
-        .events-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
-            background: transparent;
-        }
-
-        .event-card {
-            position: relative;
-            overflow: hidden;
-            border-radius: 0;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            box-shadow: none;
-            /* Performance: Defer layout for off-screen items */
-            content-visibility: auto;
-            contain-intrinsic-size: 1px 300px;
-        }
-
-        .event-card:hover {
-            transform: scale(1.02);
-        }
-
-        .event-card img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            border-radius: 0;
-        }
-
-        .event-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(transparent 40%, rgba(0, 0, 0, 0.8));
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 20px;
-            opacity: 1;
-        }
-
-        .event-title {
-            color: white;
-            font-size: 1.3em;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .event-location {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 0.9em;
-            margin-bottom: 15px;
-        }
-        
-        /* Styling für Event-Termine */
-        .event-dates {
-            margin-top: 10px;
-            max-height: 150px;
-            overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: rgba(179, 118, 118, 0.7) transparent;
-        }
-
-        .event-dates::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .event-dates::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-        }
-
-        .event-dates::-webkit-scrollbar-thumb {
-            background: rgba(179, 118, 118, 0.7);
-            border-radius: 3px;
-        }
-
-        .event-dates::-webkit-scrollbar-thumb:hover {
-            background: rgba(179, 118, 118, 0.9);
-        }
-        
-                .event-date {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 12px;
-            margin-bottom: 6px;
-            background-color: rgba(0, 0, 0, 0.3);
-            border-radius: 5px;
-            backdrop-filter: blur(5px);
-        }
-
-        .event-date:last-child {
-            margin-bottom: 0;
-        }
-
-        .date-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .date-day {
-            font-weight: bold;
-            color: white;
-            font-size: 0.9em;
-        }
-
-        .date-time {
-            font-size: 0.8em;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .date-ticket-link {
-            padding: 6px 12px;
-            background-color: rgba(179, 118, 118, 0.9);
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 0.8em;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-        }
-
-        .date-ticket-link:hover {
-            background-color: rgb(179, 118, 118);
-            transform: translateY(-1px);
-        }
-        
-        .no-events {
-            text-align: center;
-            color: #666;
-            font-style: italic;
-            padding: 20px;
-        }
-        
-        .last-updated {
-            text-align: center;
-            color: #888;
-            font-size: 0.9em;
-            margin-top: 30px;
-        }
-    </style>
 <script>document.documentElement.classList.add('js');</script>
 </head>
-<body>
+<body class="page-dates">
     <!-- Sticky Header -->
     <header class="sticky-header">
         <div class="header-content">
@@ -201,7 +40,8 @@
     <!-- Main Content -->
     <main>
         <section id="event-calendar">
-            <h2>Dates</h2>
+            <h2 class="desktop-dates-title">Dates</h2>
+            <h2 class="mobile-dates-title">Dates</h2>
             <div class="events-grid" id="shows-container">
                 <!-- Shows werden dynamisch geladen -->
             </div>

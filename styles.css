@@ -4,7 +4,7 @@
 body {
     background-color: #efefef;
     margin: 0;
-    font-family: 'Lato', Helvetica, Arial, sans-serif; /* Lato als Standard-Sans */
+    font-family: 'Inter', Helvetica, Arial, sans-serif; /* Inter als moderner Standard */
     color: #333333;
 }
 
@@ -38,20 +38,22 @@ body {
 
 h1 {
     text-align: center;
-    font-size: 2.8em; /* Etwas größer für mehr Wirkung */
+    font-size: 2.8em; 
     margin: 0px 0 10px 0;
-    font-family: 'Playfair Display', serif; /* Serif für Eleganz */
+    font-family: 'DM Serif Display', serif; /* Kräftige Serif */
     font-weight: 400;
     color: #333333;
+    letter-spacing: -0.02em; /* Etwas enger für kompakteren Look */
 }
 
 h1 span {
-    font-family: 'Lato', sans-serif; /* "Kostümbild" bleibt clean sans-serif */
-    font-size: 0.5em; /* Verhältnis anpassen */
-    font-weight: 300;
-    letter-spacing: 0.05em;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.45em; /* Kleinerer Kontrast */
+    font-weight: 400;
+    letter-spacing: 0.1em; /* Weiteres Tracking für Modernität */
+    text-transform: uppercase;
     display: block;
-    margin-top: 5px;
+    margin-top: 8px;
 }
 
 hr {
@@ -337,7 +339,8 @@ dialog .close {
 
 .about-section h1, .vita-section h2, .contact-section h2 {
     color: rgb(179, 118, 118); /* Gleiche Farbe wie "Susanne Uhl" */
-    font-weight: bold;
+    font-family: 'DM Serif Display', serif;
+    font-weight: 400;
     margin-bottom: 20px;
 }
 
@@ -366,13 +369,14 @@ dialog .close {
 
 /* Überschriften für Schauspiel, Oper und Film */
 .main-container h2 {
-    color: rgb(179, 118, 118); /* Gleiche Farbe wie "Susanne Uhl" */
-    font-family: 'Playfair Display', serif;
+    color: rgb(179, 118, 118); 
+    font-family: 'DM Serif Display', serif;
     font-weight: 400; 
-    font-style: italic; /* Magazin-Look: Kursive Serif-Überschriften */
-    font-size: 1.8em; /* Etwas größer */
-    margin-bottom: 30px; /* Mehr Whitespace */
+    font-style: normal; /* Kein Italic mehr */
+    font-size: 2em; /* Groß und selbstbewusst */
+    margin-bottom: 35px;
     text-align: center;
+    letter-spacing: -0.01em;
 }
 
 /* ============================
@@ -477,6 +481,8 @@ dialog .close {
 
 .impressum h1, .impressum h2 {
     color: rgb(179, 118, 118); /* Gleiche Farbe wie der Header-Text */
+    font-family: 'DM Serif Display', serif;
+    font-weight: 400;
     margin-bottom: 20px; /* Abstand nach unten */
     font-size: 1.5em; /* Größere Schriftgröße für Überschriften */
 }
@@ -872,24 +878,24 @@ dialog .close {
 
 .project-title .title-main {
     display: block;
-    font-size: 1.1em; /* Größer für Lesbarkeit */
-    font-family: 'Playfair Display', serif; /* Eleganter Kontrast */
-    font-weight: 500;
+    font-size: 1.15em;
+    font-family: 'DM Serif Display', serif;
+    font-weight: 400;
     color: rgb(179, 118, 118);
-    line-height: 1.2;
+    line-height: 1.1;
     transition: color 0.2s ease;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
+    letter-spacing: -0.01em;
 }
 
 .project-title .title-meta {
     display: block;
-    font-family: 'Lato', sans-serif;
-    font-size: 0.75em;
-    font-weight: 400; /* Regular statt Light für bessere Lesbarkeit in kleiner Größe */
-    letter-spacing: 0.05em; /* Leichtes Tracking wirkt edel */
-    text-transform: uppercase; /* Optional: Wirkt sehr modern/clean */
-    color: #888;
-    margin-top: 2px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7em;
+    font-weight: 500; /* Medium weight für gute Lesbarkeit */
+    letter-spacing: 0.02em;
+    color: #666; /* Etwas dunkleres Grau */
+    margin-top: 3px;
     transition: color 0.2s ease;
 }
 

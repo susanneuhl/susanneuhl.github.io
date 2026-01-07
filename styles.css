@@ -1227,6 +1227,11 @@ dialog .close {
    Mobile Contact Page (Redesign)
    ============================ */
 @media (max-width: 768px) {
+    /* Hintergrund schwarz für den ganzen Body */
+    body.page-contact {
+        background-color: #1a1a1a;
+    }
+
     /* Hintergrund schwarz */
     .contact-hero {
         background-color: #1a1a1a;

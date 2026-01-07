@@ -1144,11 +1144,11 @@ dialog .close {
         color: rgb(179, 118, 118); /* Konstant Rosa */
         font-family: 'Hanken Grotesk', sans-serif;
         font-weight: 800; /* Extra Bold */
-        font-size: 3rem; /* Groß wie Burger Menu Links */
-        margin-bottom: 40px; /* Mehr Abstand */
+        font-size: 5rem; /* Deutlich größer als Mail */
+        margin-bottom: 20px;
         text-transform: none; /* Case Sensitive wie im Menü */
-        letter-spacing: -0.04em;
-        line-height: 1.05;
+        letter-spacing: -0.05em;
+        line-height: 0.9;
         opacity: 1; /* Volle Deckkraft */
         margin-top: -80px; /* Nach oben schieben */
     }

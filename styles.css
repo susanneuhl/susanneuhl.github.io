@@ -745,6 +745,32 @@ dialog .close {
     text-align: justify;
 }
 
+/* Desktop Page Contact Styles */
+@media (min-width: 769px) {
+    body.page-contact {
+        background-color: #1a1a1a;
+    }
+    
+    body.page-contact footer {
+        background-color: #1a1a1a;
+        color: #888;
+        padding-top: 20px;
+    }
+    
+    body.page-contact footer p {
+        color: #888;
+    }
+    
+    body.page-contact footer a {
+        color: #888;
+        text-decoration: none;
+    }
+    
+    body.page-contact footer a:hover {
+        color: rgb(179, 118, 118);
+    }
+}
+
 /* ============================
    Event Calendar & Shows Page Styling
    (Moved from shows.html)

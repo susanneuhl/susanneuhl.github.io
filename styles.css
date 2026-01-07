@@ -1332,9 +1332,16 @@ dialog .close {
    Mobile Contact Page (Redesign)
    ============================ */
 @media (max-width: 768px) {
-    /* Hintergrund schwarz für den ganzen Body */
+    /* Hintergrund schwarz für den ganzen Body, Footer weg, kein Scrollen */
     body.page-contact {
         background-color: #1a1a1a;
+        padding-top: 0 !important;
+        overflow: hidden;
+        height: 100dvh;
+    }
+    
+    body.page-contact footer {
+        display: none;
     }
 
     /* Hintergrund schwarz */

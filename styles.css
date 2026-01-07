@@ -1118,7 +1118,7 @@ dialog .close {
 
     /* Overlay Reset & Styling */
     .contact-hero-overlay {
-        position: static; /* Kein Absolute Positioning mehr */
+        position: relative; /* Container wieder relative für absolute Kinder */
         transform: none;
         width: 100%;
         max-width: none;
@@ -1141,16 +1141,18 @@ dialog .close {
     /* Titel "Contact" */
     .contact-hero-overlay h2 {
         display: block; /* Wieder sichtbar */
+        position: absolute; /* Raus aus dem Fluss */
+        top: 120px; /* Fester Abstand von oben */
+        left: 40px; /* Links bündig mit Padding */
+        margin: 0; /* Keine Margins mehr nötig */
         color: rgb(179, 118, 118); /* Konstant Rosa */
         font-family: 'Hanken Grotesk', sans-serif;
         font-weight: 800; /* Extra Bold */
-        font-size: 4rem; /* Größer als Menü, kleiner als vorher */
-        margin-bottom: 60px; /* Deutlich mehr Abstand zur Mail */
+        font-size: 4rem; /* Goldener Mittelweg */
         text-transform: none; /* Case Sensitive wie im Menü */
         letter-spacing: -0.05em;
         line-height: 0.9;
         opacity: 1; /* Volle Deckkraft */
-        margin-top: -150px; /* Noch weiter nach oben schieben */
     }
     
     /* Mail-Wrapper Anpassung */

@@ -1568,6 +1568,38 @@ dialog .close {
 }
 
 /* ============================
+   Mobile Impressum Page (Redesign)
+   ============================ */
+@media (max-width: 768px) {
+    .desktop-impressum-title {
+        display: none;
+    }
+
+    .mobile-impressum-title {
+        display: block;
+        color: rgb(179, 118, 118);
+        font-family: 'Hanken Grotesk', sans-serif;
+        font-weight: 800;
+        font-size: 4rem;
+        margin-bottom: 40px;
+        letter-spacing: -0.05em;
+        line-height: 0.9;
+        text-align: left;
+        margin-left: -2px;
+    }
+    
+    .impressum {
+        padding: 0 20px;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-impressum-title {
+        display: none;
+    }
+}
+
+/* ============================
    Mobile Index Page (Redesign) - Dark Mode Global
    ============================ */
 @media (max-width: 768px) {

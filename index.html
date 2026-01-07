@@ -1265,78 +1265,6 @@
                 
                 const singleColumn = document.createElement('div');
                 
-                // Filter-Buttons für mobile Ansicht
-                const filterContainer = document.createElement('div');
-                filterContainer.style.cssText = `
-                    display: flex;
-                    justify-content: center;
-                    gap: 10px;
-                    margin-bottom: 20px;
-                    flex-wrap: wrap;
-                `;
-                
-                const filters = ['Alle', 'Schauspiel', 'Oper', 'Film'];
-                filters.forEach((filterName, index) => {
-                    const filterBtn = document.createElement('button');
-                    filterBtn.textContent = filterName;
-                    
-                    // Initial Styling (Dezent, Text-basiert)
-                    const isActive = index === 0;
-                    filterBtn.style.cssText = `
-                        background: none;
-                        border: none;
-                        color: ${isActive ? '#1a1a1a' : '#888'};
-                        padding: 5px 10px;
-                        font-family: 'Hanken Grotesk', sans-serif;
-                        font-size: 0.95em;
-                        font-weight: ${isActive ? '600' : '400'};
-                        cursor: pointer;
-                        transition: color 0.3s ease;
-                        -webkit-tap-highlight-color: transparent;
-                    `;
-
-                    // Hover-Effekte (Rosa)
-                    filterBtn.addEventListener('mouseenter', function() {
-                        if (this.style.fontWeight !== '600') { // Nur wenn nicht aktiv
-                             this.style.color = 'rgb(179, 118, 118)';
-                        }
-                    });
-
-                    filterBtn.addEventListener('mouseleave', function() {
-                        if (this.style.fontWeight !== '600') { // Nur wenn nicht aktiv zurück zu Grau
-                             this.style.color = '#888';
-                        } else {
-                             this.style.color = '#1a1a1a'; // Aktiv bleibt Schwarz
-                        }
-                    });
-                    
-                    filterBtn.addEventListener('click', function() {
-                        // Alle Buttons zurücksetzen (Grau, Normal)
-                        filterContainer.querySelectorAll('button').forEach(btn => {
-                            btn.style.color = '#888';
-                            btn.style.fontWeight = '400';
-                        });
-                        
-                        // Aktiven Button hervorheben (Schwarz, Fett)
-                        this.style.color = '#1a1a1a';
-                        this.style.fontWeight = '600';
-                        
-                        // Projekte filtern
-                        const projectItems = projectList.querySelectorAll('li');
-                        projectItems.forEach(item => {
-                            const badge = item.querySelector('.category-badge');
-                            const categoryText = badge ? badge.textContent : '';
-                            if (filterName === 'Alle' || categoryText === filterName) {
-                                item.style.display = 'block';
-                            } else {
-                                item.style.display = 'none';
-                            }
-                        });
-                    });
-                    
-                    filterContainer.appendChild(filterBtn);
-                });
-                
                 const projectList = document.createElement('ul');
                 projectList.style.listStyleType = 'none';
                 projectList.style.padding = '0';
@@ -1363,28 +1291,19 @@
                         }
                     }
 
-                    // Füge Kategorie-Badge hinzu
-                    const categoryBadge = document.createElement('div');
-                    categoryBadge.className = 'category-badge';
-                    categoryBadge.textContent = project.category;
-                    categoryBadge.style.cssText = `
-                        position: absolute;
-                        top: 10px;
-                        left: 10px;
-                        background-color: rgba(26, 26, 26, 0.9);
-                        color: white;
-                        padding: 4px 8px;
-                        border-radius: 4px;
-                        font-size: 0.8em;
-                        font-weight: bold;
-                        z-index: 10;
-                    `;
-                    li.style.position = 'relative';
-                    li.insertBefore(categoryBadge, li.firstChild);
+                    // Kategorie in Meta-Info anzeigen (statt Badge über Bild)
+                    const titleMeta = li.querySelector('.title-meta');
+                    if (titleMeta) {
+                        // Prüfen ob schon da, um Doppelung zu vermeiden
+                        if (!titleMeta.getAttribute('data-category-added')) {
+                             titleMeta.textContent = `${project.category} • ${titleMeta.textContent}`;
+                             titleMeta.setAttribute('data-category-added', 'true');
+                        }
+                    }
+
                     projectList.appendChild(li);
                 });
                 
-                singleColumn.appendChild(filterContainer);
                 singleColumn.appendChild(projectList);
                 mainContainer.appendChild(singleColumn);
                 mainContainer.classList.add('chronological-sorted');

@@ -843,11 +843,7 @@ dialog .close {
     margin-left: 40px;
 }
 /* Feinjustierung: Bereichsüberschriften angleichen - REMOVED (oben definiert) */
-.header-nav-link {
-    font-weight: 300; /* vorher vermutlich: bold oder 600 */
-    letter-spacing: 0.5px; /* optional: etwas mehr Eleganz */
-    font-size: 0.95em; /* optional: leicht verkleinert */
-}
+/* .header-nav-link Block entfernt, da oben definiert */
 @media (max-width: 600px) {
   .sticky-header {
     flex-direction: row;
@@ -862,11 +858,6 @@ dialog .close {
     align-items: flex-end;
     gap: 10px;
     margin: 0;
-  }
-
-  .header-nav-link {
-    display: block;
-    width: fit-content;
   }
 }
 

@@ -1654,7 +1654,8 @@ dialog .close {
     }
     
     footer a {
-        color: white !important;
+        color: #888 !important;
+        text-decoration: none;
     }
 
     /* Impressum Dark Mode */

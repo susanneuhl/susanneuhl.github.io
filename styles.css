@@ -1141,14 +1141,16 @@ dialog .close {
     /* Titel "Contact" */
     .contact-hero-overlay h2 {
         display: block; /* Wieder sichtbar */
-        color: white;
+        color: rgb(179, 118, 118); /* Konstant Rosa */
         font-family: 'Hanken Grotesk', sans-serif;
         font-weight: 800; /* Extra Bold */
-        font-size: 1.5rem;
-        margin-bottom: 20px;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        opacity: 0.5; /* Dezent */
+        font-size: 3rem; /* Groß wie Burger Menu Links */
+        margin-bottom: 40px; /* Mehr Abstand */
+        text-transform: none; /* Case Sensitive wie im Menü */
+        letter-spacing: -0.04em;
+        line-height: 1.05;
+        opacity: 1; /* Volle Deckkraft */
+        margin-top: -80px; /* Nach oben schieben */
     }
     
     /* Mail-Wrapper Anpassung */
@@ -1185,27 +1187,30 @@ dialog .close {
 
     .action-btn {
         background: transparent;
-        border: 1px solid rgba(255,255,255,0.3);
+        border: 1px solid rgba(255,255,255,0.2); /* Dezenter Rahmen */
         color: white;
         font-family: 'Hanken Grotesk', sans-serif;
-        padding: 10px 20px;
-        border-radius: 30px; /* Pill Shape */
+        width: 50px;
+        height: 50px;
+        border-radius: 50%; /* Kreis */
         font-size: 0.9rem;
         cursor: pointer;
         display: flex;
         align-items: center;
-        gap: 8px;
+        justify-content: center;
         transition: all 0.3s ease;
+        padding: 0;
     }
 
     .action-btn:hover {
         background: white;
         color: #1a1a1a;
         border-color: white;
+        transform: scale(1.1);
     }
 
     .action-btn .icon {
-        font-size: 1.2em;
+        font-size: 1.4em;
     }
 
     /* Copy Feedback Animation */

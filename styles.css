@@ -854,6 +854,45 @@ dialog .close {
 }
 
 /* ============================
+   Project Title (Instagram-Style)
+   ============================ */
+.project-title {
+    display: block;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-size: 0.85em;
+    font-weight: 400;
+    color: #333;
+    text-decoration: none;
+    line-height: 1.4;
+    transition: color 0.2s ease;
+}
+
+.project-title:hover {
+    color: rgb(179, 118, 118);
+    text-decoration: underline;
+}
+
+/* Image wrapper for click-to-fullscreen */
+.image-wrapper {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.image-wrapper:hover img {
+    transform: scale(1.05);
+}
+
+/* Image credit positioning within wrapper */
+.image-wrapper .image-credit {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    z-index: 5;
+}
+
+/* ============================
    Fullscreen Gallery Navigation
    ============================ */
 .nav-arrow {

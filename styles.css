@@ -204,7 +204,7 @@ dialog .close {
 }
 
 /* ============================
-   Sticky Header (jetzt Fixed für garantierten Halt)
+   Sticky Header (Fixed mit Difference-Blending)
 ============================ */
 .sticky-header {
     position: fixed; /* Fixiert am Viewport */
@@ -215,7 +215,9 @@ dialog .close {
     width: 100%;
     box-sizing: border-box;
     background: transparent !important;
-    /* Blur entfernt für Difference-Mode */
+    /* Container-Level Blending für Stabilität */
+    mix-blend-mode: difference;
+    color: #ffffff;
     padding: 10px 40px;
     display: flex;
     justify-content: space-between;
@@ -241,13 +243,13 @@ dialog .close {
     pointer-events: auto; /* Interaktion wieder aktivieren */
 }
 
-/* Haupttitel mit Difference Mode */
+/* Haupttitel */
 .main-title {
     font-size: 1.5em;
     font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 800;
-    color: #ffffff; /* Weiß für Invertierung */
-    mix-blend-mode: difference;
+    color: inherit; /* Erbt Weiß */
+    mix-blend-mode: normal; /* Normal, da Container schon Difference hat */
     margin: 0;
     line-height: 1;
     text-align: left;
@@ -259,8 +261,8 @@ dialog .close {
     font-size: 0.5em;
     font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 600;
-    color: #898989; /* Wird zu #666 auf #efefef */
-    mix-blend-mode: difference;
+    color: #aaa; /* Hellgrau für gute Invertierung */
+    mix-blend-mode: normal;
     margin-top: 4px;
     letter-spacing: 0;
 }
@@ -268,15 +270,15 @@ dialog .close {
 /* Navigation im Header (Desktop) */
 .header-nav-link {
     text-decoration: none;
-    color: #ffffff; /* Weiß für Invertierung */
-    mix-blend-mode: difference;
+    color: inherit; /* Erbt Weiß */
+    mix-blend-mode: normal;
     font-size: 1.5em;
     font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 800;
     padding: 5px 0;
     border: none; 
     background: none;
-    transition: color 0.2s ease;
+    transition: color 0.2s ease, opacity 0.2s ease;
     letter-spacing: -0.03em;
     line-height: 1;
 }
@@ -285,8 +287,8 @@ dialog .close {
 .header-nav-link.active {
     background-color: transparent;
     border: none;
-    color: rgb(179, 118, 118); /* Rosa */
-    mix-blend-mode: normal; /* Keine Invertierung bei Hover */
+    /* Rosa wird durch Difference-Mode invertiert (zu Türkis/Grün) */
+    color: rgb(179, 118, 118); 
 }
 
 /* ============================
@@ -306,8 +308,8 @@ dialog .close {
 .hamburger span {
     width: 25px;
     height: 2px;
-    background-color: #ffffff; /* Weiß für Invertierung */
-    mix-blend-mode: difference;
+    background-color: currentColor; /* Erbt Weiß */
+    mix-blend-mode: normal;
     transition: all 0.3s ease;
     display: block;
 }

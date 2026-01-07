@@ -214,10 +214,8 @@ dialog .close {
     z-index: 1000;
     width: 100%;
     box-sizing: border-box;
-    background: none !important;
-    background-color: transparent !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px); /* Safari Support */
+    background: transparent !important;
+    /* Blur entfernt für Difference-Mode */
     padding: 10px 40px;
     display: flex;
     justify-content: space-between;
@@ -225,7 +223,8 @@ dialog .close {
     font-size: 1.5em;
     font-weight: bold;
     box-shadow: none;
-    transition: padding 0.3s ease; /* Sanfter Übergang bei Resize */
+    transition: padding 0.3s ease;
+    pointer-events: none; /* Klicks durchlassen wo kein Text ist */
 }
 
 /* Header-Content Styling */
@@ -233,22 +232,47 @@ dialog .close {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-left: 0; /* Geregelt über Header-Padding */
-    color: rgb(179, 118, 118);
+    margin-left: 0;
+    pointer-events: auto; /* Interaktion wieder aktivieren */
 }
 
-
 .header-nav {
-    margin-right: 0; /* Geregelt über Header-Padding */
+    margin-right: 0;
+    pointer-events: auto; /* Interaktion wieder aktivieren */
+}
+
+/* Haupttitel mit Difference Mode */
+.main-title {
+    font-size: 1.5em;
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-weight: 800;
+    color: #ffffff; /* Weiß für Invertierung */
+    mix-blend-mode: difference;
+    margin: 0;
+    line-height: 1;
+    text-align: left;
+    letter-spacing: -0.03em;
+}
+
+.main-title .subtitle {
+    display: block;
+    font-size: 0.5em;
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-weight: 600;
+    color: #898989; /* Wird zu #666 auf #efefef */
+    mix-blend-mode: difference;
+    margin-top: 4px;
+    letter-spacing: 0;
 }
 
 /* Navigation im Header (Desktop) */
 .header-nav-link {
     text-decoration: none;
-    color: #1a1a1a;
-    font-size: 1.5em; /* Reduziert von 1.8em */
+    color: #ffffff; /* Weiß für Invertierung */
+    mix-blend-mode: difference;
+    font-size: 1.5em;
     font-family: 'Hanken Grotesk', sans-serif;
-    font-weight: 800; /* Extra Fett */
+    font-weight: 800;
     padding: 5px 0;
     border: none; 
     background: none;
@@ -261,7 +285,8 @@ dialog .close {
 .header-nav-link.active {
     background-color: transparent;
     border: none;
-    color: rgb(179, 118, 118); /* Nur Text färbt sich rosa */
+    color: rgb(179, 118, 118); /* Rosa */
+    mix-blend-mode: normal; /* Keine Invertierung bei Hover */
 }
 
 /* ============================
@@ -275,12 +300,14 @@ dialog .close {
     border: none;
     cursor: pointer;
     padding: 5px;
+    pointer-events: auto;
 }
 
 .hamburger span {
     width: 25px;
     height: 2px;
-    background-color: #1a1a1a; /* Schwarz */
+    background-color: #ffffff; /* Weiß für Invertierung */
+    mix-blend-mode: difference;
     transition: all 0.3s ease;
     display: block;
 }
@@ -789,46 +816,6 @@ dialog .close {
     font-size: 0.9em;
 }
 
-.main-title {
-    font-size: 1.5em; /* Reduziert von 1.8em */
-    font-family: 'Hanken Grotesk', sans-serif;
-    font-weight: 800; /* Extra Bold */
-    color: #1a1a1a;
-    margin: 0;
-    line-height: 1; /* Kompakt */
-    text-align: left;
-    letter-spacing: -0.03em;
-}
-
-.main-title .subtitle {
-    display: block;
-    font-size: 0.5em; /* Kleiner, damit es elegant bleibt */
-    font-family: 'Hanken Grotesk', sans-serif;
-    font-weight: 600; /* Auch fetter */
-    color: #666;
-    margin-top: 4px;
-    letter-spacing: 0;
-}
-.main-title-header {
-    font-size: 1.6em;
-    font-family: 'Hanken Grotesk', sans-serif;
-    font-weight: 800;
-    color: #1a1a1a;
-    margin: 0;
-    line-height: 1;
-    text-align: left;
-    letter-spacing: -0.03em;
-}
-
-.subtitle-header {
-    font-size: 0.7em;
-    font-family: 'Hanken Grotesk', sans-serif;
-    color: #666;
-    font-weight: 600;
-    margin: 0;
-    line-height: 1.2;
-    text-align: left;
-}
 /* HEADER-ÜBERSCHRIFTEN (Redundant entfernt) */
 
 

@@ -1294,6 +1294,21 @@
                         transition: color 0.3s ease;
                         -webkit-tap-highlight-color: transparent;
                     `;
+
+                    // Hover-Effekte (Rosa)
+                    filterBtn.addEventListener('mouseenter', function() {
+                        if (this.style.fontWeight !== '600') { // Nur wenn nicht aktiv
+                             this.style.color = 'rgb(179, 118, 118)';
+                        }
+                    });
+
+                    filterBtn.addEventListener('mouseleave', function() {
+                        if (this.style.fontWeight !== '600') { // Nur wenn nicht aktiv zurück zu Grau
+                             this.style.color = '#888';
+                        } else {
+                             this.style.color = '#1a1a1a'; // Aktiv bleibt Schwarz
+                        }
+                    });
                     
                     filterBtn.addEventListener('click', function() {
                         // Alle Buttons zurücksetzen (Grau, Normal)

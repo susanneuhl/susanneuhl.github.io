@@ -1332,16 +1332,24 @@ dialog .close {
    Mobile Contact Page (Redesign)
    ============================ */
 @media (max-width: 768px) {
-    /* Hintergrund schwarz für den ganzen Body, Footer weg, kein Scrollen */
+    /* Hintergrund schwarz, Footer absolut, Layout fix */
     body.page-contact {
         background-color: #1a1a1a;
         padding-top: 0 !important;
         overflow: hidden;
         height: 100dvh;
+        position: relative;
     }
     
+    /* Footer unten fixieren */
     body.page-contact footer {
-        display: none;
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        padding: 0;
+        pointer-events: auto;
     }
 
     /* Hintergrund schwarz */
@@ -1385,7 +1393,7 @@ dialog .close {
     .contact-hero-overlay h2 {
         display: block; /* Wieder sichtbar */
         position: absolute; /* Raus aus dem Fluss */
-        top: 120px; /* Fester Abstand von oben */
+        top: 160px; /* Mehr Abstand (kompensiert fehlendes Body-Padding) */
         left: 40px; /* Links bündig mit Padding */
         margin: 0; /* Keine Margins mehr nötig */
         color: rgb(179, 118, 118); /* Konstant Rosa */

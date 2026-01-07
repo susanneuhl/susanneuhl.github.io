@@ -204,14 +204,14 @@ dialog .close {
 }
 
 /* ============================
-   Sticky Header (Fixed mit Element-Blending - Final)
+   Sticky Header (Fixed mit Container-Blending)
 ============================ */
 .sticky-header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
+    z-index: 2000; /* Sehr hoch, damit er über dem verschobenen Nav-Overlay liegt */
     width: 100%;
     box-sizing: border-box;
     background: transparent !important;
@@ -225,13 +225,19 @@ dialog .close {
     transition: padding 0.3s ease;
     pointer-events: none;
     
-    /* Fade-in schneller, kein Delay */
+    /* Fade-in */
     opacity: 0;
     animation: fadeInHeader 0.5s ease-out forwards;
     
-    /* Wichtig: Kein Difference auf Container, damit Overlay schwarz bleibt! */
-    mix-blend-mode: normal; 
-    isolation: auto;
+    /* Difference Mode auf Container für garantierte Invertierung */
+    mix-blend-mode: difference;
+    color: #ffffff;
+}
+
+/* Wenn Menü offen ist: Normaler Modus, damit Overlay schwarz bleibt */
+.sticky-header.menu-open {
+    mix-blend-mode: normal !important;
+    /* Da Schriftfarbe weiß ist, sieht man sie gut auf dem schwarzen Overlay */
 }
 
 @keyframes fadeInHeader {
@@ -246,10 +252,9 @@ dialog .close {
     align-items: flex-start;
     margin-left: 0;
     pointer-events: auto;
-    
-    /* Difference Mode auf den Inhalt (Logo) */
-    mix-blend-mode: difference;
-    color: #ffffff;
+    /* Reset */
+    mix-blend-mode: normal;
+    color: inherit;
 }
 
 .header-nav {
@@ -263,7 +268,7 @@ dialog .close {
     font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 800;
     color: inherit; 
-    /* Erbt Difference */
+    mix-blend-mode: normal;
     margin: 0;
     line-height: 1;
     text-align: left;
@@ -283,9 +288,8 @@ dialog .close {
 /* Navigation im Header (Desktop) */
 .header-nav-link {
     text-decoration: none;
-    color: #ffffff;
-    /* Difference hier einzeln, damit wir es beim Hover ausschalten können */
-    mix-blend-mode: difference; 
+    color: inherit;
+    mix-blend-mode: normal;
     font-size: 1.5em;
     font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 800;
@@ -301,8 +305,9 @@ dialog .close {
 .header-nav-link.active {
     background-color: transparent;
     border: none;
-    /* ECHTES Rosa, da wir Difference ausschalten */
-    color: rgb(179, 118, 118); 
+    /* Color-Hack: Diese Farbe wird auf Grau zu Rosa invertiert */
+    /* Auf Schwarz (Bilder) wird es Türkis. Das ist der Kompromiss. */
+    color: rgb(60, 121, 121); 
     mix-blend-mode: normal;
 }
 
@@ -318,26 +323,22 @@ dialog .close {
     cursor: pointer;
     padding: 5px;
     pointer-events: auto;
-    /* Difference für den geschlossenen Burger */
-    mix-blend-mode: difference;
-    z-index: 2000;
+    mix-blend-mode: normal;
 }
 
 .hamburger span {
     width: 25px;
     height: 2px;
-    background-color: #ffffff; /* Weiß für Invertierung */
+    background-color: currentColor;
     transition: all 0.3s ease;
     display: block;
 }
 
-/* Wenn Active: Normaler Modus, Weiß auf dunklem Overlay */
-.hamburger.active {
-    mix-blend-mode: normal;
-}
-
+/* Active State: Burger ist im Difference-Header. Overlay ist schwarz.
+   Weiß - Schwarz = Weiß. Burger ist sichtbar!
+*/
 .hamburger.active span {
-    background-color: white;
+    background-color: white; /* Bleibt weiß (invertiert) */
 }
 
 /* Hamburger Animation */

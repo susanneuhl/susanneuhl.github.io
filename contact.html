@@ -324,19 +324,19 @@
 // Hamburger Menu Toggle
 (function() {
   const hamburger = document.querySelector('.hamburger');
-  const navLinks = document.querySelector('.nav-links');
+  const navLinks = document.querySelector('.nav-links'); const header = document.querySelector('.sticky-header');
   
   if (hamburger && navLinks) {
     hamburger.addEventListener('click', function() {
       hamburger.classList.toggle('active');
-      navLinks.classList.toggle('active');
+      navLinks.classList.toggle('active'); if (header) header.classList.toggle('menu-open');
     });
     
     // Close menu when clicking a link
     document.querySelectorAll('.header-nav-link').forEach(function(link) {
       link.addEventListener('click', function() {
         hamburger.classList.remove('active');
-        navLinks.classList.remove('active');
+        navLinks.classList.remove('active'); if (header) header.classList.remove('menu-open');
       });
     });
   }

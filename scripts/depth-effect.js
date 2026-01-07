@@ -298,7 +298,8 @@ class DepthEffect {
     }
 }
 
-// ---- Simple Auto-init (no lazy loading) ----
+// ---- Lazy Loading with IntersectionObserver ----
+// Only activate WebGL for visible elements to avoid "too many contexts" error
 (function() {
     document.addEventListener('DOMContentLoaded', () => {
         const isLargeScreen = window.innerWidth > 900;
@@ -310,39 +311,54 @@ class DepthEffect {
         }
 
         const containers = document.querySelectorAll('[data-depth-map]');
-        console.log(`Depth Effect: Initializing ${containers.length} effects`);
-
-        containers.forEach(container => {
-            const img = container.querySelector('img');
-            const mapSrc = container.getAttribute('data-depth-map');
-            
-            if (!img || !mapSrc) return;
-
-            const initEffect = () => {
-                // Double-check image has dimensions before initializing
-                if (!img.naturalWidth || !img.naturalHeight) {
-                    console.warn(`✗ Image has no dimensions yet: ${mapSrc}`);
-                    return;
-                }
+        console.log(`Depth Effect: Found ${containers.length} containers`);
+        
+        // Store effect instances for cleanup
+        const effectsMap = new WeakMap();
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const container = entry.target;
+                const img = container.querySelector('img');
+                const mapSrc = container.getAttribute('data-depth-map');
                 
-                try {
-                    new DepthEffect(container, img.currentSrc || img.src, mapSrc);
-                    console.log(`✓ Depth effect ready: ${mapSrc}`);
-                } catch (err) {
-                    console.warn(`✗ Depth effect failed: ${mapSrc}`, err);
+                if (!img || !mapSrc) return;
+                
+                if (entry.isIntersecting) {
+                    // Element is visible - create effect if not exists
+                    if (!effectsMap.has(container)) {
+                        const initEffect = () => {
+                            if (!img.naturalWidth || !img.naturalHeight) return;
+                            
+                            try {
+                                const effect = new DepthEffect(container, img.currentSrc || img.src, mapSrc);
+                                effectsMap.set(container, effect);
+                            } catch (err) {
+                                console.warn(`✗ Depth effect failed: ${mapSrc}`, err);
+                            }
+                        };
+                        
+                        if (img.complete && img.naturalWidth > 0) {
+                            setTimeout(initEffect, 50);
+                        } else {
+                            img.addEventListener('load', () => setTimeout(initEffect, 50), { once: true });
+                        }
+                    }
+                } else {
+                    // Element is not visible - dispose effect to free WebGL context
+                    const effect = effectsMap.get(container);
+                    if (effect) {
+                        effect.dispose();
+                        effectsMap.delete(container);
+                    }
                 }
-            };
-
-            if (img.complete && img.naturalWidth > 0) {
-                // Image already loaded, but wait a bit for layout to settle
-                setTimeout(initEffect, 100);
-            } else {
-                // Wait for image to fully load
-                img.addEventListener('load', () => {
-                    setTimeout(initEffect, 100);
-                }, { once: true });
-            }
+            });
+        }, {
+            rootMargin: '100px', // Start loading slightly before visible
+            threshold: 0
         });
+
+        containers.forEach(container => observer.observe(container));
     });
 })();
 

@@ -815,13 +815,18 @@ dialog .close {
    LQIP (Low Quality Image Placeholder)
    ============================ */
 .main-container li {
-    background-color: #e0e0e0;
+    background-color: transparent;
     position: relative;
+}
+
+/* Gray background only for the image wrapper (LQIP placeholder) */
+.main-container li .image-wrapper {
+    background-color: #e0e0e0;
     overflow: hidden;
 }
 
 /* The tiny blurred placeholder */
-.main-container li::before {
+.main-container li .image-wrapper::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -837,7 +842,7 @@ dialog .close {
 }
 
 /* Only show placeholder if image is explicitly loading */
-.main-container li.is-loading::before {
+.main-container li.is-loading .image-wrapper::before {
     opacity: 1;
 }
 
@@ -866,11 +871,12 @@ dialog .close {
     text-decoration: none;
     line-height: 1.4;
     transition: color 0.2s ease;
+    background: transparent;
 }
 
 .project-title:hover {
     color: rgb(179, 118, 118);
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 /* Image wrapper for click-to-fullscreen */

@@ -4,7 +4,7 @@
 body {
     background-color: #efefef;
     margin: 0;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     color: #333333;
     -webkit-font-smoothing: antialiased; /* Macht die Schrift auf Mac schärfer/dünner */
 }
@@ -41,14 +41,14 @@ h1 {
     text-align: center;
     font-size: 2.2em; /* Etwas kompakter */
     margin: 0px 0 10px 0;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 600; /* Semi-Bold für Präsenz */
     color: #1a1a1a; /* Fast schwarz */
     letter-spacing: -0.03em; /* Tight tracking für den "Modern" Look */
 }
 
 h1 span {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Hanken Grotesk', sans-serif;
     font-size: 0.45em;
     font-weight: 400;
     letter-spacing: 0.05em;
@@ -341,7 +341,7 @@ dialog .close {
 
 .about-section h1, .vita-section h2, .contact-section h2 {
     color: rgb(179, 118, 118); 
-    font-family: 'Inter', sans-serif;
+    font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 600;
     margin-bottom: 20px;
     letter-spacing: -0.02em;
@@ -373,7 +373,7 @@ dialog .close {
 /* Überschriften für Schauspiel, Oper und Film */
 .main-container h2 {
     color: rgb(179, 118, 118); 
-    font-family: 'Inter', sans-serif;
+    font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 500; /* Medium */
     font-style: normal;
     font-size: 1.4em; /* Dezentere Größe */
@@ -486,7 +486,7 @@ dialog .close {
 
 .impressum h1, .impressum h2 {
     color: rgb(179, 118, 118); /* Gleiche Farbe wie der Header-Text */
-    font-family: 'Inter', sans-serif;
+    font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 600;
     margin-bottom: 20px; /* Abstand nach unten */
     font-size: 1.5em; /* Größere Schriftgröße für Überschriften */
@@ -885,7 +885,7 @@ dialog .close {
 .project-title .title-main {
     display: block;
     font-size: 0.95em;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 600; /* Bold für den Titel */
     color: #1a1a1a; /* Schwarz statt rosa für maximalen Clean-Look? Oder Rosa lassen? Ich lasse es erstmal Rosa, wie gewünscht */
     color: rgb(179, 118, 118);
@@ -897,7 +897,7 @@ dialog .close {
 
 .project-title .title-meta {
     display: block;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Hanken Grotesk', sans-serif;
     font-size: 0.75em;
     font-weight: 400;
     letter-spacing: 0;

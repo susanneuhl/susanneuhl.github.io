@@ -3,18 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Google Fonts: Hanken Grotesk -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
             <title>Dates – Susanne Uhl</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="favicon_custom.png" type="image/png">
-    <link rel="shortcut icon" href="favicon_custom.png" type="image/png">
     <style>
         /* Entferne weißen Hintergrund */
         body {
-            background-color: #efefef !important;
+            background-color: #e0dfe3 !important;
         }
         
         /* Events-Container */
@@ -48,13 +42,10 @@
         .event-card {
             position: relative;
             overflow: hidden;
-            border-radius: 0;
+            border-radius: 8px;
             cursor: pointer;
             transition: transform 0.3s ease;
             box-shadow: none;
-            /* Performance: Defer layout for off-screen items */
-            content-visibility: auto;
-            contain-intrinsic-size: 1px 300px;
         }
 
         .event-card:hover {
@@ -65,7 +56,7 @@
             width: 100%;
             height: 300px;
             object-fit: cover;
-            border-radius: 0;
+            border-radius: 8px;
         }
 
         .event-overlay {
@@ -180,7 +171,6 @@
             margin-top: 30px;
         }
     </style>
-<script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
     <!-- Sticky Header -->
@@ -192,17 +182,9 @@
             </h1>
         </div>
         <nav class="header-nav">
-            <button class="hamburger" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <div class="nav-links">
-                <a href="index.html" class="header-nav-link">Work</a>
-                <a href="about.html" class="header-nav-link">About</a>
-                <a href="shows.html" class="header-nav-link active">Dates</a>
-                <a href="contact.html" class="header-nav-link">Contact</a>
-            </div>
+            <a href="index.html" class="header-nav-link">Work</a>
+            <a href="about.html" class="header-nav-link">About</a>
+            <a href="shows.html" class="header-nav-link">Dates</a>
         </nav>
     </header>
 
@@ -249,40 +231,14 @@
                 });
                 
                 // Erstelle Events für jede Show (jetzt chronologisch sortiert)
-                for (let idx = 0; idx < sortedShows.length; idx++) {
-                    const [showId, show] = sortedShows[idx];
+                for (const [showId, show] of sortedShows) {
                     const eventCard = document.createElement('div');
                     eventCard.className = 'event-card';
                     
-                    // Event-Bild (Thumbnail im Grid, AVIF wenn verfügbar)
-                    const eventPicture = document.createElement('picture');
-                    const eventSource = document.createElement('source');
-                    eventSource.type = 'image/avif';
-
-                    // Ableitung des Basenamens aus der Bild-URL (z.B. images/undine.jpg -> undine)
-                    const filename = (show.image || '').split('/').pop() || '';
-                    const base = filename.replace(/\.(jpg|jpeg|png)$/i, '');
-
-                    // Thumbs sind deutlich kleiner/schneller zu decodieren (gleiches Layout)
-                    const thumbAvif = `images/thumbs/${base}.avif`;
-                    const thumbJpg = `images/thumbs/${base}.jpg`;
-
-                    eventSource.srcset = thumbAvif;
+                    // Event-Bild
                     const eventImage = document.createElement('img');
-                    eventImage.src = thumbJpg;
+                    eventImage.src = show.image;
                     eventImage.alt = show.title;
-                    eventImage.loading = idx < 2 ? 'eager' : 'lazy';
-                    eventImage.decoding = 'async';
-                    eventImage.fetchPriority = idx < 2 ? 'high' : 'low';
-
-                    // Fallback: falls ein Thumb fehlt, nimm das Original aus shows.json
-                    eventImage.onerror = () => {
-                        eventImage.onerror = null;
-                        eventImage.src = show.image;
-                    };
-                    
-                    eventPicture.appendChild(eventSource);
-                    eventPicture.appendChild(eventImage);
                     
                     // Event-Overlay
                     const eventOverlay = document.createElement('div');
@@ -343,70 +299,11 @@
                         eventOverlay.appendChild(noEvents);
                     }
                     
-                    eventCard.appendChild(eventPicture);
+                    eventCard.appendChild(eventImage);
                     eventCard.appendChild(eventOverlay);
                     container.appendChild(eventCard);
                 }
                 
-                // JSON-LD Event-Schema für SEO erstellen
-                const now = new Date();
-                const upcomingEvents = [];
-                
-                // Sammle alle zukünftigen Events aus allen Shows
-                for (const [showId, show] of Object.entries(data.shows)) {
-                    for (const event of show.events) {
-                        if (new Date(event.date) > now) {
-                            upcomingEvents.push({
-                                title: show.title,
-                                date: event.date,
-                                time: event.time,
-                                location: event.location,
-                                theater: show.theater,
-                                website: show.website
-                            });
-                        }
-                    }
-                }
-                
-                // Erstelle JSON-LD Schema
-                if (upcomingEvents.length > 0) {
-                    const eventsSchema = {
-                        "@context": "https://schema.org",
-                        "@type": "ItemList",
-                        "itemListElement": upcomingEvents.map((event, index) => ({
-                            "@type": "Event",
-                            "name": event.title,
-                            "startDate": event.date + (event.time ? 'T' + event.time : ''),
-                            "location": {
-                                "@type": "Place",
-                                "name": event.location,
-                                "address": {
-                                    "@type": "PostalAddress",
-                                    "addressLocality": event.location
-                                }
-                            },
-                            "organizer": {
-                                "@type": "Organization",
-                                "name": event.theater,
-                                "url": event.website
-                            },
-                            "performer": {
-                                "@type": "Person",
-                                "name": "Susanne Uhl",
-                                "jobTitle": "Kostümbildnerin",
-                                "url": "https://susanneuhl.com"
-                            },
-                            "position": index + 1
-                        }))
-                    };
-                    
-                    // Schema in die Seite einfügen
-                    const script = document.createElement('script');
-                    script.type = 'application/ld+json';
-                    script.textContent = JSON.stringify(eventsSchema);
-                    document.head.appendChild(script);
-                }
-
             } catch (error) {
                 console.error('Fehler beim Laden der Show-Daten:', error);
                 document.getElementById('shows-container').innerHTML = 
@@ -425,79 +322,5 @@
             <a href="impressum.html" style="color: #333333; text-decoration: none; margin-left: 10px;">Impressum</a>
         </p>
     </footer>
-
-<script>
-(function() {
-  // Fade-in on load
-  function markLoaded() {
-    document.body.classList.add('is-loaded');
-    document.body.classList.remove('is-exiting');
-  }
-
-  // Ensure correct state when coming from bfcache
-  window.addEventListener('pageshow', markLoaded);
-  document.addEventListener('DOMContentLoaded', markLoaded);
-
-  // Intercept internal navigation to fade out
-  document.addEventListener('click', function(e) {
-    const a = e.target.closest && e.target.closest('a');
-    if (!a) return;
-
-    // Ignore modified clicks / new tab
-    if (e.defaultPrevented) return;
-    if (e.button !== 0) return;
-    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-
-    const href = a.getAttribute('href');
-    if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
-    if (a.target && a.target !== '_self') return;
-
-    // Only same-origin navigations
-    let url;
-    try {
-      url = new URL(href, window.location.href);
-    } catch {
-      return;
-    }
-    if (url.origin !== window.location.origin) return;
-
-    // If it's the same page with just a hash, don't animate
-    const sameDoc = (url.pathname === window.location.pathname) && (url.search === window.location.search);
-    if (sameDoc && url.hash) return;
-
-    e.preventDefault();
-    document.body.classList.add('is-exiting');
-
-    // Small delay for fade-out
-    window.setTimeout(function() {
-      window.location.href = url.href;
-    }, 260);
-  }, true);
-})();
-</script>
-
-<script>
-// Hamburger Menu Toggle
-(function() {
-  const hamburger = document.querySelector('.hamburger');
-  const navLinks = document.querySelector('.nav-links');
-  
-  if (hamburger && navLinks) {
-    hamburger.addEventListener('click', function() {
-      hamburger.classList.toggle('active');
-      navLinks.classList.toggle('active');
-    });
-    
-    // Close menu when clicking a link
-    document.querySelectorAll('.header-nav-link').forEach(function(link) {
-      link.addEventListener('click', function() {
-        hamburger.classList.remove('active');
-        navLinks.classList.remove('active');
-      });
-    });
-  }
-})();
-</script>
-
 </body>
 </html>

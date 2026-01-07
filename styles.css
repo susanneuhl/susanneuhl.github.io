@@ -309,6 +309,7 @@ dialog .close {
     
     /* Fullscreen Overlay Style (MadeBySix Look) */
     .nav-links {
+        display: flex; /* Flexbox aktivieren! */
         position: fixed;
         top: 0;
         left: 0;

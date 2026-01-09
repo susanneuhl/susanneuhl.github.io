@@ -917,6 +917,14 @@ body.page-contact .hamburger span {
     letter-spacing: 0.05em;
 }
 
+.event-director {
+    color: #999;
+    font-size: 1.1em;
+    font-weight: 400;
+    margin-top: 4px;
+    letter-spacing: 0;
+}
+
 /* Termin-Liste: Clean & Simple */
 .event-dates {
     display: flex;

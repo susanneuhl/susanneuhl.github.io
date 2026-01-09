@@ -57,6 +57,7 @@
             "dumme-jahre": {
               "title": "Dumme Jahre",
               "theater": "Deutsches Nationaltheater Weimar",
+              "director": "Swaantje Lena Kleff",
               "image": "images/dumme-jahre.jpg",
               "base_url": "https://www.dnt-weimar.de/de/programm/stueck-detail.php?SID=3520#event-tickets",
               "events": [
@@ -71,6 +72,7 @@
             "sankt-falstaff": {
               "title": "Sankt Falstaff",
               "theater": "Theater Bonn",
+              "director": "Aron Stiehl",
               "image": "images/sankt-falstaff.jpg",
               "base_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets",
               "events": [
@@ -97,6 +99,7 @@
             "der-komet": {
               "title": "Der Komet",
               "theater": "Staatsschauspiel Dresden",
+              "director": "Bettina Bruinier",
               "image": "images/der-komet.jpg",
               "base_url": "https://tickets.staatsschauspiel-dresden.de/webshop/webticket/eventlist?production=709",
               "events": [
@@ -111,6 +114,7 @@
             "undine": {
               "title": "Undine",
               "theater": "Oper Leipzig",
+              "director": "Tilmann Köhler",
               "image": "images/undine.jpg",
               "base_url": "https://www.oper-leipzig.de/de/ensemble/person/susanne-uhl/1902",
               "events": [
@@ -224,6 +228,15 @@
                     
                     eventHeader.appendChild(eventTitle);
                     eventHeader.appendChild(eventLocation);
+
+                    // Regie hinzufügen, falls vorhanden
+                    if (show.director) {
+                        const eventDirector = document.createElement('div');
+                        eventDirector.className = 'event-director';
+                        eventDirector.textContent = `Regie: ${show.director}`;
+                        eventHeader.appendChild(eventDirector);
+                    }
+
                     eventContent.appendChild(eventHeader);
                     
                     // Termine

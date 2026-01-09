@@ -29,9 +29,29 @@ MONTH_MAP = {
     'dezember': '12', 'dez': '12'
 }
 
+def extract_director(text):
+    """Extract director from text like 'Regie: Name Name'"""
+    # Normalize whitespace first
+    text = re.sub(r'\s+', ' ', text)
+    
+    # Pattern 1: Explicit "Regie: Name" (Case sensitive to avoid common words)
+    # Match: Regie[:] [Space] Name(TitleCase) [Space] Name(TitleCase)
+    # We allow Umlauts and accents
+    match = re.search(r'Regie:?\s*([A-ZÄÖÜ][a-zäöüß]+\s+[A-ZÄÖÜ][a-zäöüß]+)', text)
+    if match:
+        return match.group(1)
+    
+    # Pattern 2: "Inszenierung: Name"
+    match = re.search(r'Inszenierung:?\s*([A-ZÄÖÜ][a-zäöüß]+\s+[A-ZÄÖÜ][a-zäöüß]+)', text)
+    if match:
+        return match.group(1)
+        
+    return None
+
 def scrape_staatsschauspiel_dresden():
     """Scrape Der Komet dates from Staatsschauspiel Dresden"""
     events = []
+    director = None
     
     # Try multiple URLs for Dresden
     urls = [
@@ -42,6 +62,7 @@ def scrape_staatsschauspiel_dresden():
     
     for url in urls:
         try:
+            # ... headers and response handling ...
             headers = {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -58,6 +79,11 @@ def scrape_staatsschauspiel_dresden():
             response.raise_for_status()
             
             soup = BeautifulSoup(response.content, 'html.parser')
+            page_text = soup.get_text(separator=' ')
+            
+            # Try to extract director if not found yet
+            if not director:
+                director = extract_director(page_text)
             
             # Look for structured meta tags with startDate
             meta_tags = soup.find_all('meta', attrs={'itemprop': 'startDate'})
@@ -131,7 +157,7 @@ def scrape_staatsschauspiel_dresden():
             print(f"Error scraping {url}: {e}")
             continue
     
-    return clean_and_sort_events(events)
+    return clean_and_sort_events(events), director
 
 def extract_komet_dates_from_page(page_text, base_url):
     """Specifically look for Der Komet dates in page text"""
@@ -167,7 +193,7 @@ def extract_dates_from_text(text, base_url):
         r'(\d{1,2})\.\s*(Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\s*(\d{4})',
         # DD MMM YYYY without dot (e.g., 17 Okt 2025)
         r'(\d{1,2})\s+(Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez|Januar|Februar|März|April|Juni|Juli|August|September|Oktober|November|Dezember)\s+(\d{4})',
-        # DD. MMM without year (e.g., 17. Okt, 19. Nov)
+        # DD. MMM without year (e.g., 17. Okt, 19. Nov) - BUT careful with Premiere dates
         r'(\d{1,2})\.\s*(Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez|Januar|Februar|März|April|Juni|Juli|August|September|Oktober|November|Dezember)',
         # DD MMM without year or dot (e.g., 17 Okt)
         r'(\d{1,2})\s+(Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez)\s+(?!202)',
@@ -197,15 +223,44 @@ def extract_dates_from_text(text, base_url):
                     time_display = "19:30"
                 elif len(match) == 2 and match[1].isalpha():  # Month name without year (e.g., "17. Okt")
                     day, month_name = match
+                    
+                    # Ignore ambiguous dates like "Premiere 17. Okt" if we can't be sure about the year
+                    # For now, we will be stricter: if no year is present, we skip unless we are very sure
+                    # Or we check if the date would be in the past for the current year
+                    
                     month = month_map.get(month_name, '01')
-                    # Assume current year or next year if date has passed
                     current_year = datetime.now().year
+                    
+                    # Construct potential date for this year
                     datetime_str = f"{current_year}-{month}-{day.zfill(2)} 19:30"
-                    test_date = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M")
-                    if test_date < datetime.now():
-                        # If date has passed, use next year
-                        datetime_str = f"{current_year + 1}-{month}-{day.zfill(2)} 19:30"
-                    year = datetime.strptime(datetime_str.split()[0], "%Y-%m-%d").year
+                    
+                    try:
+                        test_date = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M")
+                        
+                        # Logic:
+                        # 1. If the date is in the past (e.g. now is Jan 2026, date is Oct 2026), it's fine.
+                        # 2. If the date is deeply in the past (e.g. now is Jan 2026, date is Oct 2025), it's prob old.
+                        # 3. But wait, if now is Jan 2026, Oct 2025 is past. Oct 2026 is future.
+                        
+                        if test_date < datetime.now() - timedelta(days=90):
+                            # Date is more than 3 months old, probably next year? 
+                            # Or it's just an old date we should ignore.
+                            # Better strategy: Assume it's the upcoming occurrence.
+                            
+                            # If date passed recently, might be current season.
+                            # If date is far in past, try next year.
+                            datetime_str = f"{current_year + 1}-{month}-{day.zfill(2)} 19:30"
+                            year = current_year + 1
+                        else:
+                            year = current_year
+                            
+                        # Double check: Is this just a "Premiere" announcement without year?
+                        # If the text explicitly says "Premiere", we should maybe be careful if no year is there.
+                        # For now, we'll keep the logic but rely on clean_and_sort_events to filter duplicates.
+                        
+                    except ValueError:
+                        continue
+
                     time_display = "19:30"
                 else:  # Without time (DD.MM.YYYY)
                     day, month, year = match[:3]
@@ -268,9 +323,14 @@ def parse_german_date(date_text):
 
 def extract_time(text):
     """Extract time like '19.30 Uhr' or '19:30 Uhr'"""
-    match = re.search(r'(\d{1,2})[\.:](\d{2})', text)
+    # Prefer explicit times in the text
+    match = re.search(r'(\d{1,2})[\.:](\d{2})\s*Uhr', text, re.IGNORECASE)
     if not match:
-        return "19:30"
+        # Try without 'Uhr' but careful not to match dates
+        match = re.search(r'(?<!\d\.)(\d{1,2})[\.:](\d{2})(?!\.\d{4})', text)
+    
+    if not match:
+        return "19:30"  # Default fallback
 
     hour, minute = match.groups()
     return f"{hour.zfill(2)}:{minute.zfill(2)}"
@@ -279,6 +339,7 @@ def extract_time(text):
 def scrape_dnt_weimar_dumme_jahre():
     """Scrape Dumme Jahre dates from DNT Weimar"""
     events = []
+    director = None
 
     url = "https://www.dnt-weimar.de/de/programm/stueck-detail.php?SID=3520"
 
@@ -296,6 +357,9 @@ def scrape_dnt_weimar_dumme_jahre():
         response.raise_for_status()
 
         soup = BeautifulSoup(response.content, 'html.parser')
+        
+        # Try to extract director
+        director = extract_director(soup.get_text(separator=' '))
 
         event_container = soup.find('div', id='event-tickets')
         if event_container:
@@ -335,11 +399,12 @@ def scrape_dnt_weimar_dumme_jahre():
     except Exception as e:
         print(f"Error scraping DNT Weimar: {e}")
 
-    return clean_and_sort_events(events)
+    return clean_and_sort_events(events), director
 
 def scrape_oper_leipzig():
     """Scrape Undine dates from Oper Leipzig"""
     events = []
+    director = None
     
     url = "https://www.oper-leipzig.de/de/ensemble/person/susanne-uhl/1902"
     
@@ -358,7 +423,10 @@ def scrape_oper_leipzig():
         response.raise_for_status()
         
         soup = BeautifulSoup(response.content, 'html.parser')
-        page_text = soup.get_text()
+        page_text = soup.get_text(separator=' ')
+        
+        # Try to extract director
+        director = extract_director(page_text)
         
         # Look for Undine specifically in the full page text
         undine_events = extract_undine_dates_from_page(page_text, url)
@@ -383,7 +451,7 @@ def scrape_oper_leipzig():
     except Exception as e:
         print(f"Error scraping Oper Leipzig: {e}")
     
-    return clean_and_sort_events(events)
+    return clean_and_sort_events(events), director
 
 def extract_undine_dates_from_page(page_text, base_url):
     """Specifically look for Undine dates in page text"""
@@ -401,6 +469,7 @@ def extract_undine_dates_from_page(page_text, base_url):
 def scrape_theater_bonn():
     """Scrape Sankt Falstaff dates from Theater Bonn"""
     events = []
+    director = None
     
     url = "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198"
     ticket_url = "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets"
@@ -422,6 +491,9 @@ def scrape_theater_bonn():
         response.raise_for_status()
         
         soup = BeautifulSoup(response.content, 'html.parser')
+        
+        # Try to extract director
+        director = extract_director(soup.get_text(separator=' '))
         
         # Look for structured event data (similar to Dresden approach)
         # Theater Bonn might use structured data markup
@@ -515,7 +587,7 @@ def scrape_theater_bonn():
     except Exception as e:
         print(f"Error scraping Theater Bonn: {e}")
     
-    return clean_and_sort_events(events)
+    return clean_and_sort_events(events), director
 
 def extract_falstaff_dates_from_page(page_text, base_url):
     """Specifically look for Sankt Falstaff dates in page text"""
@@ -535,36 +607,46 @@ def extract_falstaff_dates_from_page(page_text, base_url):
 def main():
     """Main scraping function"""
     try:
+        # Get data with directors
+        dumme_jahre_events, dumme_jahre_director = scrape_dnt_weimar_dumme_jahre()
+        sankt_falstaff_events, sankt_falstaff_director = scrape_theater_bonn()
+        komet_events, komet_director = scrape_staatsschauspiel_dresden()
+        undine_events, undine_director = scrape_oper_leipzig()
+        
         shows_data = {
             "last_updated": datetime.now().isoformat(),
             "shows": {
                 "dumme-jahre": {
                     "title": "Dumme Jahre",
                     "theater": "Deutsches Nationaltheater Weimar",
+                    "director": dumme_jahre_director,
                     "image": "images/dumme-jahre.jpg",
                     "base_url": "https://www.dnt-weimar.de/de/programm/stueck-detail.php?SID=3520#event-tickets",
-                    "events": scrape_dnt_weimar_dumme_jahre()
+                    "events": dumme_jahre_events
                 },
                 "sankt-falstaff": {
                     "title": "Sankt Falstaff",
                     "theater": "Theater Bonn",
+                    "director": sankt_falstaff_director,
                     "image": "images/sankt-falstaff.jpg",
                     "base_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets",
-                    "events": scrape_theater_bonn()
+                    "events": sankt_falstaff_events
                 },
                 "der-komet": {
                     "title": "Der Komet",
                     "theater": "Staatsschauspiel Dresden",
+                    "director": komet_director,
                     "image": "images/der-komet.jpg",
                     "base_url": "https://tickets.staatsschauspiel-dresden.de/webshop/webticket/eventlist?production=709",
-                    "events": scrape_staatsschauspiel_dresden()
+                    "events": komet_events
                 },
                 "undine": {
                     "title": "Undine",
                     "theater": "Oper Leipzig",
+                    "director": undine_director,
                     "image": "images/undine.jpg",
                     "base_url": "https://www.oper-leipzig.de/de/ensemble/person/susanne-uhl/1902",
-                    "events": scrape_oper_leipzig()
+                    "events": undine_events
                 }
             }
         }
@@ -579,7 +661,8 @@ def main():
         print(f"Scraping completed successfully. Found shows:")
         for show_id, show_data in shows_data['shows'].items():
             event_count = len(show_data['events'])
-            print(f"  {show_data['title']}: {event_count} upcoming events")
+            director_info = f" (Regie: {show_data['director']})" if show_data['director'] else ""
+            print(f"  {show_data['title']}{director_info}: {event_count} upcoming events")
             
     except Exception as e:
         print(f"Error in main function: {e}")
@@ -590,6 +673,7 @@ def main():
                 "sankt-falstaff": {
                     "title": "Sankt Falstaff",
                     "theater": "Theater Bonn",
+                    "director": None,
                     "image": "images/sankt-falstaff.jpg",
                     "base_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets",
                     "events": []
@@ -597,6 +681,7 @@ def main():
                 "der-komet": {
                     "title": "Der Komet",
                     "theater": "Staatsschauspiel Dresden",
+                    "director": None,
                     "image": "images/der-komet.jpg",
                     "base_url": "https://tickets.staatsschauspiel-dresden.de/webshop/webticket/eventlist?production=709",
                     "events": []
@@ -604,6 +689,7 @@ def main():
                 "undine": {
                     "title": "Undine",
                     "theater": "Oper Leipzig",
+                    "director": None,
                     "image": "images/undine.jpg",
                     "base_url": "https://www.oper-leipzig.de/de/ensemble/person/susanne-uhl/1902",
                     "events": []

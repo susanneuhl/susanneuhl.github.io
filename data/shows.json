@@ -1,9 +1,10 @@
 {
-  "last_updated": "2026-01-09T06:36:58.048912",
+  "last_updated": "2026-01-09T17:04:41.072708",
   "shows": {
     "dumme-jahre": {
       "title": "Dumme Jahre",
       "theater": "Deutsches Nationaltheater Weimar",
+      "director": "Tilmann Köhler",
       "image": "images/dumme-jahre.jpg",
       "base_url": "https://www.dnt-weimar.de/de/programm/stueck-detail.php?SID=3520#event-tickets",
       "events": [
@@ -18,6 +19,7 @@
     "sankt-falstaff": {
       "title": "Sankt Falstaff",
       "theater": "Theater Bonn",
+      "director": "Tilmann Köhler",
       "image": "images/sankt-falstaff.jpg",
       "base_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets",
       "events": [
@@ -44,6 +46,7 @@
     "der-komet": {
       "title": "Der Komet",
       "theater": "Staatsschauspiel Dresden",
+      "director": "Tilmann Köhler",
       "image": "images/der-komet.jpg",
       "base_url": "https://tickets.staatsschauspiel-dresden.de/webshop/webticket/eventlist?production=709",
       "events": [
@@ -58,6 +61,7 @@
     "undine": {
       "title": "Undine",
       "theater": "Oper Leipzig",
+      "director": null,
       "image": "images/undine.jpg",
       "base_url": "https://www.oper-leipzig.de/de/ensemble/person/susanne-uhl/1902",
       "events": [

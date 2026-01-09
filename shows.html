@@ -143,8 +143,11 @@
                     // Finde den nächsten zukünftigen Termin für jede Show
                     const now = new Date();
                     
-                    const aNextEvent = aShow.events.find(event => new Date(event.date) > now);
-                    const bNextEvent = bShow.events.find(event => new Date(event.date) > now);
+                    // Hilfsfunktion zum Parsen des Datumsstrings "YYYY-MM-DD HH:MM"
+                    const parseDate = (dateStr) => new Date(dateStr.replace(' ', 'T'));
+
+                    const aNextEvent = aShow.events.find(event => parseDate(event.date) > now);
+                    const bNextEvent = bShow.events.find(event => parseDate(event.date) > now);
                     
                     // Falls eine Show keine zukünftigen Termine hat, setze sie ans Ende
                     if (!aNextEvent && !bNextEvent) return 0;
@@ -152,12 +155,24 @@
                     if (!bNextEvent) return -1;
                     
                     // Sortiere nach dem nächsten Termin
-                    return new Date(aNextEvent.date) - new Date(bNextEvent.date);
+                    return parseDate(aNextEvent.date) - parseDate(bNextEvent.date);
                 });
                 
                 // Erstelle Events für jede Show (jetzt chronologisch sortiert)
                 for (let idx = 0; idx < sortedShows.length; idx++) {
                     const [showId, show] = sortedShows[idx];
+                    
+                    // Filter: Zeige Show nur, wenn Termine vorhanden sind
+                    // Prüfe, ob mindestens ein Event in der Zukunft liegt
+                    const hasFutureEvents = show.events && show.events.some(event => {
+                        const dateStr = event.date.replace(' ', 'T');
+                        return new Date(dateStr) > new Date();
+                    });
+
+                    if (!hasFutureEvents) {
+                        continue; // Überspringe Shows ohne zukünftige Termine
+                    }
+
                     const eventCard = document.createElement('div');
                     eventCard.className = 'event-card';
                     

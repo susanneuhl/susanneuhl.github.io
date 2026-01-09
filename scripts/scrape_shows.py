@@ -213,74 +213,65 @@ def extract_dates_from_text(text, base_url):
     }
     
     for pattern in patterns:
-        matches = re.findall(pattern, normalized_text)
-        for match in matches:
+        for match in re.finditer(pattern, normalized_text):
             try:
-                if len(match) == 5:  # With time
-                    day, month, year, hour, minute = match
+                groups = match.groups()
+                time_display = "19:30" # Default fallback
+                
+                if len(groups) == 5:  # With time (DD.MM.YYYY HH:MM)
+                    day, month, year, hour, minute = groups
                     datetime_str = f"{year}-{month.zfill(2)}-{day.zfill(2)} {hour.zfill(2)}:{minute.zfill(2)}"
                     time_display = f"{hour}:{minute}"
-                elif len(match) == 3 and match[1].isalpha():  # Month name with year
-                    day, month_name, year = match
-                    month = month_map.get(month_name, '01')
-                    datetime_str = f"{year}-{month}-{day.zfill(2)} 19:30"
-                    time_display = "19:30"
-                elif len(match) == 2 and match[1].isalpha():  # Month name without year (e.g., "17. Okt")
-                    day, month_name = match
-                    
-                    # Ignore ambiguous dates like "Premiere 17. Okt" if we can't be sure about the year
-                    # For now, we will be stricter: if no year is present, we skip unless we are very sure
-                    # Or we check if the date would be in the past for the current year
-                    
-                    month = month_map.get(month_name, '01')
-                    current_year = datetime.now().year
-                    
-                    # Construct potential date for this year
-                    datetime_str = f"{current_year}-{month}-{day.zfill(2)} 19:30"
-                    
-                    try:
-                        test_date = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M")
-                        
-                        # Logic:
-                        # 1. If the date is in the past (e.g. now is Jan 2026, date is Oct 2026), it's fine.
-                        # 2. If the date is deeply in the past (e.g. now is Jan 2026, date is Oct 2025), it's prob old.
-                        # 3. But wait, if now is Jan 2026, Oct 2025 is past. Oct 2026 is future.
-                        
-                        if test_date < datetime.now() - timedelta(days=90):
-                            # Date is more than 3 months old, probably next year? 
-                            # Or it's just an old date we should ignore.
-                            # Better strategy: Assume it's the upcoming occurrence.
-                            
-                            # If date passed recently, might be current season.
-                            # If date is far in past, try next year.
-                            datetime_str = f"{current_year + 1}-{month}-{day.zfill(2)} 19:30"
-                            year = current_year + 1
-                        else:
-                            year = current_year
-                            
-                        # Double check: Is this just a "Premiere" announcement without year?
-                        # If the text explicitly says "Premiere", we should maybe be careful if no year is there.
-                        # For now, we'll keep the logic but rely on clean_and_sort_events to filter duplicates.
-                        
-                    except ValueError:
-                        continue
-
-                    time_display = "19:30"
-                else:  # Without time (DD.MM.YYYY)
-                    day, month, year = match[:3]
-                    datetime_str = f"{year}-{month.zfill(2)}-{day.zfill(2)} 19:30"
-                    time_display = "19:30"
                 
+                else: # Without time in the match
+                    if len(groups) == 3 and groups[1].isalpha():  # Month name with year
+                        day, month_name, year = groups
+                        month = month_map.get(month_name, '01')
+                    elif len(groups) == 2 and groups[1].isalpha():  # Month name without year (e.g., "17. Okt")
+                        day, month_name = groups
+                        month = month_map.get(month_name, '01')
+                        current_year = datetime.now().year
+                        # ... (year logic same as before) ...
+                        # Simplified for brevity in replacement, will keep logic
+                        
+                        # Use a temporary year for now to construct date object
+                        temp_year = current_year
+                        try:
+                            test_date = datetime.strptime(f"{temp_year}-{month}-{day.zfill(2)}", "%Y-%m-%d")
+                            if test_date < datetime.now() - timedelta(days=90):
+                                year = temp_year + 1
+                            else:
+                                year = temp_year
+                        except ValueError:
+                            continue
+                            
+                    else:  # Without time (DD.MM.YYYY)
+                        day, month, year = groups[:3]
+                        
+                    # NOW: Look for time after the date match
+                    # Check the next 50 characters for a time pattern
+                    end_pos = match.end()
+                    text_after = normalized_text[end_pos:end_pos+100]
+                    
+                    # Pattern for time: HH:MM or HH.MM (optionally with Uhr)
+                    time_match = re.search(r'(?:\bum\s+)?(\d{1,2})[:\.](\d{2})(?:\s*Uhr)?', text_after)
+                    if time_match:
+                        h, m = time_match.groups()
+                        time_display = f"{h.zfill(2)}:{m.zfill(2)}"
+                    
+                    datetime_str = f"{year}-{month.zfill(2)}-{day.zfill(2)} {time_display}"
+
                 # Only future dates
                 event_date = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M")
                 if event_date > datetime.now():
                     events.append({
                         "date": datetime_str,
-                        "display_date": f"{day.zfill(2)}.{month.zfill(2) if isinstance(month, str) and month.isdigit() else month_map.get(month_name if 'month_name' in locals() else match[1], '01')}.{year}",
+                        "display_date": f"{day.zfill(2)}.{month.zfill(2) if isinstance(month, str) and month.isdigit() else month_map.get(month_name if 'month_name' in locals() else groups[1], '01')}.{year}",
                         "display_time": time_display,
                         "ticket_url": base_url
                     })
             except Exception as e:
+                print(f"Error parsing date match: {e}")
                 continue
     
     return events
@@ -290,16 +281,41 @@ def extract_dates_from_element(element, base_url):
     return extract_dates_from_text(element.get_text(), base_url)
 
 def clean_and_sort_events(events):
-    """Remove duplicates and sort events"""
-    unique_events = []
-    seen_dates = set()
+    """Remove duplicates and sort events, prioritizing specific times over 19:30 default"""
+    events_by_day = {}
     
-    for event in sorted(events, key=lambda x: x['date']):
-        if event['date'] not in seen_dates:
-            unique_events.append(event)
-            seen_dates.add(event['date'])
+    for event in events:
+        # Date string YYYY-MM-DD
+        date_str = event['date'].split(' ')[0]
+        time_str = event['display_time']
+        
+        if date_str not in events_by_day:
+            events_by_day[date_str] = []
+            
+        current_day_events = events_by_day[date_str]
+        
+        # Check if we already have this specific time
+        if any(e['display_time'] == time_str for e in current_day_events):
+            continue
+            
+        # Logic to handle 19:30 default vs specific times
+        if time_str == "19:30":
+            # Only add 19:30 if we don't have any other time for this day yet
+            # This assumes 19:30 is likely a fallback if specific times exist
+            if not current_day_events:
+                current_day_events.append(event)
+        else:
+            # We have a specific time (not 19:30). 
+            # Remove any existing 19:30 entry as it was likely a fallback
+            events_by_day[date_str] = [e for e in current_day_events if e['display_time'] != "19:30"]
+            events_by_day[date_str].append(event)
     
-    return unique_events[:20]
+    # Flatten and sort
+    final_events = []
+    for day_events in events_by_day.values():
+        final_events.extend(day_events)
+    
+    return sorted(final_events, key=lambda x: x['date'])[:20]
 
 
 def parse_german_date(date_text):
@@ -410,8 +426,12 @@ def scrape_oper_leipzig():
     events = []
     director = None
     
-    url = "https://www.oper-leipzig.de/de/ensemble/person/susanne-uhl/1902"
+    # URL for dates (Susanne Uhl profile)
+    url_dates = "https://www.oper-leipzig.de/de/ensemble/person/susanne-uhl/1902"
+    # URL for details (Undine program page) - explicitly for director
+    url_details = "https://www.oper-leipzig.de/de/programm/undine/611"
     
+    # 1. Fetch details page for director
     try:
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
@@ -419,21 +439,30 @@ def scrape_oper_leipzig():
             'Accept-Language': 'de-DE,de;q=0.9,en;q=0.8',
             'Cache-Control': 'no-cache'
         }
-        
-        # Add random delay
         time.sleep(random.uniform(1, 3))
         
-        response = requests.get(url, headers=headers, timeout=20)
+        response = requests.get(url_details, headers=headers, timeout=20)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.content, 'html.parser')
+        
+        director = extract_director(soup.get_text(separator=' '))
+        print(f"Found Undine director: {director}")
+        
+    except Exception as e:
+        print(f"Error fetching Undine details: {e}")
+
+    # 2. Fetch dates from profile page
+    try:
+        time.sleep(random.uniform(1, 3))
+        
+        response = requests.get(url_dates, headers=headers, timeout=20)
         response.raise_for_status()
         
         soup = BeautifulSoup(response.content, 'html.parser')
         page_text = soup.get_text(separator=' ')
         
-        # Try to extract director
-        director = extract_director(page_text)
-        
         # Look for Undine specifically in the full page text
-        undine_events = extract_undine_dates_from_page(page_text, url)
+        undine_events = extract_undine_dates_from_page(page_text, url_dates)
         events.extend(undine_events)
         
         # Try additional scraping strategies
@@ -447,7 +476,7 @@ def scrape_oper_leipzig():
             try:
                 elements = strategy(soup)
                 for element in elements:
-                    events.extend(extract_dates_from_element(element, url))
+                    events.extend(extract_dates_from_element(element, url_dates))
             except Exception as e:
                 print(f"Strategy failed for Oper Leipzig: {e}")
                 continue

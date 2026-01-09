@@ -253,7 +253,10 @@
                             
                             const dateDay = document.createElement('div');
                             dateDay.className = 'date-day';
-                            dateDay.textContent = event.display_date;
+                            // Wochentag hinzufügen (z.B. "Fr, 09.01.2026")
+                            const dateObj = new Date(event.date);
+                            const options = { weekday: 'short', day: '2-digit', month: '2-digit', year: 'numeric' };
+                            dateDay.textContent = dateObj.toLocaleDateString('de-DE', options);
                             
                             const dateTime = document.createElement('div');
                             dateTime.className = 'date-time';

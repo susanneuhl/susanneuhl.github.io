@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-01-09T17:04:41.072708",
+  "last_updated": "2026-01-09T17:13:32.220306",
   "shows": {
     "dumme-jahre": {
       "title": "Dumme Jahre",
@@ -61,7 +61,7 @@
     "undine": {
       "title": "Undine",
       "theater": "Oper Leipzig",
-      "director": null,
+      "director": "Tilmann Köhler",
       "image": "images/undine.jpg",
       "base_url": "https://www.oper-leipzig.de/de/ensemble/person/susanne-uhl/1902",
       "events": [

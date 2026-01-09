@@ -41,10 +41,14 @@ def extract_director(text):
     if match:
         return match.group(1)
     
-    # Pattern 2: "Inszenierung: Name"
-    match = re.search(r'Inszenierung:?\s*([A-ZÄÖÜ][a-zäöüß]+\s+[A-ZÄÖÜ][a-zäöüß]+)', text)
+    # Pattern 2: "Inszenierung: Name" or "Inszenierung von Name"
+    # Also matches "Inszenierungen von..."
+    match = re.search(r'Inszenierung(?:en)?(?:\s+von|:)?\s*([A-ZÄÖÜ][a-zäöüß]+\s+[A-ZÄÖÜ][a-zäöüß]+)', text, re.IGNORECASE)
     if match:
-        return match.group(1)
+        name = match.group(1)
+        # Filter out common false positives like "Von Shakespeare" if "von" was not consumed
+        if name.lower() not in ['von shakespeare', 'von ewald']:
+            return name
         
     return None
 

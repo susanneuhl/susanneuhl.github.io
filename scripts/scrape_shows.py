@@ -117,14 +117,14 @@ def scrape_staatsschauspiel_dresden():
                                             parent_element = parent_element.parent
                                     
                                     # Only include if "Der Komet" is mentioned in context
-                                    if re.search(r'der\s+komet|komet', context_text, re.I):
-                                        events.append({
-                                            "date": datetime_str,
-                                            "display_date": f"{day}.{month}.{year}",
-                                            "display_time": f"{hour}:{minute}",
-                                            "ticket_url": url
-                                        })
-                                        print(f"Found Der Komet date: {day}.{month}.{year} {hour}:{minute}")
+                                    # Relaxed check: trust the meta tag on the specific production page
+                                    events.append({
+                                        "date": datetime_str,
+                                        "display_date": f"{day}.{month}.{year}",
+                                        "display_time": f"{hour}:{minute}",
+                                        "ticket_url": url
+                                    })
+                                    print(f"Found Der Komet date: {day}.{month}.{year} {hour}:{minute}")
                 except Exception as e:
                     print(f"Error parsing meta tag: {e}")
                     continue
@@ -216,7 +216,7 @@ def extract_dates_from_text(text, base_url):
         for match in re.finditer(pattern, normalized_text):
             try:
                 groups = match.groups()
-                time_display = "19:30" # Default fallback
+                time_display = None # No default fallback
                 
                 if len(groups) == 5:  # With time (DD.MM.YYYY HH:MM)
                     day, month, year, hour, minute = groups
@@ -231,8 +231,6 @@ def extract_dates_from_text(text, base_url):
                         day, month_name = groups
                         month = month_map.get(month_name, '01')
                         current_year = datetime.now().year
-                        # ... (year logic same as before) ...
-                        # Simplified for brevity in replacement, will keep logic
                         
                         # Use a temporary year for now to construct date object
                         temp_year = current_year
@@ -248,8 +246,7 @@ def extract_dates_from_text(text, base_url):
                     else:  # Without time (DD.MM.YYYY)
                         day, month, year = groups[:3]
                         
-                    # NOW: Look for time after the date match
-                    # Check the next 50 characters for a time pattern
+                    # Look for time after the date match
                     end_pos = match.end()
                     text_after = normalized_text[end_pos:end_pos+100]
                     
@@ -258,20 +255,23 @@ def extract_dates_from_text(text, base_url):
                     if time_match:
                         h, m = time_match.groups()
                         time_display = f"{h.zfill(2)}:{m.zfill(2)}"
-                    
-                    datetime_str = f"{year}-{month.zfill(2)}-{day.zfill(2)} {time_display}"
+                        datetime_str = f"{year}-{month.zfill(2)}-{day.zfill(2)} {time_display}"
+                    else:
+                        # If no time found, skip this event
+                        continue
 
                 # Only future dates
-                event_date = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M")
-                if event_date > datetime.now():
-                    events.append({
-                        "date": datetime_str,
-                        "display_date": f"{day.zfill(2)}.{month.zfill(2) if isinstance(month, str) and month.isdigit() else month_map.get(month_name if 'month_name' in locals() else groups[1], '01')}.{year}",
-                        "display_time": time_display,
-                        "ticket_url": base_url
-                    })
+                if time_display:
+                    event_date = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M")
+                    if event_date > datetime.now():
+                        events.append({
+                            "date": datetime_str,
+                            "display_date": f"{day.zfill(2)}.{month.zfill(2) if isinstance(month, str) and month.isdigit() else month_map.get(month_name if 'month_name' in locals() else groups[1], '01')}.{year}",
+                            "display_time": time_display,
+                            "ticket_url": base_url
+                        })
             except Exception as e:
-                print(f"Error parsing date match: {e}")
+                # print(f"Error parsing date match: {e}")
                 continue
     
     return events
@@ -350,7 +350,7 @@ def extract_time(text):
         match = re.search(r'(?<!\d\.)(\d{1,2})[\.:](\d{2})(?!\.\d{4})', text)
     
     if not match:
-        return "19:30"  # Default fallback
+        return None  # No default fallback
 
     hour, minute = match.groups()
     return f"{hour.zfill(2)}:{minute.zfill(2)}"

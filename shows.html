@@ -142,20 +142,31 @@
                 const sortedShows = Object.entries(data.shows).sort(([aId, aShow], [bId, bShow]) => {
                     // Finde den nächsten zukünftigen Termin für jede Show
                     const now = new Date();
+                    now.setHours(0, 0, 0, 0); // Heute 00:00 Uhr
                     
                     // Hilfsfunktion zum Parsen des Datumsstrings "YYYY-MM-DD HH:MM"
                     const parseDate = (dateStr) => new Date(dateStr.replace(' ', 'T'));
 
-                    const aNextEvent = aShow.events.find(event => parseDate(event.date) > now);
-                    const bNextEvent = bShow.events.find(event => parseDate(event.date) > now);
+                    const getNextEventDate = (show) => {
+                        if (!show.events) return null;
+                        const event = show.events.find(e => {
+                            const d = parseDate(e.date);
+                            d.setHours(0,0,0,0);
+                            return d >= now;
+                        });
+                        return event ? parseDate(event.date) : null;
+                    };
+
+                    const aDate = getNextEventDate(aShow);
+                    const bDate = getNextEventDate(bShow);
                     
                     // Falls eine Show keine zukünftigen Termine hat, setze sie ans Ende
-                    if (!aNextEvent && !bNextEvent) return 0;
-                    if (!aNextEvent) return 1;
-                    if (!bNextEvent) return -1;
+                    if (!aDate && !bDate) return 0;
+                    if (!aDate) return 1;
+                    if (!bDate) return -1;
                     
                     // Sortiere nach dem nächsten Termin
-                    return parseDate(aNextEvent.date) - parseDate(bNextEvent.date);
+                    return aDate - bDate;
                 });
                 
                 // Erstelle Events für jede Show (jetzt chronologisch sortiert)
@@ -163,10 +174,18 @@
                     const [showId, show] = sortedShows[idx];
                     
                     // Filter: Zeige Show nur, wenn Termine vorhanden sind
-                    // Prüfe, ob mindestens ein Event in der Zukunft liegt
+                    // Prüfe, ob mindestens ein Event in der Zukunft liegt (oder heute ist)
                     const hasFutureEvents = show.events && show.events.some(event => {
-                        const dateStr = event.date.replace(' ', 'T');
-                        return new Date(dateStr) > new Date();
+                        const eventDate = parseDate(event.date);
+                        // Setze Zeit auf 00:00:00 für den Vergleich, damit heutige Events (auch wenn sie zeitlich schon vorbei wären) noch angezeigt werden
+                        const today = new Date();
+                        today.setHours(0, 0, 0, 0);
+                        
+                        // Event Datum auch auf 00:00:00 normalisieren für den reinen Tagesvergleich
+                        const eventDay = new Date(eventDate);
+                        eventDay.setHours(0, 0, 0, 0);
+
+                        return eventDay >= today;
                     });
 
                     if (!hasFutureEvents) {

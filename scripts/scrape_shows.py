@@ -77,7 +77,21 @@ def extract_duration(text):
     # Normalize whitespace
     text = re.sub(r'\s+', ' ', text)
     
-    # Pattern 0: "Dauer: X Y/Z Stunden | N Pause(n)" (with fractions like 2 3/4)
+    # Pattern 0a: "Dauer der Aufführung: X Stunden und Y Minuten. Eine Pause"
+    match = re.search(r'Dauer\s+der\s+Aufführung:?\s*(\d+)\s*Stunden?\s+und\s+(\d+)\s*Minuten?', text, re.IGNORECASE)
+    if match:
+        hours = match.group(1)
+        minutes = match.group(2)
+        # Check for pause info after
+        pause_match = re.search(r'(Eine|eine|\d+)\s*Pause', text[match.end():match.end()+50], re.IGNORECASE)
+        if pause_match:
+            pause_text = pause_match.group(1).lower()
+            pause_map = {'eine': '1', 'zwei': '2', 'drei': '3', 'vier': '4'}
+            pause_num = pause_map.get(pause_text, pause_text)
+            return f"{hours}h {minutes}min ({pause_num} Pause)"
+        return f"{hours}h {minutes}min"
+    
+    # Pattern 0b: "Dauer: X Y/Z Stunden | N Pause(n)" (with fractions like 2 3/4)
     match = re.search(r'Dauer:?\s*(?:ca\.?)?\s*(\d+)\s*(\d+/\d+)?\s*Stunden?\s*\|\s*(\d+)\s*Pausen?', text, re.IGNORECASE)
     if match:
         hours = match.group(1)

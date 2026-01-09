@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-01-09T21:16:54.036644",
+  "last_updated": "2026-01-09T21:20:05.427581",
   "shows": {
     "dumme-jahre": {
       "title": "Dumme Jahre",
@@ -38,7 +38,7 @@
       "theater": "Staatsschauspiel Dresden",
       "director": "Tilmann Köhler",
       "author": "Durs Grünbein",
-      "duration": null,
+      "duration": "2h 40min (1 Pause)",
       "image": "images/der-komet.jpg",
       "base_url": "https://tickets.staatsschauspiel-dresden.de/webshop/webticket/eventlist?production=709",
       "events": []

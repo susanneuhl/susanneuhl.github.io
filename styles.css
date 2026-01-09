@@ -1522,8 +1522,10 @@ body.page-contact .hamburger span {
         color: rgb(179, 118, 118); /* Konstant Rosa */
         font-family: 'Hanken Grotesk', sans-serif;
         font-weight: 800; /* Extra Bold */
-        font-size: 4rem; /* Goldener Mittelweg */
-        margin-bottom: 40px;
+        font-size: 4rem;
+        margin-top: 0;
+        margin-bottom: 30px; /* Weniger Abstand zum Content */
+        padding-top: 20px; /* Kleiner Abstand vom Header */
         letter-spacing: -0.05em;
         line-height: 0.9;
         text-align: left;
@@ -1532,7 +1534,7 @@ body.page-contact .hamburger span {
 
     /* Event-Container Anpassung */
     #event-calendar {
-        margin: 20px auto;
+        margin: 0 auto;
         padding: 0 20px;
     }
 }

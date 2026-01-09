@@ -86,7 +86,8 @@ def scrape_staatsschauspiel_dresden():
             page_text = soup.get_text(separator=' ')
             
             # Try to extract director if not found yet
-            if not director:
+            # Only try to extract director from the specific production page
+            if "spielplan/a-z/" in url and not director:
                 director = extract_director(page_text)
             
             # Look for structured meta tags with startDate
@@ -108,16 +109,21 @@ def scrape_staatsschauspiel_dresden():
                             if event_date > datetime.now():
                                 # Check if this meta tag is within the Der Komet section
                                 parent_element = meta_tag.parent
+                                is_komet = False
+                                
                                 if parent_element:
                                     # Look for "Der Komet" in the surrounding context
                                     context_text = ""
+                                    curr = parent_element
                                     for i in range(5):  # Check up to 5 levels up
-                                        if parent_element:
-                                            context_text += parent_element.get_text() + " "
-                                            parent_element = parent_element.parent
+                                        if curr:
+                                            context_text += curr.get_text() + " "
+                                            curr = curr.parent
                                     
-                                    # Only include if "Der Komet" is mentioned in context
-                                    # Relaxed check: trust the meta tag on the specific production page
+                                    if re.search(r'der\s+komet|komet', context_text, re.I):
+                                        is_komet = True
+                                    
+                                if is_komet:
                                     events.append({
                                         "date": datetime_str,
                                         "display_date": f"{day}.{month}.{year}",

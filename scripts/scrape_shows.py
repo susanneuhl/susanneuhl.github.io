@@ -52,10 +52,98 @@ def extract_director(text):
         
     return None
 
+def extract_author(text):
+    """Extract author from text like 'von Lew Tolstoi / Armin Petras' or 'von Ewald Palmetshofer'"""
+    # Normalize whitespace
+    text = re.sub(r'\s+', ' ', text)
+    
+    # Pattern 1: "von Name Name / Name Name" (multiple authors)
+    match = re.search(r'von\s+([A-ZÄÖÜ][a-zäöüß]+\s+[A-ZÄÖÜ][a-zäöüß]+(?:\s*/\s*[A-ZÄÖÜ][a-zäöüß]+\s+[A-ZÄÖÜ][a-zäöüß]+)*)', text)
+    if match:
+        author_str = match.group(1)
+        # Filter out phrases like "frei nach"
+        if 'frei nach' not in author_str.lower():
+            return author_str
+    
+    # Pattern 2: "von Name Name frei nach..." (extract only the adapter)
+    match = re.search(r'von\s+([A-ZÄÖÜ][a-zäöüß]+\s+[A-ZÄÖÜ][a-zäöüß]+)\s+frei\s+nach', text, re.IGNORECASE)
+    if match:
+        return match.group(1)
+    
+    return None
+
+def extract_duration(text):
+    """Extract duration from text like 'Dauer: ca. 5 Stunden' or '3h 30min' or '2 3/4 Stunden'"""
+    # Normalize whitespace
+    text = re.sub(r'\s+', ' ', text)
+    
+    # Pattern 0: "Dauer: X Y/Z Stunden | N Pause(n)" (with fractions like 2 3/4)
+    match = re.search(r'Dauer:?\s*(?:ca\.?)?\s*(\d+)\s*(\d+/\d+)?\s*Stunden?\s*\|\s*(\d+)\s*Pausen?', text, re.IGNORECASE)
+    if match:
+        hours = match.group(1)
+        fraction = match.group(2)
+        pauses = match.group(3)
+        if fraction:
+            return f"{hours} {fraction}h ({pauses} Pause)"
+        return f"{hours}h ({pauses} Pause)"
+    
+    # Pattern 1: "Dauer ca. X Stunden — Y Pausen"
+    match = re.search(r'Dauer:?\s*(?:ca\.?)?\s*(\d+)\s*Stunden?(?:\s*—\s*(\w+)\s*Pausen?)?', text, re.IGNORECASE)
+    if match:
+        hours = match.group(1)
+        pauses = match.group(2)
+        if pauses:
+            # Convert "zwei" -> "2" if needed
+            pause_map = {'eine': '1', 'zwei': '2', 'drei': '3', 'vier': '4'}
+            pause_num = pause_map.get(pauses.lower(), pauses)
+            return f"ca. {hours}h ({pause_num} Pausen)"
+        # Check for minutes after
+        minute_match = re.search(r'(\d+)\s*(?:Minuten?|min)', text[match.end():match.end()+50], re.IGNORECASE)
+        if minute_match:
+            return f"{hours}h {minute_match.group(1)}min"
+        return f"ca. {hours}h"
+    
+    # Pattern 2: "X Stunden Y Minuten — eine Pause" (ohne "Dauer")
+    match = re.search(r'(\d+)\s*Stunden?\s*(\d+)\s*Minuten?(?:\s*—?\s*(\w+)\s*Pausen?)?', text, re.IGNORECASE)
+    if match:
+        hours = match.group(1)
+        minutes = match.group(2)
+        pauses = match.group(3)
+        if pauses:
+            pause_map = {'eine': '1', 'zwei': '2', 'drei': '3', 'vier': '4'}
+            pause_num = pause_map.get(pauses.lower(), pauses)
+            return f"{hours}h {minutes}min ({pause_num} Pause)"
+        return f"{hours}h {minutes}min"
+    
+    # Pattern 3: "Dauer: X Minuten"
+    match = re.search(r'Dauer:?\s*(?:ca\.?)?\s*(\d+)\s*(?:Minuten?|min)', text, re.IGNORECASE)
+    if match:
+        return f"{match.group(1)}min"
+    
+    # Pattern 4: Standalone "ca. X Stunden — Y Pausen" (ohne "Dauer")
+    match = re.search(r'ca\.?\s*(\d+)\s*Stunden?(?:\s*—\s*(\w+)\s*Pausen?)?', text, re.IGNORECASE)
+    if match:
+        hours = match.group(1)
+        pauses = match.group(2)
+        if pauses:
+            pause_map = {'eine': '1', 'zwei': '2', 'drei': '3', 'vier': '4'}
+            pause_num = pause_map.get(pauses.lower(), pauses)
+            return f"ca. {hours}h ({pause_num} Pausen)"
+        return f"ca. {hours}h"
+    
+    # Pattern 5: "Xh Ymin"
+    match = re.search(r'(\d+)\s*h\s*(\d+)\s*min', text, re.IGNORECASE)
+    if match:
+        return f"{match.group(1)}h {match.group(2)}min"
+    
+    return None
+
 def scrape_staatsschauspiel_dresden():
     """Scrape Der Komet dates from Staatsschauspiel Dresden"""
     events = []
     director = None
+    duration = None
+    author = None
     
     # Try multiple URLs for Dresden
     urls = [
@@ -89,6 +177,13 @@ def scrape_staatsschauspiel_dresden():
             # Only try to extract director from the specific production page
             if "spielplan/a-z/" in url and not director:
                 director = extract_director(page_text)
+                if not duration:
+                    duration = extract_duration(page_text)
+                if not author:
+                    # For "Der Komet", look for "nach dem Buch von Durs Grünbein"
+                    match = re.search(r'nach\s+dem\s+Buch\s+von\s+([A-ZÄÖÜ][a-zäöüß]+\s+[A-ZÄÖÜ][a-zäöüß]+)', page_text, re.IGNORECASE)
+                    if match:
+                        author = match.group(1)
             
             # Look for structured meta tags with startDate
             meta_tags = soup.find_all('meta', attrs={'itemprop': 'startDate'})
@@ -167,7 +262,7 @@ def scrape_staatsschauspiel_dresden():
             print(f"Error scraping {url}: {e}")
             continue
     
-    return clean_and_sort_events(events), director
+    return clean_and_sort_events(events), director, duration, author
 
 def extract_komet_dates_from_page(page_text, base_url):
     """Specifically look for Der Komet dates in page text"""
@@ -366,6 +461,7 @@ def scrape_dnt_weimar_dumme_jahre():
     """Scrape Dumme Jahre dates from DNT Weimar"""
     events = []
     director = None
+    duration = None
 
     url = "https://www.dnt-weimar.de/de/programm/stueck-detail.php?SID=3520"
 
@@ -425,12 +521,14 @@ def scrape_dnt_weimar_dumme_jahre():
     except Exception as e:
         print(f"Error scraping DNT Weimar: {e}")
 
-    return clean_and_sort_events(events), director
+    return clean_and_sort_events(events), director, duration
 
 def scrape_oper_leipzig():
     """Scrape Undine dates from Oper Leipzig"""
     events = []
     director = None
+    duration = None
+    author = None
     
     # URL for dates (Susanne Uhl profile)
     url_dates = "https://www.oper-leipzig.de/de/ensemble/person/susanne-uhl/1902"
@@ -451,8 +549,19 @@ def scrape_oper_leipzig():
         response.raise_for_status()
         soup = BeautifulSoup(response.content, 'html.parser')
         
-        director = extract_director(soup.get_text(separator=' '))
+        page_text_details = soup.get_text(separator=' ')
+        director = extract_director(page_text_details)
+        duration = extract_duration(page_text_details)
+        
+        # For operas, the composer is usually listed as "h4" with the composer name
+        # Let's look for "Albert Lortzing" specifically or extract from page structure
+        composer_h4 = soup.find('h4', string=re.compile(r'Albert Lortzing', re.I))
+        if composer_h4:
+            author = composer_h4.get_text(strip=True)
+        
         print(f"Found Undine director: {director}")
+        if author:
+            print(f"Found Undine composer: {author}")
         
     except Exception as e:
         print(f"Error fetching Undine details: {e}")
@@ -490,7 +599,7 @@ def scrape_oper_leipzig():
     except Exception as e:
         print(f"Error scraping Oper Leipzig: {e}")
     
-    return clean_and_sort_events(events), director
+    return clean_and_sort_events(events), director, duration, author
 
 def extract_undine_dates_from_page(page_text, base_url):
     """Specifically look for Undine dates in page text"""
@@ -509,6 +618,8 @@ def scrape_theater_bonn():
     """Scrape Sankt Falstaff dates from Theater Bonn"""
     events = []
     director = None
+    duration = None
+    author = None
     
     url = "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198"
     ticket_url = "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets"
@@ -531,8 +642,11 @@ def scrape_theater_bonn():
         
         soup = BeautifulSoup(response.content, 'html.parser')
         
-        # Try to extract director
-        director = extract_director(soup.get_text(separator=' '))
+        # Try to extract director and duration
+        page_text = soup.get_text(separator=' ')
+        director = extract_director(page_text)
+        duration = extract_duration(page_text)
+        author = extract_author(page_text)
         
         # Look for structured event data (similar to Dresden approach)
         # Theater Bonn might use structured data markup
@@ -626,7 +740,7 @@ def scrape_theater_bonn():
     except Exception as e:
         print(f"Error scraping Theater Bonn: {e}")
     
-    return clean_and_sort_events(events), director
+    return clean_and_sort_events(events), director, duration, author
 
 def extract_falstaff_dates_from_page(page_text, base_url):
     """Specifically look for Sankt Falstaff dates in page text"""
@@ -643,14 +757,97 @@ def extract_falstaff_dates_from_page(page_text, base_url):
     
     return events
 
+def scrape_dhaus_krieg_und_frieden():
+    """Scrape Krieg und Frieden dates from Düsseldorfer Schauspielhaus"""
+    events = []
+    director = None
+    duration = None
+    author = None
+    
+    url = "https://www.dhaus.de/programm/a-z/krieg-und-frieden/"
+    
+    try:
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'de-DE,de;q=0.9,en;q=0.8',
+            'Cache-Control': 'no-cache'
+        }
+        
+        time.sleep(random.uniform(1, 3))
+        
+        response = requests.get(url, headers=headers, timeout=20)
+        response.raise_for_status()
+        
+        soup = BeautifulSoup(response.content, 'html.parser')
+        page_text = soup.get_text(separator=' ')
+        
+        # Extract director, duration, and author
+        director = extract_director(page_text)
+        duration = extract_duration(page_text)
+        author = extract_author(page_text)
+        
+        # Manually scan for D'Haus format: "Mi, 18.02. / 16:00 – 21:00"
+        # Since year is missing, we must infer it (starts 2026)
+        
+        page_text_norm = re.sub(r'\s+', ' ', page_text)
+        
+        # Pattern: DayName, DD.MM. / HH:MM
+        # Example: Mi, 18.02. / 16:00
+        pattern = r'[a-zA-Z]{2},\s*(\d{1,2})\.(\d{1,2})\.\s*/\s*(\d{1,2})[:\.](\d{2})'
+        
+        current_year = 2026 # Premiere is Feb 2026
+        
+        for match in re.finditer(pattern, page_text_norm):
+            try:
+                day, month, hour, minute = match.groups()
+                
+                # Logic for year transition: if month is suddenly much smaller than prev, increment year?
+                # But here we are mostly in 2026. If we see Dec/Nov, it might be 2025?
+                # Given Premiere is Feb 2026, let's assume 2026 for now.
+                # If we were running this in late 2025, Jan/Feb would be next year.
+                
+                # Dynamic year detection
+                # If current month (real time) is > 6 and event month < 6, add 1 to current year
+                # But here we know it starts 2026.
+                
+                # Let's use a safe logic: if date < now, add 1 year
+                # But we are in Jan 2026 (simulated).
+                
+                # Assume 2026 for detected dates as a baseline
+                year = 2026
+                
+                datetime_str = f"{year}-{month.zfill(2)}-{day.zfill(2)} {hour.zfill(2)}:{minute.zfill(2)}"
+                
+                event_date = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M")
+                
+                # If we parsed a date in the past (e.g. jan 2026 when it is feb 2026), ignore or adjust?
+                # Just filter out past dates
+                if event_date > datetime.now():
+                    events.append({
+                        "date": datetime_str,
+                        "display_date": f"{day.zfill(2)}.{month.zfill(2)}.{year}",
+                        "display_time": f"{hour.zfill(2)}:{minute.zfill(2)}",
+                        "ticket_url": url
+                    })
+                    print(f"Found Krieg und Frieden date: {day}.{month}.{year} {hour}:{minute}")
+            except Exception as e:
+                continue
+                
+    except Exception as e:
+        print(f"Error scraping D'haus: {e}")
+        
+    return clean_and_sort_events(events), director, duration, author
+
 def main():
     """Main scraping function"""
     try:
-        # Get data with directors
-        dumme_jahre_events, dumme_jahre_director = scrape_dnt_weimar_dumme_jahre()
-        sankt_falstaff_events, sankt_falstaff_director = scrape_theater_bonn()
-        komet_events, komet_director = scrape_staatsschauspiel_dresden()
-        undine_events, undine_director = scrape_oper_leipzig()
+        # Get data with directors, duration, and authors
+        dumme_jahre_events, dumme_jahre_director, dumme_jahre_duration = scrape_dnt_weimar_dumme_jahre()
+        sankt_falstaff_events, sankt_falstaff_director, sankt_falstaff_duration, sankt_falstaff_author = scrape_theater_bonn()
+        komet_events, komet_director, komet_duration, komet_author = scrape_staatsschauspiel_dresden()
+        undine_events, undine_director, undine_duration, undine_author = scrape_oper_leipzig()
+        krieg_frieden_events, krieg_frieden_director, krieg_frieden_duration, krieg_frieden_author = scrape_dhaus_krieg_und_frieden()
         
         shows_data = {
             "last_updated": datetime.now().isoformat(),
@@ -659,6 +856,7 @@ def main():
                     "title": "Dumme Jahre",
                     "theater": "Deutsches Nationaltheater Weimar",
                     "director": dumme_jahre_director,
+                    "duration": dumme_jahre_duration,
                     "image": "images/dumme-jahre.jpg",
                     "base_url": "https://www.dnt-weimar.de/de/programm/stueck-detail.php?SID=3520#event-tickets",
                     "events": dumme_jahre_events
@@ -667,6 +865,8 @@ def main():
                     "title": "Sankt Falstaff",
                     "theater": "Theater Bonn",
                     "director": sankt_falstaff_director,
+                    "author": sankt_falstaff_author,
+                    "duration": sankt_falstaff_duration,
                     "image": "images/sankt-falstaff.jpg",
                     "base_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets",
                     "events": sankt_falstaff_events
@@ -675,6 +875,8 @@ def main():
                     "title": "Der Komet",
                     "theater": "Staatsschauspiel Dresden",
                     "director": komet_director,
+                    "author": komet_author,
+                    "duration": komet_duration,
                     "image": "images/der-komet.jpg",
                     "base_url": "https://tickets.staatsschauspiel-dresden.de/webshop/webticket/eventlist?production=709",
                     "events": komet_events
@@ -683,9 +885,21 @@ def main():
                     "title": "Undine",
                     "theater": "Oper Leipzig",
                     "director": undine_director,
+                    "author": undine_author,
+                    "duration": undine_duration,
                     "image": "images/undine.jpg",
                     "base_url": "https://www.oper-leipzig.de/de/ensemble/person/susanne-uhl/1902",
                     "events": undine_events
+                },
+                "krieg-und-frieden": {
+                    "title": "Krieg und Frieden",
+                    "theater": "Düsseldorfer Schauspielhaus",
+                    "director": krieg_frieden_director,
+                    "author": krieg_frieden_author,
+                    "duration": krieg_frieden_duration,
+                    "image": "images/thumbs/krieg-und-frieden.jpg",
+                    "base_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/",
+                    "events": krieg_frieden_events
                 }
             }
         }
@@ -713,6 +927,8 @@ def main():
                     "title": "Sankt Falstaff",
                     "theater": "Theater Bonn",
                     "director": None,
+                    "author": None,
+                    "duration": None,
                     "image": "images/sankt-falstaff.jpg",
                     "base_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets",
                     "events": []
@@ -721,6 +937,8 @@ def main():
                     "title": "Der Komet",
                     "theater": "Staatsschauspiel Dresden",
                     "director": None,
+                    "author": None,
+                    "duration": None,
                     "image": "images/der-komet.jpg",
                     "base_url": "https://tickets.staatsschauspiel-dresden.de/webshop/webticket/eventlist?production=709",
                     "events": []
@@ -729,8 +947,20 @@ def main():
                     "title": "Undine",
                     "theater": "Oper Leipzig",
                     "director": None,
+                    "author": None,
+                    "duration": None,
                     "image": "images/undine.jpg",
                     "base_url": "https://www.oper-leipzig.de/de/ensemble/person/susanne-uhl/1902",
+                    "events": []
+                },
+                "krieg-und-frieden": {
+                    "title": "Krieg und Frieden",
+                    "theater": "Düsseldorfer Schauspielhaus",
+                    "director": None,
+                    "author": None,
+                    "duration": None,
+                    "image": "images/thumbs/krieg-und-frieden.jpg",
+                    "base_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/",
                     "events": []
                 }
             }

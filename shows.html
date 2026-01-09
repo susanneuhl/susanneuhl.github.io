@@ -52,27 +52,23 @@
     <script>
         // Fallback-Daten für lokale Vorschau (wenn fetch wegen CORS blockiert wird)
         const fallbackData = {
-          "last_updated": "2026-01-09T17:23:31.984776",
+          "last_updated": "2026-01-09T21:00:29.212421",
           "shows": {
             "dumme-jahre": {
               "title": "Dumme Jahre",
               "theater": "Deutsches Nationaltheater Weimar",
               "director": "Tilmann Köhler",
+              "duration": null,
               "image": "images/dumme-jahre.jpg",
               "base_url": "https://www.dnt-weimar.de/de/programm/stueck-detail.php?SID=3520#event-tickets",
-              "events": [
-                {
-                  "date": "2026-01-09 19:30",
-                  "display_date": "09.01.2026",
-                  "display_time": "19:30",
-                  "ticket_url": "https://tickets.dnt-weimar.de/de/buyingflow/tickets/15524/36346/"
-                }
-              ]
+              "events": []
             },
             "sankt-falstaff": {
               "title": "Sankt Falstaff",
               "theater": "Theater Bonn",
               "director": "Tilmann Köhler",
+              "author": "Ewald Palmetshofer",
+              "duration": "3h 30min (1 Pause)",
               "image": "images/sankt-falstaff.jpg",
               "base_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets",
               "events": [
@@ -94,6 +90,8 @@
               "title": "Der Komet",
               "theater": "Staatsschauspiel Dresden",
               "director": "Tilmann Köhler",
+              "author": "Durs Grünbein",
+              "duration": null,
               "image": "images/der-komet.jpg",
               "base_url": "https://tickets.staatsschauspiel-dresden.de/webshop/webticket/eventlist?production=709",
               "events": []
@@ -102,6 +100,8 @@
               "title": "Undine",
               "theater": "Oper Leipzig",
               "director": "Tilmann Köhler",
+              "author": "Albert Lortzing",
+              "duration": "2 3/4h (1 Pause)",
               "image": "images/undine.jpg",
               "base_url": "https://www.oper-leipzig.de/de/ensemble/person/susanne-uhl/1902",
               "events": [
@@ -110,6 +110,89 @@
                   "display_date": "30.04.2026",
                   "display_time": "19:30",
                   "ticket_url": "https://www.oper-leipzig.de/de/ensemble/person/susanne-uhl/1902"
+                }
+              ]
+            },
+            "krieg-und-frieden": {
+              "title": "Krieg und Frieden",
+              "theater": "Düsseldorfer Schauspielhaus",
+              "director": "Tilmann Köhler",
+              "author": "Lew Tolstoi / Armin Petras",
+              "duration": "ca. 5h (2 Pausen)",
+              "image": "images/thumbs/krieg-und-frieden.jpg",
+              "base_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/",
+              "events": [
+                {
+                  "date": "2026-02-18 16:00",
+                  "display_date": "18.02.2026",
+                  "display_time": "16:00",
+                  "ticket_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/"
+                },
+                {
+                  "date": "2026-02-21 17:00",
+                  "display_date": "21.02.2026",
+                  "display_time": "17:00",
+                  "ticket_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/"
+                },
+                {
+                  "date": "2026-02-27 17:00",
+                  "display_date": "27.02.2026",
+                  "display_time": "17:00",
+                  "ticket_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/"
+                },
+                {
+                  "date": "2026-03-14 17:00",
+                  "display_date": "14.03.2026",
+                  "display_time": "17:00",
+                  "ticket_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/"
+                },
+                {
+                  "date": "2026-03-29 15:00",
+                  "display_date": "29.03.2026",
+                  "display_time": "15:00",
+                  "ticket_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/"
+                },
+                {
+                  "date": "2026-04-06 15:00",
+                  "display_date": "06.04.2026",
+                  "display_time": "15:00",
+                  "ticket_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/"
+                },
+                {
+                  "date": "2026-04-26 17:00",
+                  "display_date": "26.04.2026",
+                  "display_time": "17:00",
+                  "ticket_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/"
+                },
+                {
+                  "date": "2026-05-10 15:00",
+                  "display_date": "10.05.2026",
+                  "display_time": "15:00",
+                  "ticket_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/"
+                },
+                {
+                  "date": "2026-05-14 15:00",
+                  "display_date": "14.05.2026",
+                  "display_time": "15:00",
+                  "ticket_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/"
+                },
+                {
+                  "date": "2026-05-24 15:00",
+                  "display_date": "24.05.2026",
+                  "display_time": "15:00",
+                  "ticket_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/"
+                },
+                {
+                  "date": "2026-06-12 17:00",
+                  "display_date": "12.06.2026",
+                  "display_time": "17:00",
+                  "ticket_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/"
+                },
+                {
+                  "date": "2026-07-04 17:00",
+                  "display_date": "04.07.2026",
+                  "display_time": "17:00",
+                  "ticket_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/"
                 }
               ]
             }
@@ -134,6 +217,9 @@
                 const container = document.getElementById('shows-container');
                 const lastUpdatedElement = document.getElementById('last-updated');
                 
+                // Hilfsfunktion zum Parsen des Datumsstrings "YYYY-MM-DD HH:MM"
+                const parseDate = (dateStr) => new Date(dateStr.replace(' ', 'T'));
+                
                 // Zeige letztes Update
                 const updateDate = new Date(data.last_updated).toLocaleString('de-DE');
                 lastUpdatedElement.textContent = `Zuletzt aktualisiert: ${updateDate}`;
@@ -143,9 +229,6 @@
                     // Finde den nächsten zukünftigen Termin für jede Show
                     const now = new Date();
                     now.setHours(0, 0, 0, 0); // Heute 00:00 Uhr
-                    
-                    // Hilfsfunktion zum Parsen des Datumsstrings "YYYY-MM-DD HH:MM"
-                    const parseDate = (dateStr) => new Date(dateStr.replace(' ', 'T'));
 
                     const getNextEventDate = (show) => {
                         if (!show.events) return null;
@@ -250,12 +333,28 @@
                     eventHeader.appendChild(eventTitle);
                     eventHeader.appendChild(eventLocation);
 
+                    // Autor hinzufügen, falls vorhanden
+                    if (show.author) {
+                        const eventAuthor = document.createElement('div');
+                        eventAuthor.className = 'event-author';
+                        eventAuthor.textContent = `von ${show.author}`;
+                        eventHeader.appendChild(eventAuthor);
+                    }
+
                     // Regie hinzufügen, falls vorhanden
                     if (show.director) {
                         const eventDirector = document.createElement('div');
                         eventDirector.className = 'event-director';
                         eventDirector.textContent = `Regie: ${show.director}`;
                         eventHeader.appendChild(eventDirector);
+                    }
+
+                    // Dauer hinzufügen, falls vorhanden
+                    if (show.duration) {
+                        const eventDuration = document.createElement('div');
+                        eventDuration.className = 'event-duration';
+                        eventDuration.textContent = `Dauer: ${show.duration}`;
+                        eventHeader.appendChild(eventDuration);
                     }
 
                     eventContent.appendChild(eventHeader);
@@ -317,15 +416,19 @@
                 
                 // Sammle alle zukünftigen Events aus allen Shows
                 for (const [showId, show] of Object.entries(data.shows)) {
+                    if (!show.events) continue;
                     for (const event of show.events) {
-                        if (new Date(event.date) > now) {
+                        // Datum parsen (sicherer als new Date(string))
+                        const eventDateStr = event.date.replace(' ', 'T');
+                        const eventDate = new Date(eventDateStr);
+                        
+                        if (eventDate > now) {
                             upcomingEvents.push({
                                 title: show.title,
-                                date: event.date,
-                                time: event.time,
-                                location: event.location,
+                                startDate: eventDateStr,
+                                location: show.theater,
                                 theater: show.theater,
-                                website: show.website
+                                website: show.base_url
                             });
                         }
                     }
@@ -339,7 +442,7 @@
                         "itemListElement": upcomingEvents.map((event, index) => ({
                             "@type": "Event",
                             "name": event.title,
-                            "startDate": event.date + (event.time ? 'T' + event.time : ''),
+                            "startDate": event.startDate,
                             "location": {
                                 "@type": "Place",
                                 "name": event.location,

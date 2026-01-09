@@ -796,13 +796,32 @@ body.page-contact .hamburger span {
 /* Desktop Only: Lock Header on Dates Page (Fix Pink Hover) */
 @media (min-width: 769px) {
     body.page-dates .sticky-header {
-        mix-blend-mode: normal !important;
+        mix-blend-mode: difference !important; /* Ganzer Header invertiert */
         color: white !important;
     }
 
+    /* Auf schwarzem Hintergrund (#1a1a1a):
+       Weiß (255,255,255) - Schwarz (26,26,26) = (229,229,229) -> Sehr helles Grau/Weiß. Passt.
+    */
+
+    /* Für Rosa Hover (#B37676 = 179, 118, 118):
+       Wir wollen, dass das Ergebnis auf Schwarz (#1a1a1a = 26, 26, 26) Rosa ist.
+       Formel: |Background - Farbe| = Ziel
+       |26 - X| = 179 -> X muss negativ sein (geht nicht) oder 26 - X = -179 -> X = 205.
+       
+       Also: Farbe = Ziel + Background
+       R: 179 + 26 = 205
+       G: 118 + 26 = 144
+       B: 118 + 26 = 144
+       
+       Farbe, die wir setzen müssen: rgb(205, 144, 144) -> Ein helleres Rosa/Lachs.
+       Wenn wir diese Farbe als Hover setzen, wird sie auf dem schwarzen Hintergrund (#1a1a1a) durch 'difference' zu unserem gewünschten Dunkelrosa (#B37676).
+    */
+
     body.page-dates .header-nav-link:hover,
     body.page-dates .header-nav-link.active {
-        color: rgb(179, 118, 118) !important;
+        /* Berechnete Farbe damit es auf Dark Mode (#1a1a1a) wie unser Standard-Rosa aussieht */
+        color: rgb(205, 144, 144) !important; 
     }
 }
 
@@ -814,152 +833,205 @@ body.page-contact .hamburger span {
 /* Events-Container */
 #event-calendar {
     max-width: 1200px;
-    margin: 40px auto;
-    padding: 20px;
+    margin: 80px auto 40px auto; /* Mehr Abstand oben, da Titel weg ist */
+    padding: 0 20px;
     background: transparent;
 }
 
-.events-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin-bottom: 30px;
-    background: transparent;
-}
-
-.event-card {
-    position: relative;
-    overflow: hidden;
-    border-radius: 0;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    box-shadow: none;
-    /* Performance: Defer layout for off-screen items */
-    content-visibility: auto;
-    contain-intrinsic-size: 1px 300px;
-}
-
-.event-card:hover {
-    transform: scale(1.02);
-}
-
-.event-card img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 0;
-}
-
-.event-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(transparent 40%, rgba(0, 0, 0, 0.8));
+/* Neue Listen-Ansicht statt Grid */
+.events-list {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    padding: 20px;
-    opacity: 1;
+    gap: 60px; /* Großzügiger Abstand zwischen den Einträgen */
+    margin-bottom: 60px;
+    background: transparent;
+}
+
+/* Event-Karte im Editorial Look */
+.event-card {
+    display: grid;
+    grid-template-columns: 350px 1fr; /* Bild fix, Text flexibel */
+    gap: 40px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Feine Trennlinie */
+    position: relative;
+    /* content-visibility: auto; - Kann Layout-Probleme verursachen bei komplexen Grids, daher erst mal raus */
+}
+
+.event-card:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+/* Bild-Bereich */
+.event-image-wrapper {
+    width: 100%;
+    /* Aspect Ratio durch Bild bestimmt, aber wir geben einen Rahmen */
+}
+
+.event-image-wrapper img {
+    width: 100%;
+    height: auto;
+    max-height: 400px; /* Reduziert von 480px für stärkeren Beschnitt */
+    display: block;
+    object-fit: cover;
+    object-position: center 30%; /* Fokus leicht oberhalb der Mitte, schneidet oben und unten */
+    /* Keine Border-Radius mehr -> Edgy Look */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.event-card:hover .event-image-wrapper img {
+    transform: scale(1.02);
+    filter: brightness(1.1);
+}
+
+/* Content-Bereich (rechts) */
+.event-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 0; /* Align top mit Bild */
+}
+
+/* Header Bereich: Titel & Ort */
+.event-header {
+    margin-bottom: 30px;
 }
 
 .event-title {
     color: white;
-    font-size: 1.3em;
-    font-weight: bold;
-    margin-bottom: 5px;
+    font-size: 2.5em; /* Sehr groß, Editorial Style */
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-weight: 600;
+    line-height: 1.1;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
 }
 
 .event-location {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 0.9em;
-    margin-bottom: 15px;
+    color: rgb(179, 118, 118); /* Akzentfarbe (Pink) */
+    font-size: 1.1em;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
-/* Styling für Event-Termine */
+/* Termin-Liste: Clean & Simple */
 .event-dates {
-    margin-top: 10px;
-    max-height: 150px;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(179, 118, 118, 0.7) transparent;
-}
-
-.event-dates::-webkit-scrollbar {
-    width: 6px;
-}
-
-.event-dates::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
-}
-
-.event-dates::-webkit-scrollbar-thumb {
-    background: rgba(179, 118, 118, 0.7);
-    border-radius: 3px;
-}
-
-.event-dates::-webkit-scrollbar-thumb:hover {
-    background: rgba(179, 118, 118, 0.9);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .event-date {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 12px;
-    margin-bottom: 6px;
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 5px;
-    backdrop-filter: blur(5px);
+    align-items: baseline; /* Textausrichtung */
+    justify-content: flex-start;
+    gap: 20px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background-color 0.2s ease;
 }
 
-.event-date:last-child {
-    margin-bottom: 0;
+.event-date:hover {
+    background-color: rgba(255, 255, 255, 0.02);
 }
 
 .date-info {
     display: flex;
-    flex-direction: column;
+    align-items: baseline;
+    gap: 15px;
+    flex-grow: 1;
 }
 
 .date-day {
-    font-weight: bold;
+    font-weight: 600;
     color: white;
-    font-size: 0.9em;
+    font-size: 1.1em;
+    min-width: 100px; /* Ausrichtung */
 }
 
 .date-time {
-    font-size: 0.8em;
-    color: rgba(255, 255, 255, 0.8);
+    font-size: 1em;
+    color: #888;
 }
 
+/* Ticket Button als eleganter Link */
 .date-ticket-link {
-    padding: 6px 12px;
-    background-color: rgba(179, 118, 118, 0.9);
     color: white;
     text-decoration: none;
-    border-radius: 4px;
-    font-size: 0.8em;
+    font-size: 0.9em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 6px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     transition: all 0.3s ease;
-    backdrop-filter: blur(5px);
 }
 
 .date-ticket-link:hover {
-    background-color: rgb(179, 118, 118);
-    transform: translateY(-1px);
+    background-color: white;
+    color: #1a1a1a;
+    border-color: white;
 }
 
 .no-events {
-    text-align: center;
+    text-align: left;
     color: #666;
     font-style: italic;
-    padding: 20px;
+    padding: 20px 0;
 }
 
 .last-updated {
-    text-align: center;
-    color: #888;
-    font-size: 0.9em;
-    margin-top: 30px;
+    text-align: left;
+    color: #555;
+    font-size: 0.8em;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ============================
+   Mobile Styles für Dates (Editorial Stack)
+   ============================ */
+@media (max-width: 900px) {
+    /* Tablet/Mobile Breakpoint für Stack-Ansicht */
+    .event-card {
+        grid-template-columns: 1fr; /* Stack: Bild oben, Text unten */
+        gap: 25px;
+        padding-bottom: 50px;
+    }
+    
+    .event-image-wrapper {
+        width: 100%;
+        max-width: none;
+    }
+    
+    .event-title {
+        font-size: 2em; /* Etwas kleiner auf Mobile */
+    }
+    
+    .event-header {
+        margin-bottom: 20px;
+    }
+    
+    .date-info {
+        flex-direction: row; /* Immer noch nebeneinander wenn möglich */
+        justify-content: space-between;
+        width: 100%;
+    }
+    
+    .event-date {
+        flex-wrap: wrap; /* Umbruch erlauben wenn zu eng */
+        gap: 10px;
+    }
+    
+    .date-ticket-link {
+        width: 100%;
+        text-align: center;
+        margin-top: 5px;
+    }
 }
 
 /* HEADER-ÜBERSCHRIFTEN (Redundant entfernt) */
@@ -1423,10 +1495,10 @@ body.page-contact .hamburger span {
     /* Mobile Titel "Dates" - Style wie About/Contact */
     .mobile-dates-title {
         display: block;
-        color: rgb(179, 118, 118); /* Pink */
+        color: rgb(179, 118, 118); /* Konstant Rosa */
         font-family: 'Hanken Grotesk', sans-serif;
-        font-weight: 800;
-        font-size: 4rem; /* Wie About/Contact */
+        font-weight: 800; /* Extra Bold */
+        font-size: 4rem; /* Goldener Mittelweg */
         margin-bottom: 40px;
         letter-spacing: -0.05em;
         line-height: 0.9;
@@ -1439,22 +1511,6 @@ body.page-contact .hamburger span {
         margin: 20px auto;
         padding: 0 20px;
     }
-
-    /* Grid einspaltig */
-    .events-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-
-    /* Event Card auf Schwarz optimieren */
-    .event-card {
-        border-bottom: 1px solid #333; /* Dezente Trennlinie statt Box */
-        padding-bottom: 30px;
-    }
-    
-    .event-card:last-child {
-        border-bottom: none;
-    }
 }
 
 /* Desktop: Mobile Title verstecken */
@@ -1465,15 +1521,7 @@ body.page-contact .hamburger span {
     
     /* Desktop Title Style */
     .desktop-dates-title {
-        text-align: left;
-        color: rgb(179, 118, 118);
-        font-family: 'Hanken Grotesk', sans-serif;
-        font-weight: 800;
-        margin-bottom: 40px;
-        letter-spacing: -0.03em;
-        font-size: 5em;
-        line-height: 1;
-        margin-left: -4px;
+        display: none; /* Titel auf Desktop komplett ausgeblendet */
     }
 }
 

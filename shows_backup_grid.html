@@ -42,7 +42,7 @@
         <section id="event-calendar">
             <h2 class="desktop-dates-title">Dates</h2>
             <h2 class="mobile-dates-title">Dates</h2>
-            <div class="events-list" id="shows-container">
+            <div class="events-grid" id="shows-container">
                 <!-- Shows werden dynamisch geladen -->
             </div>
             <div class="last-updated" id="last-updated"></div>
@@ -50,96 +50,12 @@
     </main>
     
     <script>
-        // Fallback-Daten für lokale Vorschau (wenn fetch wegen CORS blockiert wird)
-        const fallbackData = {
-          "last_updated": "2026-01-08T06:37:00.423229",
-          "shows": {
-            "dumme-jahre": {
-              "title": "Dumme Jahre",
-              "theater": "Deutsches Nationaltheater Weimar",
-              "image": "images/dumme-jahre.jpg",
-              "base_url": "https://www.dnt-weimar.de/de/programm/stueck-detail.php?SID=3520#event-tickets",
-              "events": [
-                {
-                  "date": "2026-01-09 19:30",
-                  "display_date": "09.01.2026",
-                  "display_time": "19:30",
-                  "ticket_url": "https://tickets.dnt-weimar.de/de/buyingflow/tickets/15524/36346/"
-                }
-              ]
-            },
-            "sankt-falstaff": {
-              "title": "Sankt Falstaff",
-              "theater": "Theater Bonn",
-              "image": "images/sankt-falstaff.jpg",
-              "base_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets",
-              "events": [
-                {
-                  "date": "2026-01-16 19:30",
-                  "display_date": "16.01.2026",
-                  "display_time": "19:30",
-                  "ticket_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets"
-                },
-                {
-                  "date": "2026-02-06 19:30",
-                  "display_date": "06.02.2026",
-                  "display_time": "19:30",
-                  "ticket_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets"
-                },
-                {
-                  "date": "2026-10-17 19:30",
-                  "display_date": "17.10.2026",
-                  "display_time": "19:30",
-                  "ticket_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets"
-                }
-              ]
-            },
-            "der-komet": {
-              "title": "Der Komet",
-              "theater": "Staatsschauspiel Dresden",
-              "image": "images/der-komet.jpg",
-              "base_url": "https://tickets.staatsschauspiel-dresden.de/webshop/webticket/eventlist?production=709",
-              "events": [
-                {
-                  "date": "2026-02-13 19:30",
-                  "display_date": "13.02.2026",
-                  "display_time": "19:30",
-                  "ticket_url": "https://www.staatsschauspiel-dresden.de/spielplan/a-z/der-komet/"
-                }
-              ]
-            },
-            "undine": {
-              "title": "Undine",
-              "theater": "Oper Leipzig",
-              "image": "images/undine.jpg",
-              "base_url": "https://www.oper-leipzig.de/de/ensemble/person/susanne-uhl/1902",
-              "events": [
-                {
-                  "date": "2026-04-30 19:30",
-                  "display_date": "30.04.2026",
-                  "display_time": "19:30",
-                  "ticket_url": "https://www.oper-leipzig.de/de/ensemble/person/susanne-uhl/1902"
-                }
-              ]
-            }
-          }
-        };
-
         // Lade Show-Daten und erstelle Events
         async function loadShows() {
-            let data;
             try {
-                // Versuche fetch (funktioniert live oder auf lokalem Server)
                 const response = await fetch('data/shows.json');
-                if (!response.ok) throw new Error('Network response was not ok');
-                data = await response.json();
-            } catch (error) {
-                // Fallback für lokale Vorschau ohne Server (file:// Protokoll)
-                console.warn('Lade Daten aus Fallback (lokal/CORS):', error);
-                data = fallbackData;
-            }
-
-            try {
+                const data = await response.json();
+                
                 const container = document.getElementById('shows-container');
                 const lastUpdatedElement = document.getElementById('last-updated');
                 
@@ -200,19 +116,10 @@
                     eventPicture.appendChild(eventSource);
                     eventPicture.appendChild(eventImage);
                     
-                    // Bild-Wrapper für Layout
-                    const imageWrapper = document.createElement('div');
-                    imageWrapper.className = 'event-image-wrapper';
-                    imageWrapper.appendChild(eventPicture);
-
-                    // Event-Content (statt Overlay)
-                    const eventContent = document.createElement('div');
-                    eventContent.className = 'event-content';
+                    // Event-Overlay
+                    const eventOverlay = document.createElement('div');
+                    eventOverlay.className = 'event-overlay';
                     
-                    // Header Wrapper für Titel und Ort
-                    const eventHeader = document.createElement('div');
-                    eventHeader.className = 'event-header';
-
                     // Titel und Theater
                     const eventTitle = document.createElement('div');
                     eventTitle.className = 'event-title';
@@ -222,9 +129,8 @@
                     eventLocation.className = 'event-location';
                     eventLocation.textContent = show.theater;
                     
-                    eventHeader.appendChild(eventTitle);
-                    eventHeader.appendChild(eventLocation);
-                    eventContent.appendChild(eventHeader);
+                    eventOverlay.appendChild(eventTitle);
+                    eventOverlay.appendChild(eventLocation);
                     
                     // Termine
                     if (show.events && show.events.length > 0) {
@@ -260,17 +166,17 @@
                             eventDates.appendChild(dateItem);
                         });
                         
-                        eventContent.appendChild(eventDates);
+                        eventOverlay.appendChild(eventDates);
                     } else {
                         // Fallback wenn keine Termine verfügbar
                         const noEvents = document.createElement('div');
                         noEvents.className = 'no-events';
                         noEvents.textContent = 'Keine aktuellen Termine verfügbar';
-                        eventContent.appendChild(noEvents);
+                        eventOverlay.appendChild(noEvents);
                     }
                     
-                    eventCard.appendChild(imageWrapper);
-                    eventCard.appendChild(eventContent);
+                    eventCard.appendChild(eventPicture);
+                    eventCard.appendChild(eventOverlay);
                     container.appendChild(eventCard);
                 }
                 

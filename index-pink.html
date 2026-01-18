@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Google Fonts: Hanken Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Preload critical above-the-fold images (first image per column) -->
+    <link rel="preload" as="image" href="images/thumbs/sankt-falstaff.avif">
+    <link rel="preload" as="image" href="images/thumbs/der-traumgoerge.avif">
+    <link rel="preload" as="image" href="images/thumbs/die-nacht.avif">
+    
+    <!-- Meta Informationen -->
+    <meta name="description" content="Susanne Uhl gestaltet Kostüme für Theater, Oper und Film. Ihre Arbeiten sind u.a. am Deutschen Theater Berlin, der Oper Frankfurt, dem Staatsschauspiel Dresden, der Oper Leipzig, dem Residenztheater München und dem Düsseldorfer Schauspielhaus zu sehen.">
+    <meta name="keywords" content="Susanne Uhl, Kostümbild, Theater, Oper, Film, Bühnenbild, Leipzig, Dresden, Berlin, Frankfurt, München, Düsseldorf, Costume Design, Opera, Theatre, Stage Design">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Susanne Uhl">
+
+    <!-- Open Graph für Social Media Vorschau -->
+    <meta property="og:title" content="Susanne Uhl – Kostümbildnerin für Theater, Oper und Film">
+    <meta property="og:description" content="Kostümbild für Theater, Oper und Film: Deutsches Theater Berlin, Oper Frankfurt, Staatsschauspiel Dresden, Oper Leipzig, Residenztheater München und Düsseldorfer Schauspielhaus.">
+    <meta property="og:image" content="https://susanneuhl.com/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://susanneuhl.com">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card für Social Media -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Susanne Uhl – Kostümbildnerin für Theater, Oper und Film">
+    <meta name="twitter:description" content="Kostümbild für Theater, Oper und Film: Deutsches Theater Berlin, Oper Frankfurt, Staatsschauspiel Dresden, Oper Leipzig, Residenztheater München und Düsseldorfer Schauspielhaus.">
+    <meta name="twitter:image" content="https://susanneuhl.com/images/og-image.jpg">
+
+<!-- Strukturierte Daten für Suchmaschinen -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Susanne Uhl",
+  "jobTitle": "Kostümbildnerin",
+  "description": "Susanne Uhl gestaltet Kostüme für Theater, Oper und Film in Deutschland.",
+  "url": "https://susanneuhl.com",
+  "image": "https://susanneuhl.com/images/og-image.jpg",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "freischaffend",
+    "sameAs": "https://susanneuhl.com"
+  },
+  "sameAs": [
+    "https://www.oper-frankfurt.de",
+    "https://www.staatsschauspiel-dresden.de",
+    "https://www.oper-leipzig.de",
+    "https://www.dhaus.de",
+    "https://www.residenztheater.de",
+    "https://www.schaubuehne.de",
+    "https://www.nationaltheater-weimar.de/"
+  ]
+}
+</script>
+
+    <!-- Ergänzende Meta-Tags -->
+    <meta name="subject" content="Kostümbild, Theater, Oper, Film, Susanne Uhl">
+    <meta name="language" content="de">
+    <meta name="copyright" content="© 2026 Susanne Uhl">
+    <meta name="publisher" content="Susanne Uhl">
+    <meta name="theme-color" content="#ff4fc5">
+    <link rel="canonical" href="https://susanneuhl.com/">
+    <meta name="robots" content="noindex, follow">
+    <link rel="apple-touch-icon" href="favicon_custom.png">
+    <meta name="apple-mobile-web-app-title" content="Susanne Uhl">
+
+    
+    <!-- Seitentitel -->
+    <title>Susanne Uhl – Kostümbildnerin für Theater, Oper und Film</title>
+
+    <!-- Stylesheets und Favicon -->
+    <link rel="stylesheet" href="styles.css?v=bold6">
+    <link rel="icon" href="favicon_custom.png" type="image/png">
+    <style>
+
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr !important;
+                gap: 15px;
+            }
+            img {
+                max-height: 300px;
+            }
+            ul {
+                padding-left: 0;
+            }
+            li {
+                margin-bottom: 15px;
+            }
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            color: #333333;
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        img {
+            width: 100%;
+            height: auto;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 0;
+            transition: transform 0.3s ease;
+        }
+        li:hover img {
+            transform: scale(1.05);
+        }
+        .overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease, background-color 0.3s ease;
+            padding: 10px;
+        }
+        .overlay span {
+            pointer-events: none;
+        }
+        .website-btn {
+            pointer-events: auto;
+            background-color: rgba(255, 215, 0, 0.8);
+            border: none;
+            color: black;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.9em;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 5px;
+            align-self: flex-start;
+        }
+        li:hover .overlay {
+            opacity: 1;
+        }.main-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1500px;
+            margin: 0 auto;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        h2 {
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            color: #333333;
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        img {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 0;
+            transition: transform 0.3s ease;
+        }
+        li:hover img {
+            transform: scale(1.05);
+        }
+        .overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease, background-color 0.3s ease;
+            padding: 10px;
+        }
+        .overlay span {
+            pointer-events: none;
+        }
+        .website-btn {
+            pointer-events: auto;
+            background-color: rgba(255, 215, 0, 0.8);
+            border: none;
+            color: black;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.9em;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 5px;
+            align-self: flex-start;
+        }
+        li:hover .overlay {
+            opacity: 1;
+        }
+        /* Modal Styling */
+        #fullscreenModal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+        #fullscreenModal.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        /* Swipe Track - Carousel-Style für 3 Slides nebeneinander */
+        .swipe-track {
+            display: flex;
+            width: 300vw;
+            height: 100vh;
+            /* Wichtig: Absolute Positionierung um Flexbox-Zentrierung des Eltern-Elements zu umgehen */
+            position: absolute;
+            left: 0;
+            top: 0;
+            transform: translateX(-100vw); /* Starte beim mittleren Slide */
+            transition: transform 0.3s ease-out;
+            will-change: transform;
+        }
+        
+        .swipe-slide {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+            background: rgba(0,0,0,0.9);
+        }
+        
+        .swipe-slide img {
+            max-width: 95vw;
+            max-height: 95vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 0;
+            background: #333;
+        }
+        
+        /* Loading indicator while image loads */
+        .swipe-slide img:not([src=""]):not([src]):before {
+            content: "";
+            display: block;
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .swipe-slide .image-credit {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            z-index: 1001;
+        }
+        
+        /* Fallback für alte Struktur */
+        .modal-image-container {
+            position: relative;
+            max-width: 95vw;
+            max-height: 95vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-image-container img {
+            max-width: 100%;
+            max-height: 95vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 0;
+        }
+        
+        #fullscreenModal #modalCredit {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            z-index: 1001;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 2em;
+            cursor: pointer;
+            z-index: 10000;
+        }
+        
+        /* Back to Top Button */
+        #backToTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            background-color: rgb(179, 118, 118);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            line-height: 1;
+        }
+        
+        #backToTopBtn .arrow {
+            font-size: 1.3em;
+            transition: transform 0.3s ease;
+        }
+        
+        #backToTopBtn .percent {
+            font-size: 0.65em;
+            font-weight: 600;
+            opacity: 0.95;
+        }
+        
+        #backToTopBtn:hover {
+            background-color: rgb(150, 100, 100);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        #backToTopBtn:hover .arrow {
+            transform: translateY(-2px);
+        }
+        
+        #backToTopBtn.show {
+            display: flex;
+            animation: fadeInUp 0.3s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body class="page-pink">
+    <h1 style="display:none;">Susanne Uhl – Kostümbild</h1>
+
+<header class="sticky-header">
+  <div class="header-content">
+    <h1 class="main-title">
+      Susanne Uhl
+      <span class="subtitle">Kostümbild</span>
+    </h1>
+  </div>
+  <nav class="header-nav">
+    <button class="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="nav-links">
+      <a href="index.html" class="header-nav-link active">Work</a>
+      <a href="about.html" class="header-nav-link">About</a>
+      <a href="shows.html" class="header-nav-link">Dates</a>
+      <a href="contact.html" class="header-nav-link">Contact</a>
+    </div>
+  </nav>
+</header>
+
+
+    <main class="main-container">
+
+        <!-- Schauspiel -->
+        <div>
+            <h2>Schauspiel</h2>
+            <ul>
+                <li data-full-avif="images/compressed/sankt-falstaff.avif" data-depth-map="images/maps/sankt-falstaff_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/sankt-falstaff.jpg')">
+                            <source srcset="images/thumbs/sankt-falstaff.avif" type="image/avif">
+                            <img fetchpriority="high" decoding="async" loading="eager" src="images/thumbs/sankt-falstaff.jpg" alt="Kostümbild von Susanne Uhl für Sankt Falstaff am Theater Bonn (2025)">
+                        </picture>
+                        <span class="image-credit">© Matthias Jung</span>
+                    </div>
+                    <a href="https://www.theater-bonn.de/de/programm/sankt-falstaff/221198" target="_blank" class="project-title"><span class="title-main">Sankt Falstaff</span><span class="title-meta">Theater Bonn · 2025</span></a>
+                </li>
+                <li data-year="2025" data-month="01" data-full-avif="images/compressed/der-komet.avif" data-depth-map="images/maps/der-komet_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/der-komet.jpg')">
+                            <source srcset="images/thumbs/der-komet.avif" type="image/avif">
+                            <img fetchpriority="high" decoding="async" loading="eager" src="images/thumbs/der-komet.jpg" alt="Kostümbild von Susanne Uhl für Der Komet am Staatsschauspiel Dresden (2025)">
+                        </picture>
+                        <span class="image-credit">© Sebastian Hoppe</span>
+                    </div>
+                    <a href="https://www.staatsschauspiel-dresden.de/spielplan/a-z/der-komet/" target="_blank" class="project-title"><span class="title-main">Der Komet</span><span class="title-meta">Staatsschauspiel Dresden · 2025</span></a>
+                </li>
+                <li data-full-avif="images/compressed/dumme-jahre.avif" class="reveal">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/dumme-jahre.jpg')">
+                            <source srcset="images/thumbs/dumme-jahre.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/dumme-jahre.jpg" alt="Kostümbild von Susanne Uhl für Dumme Jahre am Nationaltheater Weimar (2024)">
+                        </picture>
+                        <span class="image-credit">© Candy Wels</span>
+                    </div>
+                    <a href="https://www.nationaltheater-weimar.de/de/programm/stueck-detail.php?SID=3520" target="_blank" class="project-title"><span class="title-main">Dumme Jahre</span><span class="title-meta">Nationaltheater Weimar · 2024</span></a>
+                </li>
+                <li data-full-avif="images/compressed/das-leben-ist-ein-traum.avif" class="reveal" data-depth-map="images/maps/das-leben-ist-ein-traum_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/das-leben-ist-ein-traum.jpg')">
+                            <source srcset="images/thumbs/das-leben-ist-ein-traum.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/das-leben-ist-ein-traum.jpg" alt="Kostümbild von Susanne Uhl für Das Leben ist ein Traum am Staatsschauspiel Dresden (2023)">
+                        </picture>
+                        <span class="image-credit">© Sebastian Hoppe</span>
+                    </div>
+                    <a href="https://www.staatsschauspiel-dresden.de/spielplan/archive/d/das-leben-ist-traum/" target="_blank" class="project-title"><span class="title-main">Das Leben ist ein Traum</span><span class="title-meta">Staatsschauspiel Dresden · 2023</span></a>
+                </li>
+                <li data-full-avif="images/compressed/von-schlechten-eltern.avif" class="reveal" data-depth-map="images/maps/von-schlechten-eltern_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/von-schlechten-eltern.jpg')">
+                            <source srcset="images/thumbs/von-schlechten-eltern.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/von-schlechten-eltern.jpg" alt="Kostümbild von Susanne Uhl für Von schlechten Eltern an den Bühnen Bern (2021)">
+                        </picture>
+                        <span class="image-credit">© Unbekannt</span>
+                    </div>
+                    <a href="https://buehnenbern.ch/spielplan/programm/von-schlechten-eltern/" target="_blank" class="project-title"><span class="title-main">Von schlechten Eltern</span><span class="title-meta">Bühnen Bern · 2021</span></a>
+                </li>                
+                <li data-full-avif="images/compressed/kleiner-mann-was-nun.avif" class="reveal" data-depth-map="images/maps/kleiner-mann-was-nun_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/kleiner-mann-was-nun.jpg')">
+                            <source srcset="images/thumbs/kleiner-mann-was-nun.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/kleiner-mann-was-nun.jpg" alt="Kostümbild von Susanne Uhl für Kleiner Mann was nun am Düsseldorfer Schauspielhaus (2021)">
+                        </picture>
+                        <span class="image-credit">© Thomas Rabsch</span>
+                    </div>
+                    <a href="https://www.dhaus.de/programm/archiv/k/kleiner-mann-was-nun/" target="_blank" class="project-title"><span class="title-main">Kleiner Mann was nun</span><span class="title-meta">Düsseldorfer Schauspielhaus · 2021</span></a>
+                </li>
+                <li data-full-avif="images/compressed/stummes-land.avif" class="reveal" data-depth-map="images/maps/stummes-land_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/stummes-land.jpg')">
+                            <source srcset="images/thumbs/stummes-land.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/stummes-land.jpg" alt="Kostümbild von Susanne Uhl für Stummes Land am Staatsschauspiel Dresden (2020)">
+                        </picture>
+                        <span class="image-credit">© Sebastian Hoppe</span>
+                    </div>
+                    <a href="https://www.staatsschauspiel-dresden.de/spielplan/archive/s/stummes-land/" target="_blank" class="project-title"><span class="title-main">Stummes Land</span><span class="title-meta">Staatsschauspiel Dresden · 2020</span></a>
+                </li>  
+                <li data-full-avif="images/thumbs/der-riss.avif" class="reveal" data-depth-map="images/maps/der-riss_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/der-riss.jpg')">
+                            <source srcset="images/thumbs/der-riss.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/der-riss.jpg" alt="Kostümbild von Susanne Uhl für Der Riss durch die Welt am Residenztheater München (2020)">
+                        </picture>
+                        <span class="image-credit">© Unbekannt</span>
+                    </div>
+                    <a href="https://www.residenztheater.de/stuecke/detail/der-riss-durch-die-welt" target="_blank" class="project-title"><span class="title-main">Der Riss durch die Welt</span><span class="title-meta">Residenztheater München · 2020</span></a>
+                </li>
+                <li data-full-avif="images/compressed/das-grosse-heft.avif" class="reveal" data-depth-map="images/maps/das-grosse-heft_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/das-grosse-heft.jpg')">
+                            <source srcset="images/thumbs/das-grosse-heft.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/das-grosse-heft.jpg" alt="Kostümbild von Susanne Uhl für Das große Heft am Theater Basel (2019)">
+                        </picture>
+                        <span class="image-credit">© Unbekannt</span>
+                    </div>
+                    <a href="https://archiv.theater-basel.ch/2019-20/das-grosse-heft" target="_blank" class="project-title"><span class="title-main">Das große Heft</span><span class="title-meta">Theater Basel · 2019</span></a>
+                </li>                  
+                <li data-full-avif="images/compressed/Coriolan.avif" class="reveal" data-depth-map="images/maps/Coriolan_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/Coriolan.jpg')">
+                            <source srcset="images/thumbs/Coriolan.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/Coriolan.jpg" alt="Kostümbild von Susanne Uhl für Coriolan am Düsseldorfer Schauspielhaus (2019)">
+                        </picture>
+                        <span class="image-credit">© Sandra Then</span>
+                    </div>
+                    <a href="https://www.dhaus.de/programm/archiv/c/coriolan/" target="_blank" class="project-title"><span class="title-main">Coriolan</span><span class="title-meta">Düsseldorfer Schauspielhaus · 2019</span></a>
+                </li>
+                <li data-full-avif="images/compressed/medea-stimmen.avif" class="reveal" data-depth-map="images/maps/medea-stimmen_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/medea-stimmen.jpg')">
+                            <source srcset="images/thumbs/medea-stimmen.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/medea-stimmen.jpg" alt="Kostümbild von Susanne Uhl für Medea. Stimmen am Deutschen Theater Berlin (2018)">
+                        </picture>
+                        <span class="image-credit">© Arno Declair</span>
+                    </div>
+                    <a href="https://www.fidena.de/die-szene/kritiken-portraits-podcasts/aktuelle-kritik/mn_45219?mode=object&objectid=b4b15113_d1ee_455b_fc78e814e8f74de8" target="_blank" class="project-title"><span class="title-main">Medea. Stimmen</span><span class="title-meta">Deutsches Theater Berlin · 2018</span></a>
+                </li>   
+                <li data-full-avif="images/compressed/das-versprechen.avif" class="reveal" data-depth-map="images/maps/das-versprechen_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/das-versprechen.jpg')">
+                            <source srcset="images/thumbs/das-versprechen.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/das-versprechen.jpg" alt="Kostümbild von Susanne Uhl für Das Versprechen am Düsseldorfer Schauspielhaus (2017)">
+                        </picture>
+                        <span class="image-credit">© Matthias Horn</span>
+                    </div>
+                    <a href="https://www.dhaus.de/programm/archiv/d/das-versprechen/" target="_blank" class="project-title"><span class="title-main">Das Versprechen</span><span class="title-meta">Düsseldorfer Schauspielhaus · 2017</span></a>
+                </li>
+                <li data-full-avif="images/compressed/buch-berlin.avif" class="reveal" data-depth-map="images/maps/buch-berlin_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/buch-berlin.jpg')">
+                            <source srcset="images/thumbs/buch-berlin.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/buch-berlin.jpg" alt="Kostümbild von Susanne Uhl für Buch. Berlin am Deutschen Theater Berlin (2016)">
+                        </picture>
+                        <span class="image-credit">© Arno Declair</span>
+                    </div>
+                    <a href="https://www.tagesspiegel.de/kultur/der-mensch-bleibt-laie-3758791.html" target="_blank" class="project-title"><span class="title-main">Buch. Berlin</span><span class="title-meta">Deutsches Theater Berlin · 2016</span></a>
+                </li>                                                                 
+                <li data-full-avif="images/compressed/mutter.avif" class="reveal" data-depth-map="images/maps/mutter_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/mutter.jpg')">
+                            <source srcset="images/thumbs/mutter.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/mutter.jpg" alt="Kostümbild von Susanne Uhl für Die Mutter an der Schaubühne Berlin (2016)">
+                        </picture>
+                        <span class="image-credit">© Gianmarco Bresadola</span>
+                    </div>
+                    <a href="https://www.schaubuehne.de/de/produktionen/die-mutter.html" target="_blank" class="project-title"><span class="title-main">Die Mutter</span><span class="title-meta">Schaubühne Berlin · 2016</span></a>
+                </li>
+                <li data-full-avif="images/compressed/dantons-tod.avif" class="reveal" data-depth-map="images/maps/dantons-tod_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/dantons-tod.jpg')">
+                            <source srcset="images/thumbs/dantons-tod.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/dantons-tod.jpg" alt="Kostümbild von Susanne Uhl für Dantons Tod an der Schaubühne Berlin (2016)">
+                        </picture>
+                        <span class="image-credit">© Holger Jacobs</span>
+                    </div>
+                    <a href="https://kultur24-berlin.de/dantons-tod-der-schaubuehne-berlin/" target="_blank" class="project-title"><span class="title-main">Dantons Tod</span><span class="title-meta">Schaubühne Berlin · 2016</span></a>
+                </li>
+                <li data-full-avif="images/thumbs/jungfrau.avif" class="reveal" data-depth-map="images/maps/jungfrau_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/jungfrau.jpg')">
+                            <source srcset="images/thumbs/jungfrau.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/jungfrau.jpg" alt="Kostümbild von Susanne Uhl für Die Jungfrau von Orleans am Deutschen Schauspielhaus Hamburg (2015)">
+                        </picture>
+                        <span class="image-credit">© Matthias Horn</span>
+                    </div>
+                    <a href="https://www.welt.de/kultur/buehne-konzert/article148352851/Der-Heilige-Krieg-ist-die-normalste-Sache-der-Welt.html" target="_blank" class="project-title"><span class="title-main">Die Jungfrau von Orleans</span><span class="title-meta">Deutsches Schauspielhaus Hamburg · 2015</span></a>
+                </li>                                
+                <li data-full-avif="images/compressed/mass-fuer-mass.avif" class="reveal" data-depth-map="images/maps/mass-fuer-mass_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/mass-fuer-mass.jpg')">
+                            <source srcset="images/thumbs/mass-fuer-mass.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/mass-fuer-mass.jpg" alt="Kostümbild von Susanne Uhl für Maß für Maß am Staatsschauspiel Dresden (2015)">
+                        </picture>
+                        <span class="image-credit">© Matthias Horn</span>
+                    </div>
+                    <a href="https://www.staatsschauspiel-dresden.de/spielplan/archive/m/mass-fuer-mass/" target="_blank" class="project-title"><span class="title-main">Maß für Maß</span><span class="title-meta">Staatsschauspiel Dresden · 2015</span></a>
+                </li>
+                <li data-full-avif="images/compressed/macbeth.avif" class="reveal" data-depth-map="images/maps/macbeth_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/macbeth.jpg')">
+                            <source srcset="images/thumbs/macbeth.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/macbeth.jpg" alt="Kostümbild von Susanne Uhl für Macbeth am Deutschen Theater Berlin (2015)">
+                        </picture>
+                        <span class="image-credit">© Arno Declair</span>
+                    </div>
+                    <a href="https://www.tagesspiegel.de/kultur/tater-und-traumer-3616135.html" target="_blank" class="project-title"><span class="title-main">Macbeth</span><span class="title-meta">Deutsches Theater Berlin · 2015</span></a>
+                </li>                                           
+                <li data-full-avif="images/compressed/fabian.avif" class="reveal" data-depth-map="images/maps/fabian_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/fabian.jpg')">
+                            <source srcset="images/thumbs/fabian.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/fabian.jpg" alt="Kostümbild von Susanne Uhl für Fabian – Der Gang vor die Hunde an der Schaubühne Berlin (2015)">
+                        </picture>
+                        <span class="image-credit">© Gianmarco Bresadola</span>
+                    </div>
+                    <a href="https://www.schaubuehne.de/en/produktionen/fabian-der-gang-vor-die-hunde.html" target="_blank" class="project-title"><span class="title-main">Fabian – Der Gang vor die Hunde</span><span class="title-meta">Schaubühne Berlin · 2015</span></a>
+                </li>
+                <li data-full-avif="images/compressed/drei-schwestern.avif" class="reveal" data-depth-map="images/maps/drei-schwestern_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/drei-schwestern.jpg')">
+                            <source srcset="images/thumbs/drei-schwestern.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/drei-schwestern.jpg" alt="Kostümbild von Susanne Uhl für Drei Schwestern am Staatsschauspiel Dresden (2014)">
+                        </picture>
+                        <span class="image-credit">© Matthias Horn</span>
+                    </div>
+                    <a href="https://www.staatsschauspiel-dresden.de/spielplan/archive/d/drei-schwestern/" target="_blank" class="project-title"><span class="title-main">Drei Schwestern</span><span class="title-meta">Staatsschauspiel Dresden · 2014</span></a>
+                </li>                                
+                <li data-full-avif="images/compressed/der-geteilte-himmel.avif" class="reveal" data-depth-map="images/maps/der-geteilte-himmel_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/der-geteilte-himmel.jpg')">
+                            <source srcset="images/thumbs/der-geteilte-himmel.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/der-geteilte-himmel.jpg" alt="Kostümbild von Susanne Uhl für Der geteilte Himmel am Staatsschauspiel Dresden (2013)">
+                        </picture>
+                        <span class="image-credit">© David Baltzer</span>
+                    </div>
+                    <a href="https://www.staatsschauspiel-dresden.de/spielplan/archive/d/der_geteilte_himmel/" target="_blank" class="project-title"><span class="title-main">Der geteilte Himmel</span><span class="title-meta">Staatsschauspiel Dresden · 2013</span></a>
+                </li>
+                <li data-full-avif="images/compressed/verbrennungen.avif" class="reveal" data-depth-map="images/maps/verbrennungen_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/verbrennungen.jpg')">
+                            <source srcset="images/thumbs/verbrennungen.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/verbrennungen.jpg" alt="Kostümbild von Susanne Uhl für Verbrennungen am Deutschen Theater Berlin (2012)">
+                        </picture>
+                        <span class="image-credit">© Arno Declair</span>
+                    </div>
+                    <a href="https://www.nachtkritik.de/nachtkritiken/deutschland/berlin-brandenburg/berlin/deutsches-theater-berlin/verbrennungen" target="_blank" class="project-title"><span class="title-main">Verbrennungen</span><span class="title-meta">Deutsches Theater Berlin · 2012</span></a>
+                </li>                   
+                <li data-full-avif="images/compressed/hedda-gabler.avif" class="reveal" data-depth-map="images/maps/hedda-gabler_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/hedda-gabler.jpg')">
+                            <source srcset="images/thumbs/hedda-gabler.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/hedda-gabler.jpg" alt="Kostümbild von Susanne Uhl für Hedda Gabler am Staatsschauspiel Dresden (2012)">
+                        </picture>
+                        <span class="image-credit">© Matthias Horn</span>
+                    </div>
+                    <a href="https://www.staatsschauspiel-dresden.de/spielplan/archive/h/hedda-gabler/" target="_blank" class="project-title"><span class="title-main">Hedda Gabler</span><span class="title-meta">Staatsschauspiel Dresden · 2012</span></a>
+                </li>                   
+                <li data-full-avif="images/compressed/kaufmann.avif" class="reveal" data-depth-map="images/maps/kaufmann_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/kaufmann.jpg')">
+                            <source srcset="images/thumbs/kaufmann.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/kaufmann.jpg" alt="Kostümbild von Susanne Uhl für Der Kaufmann von Venedig am Staatsschauspiel Dresden (2011)">
+                        </picture>
+                        <span class="image-credit">© Matthias Horn</span>
+                    </div>
+                    <a href="https://www.staatsschauspiel-dresden.de/spielplan/archive/d/der_kaufmann_von_venedig/" target="_blank" class="project-title"><span class="title-main">Der Kaufmann von Venedig</span><span class="title-meta">Staatsschauspiel Dresden · 2011</span></a>
+                </li>
+                <li data-full-avif="images/compressed/das-halbe-meer.avif" class="reveal" data-depth-map="images/maps/das-halbe-meer_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/das-halbe-meer.jpg')">
+                            <source srcset="images/thumbs/das-halbe-meer.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/das-halbe-meer.jpg" alt="Kostümbild von Susanne Uhl für Das halbe Meer am Staatsschauspiel Dresden (2011)">
+                        </picture>
+                        <span class="image-credit">© Matthias Horn</span>
+                    </div>
+                    <a href="https://www.staatsschauspiel-dresden.de/spielplan/archive/d/das_halbe_meer/" target="_blank" class="project-title"><span class="title-main">Das halbe Meer</span><span class="title-meta">Staatsschauspiel Dresden · 2011</span></a>
+                </li>                
+                <li data-full-avif="images/compressed/koenig-oedipus.avif" class="reveal" data-depth-map="images/maps/koenig-oedipus_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/koenig-oedipus.jpg')">
+                            <source srcset="images/thumbs/koenig-oedipus.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/koenig-oedipus.jpg" alt="Kostümbild von Susanne Uhl für König Ödipus am Staatsschauspiel Dresden (2010)">
+                        </picture>
+                        <span class="image-credit">© Matthias Horn</span>
+                    </div>
+                    <a href="https://www.staatsschauspiel-dresden.de/spielplan/archive/k/koenig_oedipus/" target="_blank" class="project-title"><span class="title-main">König Ödipus</span><span class="title-meta">Staatsschauspiel Dresden · 2010</span></a>
+                </li>     
+                <li data-full-avif="images/compressed/kirschgarten.avif" class="reveal" data-depth-map="images/maps/kirschgarten_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/kirschgarten.jpg')">
+                            <source srcset="images/thumbs/kirschgarten.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/kirschgarten.jpg" alt="Kostümbild von Susanne Uhl für Der Kirschgarten am Staatsschauspiel Dresden (2010)">
+                        </picture>
+                        <span class="image-credit">© Matthias Horn</span>
+                    </div>
+                    <a href="https://www.staatsschauspiel-dresden.de/spielplan/archive/d/der-kirschgarten-2010/" target="_blank" class="project-title"><span class="title-main">Der Kirschgarten</span><span class="title-meta">Staatsschauspiel Dresden · 2010</span></a>
+                </li>
+                <li data-full-avif="images/compressed/italienische-nacht.avif" class="reveal" data-depth-map="images/maps/italienische-nacht_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/italienische-nacht.jpg')">
+                            <source srcset="images/thumbs/italienische-nacht.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/italienische-nacht.jpg" alt="Kostümbild von Susanne Uhl für Italienische Nacht am Staatsschauspiel Dresden (2010)">
+                        </picture>
+                        <span class="image-credit">© David Baltzer</span>
+                    </div>
+                    <a href="https://www.staatsschauspiel-dresden.de/spielplan/archive/i/italienische-nacht/" target="_blank" class="project-title"><span class="title-main">Italienische Nacht</span><span class="title-meta">Staatsschauspiel Dresden · 2010</span></a>
+                </li>                                                                        
+                <li data-full-avif="images/compressed/johanna.avif" class="reveal" data-depth-map="images/maps/johanna_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/johanna.jpg')">
+                            <source srcset="images/thumbs/johanna.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/johanna.jpg" alt="Kostümbild von Susanne Uhl für Die heilige Johanna der Schlachthöfe am Staatsschauspiel Dresden (2009)">
+                        </picture>
+                        <span class="image-credit">© Matthias Horn</span>
+                    </div>
+                    <a href="https://www.staatsschauspiel-dresden.de/spielplan/archive/d/die_heilige_johanna_der_schlachthoefe/" target="_blank" class="project-title"><span class="title-main">Die heilige Johanna der Schlachthöfe</span><span class="title-meta">Staatsschauspiel Dresden · 2009</span></a>
+                </li>
+                <li data-full-avif="images/compressed/feuchtgebiete.avif" class="reveal" data-depth-map="images/maps/feuchtgebiete_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/feuchtgebiete.jpg')">
+                            <source srcset="images/thumbs/feuchtgebiete.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/feuchtgebiete.jpg" alt="Kostümbild von Susanne Uhl für Feuchtgebiete am Neuen Theater Weimar (2008)">
+                        </picture>
+                        <span class="image-credit">© Unbekannt</span>
+                    </div>
+                    <a href="https://www.stern.de/kultur/buecher/-feuchtgebiete--auf-der-schleimspur-ausgerutscht-3743528.html" target="_blank" class="project-title"><span class="title-main">Feuchtgebiete</span><span class="title-meta">Neues Theater Weimar · 2008</span></a>
+                </li>                                   
+            </ul>
+        </div>
+
+        <!-- Oper -->
+        <div>
+            <h2>Oper</h2>
+            <ul>
+                <li data-year="2025" data-month="08" data-full-avif="images/compressed/la-traviata.avif" data-depth-map="images/maps/la-traviata_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/la-traviata.jpg')">
+                            <source srcset="images/thumbs/la-traviata.avif" type="image/avif">
+                            <img fetchpriority="high" decoding="async" loading="eager" src="images/thumbs/la-traviata.jpg" alt="Kostümbild von Susanne Uhl für La traviata am Staatstheater Braunschweig (2025)">
+                        </picture>
+                        <span class="image-credit">© Björn Hickmann</span>
+                    </div>
+                    <a href="https://staatstheater-braunschweig.de/produktion/la-traviata" target="_blank" class="project-title"><span class="title-main">La traviata</span><span class="title-meta">Staatstheater Braunschweig · 2025</span></a>
+                </li>
+                <li data-year="2025" data-month="08" data-full-avif="images/compressed/der-traumgoerge.avif" data-depth-map="images/maps/der-traumgoerge_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/der-traumgoerge.jpg')">
+                            <source srcset="images/thumbs/der-traumgoerge.avif" type="image/avif">
+                            <img fetchpriority="high" decoding="async" loading="eager" src="images/thumbs/der-traumgoerge.jpg" alt="Kostümbild von Susanne Uhl für Der Traumgörge an der Oper Frankfurt (2024)">
+                        </picture>
+                        <span class="image-credit">© Barbara Aumüller</span>
+                    </div>
+                    <a href="https://blog.oper-frankfurt.de/blog/der-traumgoerge" target="_blank" class="project-title"><span class="title-main">Der Traumgörge</span><span class="title-meta">Oper Frankfurt · 2024</span></a>
+                </li>                
+                <li data-depth-map="images/maps/le-nozze-di-figaro_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture>
+                            <source srcset="images/thumbs/le-nozze-di-figaro.avif" type="image/avif">
+                            <img fetchpriority="high" decoding="async" loading="eager" src="images/thumbs/le-nozze-di-figaro.jpg" alt="Kostümbild von Susanne Uhl für Le Nozze di Figaro an der Oper Frankfurt (2023)">
+                        </picture>
+                        <span class="image-credit">© Barbara Aumüller</span>
+                    </div>
+                    <a href="https://blog.oper-frankfurt.de/blog/le-nozze-di-figaro" target="_blank" class="project-title"><span class="title-main">Le Nozze di Figaro</span><span class="title-meta">Oper Frankfurt · 2023</span></a>
+                </li>
+                <li data-full-avif="images/compressed/le-vin-herbe.avif" class="reveal" data-depth-map="images/maps/le-vin-herbe_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/le-vin-herbe.jpg')">
+                            <source srcset="images/thumbs/le-vin-herbe.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/le-vin-herbe.jpg" alt="Kostümbild von Susanne Uhl für Le vin herbé an der Oper Frankfurt (2023)">
+                        </picture>
+                        <span class="image-credit">© Barbara Aumüller</span>
+                    </div>
+                    <a href="https://blog.oper-frankfurt.de/blog/interview-mit-tilmann-kohler-zu-le-vin-herbe" target="_blank" class="project-title"><span class="title-main">Le vin herbé</span><span class="title-meta">Oper Frankfurt · 2023</span></a>
+                </li>                
+                <li data-full-avif="images/compressed/undine.avif" class="reveal" data-depth-map="images/maps/undine_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/undine.jpg')">
+                            <source srcset="images/thumbs/undine.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/undine.jpg" alt="Kostümbild von Susanne Uhl für Undine an der Oper Leipzig (2022)">
+                        </picture>
+                        <span class="image-credit">© Kirsten Nijhof</span>
+                    </div>
+                    <a href="https://www.oper-leipzig.de/de/programm/undine/611" target="_blank" class="project-title"><span class="title-main">Undine</span><span class="title-meta">Oper Leipzig · 2022</span></a>
+                </li>
+                <li data-full-avif="images/compressed/bianca-e-falliero.avif" class="reveal" data-depth-map="images/maps/bianca-e-falliero_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/bianca-e-falliero.jpg')">
+                            <source srcset="images/thumbs/bianca-e-falliero.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/bianca-e-falliero.jpg" alt="Kostümbild von Susanne Uhl für Bianca e Falliero an der Oper Frankfurt (2022)">
+                        </picture>
+                        <span class="image-credit">© Barbara Aumüller</span>
+                    </div>
+                    <a href="https://blog.oper-frankfurt.de/blog/bianca-e-falliero" target="_blank" class="project-title"><span class="title-main">Bianca e Falliero</span><span class="title-meta">Oper Frankfurt · 2022</span></a>
+                </li>
+                <li data-full-avif="images/compressed/xerxes.avif" class="reveal" data-depth-map="images/maps/xerxes_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/xerxes.jpg')">
+                            <source srcset="images/thumbs/xerxes.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/xerxes.jpg" alt="Kostümbild von Susanne Uhl für Xerxes an der Oper Frankfurt (2017)">
+                        </picture>
+                        <span class="image-credit">© Barbara Aumüller</span>
+                    </div>
+                    <a href="https://www.operabase.com/productions/xerxes-154608/de" target="_blank" class="project-title"><span class="title-main">Xerxes</span><span class="title-meta">Oper Frankfurt · 2017</span></a>
+                </li>
+                <li data-full-avif="images/compressed/radamisto.avif" class="reveal" data-depth-map="images/maps/radamisto_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/radamisto.jpg')">
+                            <source srcset="images/thumbs/radamisto.avif" type="image/avif">
+                            <img fetchpriority="low" decoding="async" loading="lazy" src="images/thumbs/radamisto.jpg" alt="Kostümbild von Susanne Uhl für Radamisto an der Oper Frankfurt (2016)">
+                        </picture>
+                        <span class="image-credit">© Barbara Aumüller</span>
+                    </div>
+                    <a href="https://www.operabase.com/productions/radamisto-83726/de" target="_blank" class="project-title"><span class="title-main">Radamisto</span><span class="title-meta">Oper Frankfurt · 2016</span></a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Film -->
+        <div>
+            <h2>Film</h2>
+            <ul>
+                <li data-full-avif="images/compressed/die-nacht.avif" data-depth-map="images/maps/die-nacht_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/die-nacht.jpg')">
+                            <source srcset="images/thumbs/die-nacht.avif" type="image/avif">
+                            <img fetchpriority="high" decoding="async" loading="eager" src="images/thumbs/die-nacht.jpg" alt="Kostümbild von Susanne Uhl für Die Nacht ist dunkel und kälter als der Tag (2024, Regie: Christina Friedrich)">
+                        </picture>
+                        <span class="image-credit">© Unbekannt</span>
+                    </div>
+                    <a href="https://mubi.com/de/films/the-night-is-dark-and-colder-than-the-day/trailer" target="_blank" class="project-title"><span class="title-main">Die Nacht ist dunkel und kälter als der Tag</span><span class="title-meta">Regie: Christina Friedrich · 2024</span></a>
+                </li>
+                <li data-full-avif="images/compressed/zone.avif" data-depth-map="images/maps/zone_map.png">
+                    <div class="image-wrapper" onclick="openFullscreen(this.parentElement.querySelector('img').src, this.parentElement)">
+                        <picture style="--lqip: url('images/tiny/zone.jpg')">
+                            <source srcset="images/thumbs/zone.avif" type="image/avif">
+                            <img fetchpriority="high" decoding="async" loading="eager" src="images/thumbs/zone.jpg" alt="Kostümbild von Susanne Uhl für ZONE (2023, Regie: Christina Friedrich)">
+                        </picture>
+                        <span class="image-credit">© Unbekannt</span>
+                    </div>
+                    <a href="https://www.eksystent.com/zone.html" target="_blank" class="project-title"><span class="title-main">ZONE</span><span class="title-meta">Regie: Christina Friedrich · 2023</span></a>
+                </li>
+            </ul>
+        </div>
+
+    </main>
+
+    <script>
+        // Critical: Handle Image Loading State immediately to prevent flash of blurred content
+        (function() {
+            // Run this ASAP
+            document.documentElement.addEventListener('click', function(){}); // Fix for iOS Safari tap highlight
+            
+            function initImageLoading() {
+                const images = document.querySelectorAll('.main-container li img');
+                images.forEach(img => {
+                    const li = img.closest('li');
+                    if (!li) return;
+                    
+                    // If image is not complete (loading needed), mark it
+                    if (!img.complete) {
+                        li.classList.add('is-loading');
+                        
+                        // Remove class when done
+                        img.addEventListener('load', () => {
+                            li.classList.remove('is-loading');
+                        }, { once: true });
+                        
+                        img.addEventListener('error', () => {
+                            li.classList.remove('is-loading');
+                        }, { once: true });
+                    }
+                });
+            }
+            
+            // Run now if DOM is ready, otherwise wait
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initImageLoading);
+            } else {
+                initImageLoading();
+            }
+        })();
+    </script>
+    
+    <!-- Modal für Vollbild -->
+    <div id="fullscreenModal">
+        <span class="close-btn" onclick="closeFullscreen()">&times;</span>
+        <button class="nav-arrow prev-btn" onclick="prevImage(event)">&#10094;</button>
+        <button class="nav-arrow next-btn" onclick="nextImage(event)">&#10095;</button>
+        <div class="swipe-track">
+            <div class="swipe-slide swipe-prev">
+                <img decoding="async" loading="eager" id="prevSlideImage" src="" alt="">
+                <span class="image-credit" id="prevSlideCredit"></span>
+            </div>
+            <div class="swipe-slide swipe-current">
+                <img decoding="async" loading="eager" id="fullscreenImage" src="" alt="">
+                <span id="modalCredit" class="image-credit"></span>
+            </div>
+            <div class="swipe-slide swipe-next">
+                <img decoding="async" loading="eager" id="nextSlideImage" src="" alt="">
+                <span class="image-credit" id="nextSlideCredit"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTopBtn" title="Nach oben">
+        <span class="arrow">↑</span>
+        <span class="percent">0%</span>
+    </button>
+
+    <script>
+        
+        let currentProjectIndex = -1;
+        let allProjectItems = [];
+
+        function updateProjectItems() {
+            // Collect all li items that are currently visible (for filtering support)
+            allProjectItems = Array.from(document.querySelectorAll('.main-container li')).filter(li => li.style.display !== 'none');
+        }
+
+        function getThumbSrc(element) {
+            // Gibt die Thumbnail-URL zurück (schnell ladend)
+            if (!element) return '';
+            const img = element.querySelector('img');
+            if (!img) return '';
+            // Versuche currentSrc (das aktuell geladene), dann src
+            return img.currentSrc || img.src || '';
+        }
+
+        function getFullSrc(element) {
+            // Gibt die hochauflösende URL zurück
+            if (!element) return '';
+            const fullAvif = element.getAttribute('data-full-avif');
+            if (fullAvif) return fullAvif;
+            
+            const picture = element.querySelector('picture');
+            if (picture) {
+                const avifSource = picture.querySelector('source[type="image/avif"]');
+                if (avifSource && avifSource.srcset) {
+                    if (avifSource.srcset.startsWith('images/thumbs/')) {
+                        const base = avifSource.srcset.replace('images/thumbs/', '').replace(/\.avif$/, '');
+                        return `images/compressed/${base}.avif`;
+                    }
+                    return avifSource.srcset;
+                }
+            }
+            return element.querySelector('img')?.src || '';
+        }
+
+        function getCredit(element) {
+            if (!element) return '';
+            const creditSpan = element.querySelector('.image-credit');
+            return creditSpan ? creditSpan.textContent : '';
+        }
+
+        function openFullscreen(src, element) {
+            const modal = document.getElementById("fullscreenModal");
+            
+            updateProjectItems();
+            currentProjectIndex = allProjectItems.indexOf(element);
+            
+            // Body-Scroll sperren
+            document.body.style.overflow = 'hidden';
+            
+            updateAllSlides();
+            resetSwipeTrack();
+            modal.classList.add("show");
+        }
+
+        function updateAllSlides() {
+            const currentEl = allProjectItems[currentProjectIndex];
+            const prevIdx = (currentProjectIndex - 1 + allProjectItems.length) % allProjectItems.length;
+            const nextIdx = (currentProjectIndex + 1) % allProjectItems.length;
+            const prevEl = allProjectItems[prevIdx];
+            const nextEl = allProjectItems[nextIdx];
+            
+            const currentImg = document.getElementById("fullscreenImage");
+            const prevImg = document.getElementById("prevSlideImage");
+            const nextImg = document.getElementById("nextSlideImage");
+            
+            // Alle Slides laden - verwende getFullSrc für zuverlässige Pfade
+            currentImg.src = getFullSrc(currentEl);
+            document.getElementById("modalCredit").textContent = getCredit(currentEl);
+            
+            prevImg.src = getFullSrc(prevEl);
+            document.getElementById("prevSlideCredit").textContent = getCredit(prevEl);
+            
+            nextImg.src = getFullSrc(nextEl);
+            document.getElementById("nextSlideCredit").textContent = getCredit(nextEl);
+            
+            // Debug
+            console.log('Slides:', { prevIdx, currentProjectIndex, nextIdx });
+            console.log('Elements:', { prevEl, currentEl, nextEl });
+            console.log('Sources:', { prev: prevImg.src, current: currentImg.src, next: nextImg.src });
+        }
+
+        function resetSwipeTrack() {
+            const track = document.querySelector('.swipe-track');
+            track.style.transition = 'none';
+            track.style.transform = 'translateX(-100vw)';
+        }
+
+        function nextImage(event) {
+            if (event) event.stopPropagation();
+            if (allProjectItems.length === 0) updateProjectItems();
+            
+            const track = document.querySelector('.swipe-track');
+            track.style.transition = 'transform 0.3s ease-out';
+            track.style.transform = 'translateX(-200vw)';
+            
+            setTimeout(() => {
+                currentProjectIndex = (currentProjectIndex + 1) % allProjectItems.length;
+                updateAllSlides();
+                resetSwipeTrack();
+            }, 300);
+        }
+
+        function prevImage(event) {
+            if (event) event.stopPropagation();
+            if (allProjectItems.length === 0) updateProjectItems();
+            
+            const track = document.querySelector('.swipe-track');
+            track.style.transition = 'transform 0.3s ease-out';
+            track.style.transform = 'translateX(0)';
+            
+            setTimeout(() => {
+                currentProjectIndex = (currentProjectIndex - 1 + allProjectItems.length) % allProjectItems.length;
+                updateAllSlides();
+                resetSwipeTrack();
+            }, 300);
+        }
+
+        function closeFullscreen() {
+            const modal = document.getElementById("fullscreenModal");
+            modal.classList.remove("show");
+            // Body-Scroll wieder freigeben
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                closeFullscreen();
+            } else if (event.key === "ArrowRight") {
+                const modal = document.getElementById("fullscreenModal");
+                if (modal.classList.contains('show')) nextImage();
+            } else if (event.key === "ArrowLeft") {
+                const modal = document.getElementById("fullscreenModal");
+                if (modal.classList.contains('show')) prevImage();
+            }
+        });
+
+        // Touch Swipe Support für Fullscreen-Modal - Carousel Style
+        (function() {
+            let touchStartX = 0;
+            let currentTranslate = 0;
+            let isDragging = false;
+            const swipeThreshold = window.innerWidth * 0.2; // 20% der Bildschirmbreite
+            
+            const modal = document.getElementById("fullscreenModal");
+            const track = modal.querySelector('.swipe-track');
+            
+            modal.addEventListener('touchstart', function(e) {
+                if (!modal.classList.contains('show')) return;
+                touchStartX = e.touches[0].clientX;
+                isDragging = true;
+                track.style.transition = 'none';
+            }, { passive: true });
+            
+            modal.addEventListener('touchmove', function(e) {
+                if (!isDragging) return;
+                const currentX = e.touches[0].clientX;
+                const diff = currentX - touchStartX;
+                
+                // Basis-Position ist -100vw (mittlerer Slide)
+                // Track bewegt sich 1:1 mit dem Finger
+                currentTranslate = diff;
+                const baseOffset = -window.innerWidth; // -100vw in Pixeln
+                track.style.transform = `translateX(${baseOffset + diff}px)`;
+            }, { passive: true });
+            
+            modal.addEventListener('touchend', function(e) {
+                if (!isDragging) return;
+                isDragging = false;
+                
+                track.style.transition = 'transform 0.3s ease-out';
+                
+                if (currentTranslate < -swipeThreshold) {
+                    // Nach links gewischt → nächstes Bild
+                    track.style.transform = `translateX(-200vw)`;
+                    setTimeout(() => {
+                        currentProjectIndex = (currentProjectIndex + 1) % allProjectItems.length;
+                        updateAllSlides();
+                        resetSwipeTrack();
+                    }, 300);
+                } else if (currentTranslate > swipeThreshold) {
+                    // Nach rechts gewischt → vorheriges Bild
+                    track.style.transform = `translateX(0)`;
+                    setTimeout(() => {
+                        currentProjectIndex = (currentProjectIndex - 1 + allProjectItems.length) % allProjectItems.length;
+                        updateAllSlides();
+                        resetSwipeTrack();
+                    }, 300);
+                } else {
+                    // Nicht weit genug - zurück zur Mitte
+                    track.style.transform = `translateX(-100vw)`;
+                }
+                
+                currentTranslate = 0;
+            }, { passive: true });
+            
+            // Touch cancel behandeln
+            modal.addEventListener('touchcancel', function() {
+                isDragging = false;
+                track.style.transition = 'transform 0.3s ease-out';
+                track.style.transform = `translateX(-100vw)`;
+                currentTranslate = 0;
+            }, { passive: true });
+        })();
+
+        // Handle LQIP fade-in - REMOVED (Handled by inline critical script now)
+        /*
+        document.addEventListener('DOMContentLoaded', function() {
+            const gridImages = document.querySelectorAll('.main-container li img');
+            gridImages.forEach(img => {
+                const li = img.closest('li');
+                if (img.complete) {
+                    li.classList.add('loaded');
+                } else {
+                    img.addEventListener('load', () => li.classList.add('loaded'));
+                }
+            });
+        });
+        */
+
+        // Scroll Reveal Animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const revealCallback = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            };
+
+            const revealObserver = new IntersectionObserver(revealCallback, {
+                root: null,
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            const initReveal = () => {
+                const revealElements = document.querySelectorAll('.reveal');
+                revealElements.forEach(el => revealObserver.observe(el));
+            };
+            
+            // Initial call
+            initReveal();
+            
+            // Re-initialize if the grid changes (for mobile timeline)
+            const mainContainer = document.querySelector('.main-container');
+            const gridObserver = new MutationObserver(() => {
+                initReveal();
+            });
+            gridObserver.observe(mainContainer, { childList: true });
+        });
+
+
+        // Schließen des Modals durch Klick auf den Hintergrund
+        document.getElementById("fullscreenModal").addEventListener("click", function(event) {
+            const target = event.target;
+            // Schließen wenn man auf den Hintergrund klickt (Modal, Slide-Bereich oder Bild)
+            if (target === this || 
+                target.id === "fullscreenImage" ||
+                target.classList.contains('swipe-slide') ||
+                target.classList.contains('swipe-track')) {
+                closeFullscreen();
+            }
+        });
+
+        // Chronologische Sortierung für mobile Ansicht
+        function sortProjectsChronologically() {
+            const mainContainer = document.querySelector('.main-container');
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile && !mainContainer.classList.contains('chronological-sorted')) {
+                // Sammle alle Projekte mit ihren Jahren
+                const allProjects = [];
+                const columns = mainContainer.querySelectorAll('div');
+                
+                columns.forEach((column, columnIndex) => {
+                    const categoryTitle = column.querySelector('h2');
+                    const projects = column.querySelectorAll('li');
+                    
+                    projects.forEach(project => {
+                        // Versuche zuerst Datenattribute zu verwenden
+                        const dataYear = project.getAttribute('data-year');
+                        const dataMonth = project.getAttribute('data-month');
+                        
+                        let year, month;
+                        if (dataYear) {
+                            year = parseInt(dataYear);
+                            month = dataMonth ? parseInt(dataMonth) : 12; // Default: Dezember
+                        } else {
+                            // Fallback: Text-Parsing aus dem neuen title-meta Element
+                            const titleMeta = project.querySelector('.title-meta');
+                            const metaText = titleMeta ? titleMeta.textContent : '';
+                            const yearMatch = metaText.match(/(\d{4})/);
+                            year = yearMatch ? parseInt(yearMatch[1]) : 0;
+                            month = 12; // Default
+                        }
+                        
+                        allProjects.push({
+                            element: project.cloneNode(true),
+                            year: year,
+                            month: month,
+                            category: categoryTitle.textContent,
+                            originalColumn: columnIndex
+                        });
+                    });
+                });
+                
+                // Sortiere chronologisch: Jahr, dann Monat
+                allProjects.sort((a, b) => {
+                    // Primär nach Jahr (neueste zuerst)
+                    if (b.year !== a.year) {
+                        return b.year - a.year;
+                    }
+                    
+                    // Sekundär nach Monat (neueste Premieren zuerst)
+                    return b.month - a.month;
+                });
+                
+                // Erstelle neue einspaltige Struktur
+                mainContainer.innerHTML = '';
+                mainContainer.style.gridTemplateColumns = '1fr';
+                
+                const singleColumn = document.createElement('div');
+                
+                const projectList = document.createElement('ul');
+                projectList.style.listStyleType = 'none';
+                projectList.style.padding = '0';
+                
+                allProjects.forEach((project, index) => {
+                    const li = project.element;
+                    
+                    // Reset loading/fetch priority for all items first
+                    const img = li.querySelector('img');
+                    if (img) {
+                        // Default for list items: lazy and low priority
+                        img.setAttribute('loading', 'lazy');
+                        img.setAttribute('fetchpriority', 'low');
+                        
+                        // BUT: The first 4 items in the new timeline get high priority
+                        if (index < 4) {
+                            img.setAttribute('loading', 'eager');
+                            img.setAttribute('fetchpriority', 'high');
+                            // Remove reveal class for instant visibility
+                            li.classList.remove('reveal');
+                        } else {
+                            // Ensure reveal class is present for others
+                            li.classList.add('reveal');
+                        }
+                    }
+
+                    // Kategorie in Meta-Info anzeigen (statt Badge über Bild)
+                    const titleMeta = li.querySelector('.title-meta');
+                    if (titleMeta) {
+                        // Prüfen ob schon da, um Doppelung zu vermeiden
+                        if (!titleMeta.getAttribute('data-category-added')) {
+                             titleMeta.textContent = `${project.category} • ${titleMeta.textContent}`;
+                             titleMeta.setAttribute('data-category-added', 'true');
+                        }
+                    }
+
+                    projectList.appendChild(li);
+                });
+                
+                singleColumn.appendChild(projectList);
+                mainContainer.appendChild(singleColumn);
+                mainContainer.classList.add('chronological-sorted');
+                
+            } else if (!isMobile && mainContainer.classList.contains('chronological-sorted')) {
+                // Lade die Seite neu für Desktop-Ansicht
+                location.reload();
+            }
+        }
+
+        // Back to Top Funktionalität mit Scroll-Prozent
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        const percentSpan = backToTopBtn.querySelector('.percent');
+        
+        function updateScrollPercent() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = Math.round((scrollTop / docHeight) * 100);
+            
+            if (scrollTop > 300) {
+                backToTopBtn.classList.add('show');
+                percentSpan.textContent = scrollPercent + '%';
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        }
+        
+        window.addEventListener('scroll', updateScrollPercent);
+        
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Führe Sortierung beim Laden und bei Fenstergrößen-Änderungen aus
+        window.addEventListener('load', sortProjectsChronologically);
+        window.addEventListener('resize', function() {
+            // Debounce für bessere Performance
+            clearTimeout(window.resizeTimeout);
+            window.resizeTimeout = setTimeout(sortProjectsChronologically, 250);
+        });
+    </script>
+    <footer>
+        <p style="text-align: center; margin-top: 20px;">
+            © 2026 Susanne Uhl. Alle Rechte vorbehalten.
+            <a href="impressum.html" style="color: #333333; text-decoration: none; margin-left: 10px;">Impressum</a>
+        </p>
+    </footer>
+
+<script>
+(function() {
+  // Fade-in on load
+  function markLoaded() {
+    document.body.classList.add('is-loaded');
+    document.body.classList.remove('is-exiting');
+  }
+
+  // Ensure correct state when coming from bfcache
+  window.addEventListener('pageshow', markLoaded);
+  document.addEventListener('DOMContentLoaded', markLoaded);
+
+  // Intercept internal navigation to fade out
+  document.addEventListener('click', function(e) {
+    const a = e.target.closest && e.target.closest('a');
+    if (!a) return;
+
+    // Ignore modified clicks / new tab
+    if (e.defaultPrevented) return;
+    if (e.button !== 0) return;
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+    const href = a.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+    if (a.target && a.target !== '_self') return;
+
+    // Only same-origin navigations
+    let url;
+    try {
+      url = new URL(href, window.location.href);
+    } catch {
+      return;
+    }
+    if (url.origin !== window.location.origin) return;
+
+    // If it's the same page with just a hash, don't animate
+    const sameDoc = (url.pathname === window.location.pathname) && (url.search === window.location.search);
+    if (sameDoc && url.hash) return;
+
+    e.preventDefault();
+    document.body.classList.add('is-exiting');
+
+    // Small delay for fade-out
+    window.setTimeout(function() {
+      window.location.href = url.href;
+    }, 260);
+  }, true);
+})();
+</script>
+
+<script>
+// Hamburger Menu Toggle
+(function() {
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
+  const header = document.querySelector('.sticky-header');
+  
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', function() {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('active');
+      if (header) header.classList.toggle('menu-open');
+    });
+    
+    // Close menu when clicking a link
+    document.querySelectorAll('.header-nav-link').forEach(function(link) {
+      link.addEventListener('click', function() {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('active');
+        if (header) header.classList.remove('menu-open');
+      });
+    });
+  }
+})();
+</script>
+
+<script>
+(function() {
+  const preloadVisible = () => {
+    const images = Array.from(document.querySelectorAll('.main-container li img'));
+    images.forEach((img, idx) => {
+      if (idx < 9) {
+        img.loading = 'eager';
+        img.fetchPriority = 'high';
+      } else {
+        img.loading = 'lazy';
+        img.fetchPriority = 'low';
+      }
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', preloadVisible);
+  } else {
+    preloadVisible();
+  }
+})();
+</script>
+
+<script src="scripts/depth-effect.js"></script>
+
+</body>
+</html>
+

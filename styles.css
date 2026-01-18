@@ -12,6 +12,25 @@ body {
     width: 100%;
 }
 
+body.page-pink {
+    background-color: #ff4fc5;
+    color: #1a1a1a;
+}
+
+body.page-pink .sticky-header {
+    mix-blend-mode: normal !important;
+    color: #1a1a1a;
+}
+
+body.page-pink .header-nav-link {
+    color: #1a1a1a;
+}
+
+body.page-pink .header-nav-link:hover,
+body.page-pink .header-nav-link.active {
+    color: #1a1a1a;
+}
+
 html {
     overflow-x: hidden;
     width: 100%;
@@ -1655,5 +1674,10 @@ body.page-contact .hamburger span {
     /* Dark Mode Placeholder für Bilder (gegen weiße Ränder) */
     .main-container li .image-wrapper {
         background-color: #222;
+    }
+    
+    body.page-pink {
+        background-color: #ff4fc5;
+        color: #1a1a1a;
     }
 }

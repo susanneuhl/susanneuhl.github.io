@@ -80,7 +80,10 @@
 
 <script>
 (function() {
-  // Fade-in on load
+  // Prüfe ob der Browser native View Transitions unterstützt
+  var hasViewTransitions = CSS.supports && CSS.supports('view-transition-name', 'none');
+
+  // Fade-in on load (nur als Fallback wenn keine View Transitions)
   function markLoaded() {
     document.body.classList.add('is-loaded');
     document.body.classList.remove('is-exiting');
@@ -91,40 +94,43 @@
   document.addEventListener('DOMContentLoaded', markLoaded);
 
   // Intercept internal navigation to fade out
-  document.addEventListener('click', function(e) {
-    const a = e.target.closest && e.target.closest('a');
-    if (!a) return;
+  // Nur wenn View Transitions NICHT unterstützt werden
+  if (!hasViewTransitions) {
+    document.addEventListener('click', function(e) {
+      const a = e.target.closest && e.target.closest('a');
+      if (!a) return;
 
-    // Ignore modified clicks / new tab
-    if (e.defaultPrevented) return;
-    if (e.button !== 0) return;
-    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      // Ignore modified clicks / new tab
+      if (e.defaultPrevented) return;
+      if (e.button !== 0) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
 
-    const href = a.getAttribute('href');
-    if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
-    if (a.target && a.target !== '_self') return;
+      const href = a.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+      if (a.target && a.target !== '_self') return;
 
-    // Only same-origin navigations
-    let url;
-    try {
-      url = new URL(href, window.location.href);
-    } catch {
-      return;
-    }
-    if (url.origin !== window.location.origin) return;
+      // Only same-origin navigations
+      let url;
+      try {
+        url = new URL(href, window.location.href);
+      } catch {
+        return;
+      }
+      if (url.origin !== window.location.origin) return;
 
-    // If it's the same page with just a hash, don't animate
-    const sameDoc = (url.pathname === window.location.pathname) && (url.search === window.location.search);
-    if (sameDoc && url.hash) return;
+      // If it's the same page with just a hash, don't animate
+      const sameDoc = (url.pathname === window.location.pathname) && (url.search === window.location.search);
+      if (sameDoc && url.hash) return;
 
-    e.preventDefault();
-    document.body.classList.add('is-exiting');
+      e.preventDefault();
+      document.body.classList.add('is-exiting');
 
-    // Small delay for fade-out
-    window.setTimeout(function() {
-      window.location.href = url.href;
-    }, 260);
-  }, true);
+      // Small delay for fade-out
+      window.setTimeout(function() {
+        window.location.href = url.href;
+      }, 260);
+    }, true);
+  }
 })();
 </script>
 

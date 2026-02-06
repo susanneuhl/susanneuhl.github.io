@@ -80,10 +80,55 @@ html {
 }
 
 /* ============================
-   Seitenwechsel Fade (wie erdengoldschmiede)
-   - nur aktiv wenn JS läuft
+   View Transitions API (native Seitenwechsel)
+   - Opt-in für Browser mit Cross-Document Support (Chrome 126+)
+   - Sanftes Fade + leichter Scale statt Blur (performanter)
+============================ */
+@view-transition {
+    navigation: auto;
+}
+
+::view-transition-old(root) {
+    animation: vt-fade-out 420ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+::view-transition-new(root) {
+    animation: vt-fade-in 420ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes vt-fade-out {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+}
+
+@keyframes vt-fade-in {
+    from {
+        opacity: 0;
+        transform: scale(1.02);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation: none;
+    }
+}
+
+/* ============================
+   Seitenwechsel Fade (JS-Fallback)
+   - nur aktiv wenn JS läuft UND View Transitions nicht unterstützt
    - respektiert prefers-reduced-motion
-   - mit subtilen Blur-Effekt
 ============================ */
 .js body {
     opacity: 0;
@@ -104,6 +149,21 @@ html {
 @media (prefers-reduced-motion: reduce) {
     .js body {
         transition: none;
+    }
+}
+
+/* Wenn View Transitions unterstützt werden, JS-Fallback deaktivieren */
+@supports (view-transition-name: none) {
+    .js body {
+        opacity: 1;
+        transform: none;
+        filter: none;
+        transition: none;
+    }
+    .js body.is-exiting {
+        opacity: 1;
+        transform: none;
+        filter: none;
     }
 }
 
@@ -1149,12 +1209,14 @@ body.page-contact .hamburger span {
 }
 
 /* ============================
-   Scroll Reveal
+   Scroll Reveal (subtil & gestaffelt)
    ============================ */
 .reveal {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    transform: translateY(30px);
+    transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-delay: var(--reveal-delay, 0s);
     will-change: opacity, transform;
     /* Performance: Defer layout for off-screen items */
     content-visibility: auto;
@@ -1164,6 +1226,14 @@ body.page-contact .hamburger span {
 .reveal.is-visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal {
+        transition: none;
+        opacity: 1;
+        transform: none;
+    }
 }
 
 /* ============================

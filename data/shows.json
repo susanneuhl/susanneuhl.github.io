@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-02-18T07:03:51.740406",
+  "last_updated": "2026-02-19T07:02:37.087470",
   "shows": {
     "dumme-jahre": {
       "title": "Dumme Jahre",
@@ -70,12 +70,6 @@
       "image": "images/thumbs/krieg-und-frieden.jpg",
       "base_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/",
       "events": [
-        {
-          "date": "2026-02-18 16:00",
-          "display_date": "18.02.2026",
-          "display_time": "16:00",
-          "ticket_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/"
-        },
         {
           "date": "2026-02-21 17:00",
           "display_date": "21.02.2026",

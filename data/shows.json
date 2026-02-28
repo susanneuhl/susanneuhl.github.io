@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-02-27T06:57:51.939064",
+  "last_updated": "2026-02-28T06:41:24.204014",
   "shows": {
     "dumme-jahre": {
       "title": "Dumme Jahre",
@@ -13,12 +13,25 @@
     "sankt-falstaff": {
       "title": "Sankt Falstaff",
       "theater": "Theater Bonn",
-      "director": null,
-      "author": null,
-      "duration": null,
+      "director": "Tilmann Köhler",
+      "author": "Ewald Palmetshofer",
+      "duration": "3h 30min (1 Pause)",
       "image": "images/sankt-falstaff.jpg",
       "base_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets",
-      "events": []
+      "events": [
+        {
+          "date": "2026-03-15 16:00",
+          "display_date": "15.03.2026",
+          "display_time": "16:00",
+          "ticket_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets"
+        },
+        {
+          "date": "2026-04-11 18:30",
+          "display_date": "11.04.2026",
+          "display_time": "18:30",
+          "ticket_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets"
+        }
+      ]
     },
     "der-komet": {
       "title": "Der Komet",
@@ -33,6 +46,12 @@
           "date": "2026-03-07 19:30",
           "display_date": "07.03.2026",
           "display_time": "19:30",
+          "ticket_url": "https://www.staatsschauspiel-dresden.de/spielplan/a-z/der-komet/"
+        },
+        {
+          "date": "2026-04-12 19:00",
+          "display_date": "12.04.2026",
+          "display_time": "19:00",
           "ticket_url": "https://www.staatsschauspiel-dresden.de/spielplan/a-z/der-komet/"
         }
       ]
@@ -63,12 +82,6 @@
       "image": "images/thumbs/krieg-und-frieden.jpg",
       "base_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/",
       "events": [
-        {
-          "date": "2026-02-27 17:00",
-          "display_date": "27.02.2026",
-          "display_time": "17:00",
-          "ticket_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/"
-        },
         {
           "date": "2026-03-14 17:00",
           "display_date": "14.03.2026",

@@ -627,6 +627,31 @@ dialog .close {
     text-align: left; /* Linksbündig statt Blocksatz */
 }
 
+.language-switch {
+    margin: 0 0 28px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #777;
+}
+
+.language-switch a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.language-switch a:hover,
+.language-switch a.active,
+.language-switch a[aria-current="page"] {
+    color: rgb(179, 118, 118);
+}
+
+.language-switch span {
+    margin: 0 0.35rem;
+}
+
 /* Profilfoto auf About-Seite */
 .profile-photo {
     position: relative;
@@ -1493,6 +1518,11 @@ body.page-contact .hamburger span {
     
     .page-about .biography p {
         margin-bottom: 25px; /* Mehr Luft */
+    }
+
+    .page-about .language-switch {
+        color: #aaa;
+        margin-bottom: 32px;
     }
 }
 

@@ -92,7 +92,7 @@
     <script>
         // Fallback-Daten für lokale Vorschau (wenn fetch wegen CORS blockiert wird)
         const fallbackData = {
-          "last_updated": "2026-01-09T21:00:29.212421",
+          "last_updated": "2026-03-10T06:53:59.879194",
           "shows": {
             "dumme-jahre": {
               "title": "Dumme Jahre",
@@ -113,14 +113,14 @@
               "base_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets",
               "events": [
                 {
-                  "date": "2026-01-16 18:30",
-                  "display_date": "16.01.2026",
-                  "display_time": "18:30",
+                  "date": "2026-03-15 16:00",
+                  "display_date": "15.03.2026",
+                  "display_time": "16:00",
                   "ticket_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets"
                 },
                 {
-                  "date": "2026-02-06 18:30",
-                  "display_date": "06.02.2026",
+                  "date": "2026-04-11 18:30",
+                  "display_date": "11.04.2026",
                   "display_time": "18:30",
                   "ticket_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets"
                 }
@@ -134,7 +134,14 @@
               "duration": "2h 40min (1 Pause)",
               "image": "images/der-komet.jpg",
               "base_url": "https://tickets.staatsschauspiel-dresden.de/webshop/webticket/eventlist?production=709",
-              "events": []
+              "events": [
+                {
+                  "date": "2026-04-12 19:00",
+                  "display_date": "12.04.2026",
+                  "display_time": "19:00",
+                  "ticket_url": "https://www.staatsschauspiel-dresden.de/spielplan/a-z/der-komet/"
+                }
+              ]
             },
             "undine": {
               "title": "Undine",
@@ -158,28 +165,10 @@
               "theater": "Düsseldorfer Schauspielhaus",
               "director": "Tilmann Köhler",
               "author": "Lew Tolstoi / Armin Petras",
-              "duration": "ca. 5h (2 Pausen)",
+              "duration": "5h 30min",
               "image": "images/thumbs/krieg-und-frieden.jpg",
               "base_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/",
               "events": [
-                {
-                  "date": "2026-02-18 16:00",
-                  "display_date": "18.02.2026",
-                  "display_time": "16:00",
-                  "ticket_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/"
-                },
-                {
-                  "date": "2026-02-21 17:00",
-                  "display_date": "21.02.2026",
-                  "display_time": "17:00",
-                  "ticket_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/"
-                },
-                {
-                  "date": "2026-02-27 17:00",
-                  "display_date": "27.02.2026",
-                  "display_time": "17:00",
-                  "ticket_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/"
-                },
                 {
                   "date": "2026-03-14 17:00",
                   "display_date": "14.03.2026",
@@ -213,12 +202,6 @@
                 {
                   "date": "2026-05-14 15:00",
                   "display_date": "14.05.2026",
-                  "display_time": "15:00",
-                  "ticket_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/"
-                },
-                {
-                  "date": "2026-05-24 15:00",
-                  "display_date": "24.05.2026",
                   "display_time": "15:00",
                   "ticket_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/"
                 },
@@ -357,9 +340,12 @@
                     const eventContent = document.createElement('div');
                     eventContent.className = 'event-content';
                     
-                    // Header Wrapper für Titel und Ort
+                    // Header Wrapper für Titel und Metadaten
                     const eventHeader = document.createElement('div');
                     eventHeader.className = 'event-header';
+
+                    const eventMeta = document.createElement('div');
+                    eventMeta.className = 'event-meta';
 
                     // Titel und Theater
                     const eventTitle = document.createElement('div');
@@ -371,14 +357,14 @@
                     eventLocation.textContent = show.theater;
                     
                     eventHeader.appendChild(eventTitle);
-                    eventHeader.appendChild(eventLocation);
+                    eventMeta.appendChild(eventLocation);
 
                     // Autor hinzufügen, falls vorhanden
                     if (show.author) {
                         const eventAuthor = document.createElement('div');
                         eventAuthor.className = 'event-author';
                         eventAuthor.textContent = `von ${show.author}`;
-                        eventHeader.appendChild(eventAuthor);
+                        eventMeta.appendChild(eventAuthor);
                     }
 
                     // Regie hinzufügen, falls vorhanden
@@ -386,7 +372,7 @@
                         const eventDirector = document.createElement('div');
                         eventDirector.className = 'event-director';
                         eventDirector.textContent = `Regie: ${show.director}`;
-                        eventHeader.appendChild(eventDirector);
+                        eventMeta.appendChild(eventDirector);
                     }
 
                     // Dauer hinzufügen, falls vorhanden
@@ -394,8 +380,10 @@
                         const eventDuration = document.createElement('div');
                         eventDuration.className = 'event-duration';
                         eventDuration.textContent = `Dauer: ${show.duration}`;
-                        eventHeader.appendChild(eventDuration);
+                        eventMeta.appendChild(eventDuration);
                     }
+
+                    eventHeader.appendChild(eventMeta);
 
                     eventContent.appendChild(eventHeader);
                     
@@ -428,6 +416,7 @@
                             const ticketLink = document.createElement('a');
                             ticketLink.href = event.ticket_url;
                             ticketLink.target = '_blank';
+                            ticketLink.rel = 'noopener noreferrer';
                             ticketLink.className = 'date-ticket-link';
                             ticketLink.textContent = 'Tickets';
                             

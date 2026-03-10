@@ -980,27 +980,40 @@ body.page-contact .hamburger span {
 /* Events-Container */
 #event-calendar {
     max-width: 1200px;
-    margin: 80px auto 40px auto; /* Mehr Abstand oben, da Titel weg ist */
+    margin: 56px auto 40px auto;
     padding: 0 20px;
     background: transparent;
+}
+
+.desktop-dates-title {
+    display: block;
+    margin: 0 0 44px;
+    color: rgba(255, 255, 255, 0.66);
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    line-height: 1;
+    text-transform: uppercase;
 }
 
 /* Neue Listen-Ansicht statt Grid */
 .events-list {
     display: flex;
     flex-direction: column;
-    gap: 60px; /* Großzügiger Abstand zwischen den Einträgen */
-    margin-bottom: 60px;
+    gap: 52px;
+    margin-bottom: 56px;
     background: transparent;
 }
 
 /* Event-Karte im Editorial Look */
 .event-card {
     display: grid;
-    grid-template-columns: 350px 1fr; /* Bild fix, Text flexibel */
-    gap: 40px;
-    padding-bottom: 60px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Feine Trennlinie */
+    grid-template-columns: minmax(330px, 420px) minmax(360px, 520px);
+    align-items: start;
+    gap: 48px;
+    padding-bottom: 52px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     position: relative;
     /* content-visibility: auto; - Kann Layout-Probleme verursachen bei komplexen Grids, daher erst mal raus */
 }
@@ -1019,18 +1032,17 @@ body.page-contact .hamburger span {
 .event-image-wrapper img {
     width: 100%;
     height: auto;
-    max-height: 400px; /* Reduziert von 480px für stärkeren Beschnitt */
+    max-height: 430px;
     display: block;
     object-fit: cover;
-    object-position: center 30%; /* Fokus leicht oberhalb der Mitte, schneidet oben und unten */
-    /* Keine Border-Radius mehr -> Edgy Look */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    transition: transform 0.4s ease, filter 0.4s ease;
+    object-position: center 30%;
+    box-shadow: none;
+    transition: none;
 }
 
 .event-card:hover .event-image-wrapper img {
-    transform: scale(1.02);
-    filter: brightness(1.1);
+    transform: none;
+    filter: none;
 }
 
 /* Content-Bereich (rechts) */
@@ -1038,129 +1050,150 @@ body.page-contact .hamburger span {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding-top: 0; /* Align top mit Bild */
+    max-width: 520px;
+    padding-top: 0;
 }
 
 /* Header Bereich: Titel & Ort */
 .event-header {
-    margin-bottom: 30px;
+    margin-bottom: 22px;
 }
 
 .event-title {
     color: white;
-    font-size: 2.5em; /* Sehr groß, Editorial Style */
+    font-size: 2.35em;
     font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 600;
-    line-height: 1.1;
-    margin-bottom: 8px;
-    letter-spacing: -0.02em;
+    line-height: 1.02;
+    margin-bottom: 12px;
+    letter-spacing: -0.03em;
+}
+
+.event-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 14px;
+    align-items: baseline;
 }
 
 .event-location {
-    color: rgb(179, 118, 118); /* Akzentfarbe (Pink) */
-    font-size: 1.1em;
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    color: rgba(221, 182, 182, 0.9);
+    font-size: 0.98em;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
 }
 
 .event-author {
-    color: #999;
-    font-size: 1.1em;
+    color: #919191;
+    font-size: 0.98em;
     font-weight: 400;
-    margin-top: 4px;
+    margin-top: 0;
     letter-spacing: 0;
+    line-height: 1.45;
 }
 
 .event-director {
-    color: #999;
-    font-size: 1.1em;
+    color: #878787;
+    font-size: 0.92em;
     font-weight: 400;
-    margin-top: 4px;
+    margin-top: 0;
     letter-spacing: 0;
+    line-height: 1.45;
 }
 
 .event-duration {
-    color: #999;
-    font-size: 1.1em;
+    color: #7d7d7d;
+    font-size: 0.9em;
     font-weight: 400;
-    margin-top: 4px;
+    margin-top: 0;
     letter-spacing: 0;
+    line-height: 1.45;
 }
 
 /* Termin-Liste: Clean & Simple */
 .event-dates {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .event-date {
     display: flex;
-    align-items: baseline; /* Textausrichtung */
+    align-items: baseline;
     justify-content: flex-start;
-    gap: 20px;
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    transition: background-color 0.2s ease;
+    gap: 16px;
+    padding: 12px 0 11px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    transition: none;
 }
 
 .event-date:hover {
-    background-color: rgba(255, 255, 255, 0.02);
+    background-color: transparent;
+}
+
+.event-date:last-child {
+    border-bottom: none;
 }
 
 .date-info {
     display: flex;
     align-items: baseline;
-    gap: 15px;
+    gap: 14px;
     flex-grow: 1;
+    min-width: 0;
 }
 
 .date-day {
-    font-weight: 600;
+    font-weight: 500;
     color: white;
-    font-size: 1.1em;
-    min-width: 100px; /* Ausrichtung */
+    font-size: 1rem;
+    min-width: 8.5rem;
+    letter-spacing: -0.01em;
 }
 
 .date-time {
-    font-size: 1em;
-    color: #888;
+    font-size: 0.95rem;
+    color: #8f8f8f;
 }
 
-/* Ticket Button als eleganter Link */
+/* Ticket-Link bewusst zurückhaltend halten */
 .date-ticket-link {
-    color: white;
+    color: rgba(255, 255, 255, 0.78);
     text-decoration: none;
-    font-size: 0.9em;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 6px 12px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    transition: all 0.3s ease;
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    padding: 0 0 1px;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.24);
+    white-space: nowrap;
+    transition: color 0.2s ease, border-color 0.2s ease;
 }
 
 .date-ticket-link:hover {
-    background-color: white;
-    color: #1a1a1a;
-    border-color: white;
+    background-color: transparent;
+    color: white;
+    border-color: rgba(255, 255, 255, 0.56);
 }
 
 .no-events {
     text-align: left;
-    color: #666;
-    font-style: italic;
-    padding: 20px 0;
+    color: #727272;
+    font-style: normal;
+    padding: 6px 0 0;
 }
 
 .last-updated {
     text-align: left;
-    color: #555;
-    font-size: 0.8em;
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #666;
+    font-size: 0.75em;
+    margin-top: 52px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    letter-spacing: 0.01em;
 }
 
 /* ============================
@@ -1169,39 +1202,54 @@ body.page-contact .hamburger span {
 @media (max-width: 900px) {
     /* Tablet/Mobile Breakpoint für Stack-Ansicht */
     .event-card {
-        grid-template-columns: 1fr; /* Stack: Bild oben, Text unten */
-        gap: 25px;
-        padding-bottom: 50px;
+        grid-template-columns: 1fr;
+        gap: 22px;
+        padding-bottom: 42px;
     }
     
     .event-image-wrapper {
         width: 100%;
         max-width: none;
     }
+
+    .event-content {
+        max-width: none;
+    }
     
     .event-title {
-        font-size: 2em; /* Etwas kleiner auf Mobile */
+        font-size: 1.95em;
+        max-width: none;
     }
     
     .event-header {
-        margin-bottom: 20px;
+        margin-bottom: 16px;
+    }
+
+    .event-meta {
+        gap: 4px 12px;
     }
     
     .date-info {
-        flex-direction: row; /* Immer noch nebeneinander wenn möglich */
-        justify-content: space-between;
-        width: 100%;
+        flex-direction: row;
+        justify-content: flex-start;
+        width: auto;
+        flex-wrap: wrap;
     }
     
     .event-date {
-        flex-wrap: wrap; /* Umbruch erlauben wenn zu eng */
-        gap: 10px;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 10px 14px;
+    }
+
+    .date-day {
+        min-width: auto;
     }
     
     .date-ticket-link {
-        width: 100%;
-        text-align: center;
-        margin-top: 5px;
+        width: auto;
+        text-align: left;
+        margin-top: 0;
     }
 }
 
@@ -1684,11 +1732,11 @@ body.page-contact .hamburger span {
         color: rgb(179, 118, 118); /* Konstant Rosa */
         font-family: 'Hanken Grotesk', sans-serif;
         font-weight: 800; /* Extra Bold */
-        font-size: 4rem;
+        font-size: 3.6rem;
         margin-top: 0;
-        margin-bottom: 30px; /* Weniger Abstand zum Content */
-        padding-top: 20px; /* Kleiner Abstand vom Header */
-        letter-spacing: -0.05em;
+        margin-bottom: 36px;
+        padding-top: 16px;
+        letter-spacing: -0.045em;
         line-height: 0.9;
         text-align: left;
         margin-left: -2px;
@@ -1707,9 +1755,8 @@ body.page-contact .hamburger span {
         display: none;
     }
     
-    /* Desktop Title Style */
     .desktop-dates-title {
-        display: none; /* Titel auf Desktop komplett ausgeblendet */
+        display: block;
     }
 }
 

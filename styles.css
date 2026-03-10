@@ -892,34 +892,29 @@ dialog .close {
     text-align: justify;
 }
 
-/* Desktop Page Contact & Dates Styles */
+/* Desktop Contact Styles */
 @media (min-width: 769px) {
-    body.page-contact,
-    body.page-dates {
+    body.page-contact {
         background-color: #1a1a1a;
     }
     
-    body.page-contact footer,
-    body.page-dates footer {
+    body.page-contact footer {
         background-color: #1a1a1a;
         color: #888;
         padding-top: 20px;
     }
     
-    body.page-contact footer p,
-    body.page-dates footer p {
+    body.page-contact footer p {
         color: #888;
     }
     
     body.page-contact footer a,
-    body.page-dates footer a,
     body.page-about footer a {
         color: #888 !important;
         text-decoration: none;
     }
     
     body.page-contact footer a:hover,
-    body.page-dates footer a:hover,
     body.page-about footer a:hover {
         color: rgb(179, 118, 118) !important;
     }
@@ -940,35 +935,89 @@ body.page-contact .hamburger span {
     background-color: white !important;
 }
 
-/* Desktop Only: Lock Header on Dates Page (Fix Pink Hover) */
+/* Desktop Dates Page in light mode */
 @media (min-width: 769px) {
-    body.page-dates .sticky-header {
-        mix-blend-mode: difference !important; /* Ganzer Header invertiert */
-        color: white !important;
+    body.page-dates {
+        background-color: #efefef;
+        color: #1a1a1a;
     }
 
-    /* Auf schwarzem Hintergrund (#1a1a1a):
-       Weiß (255,255,255) - Schwarz (26,26,26) = (229,229,229) -> Sehr helles Grau/Weiß. Passt.
-    */
+    body.page-dates footer {
+        background-color: transparent;
+        color: #888;
+        padding-top: 20px;
+    }
 
-    /* Für Rosa Hover (#B37676 = 179, 118, 118):
-       Wir wollen, dass das Ergebnis auf Schwarz (#1a1a1a = 26, 26, 26) Rosa ist.
-       Formel: |Background - Farbe| = Ziel
-       |26 - X| = 179 -> X muss negativ sein (geht nicht) oder 26 - X = -179 -> X = 205.
-       
-       Also: Farbe = Ziel + Background
-       R: 179 + 26 = 205
-       G: 118 + 26 = 144
-       B: 118 + 26 = 144
-       
-       Farbe, die wir setzen müssen: rgb(205, 144, 144) -> Ein helleres Rosa/Lachs.
-       Wenn wir diese Farbe als Hover setzen, wird sie auf dem schwarzen Hintergrund (#1a1a1a) durch 'difference' zu unserem gewünschten Dunkelrosa (#B37676).
-    */
+    body.page-dates footer p {
+        color: #888;
+    }
 
-    body.page-dates .header-nav-link:hover,
-    body.page-dates .header-nav-link.active {
-        /* Berechnete Farbe damit es auf Dark Mode (#1a1a1a) wie unser Standard-Rosa aussieht */
-        color: rgb(205, 144, 144) !important; 
+    body.page-dates footer a {
+        color: #333333 !important;
+        text-decoration: none;
+    }
+
+    body.page-dates footer a:hover {
+        color: rgb(179, 118, 118) !important;
+    }
+
+    body.page-dates .event-card {
+        border-bottom: 1px solid rgba(26, 26, 26, 0.09);
+    }
+
+    body.page-dates .event-title {
+        color: #1a1a1a;
+    }
+
+    body.page-dates .event-location {
+        color: rgb(179, 118, 118);
+    }
+
+    body.page-dates .event-author {
+        color: #6f6f6f;
+    }
+
+    body.page-dates .event-director {
+        color: #767676;
+    }
+
+    body.page-dates .event-duration {
+        color: #7f7f7f;
+    }
+
+    body.page-dates .event-dates {
+        border-top: 1px solid rgba(26, 26, 26, 0.08);
+    }
+
+    body.page-dates .event-date {
+        border-bottom: 1px solid rgba(26, 26, 26, 0.06);
+    }
+
+    body.page-dates .date-day {
+        color: #1a1a1a;
+    }
+
+    body.page-dates .date-time {
+        color: #777;
+    }
+
+    body.page-dates .date-ticket-link {
+        color: rgba(26, 26, 26, 0.72);
+        border-bottom: 1px solid rgba(26, 26, 26, 0.18);
+    }
+
+    body.page-dates .date-ticket-link:hover {
+        color: rgb(179, 118, 118);
+        border-color: rgba(179, 118, 118, 0.45);
+    }
+
+    body.page-dates .no-events {
+        color: #7b7b7b;
+    }
+
+    body.page-dates .last-updated {
+        color: #7b7b7b;
+        border-top: 1px solid rgba(26, 26, 26, 0.08);
     }
 }
 
@@ -1070,6 +1119,12 @@ body.page-contact .hamburger span {
 }
 
 .event-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.event-meta-row {
     display: flex;
     flex-wrap: wrap;
     gap: 4px 14px;
@@ -1226,6 +1281,10 @@ body.page-contact .hamburger span {
     }
 
     .event-meta {
+        gap: 2px;
+    }
+
+    .event-meta-row {
         gap: 4px 12px;
     }
     

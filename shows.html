@@ -346,6 +346,10 @@
 
                     const eventMeta = document.createElement('div');
                     eventMeta.className = 'event-meta';
+                    const eventMetaPrimary = document.createElement('div');
+                    eventMetaPrimary.className = 'event-meta-row';
+                    const eventMetaSecondary = document.createElement('div');
+                    eventMetaSecondary.className = 'event-meta-row';
 
                     // Titel und Theater
                     const eventTitle = document.createElement('div');
@@ -357,14 +361,14 @@
                     eventLocation.textContent = show.theater;
                     
                     eventHeader.appendChild(eventTitle);
-                    eventMeta.appendChild(eventLocation);
+                    eventMetaPrimary.appendChild(eventLocation);
 
                     // Autor hinzufügen, falls vorhanden
                     if (show.author) {
                         const eventAuthor = document.createElement('div');
                         eventAuthor.className = 'event-author';
                         eventAuthor.textContent = `von ${show.author}`;
-                        eventMeta.appendChild(eventAuthor);
+                        eventMetaPrimary.appendChild(eventAuthor);
                     }
 
                     // Regie hinzufügen, falls vorhanden
@@ -372,7 +376,7 @@
                         const eventDirector = document.createElement('div');
                         eventDirector.className = 'event-director';
                         eventDirector.textContent = `Regie: ${show.director}`;
-                        eventMeta.appendChild(eventDirector);
+                        eventMetaSecondary.appendChild(eventDirector);
                     }
 
                     // Dauer hinzufügen, falls vorhanden
@@ -380,9 +384,13 @@
                         const eventDuration = document.createElement('div');
                         eventDuration.className = 'event-duration';
                         eventDuration.textContent = `Dauer: ${show.duration}`;
-                        eventMeta.appendChild(eventDuration);
+                        eventMetaSecondary.appendChild(eventDuration);
                     }
 
+                    eventMeta.appendChild(eventMetaPrimary);
+                    if (eventMetaSecondary.children.length > 0) {
+                        eventMeta.appendChild(eventMetaSecondary);
+                    }
                     eventHeader.appendChild(eventMeta);
 
                     eventContent.appendChild(eventHeader);

@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-04-11T07:03:26.895667",
+  "last_updated": "2026-04-12T07:17:37.141757",
   "shows": {
     "dumme-jahre": {
       "title": "Dumme Jahre",
@@ -18,14 +18,7 @@
       "duration": "3h 30min (1 Pause)",
       "image": "images/sankt-falstaff.jpg",
       "base_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets",
-      "events": [
-        {
-          "date": "2026-04-11 18:30",
-          "display_date": "11.04.2026",
-          "display_time": "18:30",
-          "ticket_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets"
-        }
-      ]
+      "events": []
     },
     "der-komet": {
       "title": "Der Komet",

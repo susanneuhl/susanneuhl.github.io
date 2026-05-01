@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-04-30T08:24:15.600397",
+  "last_updated": "2026-05-01T08:13:23.702518",
   "shows": {
     "dumme-jahre": {
       "title": "Dumme Jahre",
@@ -51,14 +51,7 @@
       "duration": "2 3/4h (1 Pause)",
       "image": "images/undine.jpg",
       "base_url": "https://www.oper-leipzig.de/de/ensemble/person/susanne-uhl/1902",
-      "events": [
-        {
-          "date": "2026-04-30 19:30",
-          "display_date": "30.04.2026",
-          "display_time": "19:30",
-          "ticket_url": "https://www.oper-leipzig.de/de/ensemble/person/susanne-uhl/1902"
-        }
-      ]
+      "events": []
     },
     "krieg-und-frieden": {
       "title": "Krieg und Frieden",

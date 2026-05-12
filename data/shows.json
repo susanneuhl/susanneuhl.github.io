@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-05-11T09:42:47.629323",
+  "last_updated": "2026-05-12T08:43:30.769235",
   "shows": {
     "dumme-jahre": {
       "title": "Dumme Jahre",
@@ -23,25 +23,12 @@
     "der-komet": {
       "title": "Der Komet",
       "theater": "Staatsschauspiel Dresden",
-      "director": "Tilmann Köhler",
-      "author": "Durs Grünbein",
-      "duration": "2h 40min (1 Pause)",
+      "director": null,
+      "author": null,
+      "duration": null,
       "image": "images/der-komet.jpg",
       "base_url": "https://tickets.staatsschauspiel-dresden.de/webshop/webticket/eventlist?production=709",
-      "events": [
-        {
-          "date": "2026-05-27 19:30",
-          "display_date": "27.05.2026",
-          "display_time": "19:30",
-          "ticket_url": "https://www.staatsschauspiel-dresden.de/spielplan/a-z/der-komet/"
-        },
-        {
-          "date": "2026-06-01 19:30",
-          "display_date": "01.06.2026",
-          "display_time": "19:30",
-          "ticket_url": "https://www.staatsschauspiel-dresden.de/spielplan/a-z/der-komet/"
-        }
-      ]
+      "events": []
     },
     "undine": {
       "title": "Undine",
@@ -56,31 +43,12 @@
     "krieg-und-frieden": {
       "title": "Krieg und Frieden",
       "theater": "Düsseldorfer Schauspielhaus",
-      "director": "Tilmann Köhler",
-      "author": "Lew Tolstoi / Armin Petras",
-      "duration": "ca. 6h (2 Pausen)",
+      "director": null,
+      "author": null,
+      "duration": null,
       "image": "images/thumbs/krieg-und-frieden.jpg",
       "base_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/",
-      "events": [
-        {
-          "date": "2026-05-14 15:00",
-          "display_date": "14.05.2026",
-          "display_time": "15:00",
-          "ticket_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/"
-        },
-        {
-          "date": "2026-06-12 17:00",
-          "display_date": "12.06.2026",
-          "display_time": "17:00",
-          "ticket_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/"
-        },
-        {
-          "date": "2026-07-04 17:00",
-          "display_date": "04.07.2026",
-          "display_time": "17:00",
-          "ticket_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/"
-        }
-      ]
+      "events": []
     }
   }
 }

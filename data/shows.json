@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-01T11:38:12.022724",
+  "last_updated": "2026-06-02T10:26:37.050245",
   "shows": {
     "dumme-jahre": {
       "title": "Dumme Jahre",
@@ -28,14 +28,7 @@
       "duration": "2h 40min (1 Pause)",
       "image": "images/der-komet.jpg",
       "base_url": "https://tickets.staatsschauspiel-dresden.de/webshop/webticket/eventlist?production=709",
-      "events": [
-        {
-          "date": "2026-06-01 19:30",
-          "display_date": "01.06.2026",
-          "display_time": "19:30",
-          "ticket_url": "https://www.staatsschauspiel-dresden.de/spielplan/a-z/der-komet/"
-        }
-      ]
+      "events": []
     },
     "undine": {
       "title": "Undine",

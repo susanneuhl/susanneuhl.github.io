@@ -1,0 +1,26 @@
+---
+alwaysApply: true
+---
+
+---
+description: Review visual coherence before finalising changes
+alwaysApply: true
+---
+
+# Visual Quality Gate
+
+Before finalising any visual or front-end change, review whether it improves the coherence of the whole site, not just the local component.
+
+Check:
+- typography hierarchy
+- spacing rhythm and consistency
+- alignment and proportions
+- image prominence and cropping
+- desktop/mobile balance
+- consistency with the site's existing editorial tone
+
+Refine rough or merely acceptable solutions before stopping.
+
+Do not introduce isolated visual ideas that look interesting on their own but weaken the overall character of the site.
+
+Do not proactively suggest additional redesign ideas, new style directions, or broader visual changes unless the user asks for them or the current solution would otherwise remain visibly weak.

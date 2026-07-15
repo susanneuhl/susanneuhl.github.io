@@ -5,5 +5,7 @@ Beispiel madebysix copy.txt
 *.pyc
 __pycache__
 .vscode
-.cursor
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**/*.mdc
 *.log

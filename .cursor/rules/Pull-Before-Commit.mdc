@@ -1,0 +1,16 @@
+---
+alwaysApply: true
+---
+
+---
+description: Avoid calendar update conflicts before commits
+alwaysApply: true
+---
+
+# Pull Before Commit
+
+This repo may receive automated calendar updates on `main`.
+
+Before committing or pushing, first check whether `origin/main` is ahead and pull the latest changes, preferably with rebase, to avoid conflicts.
+
+Do not mix unrelated calendar updates into the user's commit unless explicitly requested.

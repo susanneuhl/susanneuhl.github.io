@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-18T07:52:38.037389",
+  "last_updated": "2026-07-19T08:21:23.860224",
   "shows": {
     "dumme-jahre": {
       "title": "Dumme Jahre",
@@ -13,9 +13,9 @@
     "sankt-falstaff": {
       "title": "Sankt Falstaff",
       "theater": "Theater Bonn",
-      "director": "Tilmann Köhler",
-      "author": "Ewald Palmetshofer",
-      "duration": "3h 30min (1 Pause)",
+      "director": null,
+      "author": null,
+      "duration": null,
       "image": "images/sankt-falstaff.jpg",
       "base_url": "https://www.theater-bonn.de/de/programm/sankt-falstaff/221198#dates-and-tickets",
       "events": []

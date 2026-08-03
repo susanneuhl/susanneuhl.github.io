@@ -1304,10 +1304,10 @@ body.page-contact .hamburger span {
     }
 }
 
-/* Desktop: Die "About" Überschrift ausblenden, da wir sie nur mobil wollen */
+/* Desktop: "About"-Titel unter dem Foto ebenfalls zeigen (Stil via .page-title) */
 @media (min-width: 769px) {
     .mobile-about-title {
-        display: none;
+        display: block;
     }
 }
 
@@ -1554,28 +1554,19 @@ body.page-work footer a:hover {
 /* ============================
    Seitentitel Desktop (einheitlich auf allen Unterseiten)
    ============================ */
-h2.page-title {
-    color: rgb(179, 118, 118);
-    font-family: 'Hanken Grotesk', sans-serif;
-    font-weight: 800;
-    font-size: 2.6rem;
-    letter-spacing: -0.03em;
-    line-height: 1;
-    text-align: left;
-    margin: 0 0 40px;
-}
-
-/* About: Titel bündig mit der linken Kante des Fotos */
-.page-title-about {
-    margin-bottom: 24px;
-}
-
-/* Mobil zeigt About stattdessen .mobile-about-title */
-@media (max-width: 768px) {
-    .page-title-about {
-        display: none;
+@media (min-width: 769px) {
+    h2.page-title {
+        color: rgb(179, 118, 118);
+        font-family: 'Hanken Grotesk', sans-serif;
+        font-weight: 800;
+        font-size: 2.6rem;
+        letter-spacing: -0.03em;
+        line-height: 1;
+        text-align: left;
+        margin: 0 0 40px;
     }
 }
+
 
 /* Scroll-Fokus: Sättigung abhängig vom Abstand zur Bildschirmmitte.
    Aktiv nur mit JS (.focus-effect) – ohne JS bleibt alles vollfarbig.

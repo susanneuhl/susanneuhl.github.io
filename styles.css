@@ -56,18 +56,39 @@ body {
 }
 
 /* Globaler Footer (gilt für alle Seiten) */
-footer p {
-    color: #888;
+.site-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    margin-top: 80px;
+    padding: 24px 40px 32px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 0.8rem;
+    letter-spacing: 0.01em;
+    color: #777;
 }
 
-footer a {
-    color: #888 !important;
+.site-footer p {
+    margin: 0;
+    color: inherit;
+}
+
+.site-footer a {
+    color: #999;
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
-footer a:hover {
-    color: rgb(179, 118, 118) !important;
+.site-footer a:hover {
+    color: rgb(179, 118, 118);
+}
+
+@media (max-width: 600px) {
+    .site-footer {
+        margin-top: 56px;
+        padding: 20px 20px 28px;
+    }
 }
 
 body.page-pink {

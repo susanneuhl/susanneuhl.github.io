@@ -1051,6 +1051,116 @@ def scrape_buehnen_bern_ewige_sonne():
 
     return clean_and_sort_events(events), director, duration, author
 
+def scrape_oper_frankfurt_flavio():
+    """Scrape Flavio dates from Oper Frankfurt"""
+    events = []
+    director = None
+    duration = None
+    author = None
+
+    url = "https://oper-frankfurt.de/de/spielplan/flavio/"
+
+    try:
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'de-DE,de;q=0.9,en;q=0.8',
+            'Cache-Control': 'no-cache'
+        }
+
+        time.sleep(random.uniform(1, 3))
+
+        response = requests.get(url, headers=headers, timeout=20)
+        response.raise_for_status()
+
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        # Komponist aus dem Artikel-Header ("Georg Friedrich Händel 1685–1759")
+        composer_el = soup.select_one('.article-header h4')
+        if composer_el:
+            author = re.sub(r'\s*\d{4}\s*[–-].*$', '', composer_el.get_text(' ', strip=True)).strip() or None
+
+        # Inszenierung und Dauer stehen als dt/dd-Paare in Definitionslisten
+        for dt in soup.find_all('dt'):
+            label = dt.get_text(strip=True)
+            dd = dt.find_next_sibling('dd')
+            if not dd:
+                continue
+            if label == 'Inszenierung' and not director:
+                director = dd.get_text(' ', strip=True).replace('\xa0', ' ')
+            elif label == 'Dauer' and not duration:
+                duration = re.sub(r'\s+', ' ', dd.get_text(' ', strip=True).replace('\xa0', ' '))
+
+        # Kalender: eine Spalte pro Monat, Tages-Links tragen eine id_datum
+        date_entries = []
+        for col in soup.select('.calendar-column'):
+            header_el = col.select_one('.column-header')
+            if not header_el:
+                continue
+            header_match = re.match(
+                r'([A-Za-zäöüÄÖÜ]+)\s+(\d{4})',
+                header_el.get_text(' ', strip=True).replace('\xa0', ' ')
+            )
+            if not header_match:
+                continue
+            month = MONTH_MAP.get(header_match.group(1).lower())
+            year = header_match.group(2)
+            if not month:
+                continue
+
+            for link in col.select('.list a[href*="id_datum="]'):
+                day_el = link.find('span')
+                id_match = re.search(r'id_datum=(\d+)', link.get('href', ''))
+                if not day_el or not id_match:
+                    continue
+                day_match = re.search(r'(\d{1,2})', day_el.get_text())
+                if not day_match:
+                    continue
+                date_entries.append({
+                    'day': day_match.group(1).zfill(2),
+                    'month': month,
+                    'year': year,
+                    'ticket_url': f"https://oper-frankfurt.de/de/spielplan/flavio/?id_datum={id_match.group(1)}#date"
+                })
+
+        # Die Uhrzeit steht nur auf der Detailseite des jeweiligen Termins ("Beginn")
+        for entry in date_entries:
+            try:
+                time.sleep(random.uniform(0.5, 1.5))
+                detail = requests.get(entry['ticket_url'], headers=headers, timeout=20)
+                detail.raise_for_status()
+                detail_soup = BeautifulSoup(detail.content, 'html.parser')
+
+                time_str = None
+                for dt in detail_soup.select('#infodata dt'):
+                    if dt.get_text(strip=True) == 'Beginn':
+                        dd = dt.find_next_sibling('dd')
+                        if dd:
+                            time_str = extract_time(dd.get_text(' ', strip=True))
+                        break
+                if not time_str:
+                    continue
+
+                datetime_str = f"{entry['year']}-{entry['month']}-{entry['day']} {time_str}"
+                if datetime.strptime(datetime_str, "%Y-%m-%d %H:%M") <= datetime.now():
+                    continue
+
+                events.append({
+                    "date": datetime_str,
+                    "display_date": f"{entry['day']}.{entry['month']}.{entry['year']}",
+                    "display_time": time_str,
+                    "ticket_url": entry['ticket_url']
+                })
+                print(f"Found Flavio date: {entry['day']}.{entry['month']}.{entry['year']} {time_str}")
+            except Exception as e:
+                print(f"Error parsing Oper Frankfurt date detail: {e}")
+                continue
+
+    except Exception as e:
+        print(f"Error scraping Oper Frankfurt: {e}")
+
+    return clean_and_sort_events(events), director, duration, author
+
 def main():
     """Main scraping function"""
     try:
@@ -1060,8 +1170,15 @@ def main():
         komet_events, komet_director, komet_duration, komet_author = scrape_staatsschauspiel_dresden()
         undine_events, undine_director, undine_duration, undine_author = scrape_oper_leipzig()
         krieg_frieden_events, krieg_frieden_director, krieg_frieden_duration, krieg_frieden_author = scrape_dhaus_krieg_und_frieden()
-        der_frieden_events, der_frieden_director, der_frieden_duration, der_frieden_author = scrape_staatstheater_cottbus_der_frieden()
-        ewige_sonne_events, ewige_sonne_director, ewige_sonne_duration, ewige_sonne_author = scrape_buehnen_bern_ewige_sonne()
+        # Der Frieden & Ewige Sonne: derzeit komplett deaktiviert (Aug 2026) –
+        # kein Scrape, auf der Website ausgeblendet via "listed": False.
+        # Zum Reaktivieren: die beiden Aufrufe wieder einkommentieren, die
+        # statischen Werte dadurch ersetzen und "listed" auf True setzen.
+        # der_frieden_events, der_frieden_director, der_frieden_duration, der_frieden_author = scrape_staatstheater_cottbus_der_frieden()
+        # ewige_sonne_events, ewige_sonne_director, ewige_sonne_duration, ewige_sonne_author = scrape_buehnen_bern_ewige_sonne()
+        der_frieden_events, der_frieden_director, der_frieden_duration, der_frieden_author = [], "Christina Friedrich", None, "Peter Hacks"
+        ewige_sonne_events, ewige_sonne_director, ewige_sonne_duration, ewige_sonne_author = [], "Tilmann Köhler", None, "Charles Ferdinand Ramuz"
+        flavio_events, flavio_director, flavio_duration, flavio_author = scrape_oper_frankfurt_flavio()
         
         shows_data = {
             "last_updated": datetime.now().isoformat(),
@@ -1123,6 +1240,8 @@ def main():
                     "duration": der_frieden_duration,
                     "image": "images/thumbs/der-frieden.jpg",
                     "base_url": "https://www.staatstheater-cottbus.de/de/programm/repertoire/artikel-der_frieden.html",
+                    "listed": False,
+                    "note": "Termine folgen in Kürze",
                     "events": der_frieden_events
                 },
                 "ewige-sonne": {
@@ -1133,7 +1252,19 @@ def main():
                     "duration": ewige_sonne_duration,
                     "image": "images/thumbs/ewige-sonne.jpg",
                     "base_url": "https://buehnenbern.ch/spielplan/programm/ewige-sonne/",
+                    "listed": False,
+                    "note": "Termine folgen in Kürze",
                     "events": ewige_sonne_events
+                },
+                "flavio": {
+                    "title": "Flavio",
+                    "theater": "Oper Frankfurt",
+                    "director": flavio_director,
+                    "author": flavio_author,
+                    "duration": flavio_duration,
+                    "image": "images/thumbs/flavio.jpg",
+                    "base_url": "https://oper-frankfurt.de/de/spielplan/flavio/",
+                    "events": flavio_events
                 }
             }
         }
@@ -1205,6 +1336,8 @@ def main():
                     "duration": None,
                     "image": "images/thumbs/der-frieden.jpg",
                     "base_url": "https://www.staatstheater-cottbus.de/de/programm/repertoire/artikel-der_frieden.html",
+                    "listed": False,
+                    "note": "Termine folgen in Kürze",
                     "events": []
                 },
                 "ewige-sonne": {
@@ -1215,11 +1348,23 @@ def main():
                     "duration": None,
                     "image": "images/thumbs/ewige-sonne.jpg",
                     "base_url": "https://buehnenbern.ch/spielplan/programm/ewige-sonne/",
+                    "listed": False,
+                    "note": "Termine folgen in Kürze",
+                    "events": []
+                },
+                "flavio": {
+                    "title": "Flavio",
+                    "theater": "Oper Frankfurt",
+                    "director": None,
+                    "author": None,
+                    "duration": None,
+                    "image": "images/thumbs/flavio.jpg",
+                    "base_url": "https://oper-frankfurt.de/de/spielplan/flavio/",
                     "events": []
                 }
             }
         }
-        
+
         os.makedirs('data', exist_ok=True)
         with open('data/shows.json', 'w', encoding='utf-8') as f:
             json.dump(fallback_data, f, ensure_ascii=False, indent=2)

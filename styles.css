@@ -91,25 +91,6 @@ body {
     }
 }
 
-body.page-pink {
-    background-color: #ff4fc5;
-    color: #1a1a1a;
-}
-
-body.page-pink .sticky-header {
-    mix-blend-mode: normal !important;
-    color: #1a1a1a;
-}
-
-body.page-pink .header-nav-link {
-    color: #1a1a1a;
-}
-
-body.page-pink .header-nav-link:hover,
-body.page-pink .header-nav-link.active {
-    color: #1a1a1a;
-}
-
 html {
     overflow-x: hidden;
     width: 100%;
@@ -224,99 +205,6 @@ h1 span {
     color: #666;
 }
 
-hr {
-    width: 75%;
-    height: 2px;
-    background-color: #333333;
-    margin: 0 auto 30px auto;
-}
-
-/* ============================
-   Grid-Layout
-============================ */
-.vita {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.project-column {
-    text-align: center;
-}
-
-.project-column h2 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-    color: #333333;
-}
-
-/* ============================
-   Projekte / Bilder
-============================ */
-.project-column ul {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-.project-column ul li {
-    margin-bottom: 20px;
-    overflow: hidden;
-    border-radius: 0;
-}
-
-.project-column ul li a {
-    position: relative;
-    display: block;
-    text-decoration: none;
-    overflow: hidden;
-    border-radius: 0;
-}
-
-/* Bilddarstellung mit fester Größe */
-.project-column ul li a img {
-    width: 180px;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
-}
-
-.project-column ul li a:hover img {
-    transform: scale(1.2); /* Bild wird sofort vergrößert */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); /* Schattierung verstärkt sich */
-    filter: blur(1px); /* Leichter Blur-Effekt */
-    transition-delay: 0.4s; /* Blur kommt später */
-}
-
-/* ============================
-   Elegantes Hover Overlay (Perfekt Zentriert mit Verzögerung)
-============================ */
-.project-column ul li a .overlay {
-    position: absolute;
-    inset: 0; /* Overlay exakt über dem Bild positionieren */
-    background-color: rgba(0, 0, 0, 0.3); /* Transparenter gemacht */
-    color: white;
-    opacity: 0; /* Unsichtbar bis Hover */
-    display: flex;
-    align-items: center; /* Vertikal zentriert */
-    justify-content: center; /* Horizontal zentriert */
-    text-align: center;
-    font-size: 0.85em;
-    padding: 10px;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    transition-delay: 0.4s; /* Verzögerung, damit das Bild zuerst skaliert */
-    border-radius: 0;
-}
-
-.project-column ul li a:hover .overlay {
-    opacity: 1;
-    transform: scale(1.08); /* Leichter Zoom-Effekt beim Einblenden */
-}
-
 /* Fotografen-Credits in Bildern */
 .image-credit {
     position: absolute;
@@ -329,36 +217,6 @@ hr {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
     pointer-events: none;
     z-index: 2;
-}
-
-/* ============================
-   Modal Styling
-============================ */
-dialog::backdrop {
-    background-color: rgba(0, 0, 0, 0.8);
-}
-
-dialog {
-    border: none;
-    border-radius: 0;
-    padding: 0;
-    max-width: 80%;
-    max-height: 80%;
-}
-
-dialog img {
-    width: 100%;
-    height: auto;
-    border-radius: 0;
-}
-
-dialog .close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    color: white;
-    font-size: 30px;
-    cursor: pointer;
 }
 
 /* ============================
@@ -405,7 +263,7 @@ dialog .close {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-left: 0;
+    margin-left: 40px;
     pointer-events: auto;
     /* Reset */
     mix-blend-mode: normal;
@@ -588,65 +446,6 @@ dialog .close {
 }
 
 /* ============================
-   About-Seite: Allgemeine Stile
-============================ */
-.about-section, .vita-section, .contact-section {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 0 20px;
-    line-height: 1.6;
-    color: #e0e0e0;
-}
-
-.about-section h1, .vita-section h2, .contact-section h2 {
-    color: #ffffff;
-    font-family: 'Hanken Grotesk', sans-serif;
-    font-weight: 600;
-    margin-bottom: 20px;
-    letter-spacing: -0.02em;
-}
-
-.about-section p, .contact-section p {
-    margin-bottom: 20px;
-}
-
-.vita-section ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.vita-section ul li {
-    margin-bottom: 10px;
-    font-size: 1em;
-}
-
-.contact-section a {
-    color: #ffffff;
-    text-decoration: none;
-    transition: color 0.2s ease;
-}
-
-.contact-section a:hover {
-    color: rgb(179, 118, 118); /* Rosa bei Hover */
-    text-decoration: none;
-}
-
-/* Überschriften für Schauspiel, Oper und Film */
-.main-container h2 {
-    color: #888; /* Wie .title-meta (Theaternamen) */
-    font-family: 'Hanken Grotesk', sans-serif;
-    font-weight: 400; /* Regular, wie .title-meta */
-    font-style: normal;
-    font-size: 0.9em; /* Dezent, ähnlich wie .title-meta aber lesbar als Head */
-    margin-bottom: 20px;
-    text-align: left; /* Linksbündig passend zu den Projekt-Infos */
-    letter-spacing: 0;
-    text-transform: none; /* Kein Uppercase mehr */
-    padding-bottom: 5px;
-    border-bottom: 1px solid transparent; /* Platzhalter */
-}
-
-/* ============================
    Biografie-Abschnitt
 ============================ */
 .biography {
@@ -734,29 +533,6 @@ dialog .close {
         aspect-ratio: auto;
         height: auto;
     }
-}
-
-/* ============================
-   Website Button Styling
-============================ */
-.website-btn {
-    background-color: #1a1a1a !important; /* Schwarz Standard */
-    border: none;
-    color: white; 
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 0.9em;
-    border-radius: 0; /* Eckig für Clean Look */
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 5px;
-    align-self: flex-start;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.website-btn:hover {
-    background-color: rgb(179, 118, 118) !important; /* Rosa Hintergrund beim Hover */
-    color: white;
 }
 
 /* ============================
@@ -918,42 +694,6 @@ dialog .close {
 .copy-feedback.visible {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
-}
-
-/* Legacy .contact class für andere Seiten falls noch vorhanden */
-.contact {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 0 20px;
-    text-align: justify;
-}
-
-/* Desktop Contact Styles */
-@media (min-width: 769px) {
-    body.page-contact {
-        background-color: #1a1a1a;
-    }
-    
-    body.page-contact footer {
-        background-color: #1a1a1a;
-        color: #888;
-        padding-top: 20px;
-    }
-    
-    body.page-contact footer p {
-        color: #888;
-    }
-    
-    body.page-contact footer a,
-    body.page-about footer a {
-        color: #888 !important;
-        text-decoration: none;
-    }
-    
-    body.page-contact footer a:hover,
-    body.page-about footer a:hover {
-        color: rgb(179, 118, 118) !important;
-    }
 }
 
 /* Header Fixes for Contact Page (Always Dark Background) */
@@ -1262,17 +1002,6 @@ body.page-contact .hamburger span {
     }
 }
 
-/* HEADER-ÜBERSCHRIFTEN (Redundant entfernt) */
-
-
-.header-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-left: 40px;
-}
-/* Feinjustierung: Bereichsüberschriften angleichen - REMOVED (oben definiert) */
-/* .header-nav-link Block entfernt, da oben definiert */
 @media (max-width: 600px) {
   .sticky-header {
     flex-direction: row;
@@ -1712,14 +1441,6 @@ body.page-contact .hamburger span {
     }
 }
 
-/* Legacy .contact class für andere Seiten falls noch vorhanden */
-.contact {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 0 20px;
-    text-align: justify;
-}
-
 /* ============================
    Mobile Dates Page (Redesign)
    ============================ */
@@ -1850,81 +1571,236 @@ body.page-work .main-container.focus-effect li:hover .image-wrapper {
 }
 
 /* ============================
-   Mobile Index Page (Redesign) - Dark Mode Global
-   ============================ */
+   Work-Grid (Index): Layout, Masonry, Modal, Back-to-Top
+   (aus dem Inline-<style> von index.html ausgelagert)
+============================ */
+html {
+    scroll-behavior: smooth;
+}
+
+.main-container {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.main-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.main-container li {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    margin-bottom: 20px;
+    break-inside: avoid;
+}
+
+.main-container li img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+}
+
+/* CSS-Columns-Fallback (aktiv ohne JS) */
+.main-container .projects-list {
+    columns: 3;
+    column-gap: 20px;
+}
+
+/* JS-Masonry: Spalten mit echter Links-nach-rechts-Reihenfolge */
+.main-container .masonry-cols {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.main-container .masonry-col {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-container .masonry-col li {
+    margin-bottom: 0;
+}
+
+@media (max-width: 1024px) {
+    .main-container .projects-list {
+        columns: 2;
+    }
+}
+
 @media (max-width: 768px) {
-    /* Schwarzer Hintergrund global */
-    body {
-        background-color: #1a1a1a;
-        color: white;
+    .main-container .projects-list {
+        columns: 1;
     }
 
-    /* Filter Buttons auf Schwarz optimieren */
-    .filter-button {
-        color: #888; /* Inaktiv grau */
-    }
-    
-    .filter-button.active {
-        color: white; /* Aktiv weiß */
-    }
-    
-    .filter-button:hover {
-        color: rgb(179, 118, 118); /* Hover Pink */
+    .main-container li {
+        margin-bottom: 15px;
     }
 
-    /* Projekt-Titel unter Bildern */
-    .project-title .title-main {
-        color: white; /* Weiß statt Schwarz */
+    .main-container li img {
+        max-height: 300px;
     }
-    
-    .project-title:hover .title-main {
-        color: rgb(179, 118, 118) !important; /* Pink bei Hover */
-    }
+}
 
-    .project-title .title-meta {
-        color: #aaa; /* Helleres Grau für bessere Lesbarkeit auf Schwarz */
+@media (min-width: 1700px) {
+    .main-container {
+        max-width: 1800px;
+        padding-left: 28px;
+        padding-right: 28px;
     }
+}
 
-    /* Rubrik-Überschriften (Schauspiel, Oper...) */
-    .main-container h2 {
-        color: #888; /* Grau dezenter */
-    }
-    
-    /* Footer anpassen */
-    footer p {
-        color: #888;
-    }
-    
-    footer a {
-        color: #888 !important;
-        text-decoration: none;
-    }
+/* Fullscreen-Modal mit Swipe-Galerie */
+#fullscreenModal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+}
 
-    /* Impressum Dark Mode */
-    .impressum, 
-    .impressum h1, 
-    .impressum h2,
-    .impressum p {
-        color: white;
-    }
-    
-    .impressum a {
-        color: white;
-        border-bottom-color: rgba(255, 255, 255, 0.3);
-    }
-    
-    .impressum a:hover {
-        color: rgb(179, 118, 118);
-        border-bottom-color: rgb(179, 118, 118);
-    }
+#fullscreenModal.show {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
 
-    /* Dark Mode Placeholder für Bilder (gegen weiße Ränder) */
-    .main-container li .image-wrapper {
-        background-color: #222;
+/* Swipe Track - Carousel-Style für 3 Slides nebeneinander */
+.swipe-track {
+    display: flex;
+    width: 300vw;
+    height: 100vh;
+    /* Absolute Positionierung umgeht die Flexbox-Zentrierung des Eltern-Elements */
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translateX(-100vw); /* Starte beim mittleren Slide */
+    transition: transform 0.3s ease-out;
+    will-change: transform;
+}
+
+.swipe-slide {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.swipe-slide img {
+    max-width: 95vw;
+    max-height: 95vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 0;
+    background: #333;
+}
+
+/* Loading indicator while image loads */
+.swipe-slide img:not([src=""]):not([src]):before {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.swipe-slide .image-credit {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 1001;
+}
+
+#fullscreenModal #modalCredit {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 1001;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    color: white;
+    font-size: 2em;
+    cursor: pointer;
+    z-index: 10000;
+}
+
+/* Back to Top – reduziert: schlichter Pfeil, kein Zähler */
+#backToTopBtn {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 999;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+#backToTopBtn:hover {
+    color: rgb(179, 118, 118);
+    border-color: rgb(179, 118, 118);
+}
+
+#backToTopBtn.show {
+    display: flex;
+    animation: fadeInUp 0.3s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
     }
-    
-    body.page-pink {
-        background-color: #ff4fc5;
-        color: #1a1a1a;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

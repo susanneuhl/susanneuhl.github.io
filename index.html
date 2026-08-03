@@ -954,6 +954,44 @@
     </script>
 
     <script>
+        // Scroll-Fokus: Sättigung und Helligkeit jedes Bildes hängen vom
+        // Abstand zur vertikalen Bildschirmmitte ab (Verlauf, kein Umschalten).
+        // Hover zeigt Vollfarbe. Ohne JS / bei reduced-motion: alles vollfarbig.
+        (function() {
+            var container = document.querySelector('.main-container');
+            if (!container) return;
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+            container.classList.add('focus-effect');
+            var items = Array.from(container.querySelectorAll('li'));
+            var ticking = false;
+
+            function update() {
+                ticking = false;
+                var vh = window.innerHeight;
+                var center = vh / 2;
+                items.forEach(function(li) {
+                    var r = li.getBoundingClientRect();
+                    if (r.bottom < -100 || r.top > vh + 100) return; // weit außerhalb: überspringen
+                    var d = Math.min(Math.abs(r.top + r.height / 2 - center) / (vh * 0.55), 1);
+                    li.style.setProperty('--focus-sat', (1 - d * 0.8).toFixed(3)); // 1.0 in Mitte → 0.2 am Rand
+                    li.style.setProperty('--focus-bri', (1 - d * 0.12).toFixed(3)); // 1.0 in Mitte → 0.88 am Rand
+                });
+            }
+
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    ticking = true;
+                    requestAnimationFrame(update);
+                }
+            }, { passive: true });
+            window.addEventListener('resize', update);
+            window.addEventListener('load', update);
+            update();
+        })();
+    </script>
+
+    <script>
         // Critical: Handle Image Loading State immediately to prevent flash of blurred content
         (function() {
             // Run this ASAP

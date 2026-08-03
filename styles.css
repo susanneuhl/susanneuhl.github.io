@@ -1817,6 +1817,17 @@ body.page-work footer a:hover {
     color: rgb(179, 118, 118) !important;
 }
 
+/* Scroll-Fokus: Sättigung abhängig vom Abstand zur Bildschirmmitte.
+   Aktiv nur mit JS (.focus-effect) – ohne JS bleibt alles vollfarbig.
+   Die Stärke steuert JS pro Bild über --focus-sat / --focus-bri. */
+body.page-work .main-container.focus-effect .image-wrapper {
+    filter: saturate(var(--focus-sat, 1)) brightness(var(--focus-bri, 1));
+}
+
+body.page-work .main-container.focus-effect li:hover .image-wrapper {
+    filter: none;
+}
+
 /* ============================
    Mobile Index Page (Redesign) - Dark Mode Global
    ============================ */

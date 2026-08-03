@@ -853,6 +853,204 @@ def scrape_dhaus_krieg_und_frieden():
         
     return clean_and_sort_events(events), director, duration, author
 
+
+def scrape_staatstheater_cottbus_der_frieden():
+    """Scrape Der Frieden dates from Staatstheater Cottbus"""
+    events = []
+    director = None
+    duration = None
+    author = None
+
+    url = "https://www.staatstheater-cottbus.de/de/programm/repertoire/artikel-der_frieden.html"
+
+    try:
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'de-DE,de;q=0.9,en;q=0.8',
+            'Cache-Control': 'no-cache'
+        }
+
+        time.sleep(random.uniform(1, 3))
+
+        response = requests.get(url, headers=headers, timeout=20)
+        response.raise_for_status()
+
+        soup = BeautifulSoup(response.content, 'html.parser')
+        page_text = soup.get_text(separator=' ')
+
+        # Author from teaser ("Von Peter Hacks")
+        author_el = soup.select_one('.teaserItemTextWrap p.fs4')
+        if author_el:
+            author_match = re.search(
+                r'Von\s+([A-ZÄÖÜ][a-zäöüß]+(?:\s+[A-ZÄÖÜ][a-zäöüß]+)+)',
+                author_el.get_text(' ', strip=True)
+            )
+            if author_match:
+                author = author_match.group(1)
+        if not author:
+            author = extract_author(page_text)
+
+        # Director from cast list ("Regie und Fassung" / "Regie")
+        for dt in soup.find_all(class_='dt'):
+            label = dt.get_text(strip=True)
+            if re.search(r'^Regie', label, re.IGNORECASE):
+                dd = dt.find_next_sibling(class_='dd')
+                if dd:
+                    director = dd.get_text(strip=True)
+                    break
+        if not director:
+            director = extract_director(page_text)
+
+        duration = extract_duration(page_text)
+
+        # Structured dates: li.dateSliderPlay with title + event-time + ticket link
+        for item in soup.select('li.dateSliderPlay'):
+            try:
+                title_el = item.find(class_='title')
+                if not title_el:
+                    continue
+
+                title_text = title_el.get_text(' ', strip=True)
+                date_match = re.search(r'(\d{1,2})\.(\d{1,2})\.(\d{4})', title_text)
+                if not date_match:
+                    continue
+
+                day, month, year = date_match.groups()
+
+                time_el = item.find(class_='event-time')
+                time_str = extract_time(time_el.get_text(strip=True) if time_el else '')
+                if not time_str:
+                    time_str = extract_time(item.get_text(' ', strip=True))
+                if not time_str:
+                    continue
+
+                datetime_str = f"{year}-{month.zfill(2)}-{day.zfill(2)} {time_str}"
+                event_date = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M")
+                if event_date <= datetime.now():
+                    continue
+
+                ticket_link = item.find('a', class_=re.compile(r'event-tickets'), href=True)
+                ticket_url = ticket_link['href'] if ticket_link else url
+
+                events.append({
+                    "date": datetime_str,
+                    "display_date": f"{day.zfill(2)}.{month.zfill(2)}.{year}",
+                    "display_time": time_str,
+                    "ticket_url": ticket_url
+                })
+                print(f"Found Der Frieden date: {day}.{month}.{year} {time_str}")
+            except Exception as e:
+                print(f"Error parsing Cottbus event item: {e}")
+                continue
+
+        if not events:
+            events.extend(extract_dates_from_text(page_text, url))
+
+    except Exception as e:
+        print(f"Error scraping Staatstheater Cottbus: {e}")
+
+    return clean_and_sort_events(events), director, duration, author
+
+
+def scrape_buehnen_bern_ewige_sonne():
+    """Scrape Ewige Sonne dates from Bühnen Bern"""
+    events = []
+    director = None
+    duration = None
+    author = None
+
+    url = "https://buehnenbern.ch/spielplan/programm/ewige-sonne/"
+
+    try:
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'de-DE,de;q=0.9,en;q=0.8',
+            'Cache-Control': 'no-cache'
+        }
+
+        time.sleep(random.uniform(1, 3))
+
+        response = requests.get(url, headers=headers, timeout=20)
+        response.raise_for_status()
+
+        soup = BeautifulSoup(response.content, 'html.parser')
+        page_text = soup.get_text(separator=' ')
+
+        # Author: "von Charles Ferdinand Ramuz"
+        author_match = re.search(
+            r'von\s+(Charles\s+Ferdinand\s+Ramuz)',
+            page_text,
+            re.IGNORECASE
+        )
+        if author_match:
+            author = author_match.group(1)
+        else:
+            author = extract_author(page_text)
+
+        # Director from production team
+        for item in soup.select('.el-prod-team-item'):
+            function_el = item.find(class_='function')
+            name_el = item.find(class_='name')
+            if function_el and name_el and re.search(r'^Regie$', function_el.get_text(strip=True), re.I):
+                director = name_el.get_text(strip=True)
+                break
+        if not director:
+            director = extract_director(page_text)
+
+        duration = extract_duration(page_text)
+
+        # Only actual performances named "Ewige Sonne" (skip Apéro etc.)
+        calendar = soup.find(id='calendar') or soup
+        for item in calendar.select('.cp-calendar-item'):
+            try:
+                play_name_el = item.find(class_='play-name')
+                play_name = play_name_el.get_text(strip=True) if play_name_el else ''
+                if play_name.lower() != 'ewige sonne':
+                    continue
+
+                date_el = item.select_one('.date-info .date')
+                time_el = item.select_one('.event-info .time')
+                if not date_el or not time_el:
+                    continue
+
+                date_match = re.search(r'(\d{1,2})\.(\d{1,2})\.(\d{4})', date_el.get_text(strip=True))
+                if not date_match:
+                    continue
+
+                day, month, year = date_match.groups()
+                time_str = extract_time(time_el.get_text(strip=True))
+                if not time_str:
+                    continue
+
+                datetime_str = f"{year}-{month.zfill(2)}-{day.zfill(2)} {time_str}"
+                event_date = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M")
+                if event_date <= datetime.now():
+                    continue
+
+                ticket_link = item.select_one('.ticket-info a[href]')
+                ticket_url = ticket_link['href'] if ticket_link else url
+
+                events.append({
+                    "date": datetime_str,
+                    "display_date": f"{day.zfill(2)}.{month.zfill(2)}.{year}",
+                    "display_time": time_str,
+                    "ticket_url": ticket_url
+                })
+                print(f"Found Ewige Sonne date: {day}.{month}.{year} {time_str}")
+            except Exception as e:
+                print(f"Error parsing Bühnen Bern event item: {e}")
+                continue
+
+        if not events:
+            events.extend(extract_dates_from_text(page_text, url))
+
+    except Exception as e:
+        print(f"Error scraping Bühnen Bern: {e}")
+
+    return clean_and_sort_events(events), director, duration, author
+
 def main():
     """Main scraping function"""
     try:
@@ -862,6 +1060,8 @@ def main():
         komet_events, komet_director, komet_duration, komet_author = scrape_staatsschauspiel_dresden()
         undine_events, undine_director, undine_duration, undine_author = scrape_oper_leipzig()
         krieg_frieden_events, krieg_frieden_director, krieg_frieden_duration, krieg_frieden_author = scrape_dhaus_krieg_und_frieden()
+        der_frieden_events, der_frieden_director, der_frieden_duration, der_frieden_author = scrape_staatstheater_cottbus_der_frieden()
+        ewige_sonne_events, ewige_sonne_director, ewige_sonne_duration, ewige_sonne_author = scrape_buehnen_bern_ewige_sonne()
         
         shows_data = {
             "last_updated": datetime.now().isoformat(),
@@ -914,6 +1114,26 @@ def main():
                     "image": "images/thumbs/krieg-und-frieden.jpg",
                     "base_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/",
                     "events": krieg_frieden_events
+                },
+                "der-frieden": {
+                    "title": "Der Frieden",
+                    "theater": "Staatstheater Cottbus",
+                    "director": der_frieden_director,
+                    "author": der_frieden_author,
+                    "duration": der_frieden_duration,
+                    "image": "images/thumbs/der-frieden.jpg",
+                    "base_url": "https://www.staatstheater-cottbus.de/de/programm/repertoire/artikel-der_frieden.html",
+                    "events": der_frieden_events
+                },
+                "ewige-sonne": {
+                    "title": "Ewige Sonne",
+                    "theater": "Bühnen Bern",
+                    "director": ewige_sonne_director,
+                    "author": ewige_sonne_author,
+                    "duration": ewige_sonne_duration,
+                    "image": "images/thumbs/ewige-sonne.jpg",
+                    "base_url": "https://buehnenbern.ch/spielplan/programm/ewige-sonne/",
+                    "events": ewige_sonne_events
                 }
             }
         }
@@ -975,6 +1195,26 @@ def main():
                     "duration": None,
                     "image": "images/thumbs/krieg-und-frieden.jpg",
                     "base_url": "https://www.dhaus.de/programm/a-z/krieg-und-frieden/",
+                    "events": []
+                },
+                "der-frieden": {
+                    "title": "Der Frieden",
+                    "theater": "Staatstheater Cottbus",
+                    "director": None,
+                    "author": None,
+                    "duration": None,
+                    "image": "images/thumbs/der-frieden.jpg",
+                    "base_url": "https://www.staatstheater-cottbus.de/de/programm/repertoire/artikel-der_frieden.html",
+                    "events": []
+                },
+                "ewige-sonne": {
+                    "title": "Ewige Sonne",
+                    "theater": "Bühnen Bern",
+                    "director": None,
+                    "author": None,
+                    "duration": None,
+                    "image": "images/thumbs/ewige-sonne.jpg",
+                    "base_url": "https://buehnenbern.ch/spielplan/programm/ewige-sonne/",
                     "events": []
                 }
             }

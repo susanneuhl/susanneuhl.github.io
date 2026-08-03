@@ -45,14 +45,29 @@
    Allgemeine Stile
 ============================ */
 body {
-    background-color: #efefef;
+    background-color: #1a1a1a;
     margin: 0;
     padding-top: 80px; /* Platzhalter für den Fixed Header */
     font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    color: #1a1a1a;
+    color: #ffffff;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
     width: 100%;
+}
+
+/* Globaler Footer (gilt für alle Seiten) */
+footer p {
+    color: #888;
+}
+
+footer a {
+    color: #888 !important;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+footer a:hover {
+    color: rgb(179, 118, 118) !important;
 }
 
 body.page-pink {
@@ -173,7 +188,7 @@ h1 {
     margin: 0px 0 10px 0;
     font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 600; /* Semi-Bold für Präsenz */
-    color: #1a1a1a; /* Fast schwarz */
+    color: #ffffff;
     letter-spacing: -0.03em; /* Tight tracking für den "Modern" Look */
 }
 
@@ -559,11 +574,11 @@ dialog .close {
     margin: 40px auto;
     padding: 0 20px;
     line-height: 1.6;
-    color: #1a1a1a;
+    color: #e0e0e0;
 }
 
 .about-section h1, .vita-section h2, .contact-section h2 {
-    color: #1a1a1a; /* Schwarz statt Rosa */
+    color: #ffffff;
     font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 600;
     margin-bottom: 20px;
@@ -585,7 +600,7 @@ dialog .close {
 }
 
 .contact-section a {
-    color: #1a1a1a; /* Schwarz statt Rosa */
+    color: #ffffff;
     text-decoration: none;
     transition: color 0.2s ease;
 }
@@ -618,7 +633,7 @@ dialog .close {
     margin: 40px auto; /* Zentriert den Text horizontal */
     padding: 0 60px; /* Mehr Innenabstand links und rechts */
     line-height: 1.6; /* Angenehme Zeilenhöhe */
-    color: #1a1a1a; /* Gut lesbare Textfarbe, satteres Schwarz */
+    color: #e0e0e0; /* Helles Grau auf dunklem Grund */
     font-size: 1em; /* Standard-Schriftgröße */
 }
 
@@ -633,7 +648,7 @@ dialog .close {
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #777;
+    color: #aaa;
 }
 
 .language-switch a {
@@ -731,12 +746,12 @@ dialog .close {
     margin: 40px auto; /* Zentriert den Text horizontal */
     padding: 0 20px; /* Innenabstand links und rechts */
     line-height: 1.6; /* Angenehme Zeilenhöhe */
-    color: #1a1a1a; /* Gut lesbare Textfarbe */
+    color: #e0e0e0; /* Helles Grau auf dunklem Grund */
     font-size: 1em; /* Standard-Schriftgröße */
 }
 
 .impressum h1, .impressum h2 {
-    color: #1a1a1a; /* Schwarz statt Rosa */
+    color: #ffffff;
     font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 600;
     margin-bottom: 20px; /* Abstand nach unten */
@@ -750,9 +765,9 @@ dialog .close {
 }
 
 .impressum a {
-    color: #1a1a1a;
+    color: #ffffff;
     text-decoration: none;
-    border-bottom: 1px solid rgba(0,0,0,0.1); /* Subtile Unterstreichung */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25); /* Subtile Unterstreichung */
     transition: all 0.2s ease;
 }
 
@@ -933,92 +948,6 @@ body.page-contact .header-nav-link.active {
 
 body.page-contact .hamburger span {
     background-color: white !important;
-}
-
-/* Desktop Dates Page in light mode */
-@media (min-width: 769px) {
-    body.page-dates {
-        background-color: #efefef;
-        color: #1a1a1a;
-    }
-
-    body.page-dates footer {
-        background-color: transparent;
-        color: #888;
-        padding-top: 20px;
-    }
-
-    body.page-dates footer p {
-        color: #888;
-    }
-
-    body.page-dates footer a {
-        color: #333333 !important;
-        text-decoration: none;
-    }
-
-    body.page-dates footer a:hover {
-        color: rgb(179, 118, 118) !important;
-    }
-
-    body.page-dates .event-card {
-        border-bottom: 1px solid rgba(26, 26, 26, 0.09);
-    }
-
-    body.page-dates .event-title {
-        color: #1a1a1a;
-    }
-
-    body.page-dates .event-location {
-        color: rgb(179, 118, 118);
-    }
-
-    body.page-dates .event-author {
-        color: #6f6f6f;
-    }
-
-    body.page-dates .event-director {
-        color: #767676;
-    }
-
-    body.page-dates .event-duration {
-        color: #7f7f7f;
-    }
-
-    body.page-dates .event-dates {
-        border-top: 1px solid rgba(26, 26, 26, 0.08);
-    }
-
-    body.page-dates .event-date {
-        border-bottom: 1px solid rgba(26, 26, 26, 0.06);
-    }
-
-    body.page-dates .date-day {
-        color: #1a1a1a;
-    }
-
-    body.page-dates .date-time {
-        color: #777;
-    }
-
-    body.page-dates .date-ticket-link {
-        color: rgba(26, 26, 26, 0.72);
-        border-bottom: 1px solid rgba(26, 26, 26, 0.18);
-    }
-
-    body.page-dates .date-ticket-link:hover {
-        color: rgb(179, 118, 118);
-        border-color: rgba(179, 118, 118, 0.45);
-    }
-
-    body.page-dates .no-events {
-        color: #7b7b7b;
-    }
-
-    body.page-dates .last-updated {
-        color: #7b7b7b;
-        border-top: 1px solid rgba(26, 26, 26, 0.08);
-    }
 }
 
 /* ============================
@@ -1849,6 +1778,43 @@ body.page-contact .hamburger span {
     .mobile-impressum-title {
         display: none;
     }
+}
+
+/* ============================
+   Work-Seite (Index): Dark Mode auf allen Viewports
+   ============================ */
+body.page-work {
+    background-color: #1a1a1a;
+    color: white;
+}
+
+body.page-work .project-title .title-main {
+    color: white;
+}
+
+body.page-work .project-title:hover .title-main {
+    color: rgb(179, 118, 118) !important;
+}
+
+body.page-work .project-title .title-meta {
+    color: #aaa;
+}
+
+body.page-work .main-container li .image-wrapper {
+    background-color: #222;
+}
+
+body.page-work footer p {
+    color: #888;
+}
+
+body.page-work footer a {
+    color: #888 !important;
+    text-decoration: none;
+}
+
+body.page-work footer a:hover {
+    color: rgb(179, 118, 118) !important;
 }
 
 /* ============================

@@ -96,7 +96,7 @@
     <title>Susanne Uhl – Kostümbildnerin für Theater, Oper und Film</title>
 
     <!-- Stylesheets und Favicon -->
-    <link rel="stylesheet" href="styles.css?v=dark3">
+    <link rel="stylesheet" href="styles.css?v=dark4">
     <link rel="icon" href="favicon_custom.png" type="image/png">
 <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -639,20 +639,45 @@
             
             function initImageLoading() {
                 const images = document.querySelectorAll('.main-container li img');
+
+                // Fehler-Fallback: Scheitert die AVIF-Quelle, erzwinge das JPG.
+                // Scheitert auch das, blende das img aus – der dunkle Platzhalter
+                // bzw. das LQIP bleibt sichtbar, statt eines Broken-Image-Symbols.
+                function handleError(img) {
+                    const picture = img.closest('picture');
+                    const avifSource = picture && picture.querySelector('source[type="image/avif"]');
+                    if (avifSource && !img.dataset.jpgForced) {
+                        img.dataset.jpgForced = '1';
+                        avifSource.remove();
+                        // Neuer Query-String erzwingt eine frische Anfrage ohne AVIF-Quelle
+                        const jpg = img.getAttribute('src').split('?')[0];
+                        img.src = jpg + '?fallback=jpg';
+                    } else {
+                        img.style.opacity = '0';
+                    }
+                }
+
                 images.forEach(img => {
                     const li = img.closest('li');
                     if (!li) return;
-                    
+
+                    img.addEventListener('error', () => {
+                        li.classList.remove('is-loading');
+                        handleError(img);
+                    });
+
+                    // Bereits gescheitert, bevor dieses Skript lief (z. B. aus dem Cache)
+                    if (img.complete && img.naturalWidth === 0) {
+                        handleError(img);
+                        return;
+                    }
+
                     // If image is not complete (loading needed), mark it
                     if (!img.complete) {
                         li.classList.add('is-loading');
-                        
+
                         // Remove class when done
                         img.addEventListener('load', () => {
-                            li.classList.remove('is-loading');
-                        }, { once: true });
-                        
-                        img.addEventListener('error', () => {
                             li.classList.remove('is-loading');
                         }, { once: true });
                     }

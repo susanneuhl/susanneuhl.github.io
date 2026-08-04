@@ -1056,9 +1056,9 @@ body.page-contact .hamburger span {
     position: relative;
 }
 
-/* Gray background only for the image wrapper (LQIP placeholder) */
+/* Dark background only for the image wrapper (LQIP placeholder) */
 .main-container li .image-wrapper {
-    background-color: #e0e0e0;
+    background-color: #232323;
     overflow: hidden;
 }
 

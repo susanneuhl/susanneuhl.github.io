@@ -754,6 +754,15 @@ body.page-contact .hamburger span {
     padding-bottom: 0;
 }
 
+/* Karte ohne (ladbares) Bild: einspaltig, Content darf die volle Breite nutzen */
+.event-card--no-image {
+    grid-template-columns: minmax(360px, 640px);
+}
+
+.event-card--no-image .event-content {
+    max-width: none;
+}
+
 /* Bild-Bereich */
 .event-image-wrapper {
     width: 100%;

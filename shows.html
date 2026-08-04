@@ -26,7 +26,7 @@
     
     <title>Dates – Susanne Uhl</title>
     <link rel="canonical" href="https://susanneuhl.com/shows.html">
-    <link rel="stylesheet" href="styles.css?v=dark2">
+    <link rel="stylesheet" href="styles.css?v=dark3">
     <link rel="icon" href="favicon_custom.png" type="image/png">
     <link rel="shortcut icon" href="favicon_custom.png" type="image/png">
 
@@ -317,7 +317,7 @@
             let data;
             try {
                 // Versuche fetch (funktioniert live oder auf lokalem Server)
-                const response = await fetch('data/shows.json');
+                const response = await fetch('data/shows.json?v=' + new Date().toISOString().slice(0, 10));
                 if (!response.ok) throw new Error('Network response was not ok');
                 data = await response.json();
             } catch (error) {
@@ -412,10 +412,17 @@
                     eventImage.decoding = 'async';
                     eventImage.fetchPriority = idx < 2 ? 'high' : 'low';
 
-                    // Fallback: falls ein Thumb fehlt, nimm das Original aus shows.json
+                    // Fallback: falls ein Thumb fehlt, nimm das Original aus shows.json.
+                    // Schlägt auch das fehl, wird die Karte zur reinen Textkarte –
+                    // ein Broken-Image-Symbol wirkt auf der dunklen Seite deplatziert.
                     eventImage.onerror = () => {
-                        eventImage.onerror = null;
-                        eventImage.src = show.image;
+                        if (eventImage.dataset.retried) {
+                            eventCard.classList.add('event-card--no-image');
+                            imageWrapper.remove();
+                        } else {
+                            eventImage.dataset.retried = '1';
+                            eventImage.src = show.image;
+                        }
                     };
                     
                     eventPicture.appendChild(eventSource);

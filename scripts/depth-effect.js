@@ -309,12 +309,10 @@ class DepthEffect {
         const isMouse = window.matchMedia('(hover: hover)').matches;
         
         if (!isLargeScreen && !isMouse) {
-            console.log('Depth Effect: mobile detected, skip init');
             return;
         }
 
         const containers = document.querySelectorAll('[data-depth-map]');
-        console.log(`Depth Effect: Found ${containers.length} containers`);
         
         // Store effect instances for cleanup
         const effectsMap = new WeakMap();

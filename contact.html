@@ -66,10 +66,10 @@
                 
                 <!-- Mobile Actions (Always Copy) -->
                 <div class="mobile-actions">
-                    <button class="action-btn" id="copyBtn" aria-label="E-Mail kopieren">
-                        <span class="icon">❐</span>
+                    <button class="action-btn" id="copyBtn" aria-label="E-Mail-Adresse kopieren">
+                        <span class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="14" height="14" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></span>
                     </button>
-                    <span id="copyFeedback" class="copy-feedback">Copied!</span>
+                    <span id="copyFeedback" class="copy-feedback" aria-live="polite"></span>
                 </div>
             </div>
         </div>
@@ -169,14 +169,31 @@
     const mailText = 'mail@susanneuhl.com';
 
     if (copyBtn) {
+        const icon = copyBtn.querySelector('.icon');
+        const copyIcon = icon.innerHTML;
+        const checkIcon = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+        let resetTimer = null;
+
         copyBtn.addEventListener('click', async () => {
             try {
                 await navigator.clipboard.writeText(mailText);
-                feedback.classList.add('visible');
-                setTimeout(() => feedback.classList.remove('visible'), 2000);
             } catch (err) {
                 console.error('Copy failed', err);
+                return;
             }
+
+            // Erfolg: Check zeigen bzw. laufenden Rücksetz-Timer neu starten
+            if (resetTimer) {
+                clearTimeout(resetTimer);
+            } else {
+                icon.innerHTML = checkIcon;
+                feedback.textContent = 'E-Mail-Adresse kopiert';
+            }
+            resetTimer = setTimeout(() => {
+                icon.innerHTML = copyIcon;
+                feedback.textContent = '';
+                resetTimer = null;
+            }, 1500);
         });
     }
 })();

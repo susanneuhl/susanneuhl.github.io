@@ -1,0 +1,25 @@
+{
+  "_comment": "Venue line drawings behind the productions on shows.html. 'shows' maps a show id from data/shows.json to a venue slug; the drawing is images/venues/<slug>.svg. Shows without an entry get no drawing. Maintained by hand (the scraper does not touch this file). How to add a venue: tools/venue-drawings/README.md",
+  "venues": {
+    "bern-vidmarhallen": {
+      "name": "Vidmarhallen",
+      "city": "Bern",
+      "drawing": "images/venues/bern-vidmarhallen.svg"
+    },
+    "cottbus-grosses-haus": {
+      "name": "Großes Haus",
+      "city": "Cottbus",
+      "drawing": "images/venues/cottbus-grosses-haus.svg"
+    },
+    "frankfurt-bockenheimer-depot": {
+      "name": "Bockenheimer Depot",
+      "city": "Frankfurt am Main",
+      "drawing": "images/venues/frankfurt-bockenheimer-depot.svg"
+    }
+  },
+  "shows": {
+    "ewige-sonne": "bern-vidmarhallen",
+    "der-frieden": "cottbus-grosses-haus",
+    "flavio": "frankfurt-bockenheimer-depot"
+  }
+}

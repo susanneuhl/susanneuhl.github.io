@@ -796,6 +796,50 @@ body.page-contact .hamburger span {
     padding-top: 0;
 }
 
+/* Saal-Zeichnung der Spielstätte hinter der Karte (rein dekorativ)
+   Zeichnungen + Vorgehen: tools/venue-drawings/README.md, Zuordnung: data/venues.json */
+body.page-dates main {
+    overflow-x: clip; /* Zeichnung darf rechts bis an den Rand laufen, ohne horizontal zu scrollen */
+}
+
+.event-venue {
+    position: absolute;
+    z-index: 0;
+    top: -36px;
+    right: -200px;
+    width: 980px;
+    max-width: none;
+    height: auto;
+    opacity: 0.14;
+    pointer-events: none;
+    user-select: none;
+    -webkit-mask-image: radial-gradient(ellipse 62% 72% at 58% 42%, #000 35%, transparent 100%);
+    mask-image: radial-gradient(ellipse 62% 72% at 58% 42%, #000 35%, transparent 100%);
+}
+
+.event-card--no-image .event-venue {
+    top: -24px;
+    width: 1040px;
+}
+
+.event-card--venue > .event-image-wrapper,
+.event-card--venue > .event-content {
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 900px) {
+    .event-venue {
+        display: none; /* Mobil folgt später */
+    }
+}
+
+@media print {
+    .event-venue {
+        display: none;
+    }
+}
+
 /* Header Bereich: Titel & Ort */
 .event-header {
     margin-bottom: 22px;

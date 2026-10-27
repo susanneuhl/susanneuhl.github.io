@@ -26,7 +26,7 @@
     
     <title>Dates – Susanne Uhl</title>
     <link rel="canonical" href="https://susanneuhl.com/shows.html">
-    <link rel="stylesheet" href="styles.css?v=dark4">
+    <link rel="stylesheet" href="styles.css?v=venues1">
     <link rel="icon" href="favicon_custom.png" type="image/png">
     <link rel="shortcut icon" href="favicon_custom.png" type="image/png">
 
@@ -314,6 +314,11 @@
 
         // Lade Show-Daten und erstelle Events
         async function loadShows() {
+            // Saal-Zeichnungen (rein dekorativ, optional) parallel laden – siehe tools/venue-drawings/README.md
+            const venuesPromise = fetch('data/venues.json?v=' + new Date().toISOString().slice(0, 10))
+                .then(r => (r.ok ? r.json() : null))
+                .catch(() => null);
+
             let data;
             try {
                 // Versuche fetch (funktioniert live oder auf lokalem Server)
@@ -325,6 +330,8 @@
                 console.warn('Lade Daten aus Fallback (lokal/CORS):', error);
                 data = fallbackData;
             }
+
+            const venues = await venuesPromise;
 
             try {
                 const container = document.getElementById('shows-container');
@@ -390,6 +397,22 @@
 
                     const eventCard = document.createElement('div');
                     eventCard.className = 'event-card';
+
+                    // Saal-Zeichnung der Spielstätte hinter der Karte (nur wenn in data/venues.json zugeordnet)
+                    const venueSlug = venues && venues.shows ? venues.shows[showId] : null;
+                    const venue = venueSlug && venues.venues ? venues.venues[venueSlug] : null;
+                    if (venue && venue.drawing) {
+                        const venueDrawing = document.createElement('img');
+                        venueDrawing.className = 'event-venue';
+                        venueDrawing.src = venue.drawing;
+                        venueDrawing.alt = '';
+                        venueDrawing.setAttribute('aria-hidden', 'true');
+                        venueDrawing.loading = 'lazy';
+                        venueDrawing.decoding = 'async';
+                        venueDrawing.onerror = () => venueDrawing.remove();
+                        eventCard.classList.add('event-card--venue');
+                        eventCard.appendChild(venueDrawing);
+                    }
                     
                     // Event-Bild (Thumbnail im Grid, AVIF wenn verfügbar)
                     const eventPicture = document.createElement('picture');

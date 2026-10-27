@@ -26,7 +26,7 @@
     
     <title>Dates – Susanne Uhl</title>
     <link rel="canonical" href="https://susanneuhl.com/shows.html">
-    <link rel="stylesheet" href="styles.css?v=venues1">
+    <link rel="stylesheet" href="styles.css?v=venues3">
     <link rel="icon" href="favicon_custom.png" type="image/png">
     <link rel="shortcut icon" href="favicon_custom.png" type="image/png">
 
@@ -313,6 +313,37 @@
         };
 
         // Lade Show-Daten und erstelle Events
+        // Langsame Kamerafahrt in den Saal beim Scrollen (Werte in styles.css, .event-venue).
+        // Nur Desktop und nur ohne „Bewegung reduzieren“; ein rAF pro Scroll-Frame.
+        function initVenueDolly() {
+            const drawings = [...document.querySelectorAll('.event-venue')];
+            if (!drawings.length) return;
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+            const desktop = window.matchMedia('(min-width: 901px)');
+            let ticking = false;
+            const update = () => {
+                ticking = false;
+                if (reduceMotion.matches || !desktop.matches) return;
+                const vh = window.innerHeight;
+                for (const img of drawings) {
+                    const card = img.parentElement.getBoundingClientRect();
+                    // 0 = Karte kommt unten herein, 0.5 = mittig, 1 = oben hinaus
+                    const p = Math.min(1, Math.max(0, (vh - card.top) / (vh + card.height)));
+                    img.style.setProperty('--venue-p', p.toFixed(4));
+                    img.style.setProperty('--venue-near', (1 - Math.abs(p - 0.5) * 2).toFixed(4));
+                }
+            };
+            const onScroll = () => {
+                if (!ticking) {
+                    ticking = true;
+                    requestAnimationFrame(update);
+                }
+            };
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', onScroll, { passive: true });
+            update();
+        }
+
         async function loadShows() {
             // Saal-Zeichnungen (rein dekorativ, optional) parallel laden – siehe tools/venue-drawings/README.md
             const venuesPromise = fetch('data/venues.json?v=' + new Date().toISOString().slice(0, 10))
@@ -410,6 +441,8 @@
                         venueDrawing.loading = 'lazy';
                         venueDrawing.decoding = 'async';
                         venueDrawing.onerror = () => venueDrawing.remove();
+                        // Fluchtpunkt der Zeichnung: von hier aus „fährt“ der Scroll-Zoom in den Saal
+                        if (venue.focus) venueDrawing.style.transformOrigin = venue.focus;
                         eventCard.classList.add('event-card--venue');
                         eventCard.appendChild(venueDrawing);
                     }
@@ -566,6 +599,8 @@
                     eventCard.appendChild(eventContent);
                     container.appendChild(eventCard);
                 }
+
+                initVenueDolly();
 
                 // Leerzustand: keine Show mit Terminen oder Vormerkung sichtbar
                 if (!container.hasChildNodes()) {

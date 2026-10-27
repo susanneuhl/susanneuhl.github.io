@@ -296,6 +296,13 @@ VENUES = {
 }
 
 
+def focus(pen):
+    """Vanishing point as CSS percentages – used as transform-origin for the scroll zoom
+    (data/venues.json -> "focus"), so the zoom moves straight into the room."""
+    cam = pen.pen.cam if isinstance(pen, Shift) else pen.cam
+    return f"{100 * cam.cx / W:.1f}% {100 * cam.cy / H:.1f}%"
+
+
 def preview_html(slugs):
     cards = "\n".join(
         f'<figure><figcaption>{s}</figcaption><img src="file://{os.path.join(OUT_DIR, s + ".svg")}" alt=""></figure>'
@@ -320,7 +327,7 @@ def main():
         path = os.path.join(args.out, s + ".svg")
         with open(path, "w", encoding="utf-8") as f:
             f.write(VENUES[s]().svg() + "\n")
-        print(f"{path}  ({os.path.getsize(path) // 1024} KB)")
+        print(f"{path}  ({os.path.getsize(path) // 1024} KB)  focus: {focus(VENUES[s]())}")
     if args.preview:
         with open(args.preview, "w", encoding="utf-8") as f:
             f.write(preview_html(slugs))

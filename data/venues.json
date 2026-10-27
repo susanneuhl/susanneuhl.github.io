@@ -1,20 +1,23 @@
 {
-  "_comment": "Venue line drawings behind the productions on shows.html. 'shows' maps a show id from data/shows.json to a venue slug; the drawing is images/venues/<slug>.svg. Shows without an entry get no drawing. Maintained by hand (the scraper does not touch this file). How to add a venue: tools/venue-drawings/README.md",
+  "_comment": "Venue line drawings behind the productions on shows.html. 'shows' maps a show id from data/shows.json to a venue slug; the drawing is images/venues/<slug>.svg. Shows without an entry get no drawing. 'focus' is the drawing's vanishing point (printed by the generator) and is used as the origin of the scroll zoom. Maintained by hand (the scraper does not touch this file). How to add a venue: tools/venue-drawings/README.md",
   "venues": {
     "bern-vidmarhallen": {
       "name": "Vidmarhallen",
       "city": "Bern",
-      "drawing": "images/venues/bern-vidmarhallen.svg"
+      "drawing": "images/venues/bern-vidmarhallen.svg",
+      "focus": "50.0% 75.6%"
     },
     "cottbus-grosses-haus": {
       "name": "Großes Haus",
       "city": "Cottbus",
-      "drawing": "images/venues/cottbus-grosses-haus.svg"
+      "drawing": "images/venues/cottbus-grosses-haus.svg",
+      "focus": "50.0% 64.1%"
     },
     "frankfurt-bockenheimer-depot": {
       "name": "Bockenheimer Depot",
       "city": "Frankfurt am Main",
-      "drawing": "images/venues/frankfurt-bockenheimer-depot.svg"
+      "drawing": "images/venues/frankfurt-bockenheimer-depot.svg",
+      "focus": "50.0% 89.7%"
     }
   },
   "shows": {

@@ -61,13 +61,20 @@ sparse enough that lines don't pile up in the centre.
    python3 tools/venue-drawings/venue_drawings.py <slug> --preview /tmp/venues.html
    open /tmp/venues.html
    ```
-4. Register it in `data/venues.json`: add the venue under `venues`, and map the
-   show id (the key in `data/shows.json`) under `shows`.
+4. Register it in `data/venues.json`: add the venue under `venues` with
+   `drawing` and `focus` (the generator prints `focus`, e.g. `50.0% 75.6%` – the
+   vanishing point the scroll zoom moves into), and map the show id (the key in
+   `data/shows.json`) under `shows`.
 5. Check `shows.html` on desktop: dates and "Tickets" must stay clearly in
    front; the drawing should be felt more than seen.
 
 ## Page settings (styles.css)
 
-- Opacity `0.14` – tune per taste, keep between ~0.08 and 0.2.
+- Opacity `0.14` when static (reduced motion). With motion, opacity runs
+  0.08 → 0.16 → 0.08 as the card passes the middle of the window.
+- Scroll zoom: scale 1.0 → 1.1 from the vanishing point (`focus`) while the
+  card moves through the window. Values in `styles.css`, driven by
+  `initVenueDolly()` in `shows.html` via `--venue-p` / `--venue-near`.
+  Desktop only, off with `prefers-reduced-motion`.
 - Radial mask fades the drawing out towards the photo (left) and the bottom.
 - `pointer-events: none`, `aria-hidden`, empty `alt`: purely decorative.

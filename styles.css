@@ -840,6 +840,20 @@ body.page-dates main {
     }
 }
 
+/* Langsame Kamerafahrt in den Saal beim Scrollen: die Zeichnung wächst leicht aus
+   ihrem Fluchtpunkt (transform-origin, aus data/venues.json) und ist am deutlichsten,
+   wenn die Produktion mittig im Fenster steht. Die Werte setzt shows.html
+   (initVenueDolly): --venue-p 0…1 = Weg durchs Fenster, --venue-near 0…1 = Nähe zur Mitte. */
+@media (min-width: 901px) and (prefers-reduced-motion: no-preference) {
+    .event-venue {
+        --venue-p: 0.5;
+        --venue-near: 1;
+        transform: scale(calc(1 + 0.1 * var(--venue-p)));
+        opacity: calc(0.08 + 0.08 * var(--venue-near));
+        will-change: transform, opacity;
+    }
+}
+
 /* Header Bereich: Titel & Ort */
 .event-header {
     margin-bottom: 22px;

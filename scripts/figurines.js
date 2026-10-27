@@ -9,14 +9,15 @@
 (function () {
     'use strict';
 
-    // Desktop: Figuren abwechselnd links/rechts neben Foto und Text;
-    // "at" = Höhe als Anteil des Hauptbereichs (Foto oben bis Textende)
+    // Desktop: Figuren abwechselnd links/rechts neben Foto und Text, in dieser Reihenfolge
+    // von oben nach unten. Die Höhe ergibt sich aus dem Zeitplan (deskSchedule): jede Figur
+    // steht so, dass ihre Mitte bei VIEW_AT der Fensterhöhe ist, wenn sie fertig wird.
     var MARGIN_FIGURES = [
-        { slug: 'traviata', side: 'left', at: 0.02 },
-        { slug: 'coriolan', side: 'right', at: 0.21 },
-        { slug: 'traum', side: 'left', at: 0.40 },
-        { slug: 'kleiner-mann', side: 'right', at: 0.59 },
-        { slug: 'sonne', side: 'left', at: 0.78 }
+        { slug: 'traviata', side: 'left' },
+        { slug: 'coriolan', side: 'right' },
+        { slug: 'traum', side: 'left' },
+        { slug: 'kleiner-mann', side: 'right' },
+        { slug: 'sonne', side: 'left' }
     ];
     // Schmale Fenster: alle Figuren, je eine klein unter einem Absatz, locker versetzt und
     // leicht gekippt ("after" = Index des Absatzes, ohne Sprachumschalter)
@@ -43,6 +44,7 @@
     // Desktop: die Figuren werden gleichmäßig über den ganzen Scrollweg fertig
     // (erste bei 30 %, letzte kurz vor Seitenende) und setzen sich je über DESK_SPAN Abstände zusammen
     var DESK_FIRST = 0.3, DESK_SPAN = 1.6;
+    var VIEW_AT = 0.45;     // Desktop: Figurmitte bei 45 % der Fensterhöhe, wenn sie fertig ist
 
     var main = document.querySelector('main');
     var bio = document.querySelector('.biography');
@@ -125,6 +127,18 @@
     // Scroll-Fenster je Figur: ganz oben (scrollY 0) ist alles verstreut; die Figuren setzen
     // sich nacheinander zusammen und sind fertig, wenn ihre Mitte die Fenstermitte erreicht
     // (frühestens nach einem kleinen Stück Scrollweg, in der Reihenfolge von oben nach unten).
+    // Desktop-Zeitplan: die Figuren werden gleichmäßig über den Scrollweg fertig
+    // (erste bei DESK_FIRST, letzte kurz vor dem Seitenende)
+    function deskSchedule() {
+        var vh = window.innerHeight, n = MARGIN_FIGURES.length;
+        var maxEnd = Math.max(1, 0.97 * (document.documentElement.scrollHeight - vh));
+        var gap = n > 1 ? (1 - DESK_FIRST) * maxEnd / (n - 1) : maxEnd;
+        return MARGIN_FIGURES.map(function (cfg, i) {
+            var end = n > 1 ? maxEnd * DESK_FIRST + i * gap : maxEnd;
+            return { end: end, start: Math.max(0, end - DESK_SPAN * gap) };
+        });
+    }
+
     function measure() {
         var vh = window.innerHeight, sy = window.scrollY;
         figures.forEach(function (f) {
@@ -134,11 +148,11 @@
         });
         var ordered = figures.slice().sort(function (a, b) { return a.docCenter - b.docCenter; });
         var maxEnd = 0.97 * (document.documentElement.scrollHeight - vh);
-        if (mode === 'margin' && ordered.length > 1 && maxEnd > 0) {
-            var gap = (1 - DESK_FIRST) * maxEnd / (ordered.length - 1);
-            ordered.forEach(function (f, i) {
-                f.end = maxEnd * DESK_FIRST + i * gap;
-                f.start = Math.max(0, f.end - DESK_SPAN * gap);
+        if (mode === 'margin') {
+            deskSchedule().forEach(function (t, i) {
+                if (!figures[i]) return;
+                figures[i].end = t.end;
+                figures[i].start = t.start;
             });
             return;
         }
@@ -192,13 +206,18 @@
             var m = main.getBoundingClientRect(), b = bio.getBoundingClientRect();
             var marginW = Math.min(b.left - m.left, m.right - b.right);
             var w = Math.min(MAX_WIDTH, marginW - 40);
-            figures.forEach(function (f) {
+            var figH = w * 560 / 260;
+            var mainDocTop = m.top + window.scrollY;
+            var schedule = deskSchedule();
+            figures.forEach(function (f, i) {
                 var left = f.cfg.side === 'left'
                     ? (b.left - m.left - w) / 2
                     : (b.right - m.left) + (m.right - b.right - w) / 2;
+                // so hoch, dass die Figur beim Fertigwerden bei VIEW_AT im Fenster steht
+                var top = schedule[i].end + VIEW_AT * window.innerHeight - figH / 2 - mainDocTop;
                 f.el.style.width = w + 'px';
                 f.el.style.left = left + 'px';
-                f.el.style.top = (f.cfg.at * m.height) + 'px';
+                f.el.style.top = Math.max(0, Math.min(top, m.height - figH)) + 'px';
             });
         }
         measure();

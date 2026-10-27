@@ -43,8 +43,9 @@
     // Desktop: die Figuren werden gleichmäßig über den ganzen Scrollweg fertig
     // (erste bei 30 %, letzte kurz vor Seitenende) und setzen sich je über DESK_SPAN Abstände zusammen
     var DESK_FIRST = 0.3, DESK_SPAN = 1.6;
-    var FIRST_VISIBLE = 70; // Desktop: erste Figur so tief, dass sie beim Fertigwerden ganz im Bild ist
-                            // (mindestens so viele px unter dem Fensterrand); die anderen bleiben, wo sie sind
+    var FIRST_VISIBLE = 70; // Desktop: keine Figur wird oben im Kopfbereich fertig – steht eine Figur beim
+                            // Fertigwerden höher als so viele px unter dem Fensterrand, rutscht sie tiefer
+                            // (betrifft derzeit Traviata und Coriolan); alle anderen bleiben, wo sie sind
 
     var main = document.querySelector('main');
     var bio = document.querySelector('.biography');
@@ -202,19 +203,30 @@
                 f.el.style.left = left + 'px';
                 f.el.style.top = (f.cfg.at * m.height) + 'px';
             });
-            // Nur die erste Figur: tiefer setzen, bis sie in dem Moment, in dem sie fertig wird,
-            // vollständig zu sehen ist – aber nicht in die nächste Figur derselben Seite hinein
-            var first = figures[0];
-            var nextSameSide = figures.filter(function (f) { return f !== first && f.cfg.side === first.cfg.side; })[0];
-            if (first) {
-                var vh = window.innerHeight;
-                var firstEnd = DESK_FIRST * 0.97 * (document.documentElement.scrollHeight - vh);
-                var mainDocTop = m.top + window.scrollY;
-                var figH = w * 560 / 260;
-                var top = Math.max(first.cfg.at * m.height, firstEnd + FIRST_VISIBLE - mainDocTop);
-                if (nextSameSide) top = Math.min(top, nextSameSide.cfg.at * m.height - figH - 24);
-                first.el.style.top = Math.max(0, top) + 'px';
+            // Figuren, die beim Fertigwerden oben unter dem Kopfbereich stünden, tiefer setzen,
+            // bis sie in diesem Moment vollständig zu sehen sind – nie in die nächste Figur derselben
+            // Seite hinein. Figuren, die ohnehin gut stehen, bleiben unverändert.
+            var vh = window.innerHeight, n = figures.length;
+            var maxEnd = 0.97 * (document.documentElement.scrollHeight - vh);
+            var gap = n > 1 ? (1 - DESK_FIRST) * maxEnd / (n - 1) : 0;
+            var mainDocTop = m.top + window.scrollY;
+            var figH = w * 560 / 260;
+            var tops = figures.map(function (f, i) {
+                var end = maxEnd * DESK_FIRST + i * gap;   // gleicher Zeitplan wie in measure()
+                return Math.max(f.cfg.at * m.height, end + FIRST_VISIBLE - mainDocTop);
+            });
+            // von unten nach oben: nie in die (endgültige) nächste Figur derselben Seite hinein
+            for (var i = figures.length - 1; i >= 0; i--) {
+                for (var j = i + 1; j < figures.length; j++) {
+                    if (figures[j].cfg.side === figures[i].cfg.side) {
+                        tops[i] = Math.min(tops[i], tops[j] - figH - 24);
+                        break;
+                    }
+                }
             }
+            figures.forEach(function (f, i) {
+                f.el.style.top = Math.max(0, tops[i]) + 'px';
+            });
         }
         measure();
         figures.forEach(scatterPx);

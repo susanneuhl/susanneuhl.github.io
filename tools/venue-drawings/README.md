@@ -13,6 +13,8 @@ Desktop only for now; on screens ≤ 900 px the drawing is hidden.
 | Which show uses which venue | `data/venues.json` (`shows`: show id → venue slug) |
 | Rendering on the page | `shows.html` (`loadVenues`, `.event-venue`) |
 | Styling (opacity, fade, position) | `styles.css`, section "Venue drawings" |
+| Map generator + borders | `tools/venue-drawings/venue_map.py`, `geo/` |
+| Map | `images/venues/map.svg` |
 
 `data/shows.json` is rewritten daily by the scraper – never put venue data there.
 A show without an entry in `data/venues.json` simply gets no drawing.
@@ -62,11 +64,28 @@ sparse enough that lines don't pile up in the centre.
    open /tmp/venues.html
    ```
 4. Register it in `data/venues.json`: add the venue under `venues` with
-   `drawing` and `focus` (the generator prints `focus`, e.g. `50.0% 75.6%` – the
+   `drawing`, `lat` / `lon` (then run `venue_map.py`) and `focus` (the generator prints `focus`, e.g. `50.0% 75.6%` – the
    vanishing point the scroll zoom moves into), and map the show id (the key in
    `data/shows.json`) under `shows`.
 5. Check `shows.html` on desktop: dates and "Tickets" must stay clearly in
    front; the drawing should be felt more than seen.
+
+## Map (sticky, right side)
+
+A small true-to-scale map of Germany and its neighbours sits fixed at the right
+edge (screens ≥ 1280 px). The city of the production in the middle of the
+window lights up in the site's rose; the others stay as grey dots.
+
+- Borders: Natural Earth 1:10m Admin 0 countries (public domain), clipped and
+  vendored in `geo/countries-central-europe.json`.
+- Projection: Lambert conformal conic, standard parallels 48° / 54° N – true to
+  scale for Germany. The frame covers Germany plus every venue with a margin.
+- Build: `python3 tools/venue-drawings/venue_map.py` writes `images/venues/map.svg`
+  and the dot positions (`map: {x, y}` in %) into `data/venues.json`. It reads
+  `lat` / `lon` of each venue – add those when you add a venue, then run it.
+  A venue far outside Germany (e.g. Vienna) simply widens the frame.
+- Page: `buildDatesMap()` and `initDatesScroll()` in `shows.html`, styles in
+  `styles.css` (`.dates-map`). Decorative (`aria-hidden`).
 
 ## Page settings (styles.css)
 

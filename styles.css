@@ -854,6 +854,109 @@ body.page-dates main {
     }
 }
 
+/* Kleine Karte rechts: maßstabsgetreu (images/venues/map.svg), die Stadt der Produktion
+   in der Fenstermitte leuchtet auf. Gebaut von shows.html (buildDatesMap / initDatesScroll). */
+.dates-map {
+    display: none;
+}
+
+@media (min-width: 1280px) {
+    .dates-map {
+        display: block;
+        position: fixed;
+        z-index: 2;
+        top: 150px;
+        right: max(24px, calc((100vw - 1200px) / 2 - 40px));
+        width: 150px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.6s ease;
+    }
+
+    .dates-map.is-visible {
+        opacity: 1;
+    }
+
+    /* ruhiger Grund, damit die Saal-Zeichnung dahinter nicht mit den Grenzlinien konkurriert */
+    .dates-map::before {
+        content: '';
+        position: absolute;
+        inset: -28px;
+        z-index: -1;
+        background: radial-gradient(closest-side, rgba(26, 26, 26, 0.92), rgba(26, 26, 26, 0));
+    }
+}
+
+.dates-map__base {
+    display: block;
+    width: 100%;
+    height: auto;
+    -webkit-mask-image: radial-gradient(ellipse 72% 68% at 50% 50%, #000 70%, transparent 100%);
+    mask-image: radial-gradient(ellipse 72% 68% at 50% 50%, #000 70%, transparent 100%);
+}
+
+.dates-map__place {
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.dates-map__dot {
+    position: absolute;
+    left: -2.5px;
+    top: -2.5px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.45);
+    transition: transform 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.dates-map__label {
+    position: absolute;
+    left: 9px;
+    top: -8px;
+    white-space: nowrap;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    color: rgba(221, 182, 182, 0.9);
+    opacity: 0;
+    transform: translateX(-3px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.dates-map__place--label-left .dates-map__label {
+    left: auto;
+    right: 9px;
+    transform: translateX(3px);
+}
+
+.dates-map__place.is-active .dates-map__dot {
+    background: rgb(179, 118, 118);
+    transform: scale(1.7);
+    box-shadow: 0 0 0 3px rgba(179, 118, 118, 0.18), 0 0 12px 2px rgba(179, 118, 118, 0.55);
+}
+
+.dates-map__place.is-active .dates-map__label {
+    opacity: 1;
+    transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dates-map,
+    .dates-map__dot,
+    .dates-map__label {
+        transition: none;
+    }
+}
+
+@media print {
+    .dates-map {
+        display: none !important;
+    }
+}
+
 /* Header Bereich: Titel & Ort */
 .event-header {
     margin-bottom: 22px;

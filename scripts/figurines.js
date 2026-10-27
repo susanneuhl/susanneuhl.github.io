@@ -12,11 +12,11 @@
     // Desktop: Figuren abwechselnd links/rechts neben Foto und Text;
     // "at" = Höhe als Anteil des Hauptbereichs (Foto oben bis Textende)
     var MARGIN_FIGURES = [
-        { slug: 'traviata', side: 'left', at: 0.04 },
-        { slug: 'coriolan', side: 'right', at: 0.16 },
-        { slug: 'traum', side: 'left', at: 0.36 },
-        { slug: 'kleiner-mann', side: 'right', at: 0.52 },
-        { slug: 'sonne', side: 'left', at: 0.70 }
+        { slug: 'traviata', side: 'left', at: 0.02 },
+        { slug: 'coriolan', side: 'right', at: 0.21 },
+        { slug: 'traum', side: 'left', at: 0.40 },
+        { slug: 'kleiner-mann', side: 'right', at: 0.59 },
+        { slug: 'sonne', side: 'left', at: 0.78 }
     ];
     // Schmale Fenster: alle Figuren, je eine klein unter einem Absatz, locker versetzt und
     // leicht gekippt ("after" = Index des Absatzes, ohne Sprachumschalter)
@@ -38,6 +38,11 @@
     var NEXT_END = 0.3;     // … jede weitere mindestens 0.3 Fensterhöhen später
     var SPAN = 0.95;        // Scrollweg (in Fensterhöhen), über den sich eine Figur zusammensetzt
     var LINE_OPACITY = 0.55, ACCENT_OPACITY = 0.95;
+    var FADE_IN = 140;      // px Scrollweg, über den die Striche nach dem ersten Scrollen einblenden
+                            // (ohne Scrollen ist der Hintergrund leer)
+    // Desktop: die Figuren werden gleichmäßig über den ganzen Scrollweg fertig
+    // (erste bei 30 %, letzte kurz vor Seitenende) und setzen sich je über DESK_SPAN Abstände zusammen
+    var DESK_FIRST = 0.3, DESK_SPAN = 1.6;
 
     var main = document.querySelector('main');
     var bio = document.querySelector('.biography');
@@ -128,11 +133,19 @@
             f.docCenter = r.top + sy + r.height / 2;
         });
         var ordered = figures.slice().sort(function (a, b) { return a.docCenter - b.docCenter; });
+        var maxEnd = 0.97 * (document.documentElement.scrollHeight - vh);
+        if (mode === 'margin' && ordered.length > 1 && maxEnd > 0) {
+            var gap = (1 - DESK_FIRST) * maxEnd / (ordered.length - 1);
+            ordered.forEach(function (f, i) {
+                f.end = maxEnd * DESK_FIRST + i * gap;
+                f.start = Math.max(0, f.end - DESK_SPAN * gap);
+            });
+            return;
+        }
         ordered.forEach(function (f, i) {
             f.end = Math.max(f.docCenter - 0.5 * vh, (FIRST_END + i * NEXT_END) * vh);
         });
         // Alle Figuren müssen fertig werden, bevor die Seite zu Ende ist: sonst Zeitplan stauchen
-        var maxEnd = 0.97 * (document.documentElement.scrollHeight - vh);
         var last = ordered.length ? ordered[ordered.length - 1].end : 0;
         var squeeze = last > maxEnd && maxEnd > 0 ? maxEnd / last : 1;
         ordered.forEach(function (f) {
@@ -197,6 +210,9 @@
         ticking = false;
         var sy = window.scrollY;
         var still = reduceMotion.matches;
+        // ohne Scrollen leer; kurz nach Scrollbeginn sind die verstreuten Striche da
+        var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        var shown = still || maxScroll < 50 ? 1 : Math.min(1, sy / FADE_IN);
         figures.forEach(function (f) {
             if (!f.strokes.length || f.end === undefined) return;
             // 0 = alles verstreut, 1 = Figur fertig
@@ -208,7 +224,7 @@
                 s.path.style.transform = k > 0.001
                     ? 'translate(' + (s.dx * k).toFixed(1) + 'px,' + (s.dy * k).toFixed(1) + 'px) rotate(' + (s.rot * k).toFixed(1) + 'deg)'
                     : '';
-                s.path.style.opacity = (s.base * (0.35 + 0.65 * e)).toFixed(3);
+                s.path.style.opacity = (shown * s.base * (0.35 + 0.65 * e)).toFixed(3);
             });
         });
     }

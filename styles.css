@@ -2112,6 +2112,7 @@ body.page-about .biography {
 .figurine path {
     transform-box: fill-box;
     transform-origin: center;
+    opacity: 0; /* bis scripts/figurines.js die Werte setzt: leerer Hintergrund beim Laden */
 }
 
 .figurine--margin {

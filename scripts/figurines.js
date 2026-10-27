@@ -43,6 +43,8 @@
     // Desktop: die Figuren werden gleichmäßig über den ganzen Scrollweg fertig
     // (erste bei 30 %, letzte kurz vor Seitenende) und setzen sich je über DESK_SPAN Abstände zusammen
     var DESK_FIRST = 0.3, DESK_SPAN = 1.6;
+    var FIRST_VISIBLE = 70; // Desktop: erste Figur so tief, dass sie beim Fertigwerden ganz im Bild ist
+                            // (mindestens so viele px unter dem Fensterrand); die anderen bleiben, wo sie sind
 
     var main = document.querySelector('main');
     var bio = document.querySelector('.biography');
@@ -200,6 +202,19 @@
                 f.el.style.left = left + 'px';
                 f.el.style.top = (f.cfg.at * m.height) + 'px';
             });
+            // Nur die erste Figur: tiefer setzen, bis sie in dem Moment, in dem sie fertig wird,
+            // vollständig zu sehen ist – aber nicht in die nächste Figur derselben Seite hinein
+            var first = figures[0];
+            var nextSameSide = figures.filter(function (f) { return f !== first && f.cfg.side === first.cfg.side; })[0];
+            if (first) {
+                var vh = window.innerHeight;
+                var firstEnd = DESK_FIRST * 0.97 * (document.documentElement.scrollHeight - vh);
+                var mainDocTop = m.top + window.scrollY;
+                var figH = w * 560 / 260;
+                var top = Math.max(first.cfg.at * m.height, firstEnd + FIRST_VISIBLE - mainDocTop);
+                if (nextSameSide) top = Math.min(top, nextSameSide.cfg.at * m.height - figH - 24);
+                first.el.style.top = Math.max(0, top) + 'px';
+            }
         }
         measure();
         figures.forEach(scatterPx);

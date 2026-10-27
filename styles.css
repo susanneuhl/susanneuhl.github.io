@@ -909,7 +909,7 @@ body.page-dates main {
     height: 5px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.45);
-    transition: transform 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+    transition: transform 1.1s ease, background-color 1.1s ease, box-shadow 1.1s ease;
 }
 
 .dates-map__label {
@@ -923,7 +923,7 @@ body.page-dates main {
     color: rgba(221, 182, 182, 0.9);
     opacity: 0;
     transform: translateX(-3px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition: opacity 1.1s ease, transform 1.1s ease;
 }
 
 .dates-map__place--label-left .dates-map__label {

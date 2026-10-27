@@ -46,10 +46,9 @@ redraw each as single strokes in the same 260 × 560 box.
    python3 tools/figurines/figurines.py --preview /tmp/figurines.html
    open /tmp/figurines.html
    ```
-4. Place it in `scripts/figurines.js`: `MARGIN_FIGURES` (desktop: order top to
-   bottom and `side`; the height follows from the timing so every figurine is
-   complete when its centre is at `VIEW_AT` of the window) and
-   `INLINE_FIGURES` (narrow: `after` = paragraph index, `align`, `tilt`).
+4. Place it in `scripts/figurines.js`: `MARGIN_FIGURES` (desktop: `side`,
+   `at` = height as share of the main area) and `INLINE_FIGURES` (narrow:
+   `after` = paragraph index, `align`, `tilt`).
 5. Check `about.html` locally (`python3 -m http.server 8000`) at desktop and
    phone width; bump the `?v=` on the stylesheet link if `styles.css` changed.
 
@@ -68,6 +67,5 @@ redraw each as single strokes in the same 260 × 560 box.
 | `STAGGER` | how unevenly the strokes set off |
 | `FADE_IN` | px of scrolling over which the scattered strokes fade in (page is blank before scrolling) |
 | `DESK_FIRST`, `DESK_SPAN` | desktop: figurines complete evenly over the whole scroll (first at 30 %), each assembling over 1.6 gaps |
-| `VIEW_AT` | desktop: where in the window (share of its height) a figurine's centre is when it completes |
 | `FIRST_END`, `NEXT_END`, `SPAN` | narrow screens: when (in window heights of scrolling) the figurines are complete, one after the other |
 | `LINE_OPACITY`, `ACCENT_OPACITY` | final opacity of white lines / coloured piece |

@@ -71,8 +71,8 @@ sparse enough that lines don't pile up in the centre.
 ## Page settings (styles.css)
 
 - Opacity `0.14` when static (reduced motion). With motion, opacity runs
-  0.08 → 0.16 → 0.08 as the card passes the middle of the window.
-- Scroll zoom: scale 1.0 → 1.1 from the vanishing point (`focus`) while the
+  0.06 → 0.24 → 0.06 as the card passes the middle of the window.
+- Scroll zoom: scale 1.0 → 1.25 from the vanishing point (`focus`) while the
   card moves through the window. Values in `styles.css`, driven by
   `initVenueDolly()` in `shows.html` via `--venue-p` / `--venue-near`.
   Desktop only, off with `prefers-reduced-motion`.

@@ -848,8 +848,8 @@ body.page-dates main {
     .event-venue {
         --venue-p: 0.5;
         --venue-near: 1;
-        transform: scale(calc(1 + 0.1 * var(--venue-p)));
-        opacity: calc(0.08 + 0.08 * var(--venue-near));
+        transform: scale(calc(1 + 0.25 * var(--venue-p)));
+        opacity: calc(0.06 + 0.18 * var(--venue-near));
         will-change: transform, opacity;
     }
 }

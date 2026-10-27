@@ -843,14 +843,94 @@ body.page-dates main {
 /* Langsame Kamerafahrt in den Saal beim Scrollen: die Zeichnung wächst leicht aus
    ihrem Fluchtpunkt (transform-origin, aus data/venues.json) und ist am deutlichsten,
    wenn die Produktion mittig im Fenster steht. Die Werte setzt shows.html
-   (initVenueDolly): --venue-p 0…1 = Weg durchs Fenster, --venue-near 0…1 = Nähe zur Mitte. */
+   (initDatesScroll) auf der Karte: --venue-p 0…1 = Weg durchs Fenster, --venue-near 0…1 = Nähe zur Mitte. */
 @media (min-width: 901px) and (prefers-reduced-motion: no-preference) {
     .event-venue {
-        --venue-p: 0.5;
-        --venue-near: 1;
-        transform: scale(calc(1 + 0.25 * var(--venue-p)));
-        opacity: calc(0.06 + 0.18 * var(--venue-near));
+        transform: scale(calc(1 + 0.25 * var(--venue-p, 0.5)));
+        opacity: calc(0.06 + 0.18 * var(--venue-near, 1));
         will-change: transform, opacity;
+    }
+}
+
+/* Handy: Saal als eigener, ruhiger Streifen unter dem Foto (randlos über die volle Breite)
+   und eine Mini-Karte neben dem Titel mit dem Ort dieser Produktion. */
+.event-venue-strip,
+.event-minimap {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .event-venue-strip {
+        display: block;
+        position: relative;
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+        margin-top: -12px;   /* näher ans Foto als die normale Lücke im Stapel */
+        margin-bottom: -14px;
+        aspect-ratio: 390 / 150;
+        overflow: hidden;
+        pointer-events: none;
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%);
+        mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%);
+    }
+
+    .event-venue-strip img {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin-top: -6%;
+        opacity: 0.38;
+    }
+
+    .event-header {
+        position: relative;
+    }
+
+    .event-card--minimap .event-header {
+        padding-right: 64px;
+    }
+
+    .event-minimap {
+        display: block;
+        position: absolute;
+        top: 4px;
+        right: 0;
+        width: 52px;
+        pointer-events: none;
+    }
+
+    .event-minimap img {
+        display: block;
+        width: 100%;
+        height: auto;
+        -webkit-mask-image: radial-gradient(ellipse 70% 66% at 50% 50%, #000 70%, transparent 100%);
+        mask-image: radial-gradient(ellipse 70% 66% at 50% 50%, #000 70%, transparent 100%);
+    }
+
+    .event-minimap__dot {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        margin: -3px 0 0 -3px;
+        border-radius: 50%;
+        background: rgb(179, 118, 118);
+        box-shadow: 0 0 0 3px rgba(179, 118, 118, 0.18), 0 0 10px 2px rgba(179, 118, 118, 0.55);
+    }
+}
+
+/* sanftere Kamerafahrt im Streifen; der Streifen schneidet den Zoom selbst ab */
+@media (max-width: 900px) and (prefers-reduced-motion: no-preference) {
+    .event-venue-strip img {
+        transform: scale(calc(1 + 0.14 * var(--venue-p, 0.5)));
+        opacity: calc(0.26 + 0.16 * var(--venue-near, 1));
+        will-change: transform, opacity;
+    }
+}
+
+@media print {
+    .event-venue-strip,
+    .event-minimap {
+        display: none !important;
     }
 }
 

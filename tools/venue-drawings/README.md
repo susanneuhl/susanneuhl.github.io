@@ -2,7 +2,9 @@
 
 Behind each production on `shows.html` sits a faint white line drawing of the
 auditorium where it plays, **seen from the stage** – the view the costumes have.
-Desktop only for now; on screens ≤ 900 px the drawing is hidden.
+On screens ≤ 900 px the same drawing becomes its own quiet full-width strip
+under the photo (`.event-venue-strip`, gentler zoom), and a mini map next to
+the title shows the city of that production (`.event-minimap`).
 
 ## What is where
 

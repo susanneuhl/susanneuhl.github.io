@@ -26,7 +26,7 @@
     
     <title>Dates – Susanne Uhl</title>
     <link rel="canonical" href="https://susanneuhl.com/shows.html">
-    <link rel="stylesheet" href="styles.css?v=venues6">
+    <link rel="stylesheet" href="styles.css?v=venues7">
     <link rel="icon" href="favicon_custom.png" type="image/png">
     <link rel="shortcut icon" href="favicon_custom.png" type="image/png">
 
@@ -314,13 +314,12 @@
 
         // Lade Show-Daten und erstelle Events
         // Scroll-Effekte der Terminseite (Werte in styles.css):
-        // 1. Kamerafahrt in den Saal (.event-venue) – nur Desktop, nur ohne „Bewegung reduzieren“
+        // 1. Kamerafahrt in den Saal (.event-venue, Handy: .event-venue-strip) – nur ohne „Bewegung reduzieren“
         // 2. Karte rechts (.dates-map): die Stadt der Produktion in der Fenstermitte leuchtet auf
         function initDatesScroll(venues) {
             const cards = [...document.querySelectorAll('.event-card')];
             if (!cards.length) return;
             const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-            const desktop = window.matchMedia('(min-width: 901px)');
             const map = buildDatesMap(venues, cards);
             let ticking = false;
             let activeVenue;
@@ -339,10 +338,10 @@
                     const near = 1 - Math.abs(p - 0.5) * 2;
                     if (near > bestNear) { bestNear = near; best = card; }
                     if (card === activeCard) activeNear = near;
-                    const img = card.querySelector('.event-venue');
-                    if (img && desktop.matches && !reduceMotion.matches) {
-                        img.style.setProperty('--venue-p', p.toFixed(4));
-                        img.style.setProperty('--venue-near', near.toFixed(4));
+                    if (card.dataset.venue && !reduceMotion.matches) {
+                        // Desktop-Zeichnung und Handy-Streifen lesen beide diese Werte (styles.css)
+                        card.style.setProperty('--venue-p', p.toFixed(4));
+                        card.style.setProperty('--venue-near', near.toFixed(4));
                     }
                 }
                 if (map) {
@@ -658,6 +657,45 @@
                     }
                     
                     eventCard.appendChild(imageWrapper);
+
+                    // Handy: Saal als eigener Streifen unter dem Foto + Mini-Karte neben dem Titel
+                    if (venue && venue.drawing) {
+                        const strip = document.createElement('div');
+                        strip.className = 'event-venue-strip';
+                        strip.setAttribute('aria-hidden', 'true');
+                        const stripImg = document.createElement('img');
+                        stripImg.src = venue.drawing;
+                        stripImg.alt = '';
+                        stripImg.width = 1600;   // Seitenverhältnis der Zeichnungen, damit Lazy-Loading greift
+                        stripImg.height = 780;
+                        stripImg.loading = 'lazy';
+                        stripImg.decoding = 'async';
+                        if (venue.focus) stripImg.style.transformOrigin = venue.focus;
+                        stripImg.onerror = () => strip.remove();
+                        strip.appendChild(stripImg);
+                        eventCard.appendChild(strip);
+                    }
+                    if (venue && venue.map) {
+                        const mini = document.createElement('div');
+                        mini.className = 'event-minimap';
+                        mini.setAttribute('aria-hidden', 'true');
+                        const miniBase = document.createElement('img');
+                        miniBase.src = 'images/venues/map.svg';
+                        miniBase.alt = '';
+                        miniBase.width = 300;
+                        miniBase.height = 408;
+                        miniBase.loading = 'lazy';
+                        miniBase.decoding = 'async';
+                        const miniDot = document.createElement('span');
+                        miniDot.className = 'event-minimap__dot';
+                        miniDot.style.left = venue.map.x + '%';
+                        miniDot.style.top = venue.map.y + '%';
+                        mini.appendChild(miniBase);
+                        mini.appendChild(miniDot);
+                        eventHeader.appendChild(mini);
+                        eventCard.classList.add('event-card--minimap');
+                    }
+
                     eventCard.appendChild(eventContent);
                     container.appendChild(eventCard);
                 }

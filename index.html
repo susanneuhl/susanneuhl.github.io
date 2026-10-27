@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Preload critical above-the-fold images (first visible row) -->
-    <link rel="preload" as="image" href="images/thumbs/krieg-und-frieden3.avif">
-    <link rel="preload" as="image" href="images/thumbs/sankt-falstaff.avif" media="(min-width: 769px)">
-    <link rel="preload" as="image" href="images/thumbs/la-traviata.avif" media="(min-width: 1025px)">
+    <link rel="preload" as="image" href="images/thumbs/ewige-sonne.avif">
+    <link rel="preload" as="image" href="images/thumbs/krieg-und-frieden3.avif" media="(min-width: 769px)">
+    <link rel="preload" as="image" href="images/thumbs/sankt-falstaff.avif" media="(min-width: 1025px)">
     
     <!-- Meta Informationen -->
     <meta name="description" content="Susanne Uhl gestaltet Kostüme für Theater, Oper und Film. Ihre Arbeiten sind u.a. am Deutschen Theater Berlin, der Oper Frankfurt, dem Staatsschauspiel Dresden, der Oper Leipzig, dem Residenztheater München und dem Düsseldorfer Schauspielhaus zu sehen.">
@@ -120,6 +120,18 @@
 
         <main class="main-container">
         <ul class="projects-list">
+<li data-year="2026" data-month="10" data-full-avif="images/compressed/ewige-sonne.avif" data-depth-map="images/maps/ewige-sonne_map.png">
+                    <figure>
+                    <div class="image-wrapper" onclick="openFullscreen(this.closest('li').querySelector('img').src, this.closest('li'))">
+                        <picture style="--lqip: url('images/tiny/ewige-sonne.jpg')">
+                            <source srcset="images/thumbs/ewige-sonne.avif" type="image/avif">
+                            <img fetchpriority="high" decoding="async" loading="eager" width="1250" height="1000" src="images/thumbs/ewige-sonne.jpg" alt="Kostümbild von Susanne Uhl für Ewige Sonne an den Bühnen Bern (2026)">
+                        </picture>
+                        <span class="image-credit">© Florian Spring</span>
+                    </div>
+                    <figcaption><a href="https://buehnenbern.ch/spielplan/programm/ewige-sonne/" target="_blank" class="project-title"><h2 class="title-main">Ewige Sonne</h2><span class="title-meta">Schauspiel · Bühnen Bern · 2026</span></a></figcaption>
+                </figure>
+                </li>
 <li data-year="2026" data-month="02" data-full-avif="images/compressed/krieg-und-frieden3.avif" data-depth-map="images/maps/krieg-und-frieden3_map.png">
                     <figure>
                     <div class="image-wrapper" onclick="openFullscreen(this.closest('li').querySelector('img').src, this.closest('li'))">
@@ -144,12 +156,12 @@
                     <figcaption><a href="https://www.theater-bonn.de/de/programm/sankt-falstaff/221198" target="_blank" class="project-title"><h2 class="title-main">Sankt Falstaff</h2><span class="title-meta">Schauspiel · Theater Bonn · 2025</span></a></figcaption>
                 </figure>
                 </li>
-<li data-year="2025" data-month="08" data-full-avif="images/compressed/la-traviata.avif" data-depth-map="images/maps/la-traviata_map.png">
+<li class="reveal" data-year="2025" data-month="08" data-full-avif="images/compressed/la-traviata.avif" data-depth-map="images/maps/la-traviata_map.png">
                     <figure>
                     <div class="image-wrapper" onclick="openFullscreen(this.closest('li').querySelector('img').src, this.closest('li'))">
                         <picture style="--lqip: url('images/tiny/la-traviata.jpg')">
                             <source srcset="images/thumbs/la-traviata.avif" type="image/avif">
-                            <img fetchpriority="high" decoding="async" loading="eager" width="1000" height="562" src="images/thumbs/la-traviata.jpg" alt="Kostümbild von Susanne Uhl für La traviata am Staatstheater Braunschweig (2025)">
+                            <img fetchpriority="low" decoding="async" loading="lazy" width="1000" height="562" src="images/thumbs/la-traviata.jpg" alt="Kostümbild von Susanne Uhl für La traviata am Staatstheater Braunschweig (2025)">
                         </picture>
                         <span class="image-credit">© Björn Hickmann</span>
                     </div>

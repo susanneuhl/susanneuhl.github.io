@@ -913,13 +913,18 @@ def scrape_staatstheater_cottbus_der_frieden():
 
                 title_text = title_el.get_text(' ', strip=True)
                 date_match = re.search(r'(\d{1,2})\.(\d{1,2})\.(\d{4})', title_text)
-                if not date_match:
-                    continue
+                if date_match:
+                    day, month, year = date_match.groups()
+                else:
+                    # Neues Format: "Do 19. Nov 2026"
+                    iso_date = parse_german_date(title_text)
+                    if not iso_date:
+                        continue
+                    year, month, day = iso_date.split('-')
 
-                day, month, year = date_match.groups()
-
+                # "19:30 — 22:20 Uhr": nur die Beginnzeit vor dem Strich verwenden
                 time_el = item.find(class_='event-time')
-                time_str = extract_time(time_el.get_text(strip=True) if time_el else '')
+                time_str = extract_time(re.split(r'[—–-]', time_el.get_text(strip=True))[0] if time_el else '')
                 if not time_str:
                     time_str = extract_time(item.get_text(' ', strip=True))
                 if not time_str:
@@ -1170,14 +1175,8 @@ def main():
         komet_events, komet_director, komet_duration, komet_author = scrape_staatsschauspiel_dresden()
         undine_events, undine_director, undine_duration, undine_author = scrape_oper_leipzig()
         krieg_frieden_events, krieg_frieden_director, krieg_frieden_duration, krieg_frieden_author = scrape_dhaus_krieg_und_frieden()
-        # Der Frieden & Ewige Sonne: derzeit komplett deaktiviert (Aug 2026) –
-        # kein Scrape, auf der Website ausgeblendet via "listed": False.
-        # Zum Reaktivieren: die beiden Aufrufe wieder einkommentieren, die
-        # statischen Werte dadurch ersetzen und "listed" auf True setzen.
-        # der_frieden_events, der_frieden_director, der_frieden_duration, der_frieden_author = scrape_staatstheater_cottbus_der_frieden()
-        # ewige_sonne_events, ewige_sonne_director, ewige_sonne_duration, ewige_sonne_author = scrape_buehnen_bern_ewige_sonne()
-        der_frieden_events, der_frieden_director, der_frieden_duration, der_frieden_author = [], "Christina Friedrich", None, "Peter Hacks"
-        ewige_sonne_events, ewige_sonne_director, ewige_sonne_duration, ewige_sonne_author = [], "Tilmann Köhler", None, "Charles Ferdinand Ramuz"
+        der_frieden_events, der_frieden_director, der_frieden_duration, der_frieden_author = scrape_staatstheater_cottbus_der_frieden()
+        ewige_sonne_events, ewige_sonne_director, ewige_sonne_duration, ewige_sonne_author = scrape_buehnen_bern_ewige_sonne()
         flavio_events, flavio_director, flavio_duration, flavio_author = scrape_oper_frankfurt_flavio()
         
         shows_data = {
@@ -1240,8 +1239,6 @@ def main():
                     "duration": der_frieden_duration,
                     "image": "images/thumbs/der-frieden.jpg",
                     "base_url": "https://www.staatstheater-cottbus.de/de/programm/repertoire/artikel-der_frieden.html",
-                    "listed": False,
-                    "note": "Termine folgen in Kürze",
                     "events": der_frieden_events
                 },
                 "ewige-sonne": {
@@ -1252,8 +1249,6 @@ def main():
                     "duration": ewige_sonne_duration,
                     "image": "images/thumbs/ewige-sonne.jpg",
                     "base_url": "https://buehnenbern.ch/spielplan/programm/ewige-sonne/",
-                    "listed": False,
-                    "note": "Termine folgen in Kürze",
                     "events": ewige_sonne_events
                 },
                 "flavio": {

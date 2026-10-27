@@ -47,8 +47,19 @@ python3 "Image Conversion/convert_image.py" bildname.jpg --force
 2. Skript ausführen: `python3 "Image Conversion/convert_image.py" neues-projekt.jpg`
 3. HTML in `index.html` ergänzen (neuen `<li>`-Eintrag hinzufügen)
 
-## Hinweis zu Depth Maps
+## Depth Maps für den 3D-/Parallax-Effekt
 
-Die 3D-Tiefenkarten (`images/maps/`) werden **nicht** automatisch erstellt. 
-Diese müssen manuell in Photoshop/GIMP als Graustufen-Bild erstellt werden, 
-falls der 3D-Parallax-Effekt gewünscht ist.
+Die Tiefenkarten (`images/maps/`) werden **nicht** von diesem Skript erstellt, 
+sondern online erzeugt.
+
+Generator: https://huggingface.co/spaces/depth-anything/Depth-Anything-V2
+
+1. Original-Produktionsbild hochladen (z.B. `images/ewige-sonne.jpg`)
+2. Depth Map mit Depth Anything V2 erzeugen
+3. PNG herunterladen
+4. Prüfen: hell = nah/Vordergrund, dunkel = fern/Hintergrund
+5. Datei benennen: `<bildname>_map.png`
+6. Ablegen in `images/maps/`
+7. In `index.html` am `<li>` anbinden: `data-depth-map="images/maps/<bildname>_map.png"`
+
+Beispiel: `images/ewige-sonne.jpg` → `images/maps/ewige-sonne_map.png`

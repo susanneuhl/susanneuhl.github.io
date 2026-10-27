@@ -2083,3 +2083,64 @@ html {
         transform: translateY(0);
     }
 }
+
+/* Figurinen auf der About-Seite (scripts/figurines.js, tools/figurines/README.md):
+   verstreute Striche, die sich beim Scrollen zur Figur zusammensetzen. Rein dekorativ. */
+body.page-about main {
+    position: relative;
+}
+
+/* Foto und Text liegen über den Strichen – die Striche fliegen hinter dem Text hindurch */
+body.page-about .profile-photo,
+body.page-about .biography {
+    position: relative;
+    z-index: 1;
+}
+
+.figurine {
+    pointer-events: none;
+    user-select: none;
+}
+
+.figurine svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+.figurine path {
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+.figurine--margin {
+    position: absolute;
+    z-index: 0;
+}
+
+.figurine--inline {
+    width: 104px;
+    margin: -4px 0 14px;
+    transform: rotate(var(--tilt, 0deg));
+}
+
+.figurine--left {
+    margin-left: 6%;
+}
+
+.figurine--right {
+    margin-left: auto;
+    margin-right: 6%;
+}
+
+.figurine--center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media print {
+    .figurine {
+        display: none;
+    }
+}

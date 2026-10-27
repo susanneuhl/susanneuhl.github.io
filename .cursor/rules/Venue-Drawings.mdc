@@ -1,0 +1,13 @@
+---
+description: Dates page venue drawings, map and data/venues.json – read before adding a production, venue, or touching the Dates page visuals
+globs: data/venues.json,images/venues/**,tools/venue-drawings/**,shows.html
+alwaysApply: false
+---
+
+# Venue drawings & map
+
+- Full workflow and rules: `tools/venue-drawings/README.md` (checklist "a new production appears").
+- Venue data lives in `data/venues.json` (hand-maintained). Never add venue fields to `data/shows.json` – the scraper overwrites it daily.
+- Drawings are generated (`venue_drawings.py`), never traced from seat-map graphics or photos.
+- After adding/changing a venue's `lat`/`lon`, run `python3 tools/venue-drawings/venue_map.py`.
+- Check the actual venue on the ticket page (a theatre often has several stages).

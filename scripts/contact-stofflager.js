@@ -35,7 +35,7 @@
 
     /* ---------- Maße / Kamera ---------- */
     var W = 0, H = 0, S = 1, dpr = 1, mobile = false;
-    var VPX = 0, VPY = 0, F = 0, boxes = [], Z_MAX = 13;
+    var VPX = 0, VPY = 0, F = 0, boxes = [], footBox = null, Z_MAX = 13;
     var cam = { x: 0, y: EYE, z: 0 };
     function measure() {
         var r = hero.getBoundingClientRect();
@@ -43,18 +43,20 @@
         S = mobile ? W / 390 : H / 900;
         dpr = Math.min(2, window.devicePixelRatio || 1);
         canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
-        var sel = ['.contact-hero-overlay h2', '.mail-link', '#copyBtn'];
-        if (mobile) sel.push('body.page-contact footer');   // Handy: Fußzeile liegt über der Fläche
-        boxes = sel.map(function (s) {
+        function box(s) {
             var e = document.querySelector(s); if (!e) return null;
             var q = e.getBoundingClientRect();
             return q.width ? [q.left - r.left, q.top - r.top, q.right - r.left, q.bottom - r.top] : null;
-        }).filter(Boolean);
-        var tb = boxes.slice(0, 3).reduce(function (a, b) { return [Math.min(a[0], b[0]), Math.min(a[1], b[1]), Math.max(a[2], b[2]), Math.max(a[3], b[3])]; }, [1e9, 1e9, -1e9, -1e9]);
+        }
+        boxes = ['.contact-hero-overlay h2', '.mail-link', '#copyBtn'].map(box).filter(Boolean);
+        footBox = mobile ? box('body.page-contact footer') : null;   // Handy: Fußzeile liegt über der Fläche
+        var mail = box('.mail-link');
+        var tb = boxes.reduce(function (a, b) { return [Math.min(a[0], b[0]), Math.min(a[1], b[1]), Math.max(a[2], b[2]), Math.max(a[3], b[3])]; }, [1e9, 1e9, -1e9, -1e9]);
         if (!boxes.length) tb = [W * 0.22, H * 0.4, W * 0.55, H * 0.68];
         if (mobile) {
-            // Handy: Fluchtpunkt unter dem Kopier-Knopf, die Wand steigt rechts auf
-            VPX = W * 0.36; VPY = Math.min(H - 150 * S, tb[3] + 120 * S); F = 560 * S;
+            // Handy: Fluchtpunkt auf Höhe der Adresse, die Wand steigt rechts auf und läuft
+            // abgeschwächt hinter der Adresse weiter
+            VPX = W * 0.36; VPY = mail ? (mail[1] + mail[3]) / 2 + 10 * S : H * 0.5; F = 560 * S;
         } else {
             // Desktop: Fluchtpunkt knapp rechts neben der Adresse, auf Höhe über dem Titel
             VPX = tb[2] + 110 * S; VPY = 330 * S; F = 900 * S;
@@ -256,7 +258,9 @@
         });
         [3, 4.5, 6.5, 9].forEach(function (z) { seg(P(-3, 0, z), P(A, 0, z), alpha * 0.05 * fog(z - cam.z)); });
     }
-    function clearText(list) {   // weicher Freiraum um Titel, Adresse und Knopf
+    // weicher Freiraum um Titel, Adresse und Knopf: core = wie stark direkt unter dem Text
+    // ausgeblendet wird (1 = ganz), ring = Anteil je Ring des weichen Übergangs (10 Ringe)
+    function clearText(list, core, ring) {
         ctx.save(); ctx.globalCompositeOperation = 'destination-out';
         list.forEach(function (b) {
             function rr(p, al) {
@@ -265,8 +269,8 @@
                 ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
                 ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); ctx.fill();
             }
-            rr(16, 1);
-            for (var k = 1; k <= 10; k++) rr(16 + k * 12 * S, 0.16);
+            rr(16, core);
+            for (var k = 1; k <= 10; k++) rr(16 + k * 12 * S, ring);
         });
         ctx.restore();
     }
@@ -280,11 +284,14 @@
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         ctx.lineJoin = 'round';
         drawFloor(alpha);
-        if (!mobile && boxes.length) clearText(union(boxes));   // Desktop: nur die Dielen weichen dem Text
+        if (!mobile && boxes.length) clearText(union(boxes), 1, 0.16);   // Desktop: nur die Dielen weichen dem Text
         drawShelf(alpha);
         rolls.forEach(function (R) { drawRoll(R, alpha); });
         drawPosts(alpha);
-        if (mobile && boxes.length) clearText(boxes);           // Handy: die Wand steht hinter dem Text, also alles freistellen
+        if (mobile) {   // Handy: die Wand läuft hinter dem Text weiter, dort nur stark abgeschwächt
+            if (boxes.length) clearText(boxes, 0.55, 0.05);
+            if (footBox) clearText([footBox], 1, 0.16);
+        }
     }
 
     /* ---------- Bewegung ---------- */

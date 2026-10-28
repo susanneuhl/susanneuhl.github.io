@@ -41,8 +41,10 @@
     var FADE_IN = 140;      // px Scrollweg, über den die Striche nach dem ersten Scrollen einblenden
                             // (ohne Scrollen ist der Hintergrund leer)
     // Desktop: die Figuren werden gleichmäßig über den ganzen Scrollweg fertig
-    // (erste bei 30 %, letzte kurz vor Seitenende) und setzen sich je über DESK_SPAN Abstände zusammen
-    var DESK_FIRST = 0.3, DESK_SPAN = 1.6;
+    // (erste bei 30 %, letzte kurz vor Seitenende) und setzen sich je über DESK_SPAN Abstände zusammen –
+    // 2.5 heißt: meist bauen sich zwei bis drei Figuren gleichzeitig auf, die nächste beginnt lange
+    // bevor die vorige fertig ist
+    var DESK_FIRST = 0.3, DESK_SPAN = 2.5;
     var FIRST_VISIBLE = 70; // Desktop: keine Figur wird oben im Kopfbereich fertig – steht eine Figur beim
                             // Fertigwerden höher als so viele px unter dem Fensterrand, rutscht sie tiefer
                             // (betrifft derzeit Traviata und Coriolan); alle anderen bleiben, wo sie sind

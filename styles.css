@@ -1605,14 +1605,14 @@ body.page-dates main {
         position: relative;
     }
     
-    /* Footer unten fixieren */
+    /* Footer unten fixieren – Innenabstände wie auf allen anderen Seiten (.site-footer) */
     body.page-contact footer {
         position: absolute;
-        bottom: 20px;
+        bottom: 0;
         left: 0;
         right: 0;
         z-index: 10;
-        padding: 0;
+        margin: 0;
         pointer-events: auto;
     }
 

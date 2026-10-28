@@ -66,7 +66,7 @@ redraw each as single strokes in the same 260 × 560 box.
 | `SCATTER_ROT` | max start rotation of a stroke (deg) |
 | `STAGGER` | how unevenly the strokes set off |
 | `FADE_IN` | px of scrolling over which the scattered strokes fade in (page is blank before scrolling) |
-| `DESK_FIRST`, `DESK_SPAN` | desktop: figurines complete evenly over the whole scroll (first at 30 %), each assembling over 1.6 gaps |
+| `DESK_FIRST`, `DESK_SPAN` | desktop: figurines complete evenly over the whole scroll (first at 30 %), each assembling over 2.5 gaps, so two or three figurines build up at the same time |
 | `FIRST_VISIBLE` | desktop: no figurine completes up in the header area – any figurine that would be closer than this many px to the window top when it completes is moved down (currently La traviata and Coriolan); the others keep their `at` |
 | `FIRST_END`, `NEXT_END`, `SPAN` | narrow screens: when (in window heights of scrolling) the figurines are complete, one after the other |
 | `LINE_OPACITY`, `ACCENT_OPACITY` | final opacity of white lines / coloured piece |

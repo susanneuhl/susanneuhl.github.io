@@ -1,0 +1,8 @@
+# GitHub Pages: Werkzeuge und Arbeitsdoku nicht mit ausliefern.
+# scripts/ bleibt veröffentlicht (scripts/figurines.js, scripts/depth-effect.js),
+# nur der Termin-Scraper (läuft per GitHub Actions) wird ausgeschlossen.
+exclude:
+  - README.md
+  - tools/
+  - "Image Conversion/"
+  - scripts/scrape_shows.py

@@ -641,6 +641,17 @@ h1 span {
     }
 }
 
+/* Kontakt-Hintergrund „Stofflager“ (scripts/contact-stofflager.js zeichnet in dieses Canvas) */
+.contact-stofflager {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+    z-index: 0;
+}
+
 /* Global Action Buttons (Copy/Share) */
 .mobile-actions {
     display: flex;
@@ -1622,6 +1633,7 @@ body.page-dates main {
     /* Overlay Reset & Styling */
     .contact-hero-overlay {
         position: relative; /* Container wieder relative für absolute Kinder */
+        z-index: 1; /* über dem Stofflager-Hintergrund */
         inset: 0; /* WICHTIG: Reset desktop inset (50%) */
         transform: none;
         width: 100%;

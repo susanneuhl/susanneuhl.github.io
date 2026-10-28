@@ -5,3 +5,4 @@ Portfolio of Susanne Uhl (costume design), served via GitHub Pages at susanneuhl
 - Show dates: `scripts/scrape_shows.py` → `data/shows.json` (GitHub Action, daily)
 - Venue drawings & map on the Dates page: see `tools/venue-drawings/README.md`
 - Figurines on the About page: see `tools/figurines/README.md`
+- Contact page background (fabric-store aisle, canvas line drawing): `scripts/contact-stofflager.js` — scene, motion and settings are documented in the file header and its `KONFIG` block

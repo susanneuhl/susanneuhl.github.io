@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-10-29T12:27:45.194344",
+  "last_updated": "2026-10-30T12:18:50.736153",
   "shows": {
     "dumme-jahre": {
       "title": "Dumme Jahre",
@@ -106,12 +106,6 @@
       "image": "images/thumbs/ewige-sonne.jpg",
       "base_url": "https://buehnenbern.ch/spielplan/programm/ewige-sonne/",
       "events": [
-        {
-          "date": "2026-10-29 19:30",
-          "display_date": "29.10.2026",
-          "display_time": "19:30",
-          "ticket_url": "https://tickets.buehnenbern.ch/webshop/webticket/shop?event=2452&el=true&language=de"
-        },
         {
           "date": "2026-10-31 19:30",
           "display_date": "31.10.2026",

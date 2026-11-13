@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-12T14:46:53.032791",
+  "last_updated": "2026-11-13T14:05:18.835472",
   "shows": {
     "dumme-jahre": {
       "title": "Dumme Jahre",
@@ -110,7 +110,7 @@
           "date": "2026-11-14 19:30",
           "display_date": "14.11.2026",
           "display_time": "19:30",
-          "ticket_url": "https://tickets.buehnenbern.ch/webshop/webticket/shop?event=2449&el=true&language=de"
+          "ticket_url": "/spielplan/programm/ewige-sonne/"
         },
         {
           "date": "2026-12-19 19:30",

@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-17T15:38:44.747478",
+  "last_updated": "2026-11-18T15:16:18.484548",
   "shows": {
     "dumme-jahre": {
       "title": "Dumme Jahre",
@@ -59,12 +59,6 @@
       "image": "images/thumbs/der-frieden.jpg",
       "base_url": "https://www.staatstheater-cottbus.de/de/programm/repertoire/artikel-der_frieden.html",
       "events": [
-        {
-          "date": "2026-11-19 19:30",
-          "display_date": "19.11.2026",
-          "display_time": "19:30",
-          "ticket_url": "https://staatstheater-cottbus.eventim-inhouse.de/webshop/webticket/shop?event=10135"
-        },
         {
           "date": "2026-12-11 19:30",
           "display_date": "11.12.2026",
